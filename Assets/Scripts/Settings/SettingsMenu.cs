@@ -15,13 +15,13 @@ public class SettingsMenu : MonoBehaviour
     [SerializeField] Button videoMenuButton;
     [SerializeField] Button audioMenuButton;
     [SerializeField] Button controlsMenuButton;
-    [SerializeField] Button helpMenuButton;
+    [SerializeField] Button rulesMenuButton;
 
     [Header("Menu Screen References")]
     [SerializeField] GameObject videoMenu;
     [SerializeField] GameObject audioMenu;
     [SerializeField] GameObject controlsMenu;
-    [SerializeField] GameObject helpMenu;
+    [SerializeField] GameObject rulesMenu;
 
     [Header("Video Menu References")]
     [SerializeField] Dropdown resolutionDropdown;
@@ -62,7 +62,7 @@ public class SettingsMenu : MonoBehaviour
 
     void OnVideoMenuButtonClick()
     {
-        Debug.Log("Video Menu Initialised");
+        UnityEngine.Debug.Log("Video Menu Initialised");
 
         //Resolution Dropdown Initialisation
         availableResolutions = new List<Resolution>(Screen.resolutions);

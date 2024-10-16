@@ -21,6 +21,8 @@ public class CardDrawSystem : MonoBehaviour
 
     //Current Number Of Selected Cards - Max Of 2
     private int selectedCardCount = 0;
+    Quaternion cardSlot1OriginalScale;
+    Quaternion cardSlot2OriginalScale;
 
     void Update()
     {
@@ -73,11 +75,15 @@ public class CardDrawSystem : MonoBehaviour
         //Move The Card To The First Available Selected Position, Check If Position 2 Is Populated So That It Doesn't Fill It
         if ((selectedCardCount == 0) || (selectedCardCount == 1 && selectedPosition2.childCount >= 1))
         {
+            //Resize Card
+            cardObjects[index].gameObject.transform.rotation = Quaternion.identity;
             //Move To Selected Position 1
             MoveCardToPosition(index, selectedPosition1);
         }
         else if (selectedCardCount == 1 && (selectedPosition2.childCount <= 0))
         {
+            //Resize Card
+            cardObjects[index].gameObject.transform.rotation = Quaternion.identity;
             //Move To Selected Position 2
             MoveCardToPosition(index, selectedPosition2);
         }
@@ -94,17 +100,14 @@ public class CardDrawSystem : MonoBehaviour
 
     void DeselectCard(int index)
     {
-        //Move The Card Back To It's Original Position
-        cardObjects[index].transform.position = originalPositions[index].position;
-        //Transform currentParent = cardObjects[index].transform.parent;
+        //Reset The Parent To Null
+        cardObjects[index].transform.SetParent(null);
 
-        //Check If The Current Parent Is A Selected Position
-        //if (currentParent != null && (currentParent == selectedPosition1 || currentParent == selectedPosition2))
-        //{
-            //Reset The Parent To Null
-            cardObjects[index].transform.SetParent(null);
-            selectedCardCount--;
-        //}
+        //Move The Card Back To It's Original Position And Rotation
+        cardObjects[index].transform.position = originalPositions[index].position;
+        cardObjects[index].transform.rotation = originalPositions[index].rotation;
+
+        selectedCardCount--;
     }
 
     bool IsCardInSelectedPosition(GameObject card)

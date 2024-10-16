@@ -70,3 +70,18 @@ crashlytics-build.properties
 # Temporary auto-generated Android Assets
 /[Aa]ssets/[Ss]treamingAssets/aa.meta
 /[Aa]ssets/[Ss]treamingAssets/aa/*
+Library/ArtifactDB
+Library/Bee/1900b0aE-inputdata.json
+Library/Bee/1900b0aE.dag
+Library/Bee/1900b0aE.dag.json
+Library/Bee/1900b0aE.dag.outputdata
+Library/Bee/1900b0aE.dag_derived
+Library/Bee/1900b0aE.dag_fsmtime
+Library/Bee/buildprogram0.traceevents
+Library/Bee/fullprofile.json
+Library/Bee/tundra.digestcache
+Library/Bee/tundra.log.json
+Library/Bee/TundraBuildState.state
+Library/EditorOnlyScriptingSettings.json
+Library/LastSceneManagerSetup.txt
+ProjectSettings/Packages/com.unity.testtools.codecoverage/Settings.json

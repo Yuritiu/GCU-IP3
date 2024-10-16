@@ -44,17 +44,29 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c8d61a8160d9e61499e12a92380d32c3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  debugCurrentTurnText: {fileID: 0}
+  isPlayer: 1
   cardTag: Card
+  opponentTag: Opponent
   originalPositions:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
-  selectedPositions:
-  - {fileID: 0}
-  - {fileID: 0}
-  cardObjects:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  cardsInHand: []
+  selectedPosition1: {fileID: 0}
+  selectedPosition2: {fileID: 0}
+  commonRarity: 45
+  uncommonRarity: 30
+  rareRarity: 15
+  legendaryRarity: 5
+  commonCards:
+  - {fileID: 5151252464221464428, guid: d9f73ac08cdc6b04cbaef1985297fc56, type: 3}
+  uncommonCards:
+  - {fileID: 5151252464221464428, guid: c19b72001f64ae542b3514d6c91e08cf, type: 3}
+  rareCards:
+  - {fileID: 5151252464221464428, guid: 76e55f57304035f459ce88dd15bad11f, type: 3}
+  legendaryCards:
+  - {fileID: 5151252464221464428, guid: 68a66dd4dee57a445a4abe3f16877851, type: 3}
+  selectedCardCount: 0
+  isPlayersTurn: 1

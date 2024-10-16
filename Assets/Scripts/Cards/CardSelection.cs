@@ -4,8 +4,6 @@ using UnityEngine;
 
 public class CardSelection : MonoBehaviour
 {
-    //[Header("Card Slot References")]
-
     void Start()
     {
         

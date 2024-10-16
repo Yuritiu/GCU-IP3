@@ -16,18 +16,6 @@ public class CardSelection : MonoBehaviour
         
     }
 
-    public void CardHover(bool cardPop)
-    {
-        if(cardPop)
-        {
-            //gameObject.transform.position = GameObject.FindGameObjectWithTag<Transform>().position;
-        }
-        else
-        {
-
-        }
-    }
-
     public void CardSelected()
     {
 

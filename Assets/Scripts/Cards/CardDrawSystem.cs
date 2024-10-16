@@ -48,7 +48,7 @@ public class CardDrawSystem : MonoBehaviour
         }
     }
 
-    private void ToggleCardSelection(int index)
+    void ToggleCardSelection(int index)
     {
         //Check If The Card Is Currently In The Selected Position
         bool isSelected = IsCardInSelectedPosition(cardObjects[index]);
@@ -68,22 +68,22 @@ public class CardDrawSystem : MonoBehaviour
         }
     }
 
-    private void SelectCard(int index)
+    void SelectCard(int index)
     {
-        //Move The Card To The First Available Selected Position
-        if (selectedCardCount == 0)
+        //Move The Card To The First Available Selected Position, Check If Position 2 Is Populated So That It Doesn't Fill It
+        if ((selectedCardCount == 0) || (selectedCardCount == 1 && selectedPosition2.childCount >= 1))
         {
             //Move To Selected Position 1
             MoveCardToPosition(index, selectedPosition1);
         }
-        else if (selectedCardCount == 1)
+        else if (selectedCardCount == 1 && (selectedPosition2.childCount <= 0))
         {
             //Move To Selected Position 2
             MoveCardToPosition(index, selectedPosition2);
         }
     }
 
-    private void MoveCardToPosition(int index, Transform selectedPosition)
+    void MoveCardToPosition(int index, Transform selectedPosition)
     {
         //Move The Card To The Selected Position
         cardObjects[index].transform.position = selectedPosition.position;
@@ -92,22 +92,22 @@ public class CardDrawSystem : MonoBehaviour
         selectedCardCount++;
     }
 
-    private void DeselectCard(int index)
+    void DeselectCard(int index)
     {
         //Move The Card Back To It's Original Position
         cardObjects[index].transform.position = originalPositions[index].position;
-        Transform currentParent = cardObjects[index].transform.parent;
+        //Transform currentParent = cardObjects[index].transform.parent;
 
         //Check If The Current Parent Is A Selected Position
-        if (currentParent != null && (currentParent == selectedPosition1 || currentParent == selectedPosition2))
-        {
+        //if (currentParent != null && (currentParent == selectedPosition1 || currentParent == selectedPosition2))
+        //{
             //Reset The Parent To Null
             cardObjects[index].transform.SetParent(null);
             selectedCardCount--;
-        }
+        //}
     }
 
-    private bool IsCardInSelectedPosition(GameObject card)
+    bool IsCardInSelectedPosition(GameObject card)
     {
         //Check If The Card Is Currently In One Of The Selected Positions
         return card.transform.parent != null && (card.transform.parent == selectedPosition1 || card.transform.parent == selectedPosition2);

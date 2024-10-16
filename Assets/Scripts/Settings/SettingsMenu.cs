@@ -16,6 +16,7 @@ public class SettingsMenu : MonoBehaviour
     [SerializeField] Button audioMenuButton;
     [SerializeField] Button controlsMenuButton;
     [SerializeField] Button rulesMenuButton;
+    [SerializeField] Button returnToMenuButton;
 
     [Header("Menu Screen References")]
     [SerializeField] GameObject videoMenu;
@@ -103,6 +104,9 @@ public class SettingsMenu : MonoBehaviour
 
         //Fullscreen Toggle
         fullscreenToggle.onValueChanged.AddListener(OnFullscreenToggle);
+
+        //TODO: IMPLEMENT RETURN TO MENU LOGIC
+        //returnToMenuButton.onValueChanged.AddListener(OnFullscreenToggle);
     }
 
     //Function Called When A New Resolution Is Selected
@@ -132,5 +136,10 @@ public class SettingsMenu : MonoBehaviour
             Screen.fullScreenMode = FullScreenMode.Windowed;
             isFullscreen = false;
         }
+    }
+
+    void ReturnToMenu()
+    {
+
     }
 }

@@ -21,10 +21,13 @@ public class GameManager : MonoBehaviour
         if (cardDrawSystem.isPlayersTurn)
         {
             cardDrawSystem.debugCurrentTurnText.text = ("Player Turn");
+            cardDrawSystem.AddCardAfterTurn();
         }
         else
         {
             cardDrawSystem.debugCurrentTurnText.text = ("AI Turn");
+            //TEMP - REMOVE ONCE AI IMPLEMENTED
+            StartCoroutine(switchToPlayersTurnTEMP());
         }
     }
 
@@ -33,12 +36,13 @@ public class GameManager : MonoBehaviour
         Debug.Log("Played Hand");
 
         //IMPORTANT Make Sure The Cards Logic Is Executed Before This Is Called!
-        if (cardDrawSystem.selectedPosition1 != null)
+        //Maybe add the destroy to the card GameObject
+        if (cardDrawSystem.selectedPosition1.childCount > 0)
         {
             Destroy(cardDrawSystem.selectedPosition1.GetChild(0).gameObject);
             cardDrawSystem.selectedCardCount--;
         }
-        if (cardDrawSystem.selectedPosition2 != null)
+        if (cardDrawSystem.selectedPosition2.childCount > 0)
         {
             Destroy(cardDrawSystem.selectedPosition2.GetChild(0).gameObject);
             cardDrawSystem.selectedCardCount--;
@@ -46,6 +50,14 @@ public class GameManager : MonoBehaviour
 
         //Handover Turn To AI
         cardDrawSystem.isPlayersTurn = false;
+        NextTurn();
+    }
+
+    //THIS IS TEMPORARY UNTIL AI IS IMPLEMENTED
+    IEnumerator switchToPlayersTurnTEMP()
+    {
+        yield return new WaitForSeconds(1);
+        cardDrawSystem.isPlayersTurn = true;
         NextTurn();
     }
 }

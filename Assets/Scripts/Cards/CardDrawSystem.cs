@@ -43,7 +43,7 @@ public class CardDrawSystem : MonoBehaviour
     //??% Chance
     [SerializeField] GameObject[] legendaryCards;
 
-    [HideInInspector]
+    //[HideInInspector]
     //Current Number Of Selected Cards - Max Of 2
     public int selectedCardCount = 0;
 
@@ -62,23 +62,7 @@ public class CardDrawSystem : MonoBehaviour
         //DEBUG ONLY
         if (Input.GetKeyDown(KeyCode.P))
         {
-            isPlayersTurn = true;
-
-            GameObject card = GetRandomCard();
-            //Add 1 Random Card Prefab After A Turn
-            for (int i = 0; i < cardsInHand.Length; i++)
-            {
-                //Check If There Is An Available Slot
-                if (cardsInHand[i] == null)
-                {
-                    cardsInHand[i] = Instantiate(card, originalPositions[i].position, originalPositions[i].rotation);
-                    //Mark The Card As Added
-                    cardAdded = true;
-                    //Exit When Card Is Placed
-                    break;
-                }
-            }
-            GameManager.Instance.NextTurn();
+            
         }
         
         //Check For Left Mouse Click
@@ -126,13 +110,8 @@ public class CardDrawSystem : MonoBehaviour
         rareRarity += uncommonRarity;
         legendaryRarity += rareRarity;
 
+        //+5 = 5% Chance For Legendary
         totalRarity = legendaryRarity + 5;
-        //Debug.Log("Total Rarity: " + totalRarity);
-
-        //Debug.Log("Common Chance: " + commonRarity);
-        //Debug.Log("Uncommon Chance: " + uncommonRarity);
-        //Debug.Log("Rare Chance: " + rareRarity);
-        //Debug.Log("Legendary Chance: " + legendaryRarity);
 
         //Add 4 Random Cards To The cardsInHand Array
         for (int i = 0; i < cardsInHand.Length; i++)
@@ -145,6 +124,26 @@ public class CardDrawSystem : MonoBehaviour
 
         //Automatically Give The Player The Starting Turn
         GameManager.Instance.NextTurn();
+    }
+
+    public void AddCardAfterTurn()
+    {
+        GameObject card = GetRandomCard();
+        //Add 1 Random Card Prefab After A Turn
+        for (int i = 0; i < cardsInHand.Length; i++)
+        {
+            //Check If There Is An Available Slot
+            if (cardsInHand[i] == null)
+            {
+                cardsInHand[i] = Instantiate(card, originalPositions[i].position, originalPositions[i].rotation);
+                //Mark The Card As Added
+                cardAdded = true;
+                //Exit When Card Is Placed
+                break;
+            }
+        }
+
+        //GameManager.Instance.NextTurn();
     }
 
     public GameObject GetRandomCard()

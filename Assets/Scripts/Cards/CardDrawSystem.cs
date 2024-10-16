@@ -12,9 +12,6 @@ public class CardDrawSystem : MonoBehaviour
     [Header("Debug Variables")]
     [SerializeField] public TextMeshProUGUI debugCurrentTurnText;
 
-    [Header("Player Variables")]
-    [SerializeField] bool isPlayer;
-
     [Header("Card Variables")]
     //Tag For The Card Objects
     [SerializeField] string cardTag = "Card";

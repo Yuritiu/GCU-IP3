@@ -43,7 +43,7 @@ public class CardDrawSystem : MonoBehaviour
     //??% Chance
     [SerializeField] GameObject[] legendaryCards;
 
-    //[HideInInspector]
+    [HideInInspector]
     //Current Number Of Selected Cards - Max Of 2
     public int selectedCardCount = 0;
 
@@ -59,12 +59,6 @@ public class CardDrawSystem : MonoBehaviour
 
     void Update()
     {
-        //DEBUG ONLY
-        if (Input.GetKeyDown(KeyCode.P))
-        {
-            
-        }
-        
         //Check For Left Mouse Click
         if (Input.GetMouseButtonDown(0))
         {

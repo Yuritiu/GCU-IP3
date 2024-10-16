@@ -36,7 +36,7 @@ public class GameManager : MonoBehaviour
         Debug.Log("Played Hand");
 
         //IMPORTANT Make Sure The Cards Logic Is Executed Before This Is Called!
-        //Maybe add the destroy to the card GameObject
+        //Could Maybe Add The Destroy To The Card GameObject
         if (cardDrawSystem.selectedPosition1.childCount > 0)
         {
             Destroy(cardDrawSystem.selectedPosition1.GetChild(0).gameObject);

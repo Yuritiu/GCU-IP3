@@ -52,6 +52,8 @@ public class CardDrawSystem : MonoBehaviour
 
     [HideInInspector]
     public bool isPlayersTurn = true;
+    [HideInInspector]
+    bool cardAdded = false;
 
     void Start()
     {
@@ -63,6 +65,22 @@ public class CardDrawSystem : MonoBehaviour
         //DEBUG ONLY
         if (Input.GetKeyDown(KeyCode.P))
         {
+            isPlayersTurn = true;
+
+            GameObject card = GetRandomCard();
+            //Add 1 Random Card Prefab After A Turn
+            for (int i = 0; i < cardsInHand.Length; i++)
+            {
+                //Check If There Is An Available Slot
+                if (cardsInHand[i] == null)
+                {
+                    cardsInHand[i] = Instantiate(card, originalPositions[i].position, originalPositions[i].rotation);
+                    //Mark The Card As Added
+                    cardAdded = true;
+                    //Exit When Card Is Placed
+                    break;
+                }
+            }
             GameManager.Instance.NextTurn();
         }
         
@@ -96,8 +114,6 @@ public class CardDrawSystem : MonoBehaviour
                     {
                         //Play Selected Hand
                         GameManager.Instance.PlayHand();
-                        //Handover Turn To AI
-                        isPlayersTurn = false;
                     }
                 }
             }

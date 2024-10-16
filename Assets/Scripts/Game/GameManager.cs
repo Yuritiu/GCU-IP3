@@ -24,7 +24,6 @@ public class GameManager : MonoBehaviour
         }
         else
         {
-            cardDrawSystem.isPlayersTurn = false;
             cardDrawSystem.debugCurrentTurnText.text = ("AI Turn");
         }
     }
@@ -44,5 +43,9 @@ public class GameManager : MonoBehaviour
             Destroy(cardDrawSystem.selectedPosition2.GetChild(0).gameObject);
             cardDrawSystem.selectedCardCount--;
         }
+
+        //Handover Turn To AI
+        cardDrawSystem.isPlayersTurn = false;
+        NextTurn();
     }
 }

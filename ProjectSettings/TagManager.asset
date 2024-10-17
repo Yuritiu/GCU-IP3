@@ -6,6 +6,8 @@ TagManager:
   tags:
   - Card
   - Opponent
+  - CardInfoImage
+  - CardInfoText
   layers:
   - Default
   - TransparentFX

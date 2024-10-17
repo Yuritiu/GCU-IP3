@@ -118,3 +118,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ec5c9fb80b86d6c428855d2a7c7d1625, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  cardInfoImageTag: CardInfoImage
+  cardInfoTextTag: CardInfoText
+  cardInfoImage: {fileID: 7319352315363178561, guid: edb6bd3d944c4a742a6b7546aefbab5a, type: 3}
+  cardInfoText: Rare Card

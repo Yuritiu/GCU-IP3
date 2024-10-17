@@ -9,6 +9,8 @@ public class SettingsMenu : MonoBehaviour
 {
     //!-Coded By Charlie-!
 
+    public static SettingsMenu Instance;
+
     [SerializeField] GameObject settingsCanvas;
 
     [Header("Menu Button References")]
@@ -30,7 +32,16 @@ public class SettingsMenu : MonoBehaviour
     [SerializeField] Toggle fullscreenToggle;
     bool isFullscreen = true;
 
+    [Header("Controls Menu References")]
+    [SerializeField] Toggle assistsToggle;
+    [HideInInspector] public bool assistsEnabled = true;
+
     bool settingsMenuOpen = false;
+
+    private void Awake()
+    {
+        Instance = this;
+    }
 
     void Start()
     {
@@ -40,6 +51,11 @@ public class SettingsMenu : MonoBehaviour
         {
             //Add Listener To Call The OnVideoMenuButtonClick Function When The Button Is Clicked
             videoMenuButton.onClick.AddListener(OnVideoMenuButtonClick);
+        }
+        if (controlsMenuButton != null)
+        {
+            //Add Listener To Call The OnControlsMenuButtonClick Function When The Button Is Clicked
+            controlsMenuButton.onClick.AddListener(OnControlsMenuButtonClick);
         }
     }
 
@@ -63,7 +79,12 @@ public class SettingsMenu : MonoBehaviour
 
     void OnVideoMenuButtonClick()
     {
-        UnityEngine.Debug.Log("Video Menu Initialised");
+        //Disable All Other Menus
+        controlsMenu.SetActive(false);
+        audioMenu.SetActive(false);
+        rulesMenu.SetActive(false);
+        //Enable Video Menu
+        videoMenu.SetActive(true);
 
         //Resolution Dropdown Initialisation
         availableResolutions = new List<Resolution>(Screen.resolutions);
@@ -115,10 +136,12 @@ public class SettingsMenu : MonoBehaviour
         Resolution selectedResolution = availableResolutions[resolutionIndex];
         if (isFullscreen)
         {
+            //If Fullscreen, Set Resolution Then Keep Fullscreen Mode
             Screen.SetResolution(selectedResolution.width, selectedResolution.height, Screen.fullScreenMode = FullScreenMode.ExclusiveFullScreen, selectedResolution.refreshRate);
         }
         else
         {
+            //If Windowed, Set Resolution Then Keep Windowed Mode
             Screen.SetResolution(selectedResolution.width, selectedResolution.height, Screen.fullScreenMode = FullScreenMode.Windowed, selectedResolution.refreshRate);
         }
     }
@@ -128,11 +151,13 @@ public class SettingsMenu : MonoBehaviour
     {
         if (toggled)
         {
+            //Set Fullscreen Resolution
             Screen.fullScreenMode = FullScreenMode.ExclusiveFullScreen;
             isFullscreen = true;
         }
         else
         {
+            //Set Windowed Resolution
             Screen.fullScreenMode = FullScreenMode.Windowed;
             isFullscreen = false;
         }
@@ -140,6 +165,32 @@ public class SettingsMenu : MonoBehaviour
 
     void ReturnToMenu()
     {
+        //TODO: IMPLEMENT RETURN TO MENU LOGIC
+    }
 
+    void OnControlsMenuButtonClick()
+    {
+        //Disable All Other Menus
+        videoMenu.SetActive(false);
+        audioMenu.SetActive(false);
+        rulesMenu.SetActive(false);
+        //Enable Controls Menu
+        controlsMenu.SetActive(true);
+
+        //Assists Toggle
+        assistsToggle.onValueChanged.AddListener(OnAssistsToggle);
+    }
+
+    //Function Called When Assists Toggle Is Changed
+    void OnAssistsToggle(bool toggled)
+    {
+        if (toggled)
+        {
+            assistsEnabled = true;
+        }
+        else
+        {
+            assistsEnabled = false;
+        }
     }
 }

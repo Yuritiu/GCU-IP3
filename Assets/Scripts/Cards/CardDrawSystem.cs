@@ -47,10 +47,10 @@ public class CardDrawSystem : MonoBehaviour
     //Current Number Of Selected Cards - Max Of 2
     public int selectedCardCount = 0;
 
-    [HideInInspector]
-    public bool isPlayersTurn = true;
-    [HideInInspector]
-    bool cardAdded = false;
+    //Hidden Variables
+    [HideInInspector] public bool isPlayersTurn = true;
+    [HideInInspector] bool cardAdded = false;
+    [HideInInspector] CardSelection cardSelection;
 
     void Start()
     {
@@ -59,21 +59,22 @@ public class CardDrawSystem : MonoBehaviour
 
     void Update()
     {
-        //Check For Left Mouse Click
-        if (Input.GetMouseButtonDown(0))
-        {
-            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-            RaycastHit hit;
 
-            //Raycast To Mouse Position
-            if (Physics.Raycast(ray, out hit))
+        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        RaycastHit hit;
+
+        //Raycast To Mouse Position
+        if (Physics.Raycast(ray, out hit))
+        {
+            //Check For A Card Collider
+            if (hit.transform.CompareTag(cardTag))
             {
-                //Check For A Card Collider
-                if (hit.transform.CompareTag(cardTag))
+                //Find The Index Of The Card In The cardsInHand Array
+                int cardIndex = System.Array.IndexOf(cardsInHand, hit.transform.gameObject);
+
+                //Check For Left Mouse Click
+                if (Input.GetMouseButtonDown(0))
                 {
-                    //Find The Index Of The Card In The cardsInHand Array
-                    int cardIndex = System.Array.IndexOf(cardsInHand, hit.transform.gameObject);
-                    Debug.Log("Card index: " + cardIndex);
                     //Check That There Is Cards And It's The Players Turn
                     if ((cardIndex >= 0 && cardIndex < originalPositions.Length) && isPlayersTurn)
                     {
@@ -81,6 +82,25 @@ public class CardDrawSystem : MonoBehaviour
                         ToggleCardSelection(cardIndex);
                     }
                 }
+                else
+                {
+                    //Enable The Hovering Card Function
+                    cardSelection = hit.transform.gameObject.GetComponent<CardSelection>();
+                    cardSelection.CardHovered(true);
+                }
+            }
+            else
+            {
+                //Check If Null, Else Null Reference Errors Will Not Stop
+                if(cardSelection != null)
+                {
+                    //Stop The Hovering Card Function
+                    cardSelection.CardHovered(false);
+                }
+            }
+            //Check For Left Mouse Click
+            if (Input.GetMouseButtonDown(0))
+            {
                 //Check For Opponent's Collider
                 if (hit.transform.CompareTag(opponentTag))
                 {

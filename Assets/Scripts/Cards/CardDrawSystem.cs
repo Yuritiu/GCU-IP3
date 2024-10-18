@@ -34,13 +34,9 @@ public class CardDrawSystem : MonoBehaviour
     int totalRarity;
 
     [Header("Unique Cards")]
-    //??% Chance
     [SerializeField] GameObject[] commonCards;
-    //??% Chance
     [SerializeField] GameObject[] uncommonCards;
-    //??% Chance
     [SerializeField] GameObject[] rareCards;
-    //??% Chance
     [SerializeField] GameObject[] legendaryCards;
 
     [HideInInspector]
@@ -59,6 +55,18 @@ public class CardDrawSystem : MonoBehaviour
 
     void Update()
     {
+        //Ensure That Nothing Can Be Interacted With When The Settings Menu Is Open
+        if (SettingsMenu.Instance.settingsMenuOpen)
+        {
+            //Check If Null, Else Null Reference Errors Will Not Stop
+            if (cardSelection != null)
+            {
+                //Stop The Hovering Card Function Or Else It Gets Stuck On Screen When The Settings Menu Closes
+                cardSelection.CardHovered(false);
+            }
+
+            return;
+        }
 
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         RaycastHit hit;
@@ -109,6 +117,11 @@ public class CardDrawSystem : MonoBehaviour
                     {
                         //Play Selected Hand
                         GameManager.Instance.PlayHand();
+                    }
+                    else if(isPlayersTurn && selectedCardCount == 0)
+                    {
+                        //Skip Turn
+                        GameManager.Instance.SkipTurn();
                     }
                 }
             }

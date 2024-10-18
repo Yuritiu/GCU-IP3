@@ -53,6 +53,15 @@ public class GameManager : MonoBehaviour
         NextTurn();
     }
 
+    public void SkipTurn()
+    {
+        Debug.Log("Skipped Turn");
+
+        //Handover Turn To AI
+        cardDrawSystem.isPlayersTurn = false;
+        NextTurn();
+    }
+
     //THIS IS TEMPORARY UNTIL AI IS IMPLEMENTED
     IEnumerator switchToPlayersTurnTEMP()
     {

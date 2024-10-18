@@ -36,7 +36,7 @@ public class SettingsMenu : MonoBehaviour
     [SerializeField] Toggle assistsToggle;
     [HideInInspector] public bool assistsEnabled = true;
 
-    bool settingsMenuOpen = false;
+    public bool settingsMenuOpen = false;
 
     private void Awake()
     {

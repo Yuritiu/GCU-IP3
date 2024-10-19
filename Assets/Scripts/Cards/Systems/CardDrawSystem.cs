@@ -8,6 +8,8 @@ public class CardDrawSystem : MonoBehaviour
 {
     //!-Coded By Charlie-!
 
+    public static CardDrawSystem Instance;
+
     //DEBUG VARIABLES -> REMOVE FROM FINAL BUILD
     [Header("Debug Variables")]
     [SerializeField] public TextMeshProUGUI debugCurrentTurnText;
@@ -47,6 +49,11 @@ public class CardDrawSystem : MonoBehaviour
     [HideInInspector] public bool isPlayersTurn = true;
     [HideInInspector] bool cardAdded = false;
     [HideInInspector] CardSelection cardSelection;
+
+    private void Awake()
+    {
+        Instance = this;
+    }
 
     void Start()
     {
@@ -121,7 +128,7 @@ public class CardDrawSystem : MonoBehaviour
                     else if(isPlayersTurn && selectedCardCount == 0)
                     {
                         //Skip Turn
-                        GameManager.Instance.SkipTurn();
+                        GameManager.Instance.SkipPlayerTurn();
                     }
                 }
             }
@@ -169,8 +176,6 @@ public class CardDrawSystem : MonoBehaviour
                 break;
             }
         }
-
-        //GameManager.Instance.NextTurn();
     }
 
     public GameObject GetRandomCard()

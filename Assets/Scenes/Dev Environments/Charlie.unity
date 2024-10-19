@@ -143,6 +143,18 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 488892181}
     - target: {fileID: 5165826222751895394, guid: 6d97c6adadc67ca4a9fab2ffb0260aee, type: 3}
+      propertyPath: commonCards.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5165826222751895394, guid: 6d97c6adadc67ca4a9fab2ffb0260aee, type: 3}
+      propertyPath: commonCards.Array.data[0]
+      value: 
+      objectReference: {fileID: 5151252464221464428, guid: 130beecb2e8de9741bacdfe90e5da662, type: 3}
+    - target: {fileID: 5165826222751895394, guid: 6d97c6adadc67ca4a9fab2ffb0260aee, type: 3}
+      propertyPath: commonCards.Array.data[1]
+      value: 
+      objectReference: {fileID: 5151252464221464428, guid: d9f73ac08cdc6b04cbaef1985297fc56, type: 3}
+    - target: {fileID: 5165826222751895394, guid: 6d97c6adadc67ca4a9fab2ffb0260aee, type: 3}
       propertyPath: originalPositions.Array.data[0]
       value: 
       objectReference: {fileID: 802055927}

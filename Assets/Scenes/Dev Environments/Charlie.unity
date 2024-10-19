@@ -143,18 +143,6 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 488892181}
     - target: {fileID: 5165826222751895394, guid: 6d97c6adadc67ca4a9fab2ffb0260aee, type: 3}
-      propertyPath: commonCards.Array.size
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5165826222751895394, guid: 6d97c6adadc67ca4a9fab2ffb0260aee, type: 3}
-      propertyPath: commonCards.Array.data[0]
-      value: 
-      objectReference: {fileID: 5151252464221464428, guid: 130beecb2e8de9741bacdfe90e5da662, type: 3}
-    - target: {fileID: 5165826222751895394, guid: 6d97c6adadc67ca4a9fab2ffb0260aee, type: 3}
-      propertyPath: commonCards.Array.data[1]
-      value: 
-      objectReference: {fileID: 5151252464221464428, guid: d9f73ac08cdc6b04cbaef1985297fc56, type: 3}
-    - target: {fileID: 5165826222751895394, guid: 6d97c6adadc67ca4a9fab2ffb0260aee, type: 3}
       propertyPath: originalPositions.Array.data[0]
       value: 
       objectReference: {fileID: 802055927}
@@ -672,6 +660,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9085046f02f69544eb97fd06b6048fe2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &890391620 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2211378157201692245, guid: 5d1329234b220094f9f46837c4f4dd13, type: 3}
+  m_PrefabInstance: {fileID: 6588541140434406186}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &1048243776 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 5165826222751895394, guid: 6d97c6adadc67ca4a9fab2ffb0260aee, type: 3}
@@ -681,6 +680,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c8d61a8160d9e61499e12a92380d32c3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1087066952 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 992123240356009791, guid: 5d1329234b220094f9f46837c4f4dd13, type: 3}
+  m_PrefabInstance: {fileID: 6588541140434406186}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1001 &1211099706
@@ -1146,9 +1156,17 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2229647336694770922, guid: 5f30ef53536cc8b4694232906fbc92d4, type: 3}
+      propertyPath: aiFingersText
+      value: 
+      objectReference: {fileID: 890391620}
+    - target: {fileID: 2229647336694770922, guid: 5f30ef53536cc8b4694232906fbc92d4, type: 3}
       propertyPath: cardDrawSystem
       value: 
       objectReference: {fileID: 1048243776}
+    - target: {fileID: 2229647336694770922, guid: 5f30ef53536cc8b4694232906fbc92d4, type: 3}
+      propertyPath: playerFingersText
+      value: 
+      objectReference: {fileID: 1087066952}
     - target: {fileID: 3915920376543808648, guid: 5f30ef53536cc8b4694232906fbc92d4, type: 3}
       propertyPath: m_Name
       value: --- Game Manager ---
@@ -1280,6 +1298,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 6661766338479681208, guid: 5d1329234b220094f9f46837c4f4dd13, type: 3}
+      propertyPath: m_text
+      value: CHARLIES SCENE
+      objectReference: {fileID: 0}
     - target: {fileID: 7144287230551513808, guid: 5d1329234b220094f9f46837c4f4dd13, type: 3}
       propertyPath: m_Name
       value: Debug Canvas
@@ -1377,13 +1399,13 @@ SceneRoots:
   - {fileID: 317479373}
   - {fileID: 6588541140434406186}
   - {fileID: 801829690974186896}
+  - {fileID: 3939816314468724784}
   - {fileID: 1211099706}
   - {fileID: 810300822}
-  - {fileID: 6075468177534819071}
-  - {fileID: 3939816314468724784}
   - {fileID: 139305952}
   - {fileID: 198441443134700019}
   - {fileID: 1786698531}
   - {fileID: 430726018}
   - {fileID: 2083631588}
+  - {fileID: 6075468177534819071}
   - {fileID: 6093827307429050633}

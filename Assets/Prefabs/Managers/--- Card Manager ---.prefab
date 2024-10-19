@@ -45,7 +45,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   debugCurrentTurnText: {fileID: 0}
-  isPlayer: 1
   cardTag: Card
   opponentTag: Opponent
   originalPositions:
@@ -61,7 +60,7 @@ MonoBehaviour:
   rareRarity: 15
   legendaryRarity: 5
   commonCards:
-  - {fileID: 5151252464221464428, guid: d9f73ac08cdc6b04cbaef1985297fc56, type: 3}
+  - {fileID: 5151252464221464428, guid: 130beecb2e8de9741bacdfe90e5da662, type: 3}
   uncommonCards:
   - {fileID: 5151252464221464428, guid: c19b72001f64ae542b3514d6c91e08cf, type: 3}
   rareCards:

@@ -1,12 +1,22 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
     //!-Coded By Charlie-!
 
+    //DEBUG VARIABLES -> REMOVE FROM FINAL BUILD
+    [Header("Debug Variables")]
+    [SerializeField] TextMeshProUGUI aiFingersText;
+    [SerializeField] TextMeshProUGUI playerFingersText;
+
     public static GameManager Instance;
+
+    [Header("Health Variables")]
+    [HideInInspector] public int aiFingers;
+    [HideInInspector] public int playerFingers;
 
     [Header("Skip Turn Variables")]
     [HideInInspector] public bool aiSkipNextTurn;
@@ -15,6 +25,14 @@ public class GameManager : MonoBehaviour
     private void Awake()
     {
         Instance = this;
+
+        //Set Fingers To 5
+        aiFingers = 5;
+        playerFingers = 5;
+
+        //Set Fingers Debug Text
+        playerFingersText.text = ("Player Fingers: " + playerFingers).ToString();
+        aiFingersText.text = ("AI Fingers: " + aiFingers).ToString();
     }
 
     public void NextTurn()

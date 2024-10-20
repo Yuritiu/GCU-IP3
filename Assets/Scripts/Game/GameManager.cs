@@ -42,11 +42,6 @@ public class GameManager : MonoBehaviour
         UpdateHealth(0);
     }
 
-    private void Update()
-    {
-        aiFingersText.text = ("AI Fingers: " + aiFingers).ToString();
-    }
-
     public void NextTurn()
     {
         aiTurn = false;
@@ -64,12 +59,10 @@ public class GameManager : MonoBehaviour
             CardDrawSystem.Instance.debugCurrentTurnText.text = ("AI Turn");
             
             //TEMP - REMOVE ONCE AI IMPLEMENTED
-            //StartCoroutine(switchToPlayersTurnTEMP());
+            StartCoroutine(switchToPlayersTurnTEMP());
         }
-        else if (aiSkipNextTurn)
+        else
         {
-            //Called After Turn Has Been Skipped So That Player Can Play Again
-            CardDrawSystem.Instance.isPlayersTurn = true;
             //Delay Before Giving Card So That The Card Slot Is Null
             StartCoroutine(GiveCard());
             playerSkipTurn = false;
@@ -138,12 +131,12 @@ public class GameManager : MonoBehaviour
         if (character == 1)
         {
             aiFingers--;
-            aiHand.RemoveFinger();
+            aiHand.RemoveFinger(aiFingers);
         }
         else if (character == 2)
         {
             playerFingers--;
-            playerHand.RemoveFinger();
+            playerHand.RemoveFinger(playerFingers);
         }
 
         if (aiFingers <= 0)

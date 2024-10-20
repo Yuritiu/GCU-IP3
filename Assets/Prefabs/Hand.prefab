@@ -439,8 +439,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   fingers:
-  - {fileID: 5385466245839309705}
   - {fileID: 6714126580504200034}
+  - {fileID: 5385466245839309705}
   - {fileID: 8684184758101344745}
   - {fileID: 1579051938548258989}
   - {fileID: 4056593797219450526}

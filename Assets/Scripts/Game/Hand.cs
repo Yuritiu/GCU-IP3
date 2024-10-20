@@ -6,9 +6,9 @@ public class Hand : MonoBehaviour
 {
     [SerializeField] List<GameObject> fingers;
 
-    public void RemoveFinger()
+    public void RemoveFinger(int num)
     {
-        Destroy(fingers[0]);
-        fingers.Remove(fingers[0]);
+        Destroy(fingers[num]);
+        fingers.Remove(fingers[num]);
     }
 }

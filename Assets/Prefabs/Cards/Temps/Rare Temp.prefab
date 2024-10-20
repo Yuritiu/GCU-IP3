@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 3738365108683279466}
   - component: {fileID: 8153615240554731953}
   m_Layer: 6
-  m_Name: TempCard 2
+  m_Name: Rare Temp
   m_TagString: Card
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -63,7 +63,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 1935dfa39531c5b48a9191146999ff9d, type: 2}
+  - {fileID: 2100000, guid: 2d744bf9e622b334499487daaeee9f9f, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -120,5 +120,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cardInfoImageTag: CardInfoImage
   cardInfoTextTag: CardInfoText
-  cardInfoImage: {fileID: 7319352315363178561, guid: 46f010d14b12a8c4aa89261d0363d0bf, type: 3}
-  cardInfoText: Uncommon Card
+  cardInfoImage: {fileID: 7319352315363178561, guid: edb6bd3d944c4a742a6b7546aefbab5a, type: 3}
+  cardInfoText: Rare Card

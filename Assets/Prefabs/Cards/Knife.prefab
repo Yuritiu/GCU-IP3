@@ -12,9 +12,10 @@ GameObject:
   - component: {fileID: 9186417109946204404}
   - component: {fileID: 4630359454597691122}
   - component: {fileID: 3738365108683279466}
+  - component: {fileID: 7463437965872445066}
   - component: {fileID: 8153615240554731953}
   m_Layer: 6
-  m_Name: TempCard 4
+  m_Name: Knife
   m_TagString: Card
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -63,7 +64,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 87351c7c4c41c2045a0f85810f85a5a3, type: 2}
+  - {fileID: 2100000, guid: cec5648a205158947bfdbe8f715d18f4, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -106,6 +107,18 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &7463437965872445066
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5151252464221464428}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2c4023353ec675843b5ccbb0eaee6243, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &8153615240554731953
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -120,5 +133,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cardInfoImageTag: CardInfoImage
   cardInfoTextTag: CardInfoText
-  cardInfoImage: {fileID: 7319352315363178561, guid: 58a1e12e6c0c842429053033c91e6e08, type: 3}
-  cardInfoText: Legendary Card
+  cardInfoImage: {fileID: 7319352315363178561, guid: c25afc8449f4a564e9ba3619ab3e6649, type: 3}
+  cardInfoText: Knife Card

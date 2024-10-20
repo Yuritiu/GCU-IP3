@@ -5,12 +5,16 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-    //!-Coded By Charlie-!
+    //!-Coded By Charlie & Ben!
 
     //DEBUG VARIABLES -> REMOVE FROM FINAL BUILD
     [Header("Debug Variables")]
     [SerializeField] TextMeshProUGUI aiFingersText;
     [SerializeField] TextMeshProUGUI playerFingersText;
+    
+    [Header("Hand")]
+    [SerializeField] Hand aiHand;
+    [SerializeField] Hand playerHand;
 
     public static GameManager Instance;
 
@@ -21,6 +25,10 @@ public class GameManager : MonoBehaviour
     [Header("Skip Turn Variables")]
     [HideInInspector] public bool aiSkipNextTurn;
     [HideInInspector] public bool playerSkipTurn;
+    
+    [Header("Current Players Turn")]
+    [HideInInspector] public bool aiTurn;
+    [HideInInspector] public bool playerTurn;
 
     private void Awake()
     {
@@ -31,22 +39,32 @@ public class GameManager : MonoBehaviour
         playerFingers = 5;
 
         //Set Fingers Debug Text
-        playerFingersText.text = ("Player Fingers: " + playerFingers).ToString();
+        UpdateHealth(0);
+    }
+
+    private void Update()
+    {
         aiFingersText.text = ("AI Fingers: " + aiFingers).ToString();
     }
 
     public void NextTurn()
     {
+        aiTurn = false;
+        playerTurn = false;
+
         if (CardDrawSystem.Instance.isPlayersTurn && !playerSkipTurn)
         {
+            playerTurn = true;
             CardDrawSystem.Instance.debugCurrentTurnText.text = ("Player Turn");
             CardDrawSystem.Instance.AddCardAfterTurn();
         }
         else if (!aiSkipNextTurn)
         {
+            aiTurn = true;
             CardDrawSystem.Instance.debugCurrentTurnText.text = ("AI Turn");
+            
             //TEMP - REMOVE ONCE AI IMPLEMENTED
-            StartCoroutine(switchToPlayersTurnTEMP());
+            //StartCoroutine(switchToPlayersTurnTEMP());
         }
         else if (aiSkipNextTurn)
         {
@@ -54,6 +72,7 @@ public class GameManager : MonoBehaviour
             CardDrawSystem.Instance.isPlayersTurn = true;
             //Delay Before Giving Card So That The Card Slot Is Null
             StartCoroutine(GiveCard());
+            playerSkipTurn = false;
             aiSkipNextTurn = false;
         }
     }
@@ -96,6 +115,7 @@ public class GameManager : MonoBehaviour
         NextTurn();
     }
 
+
     public void SkipPlayerTurn()
     {
         Debug.Log("Skipped Turn");
@@ -112,4 +132,31 @@ public class GameManager : MonoBehaviour
         CardDrawSystem.Instance.isPlayersTurn = true;
         NextTurn();
     }
+
+    public void UpdateHealth(int character)
+    {
+        if (character == 1)
+        {
+            aiFingers--;
+            aiHand.RemoveFinger();
+        }
+        else if (character == 2)
+        {
+            playerFingers--;
+            playerHand.RemoveFinger();
+        }
+
+        if (aiFingers <= 0)
+        {
+            //YOU WIN!!
+        }
+        else if (playerFingers <= 0)
+        {
+            //YOU LOSE
+        }
+        
+        playerFingersText.text = ("Player Fingers: " + playerFingers).ToString();
+        aiFingersText.text = ("AI Fingers: " + aiFingers).ToString();
+    }
 }
+

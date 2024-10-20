@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 3738365108683279466}
   - component: {fileID: 8153615240554731953}
   m_Layer: 6
-  m_Name: TempCard 1
+  m_Name: Common Temp
   m_TagString: Card
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

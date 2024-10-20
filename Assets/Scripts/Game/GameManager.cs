@@ -44,36 +44,21 @@ public class GameManager : MonoBehaviour
 
     public void NextTurn()
     {
-        aiTurn = false;
-        playerTurn = false;
-
-        if (CardDrawSystem.Instance.isPlayersTurn && !playerSkipTurn)
-        {
-            playerTurn = true;
-            CardDrawSystem.Instance.debugCurrentTurnText.text = ("Player Turn");
-            CardDrawSystem.Instance.AddCardAfterTurn();
-        }
-        else if (!aiSkipNextTurn)
-        {
-            aiTurn = true;
-            CardDrawSystem.Instance.debugCurrentTurnText.text = ("AI Turn");
-            
-            //TEMP - REMOVE ONCE AI IMPLEMENTED
-            StartCoroutine(switchToPlayersTurnTEMP());
-        }
-        else
-        {
-            //Delay Before Giving Card So That The Card Slot Is Null
-            StartCoroutine(GiveCard());
-            playerSkipTurn = false;
-            aiSkipNextTurn = false;
-        }
-    }
-
-    IEnumerator GiveCard()
-    {
-        yield return new WaitForSeconds(0.01f);
+        playerTurn = true;
+        aiTurn = true;
+        CardDrawSystem.Instance.debugCurrentTurnText.text = ("Play Time");
         CardDrawSystem.Instance.AddCardAfterTurn();
+
+        //    //TEMP - REMOVE ONCE AI IMPLEMENTED
+        //    StartCoroutine(switchToPlayersTurnTEMP());
+        //}
+        //else
+        //{
+        //    //Delay Before Giving Card So That The Card Slot Is Null
+        //    StartCoroutine(GiveCard());
+        //    playerSkipTurn = false;
+        //    aiSkipNextTurn = false;
+        //}
     }
 
     public void PlayHand()
@@ -104,7 +89,7 @@ public class GameManager : MonoBehaviour
         }
 
         //Handover Turn To AI
-        CardDrawSystem.Instance.isPlayersTurn = false;
+        //CardDrawSystem.Instance.isPlayersTurn = false;
         NextTurn();
     }
 

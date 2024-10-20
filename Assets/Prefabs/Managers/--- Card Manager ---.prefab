@@ -60,7 +60,7 @@ MonoBehaviour:
   rareRarity: 15
   legendaryRarity: 5
   commonCards:
-  - {fileID: 5151252464221464428, guid: 130beecb2e8de9741bacdfe90e5da662, type: 3}
+  - {fileID: 5151252464221464428, guid: b6856f8c839d32c41800a5a710159730, type: 3}
   uncommonCards:
   - {fileID: 5151252464221464428, guid: c19b72001f64ae542b3514d6c91e08cf, type: 3}
   rareCards:

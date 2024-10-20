@@ -5,18 +5,17 @@ using UnityEngine;
 public class Knife : MonoBehaviour
 {
     //Called From GameManager
-    public void PlayCard()
+    public void PlayCardForPlayer()
     {
         //Damage opponent 
-        if(GameManager.Instance.playerTurn == true)
-        {
-            //takes 1 finger away 
-            GameManager.Instance.UpdateHealth(1);
-        }
-        if(GameManager.Instance.aiTurn == true)
-        {
-            //takes 1 finger away 
-            GameManager.Instance.UpdateHealth(2);
-        }
+        //takes 1 finger away 
+        GameManager.Instance.UpdateHealth(1);
+
+    }
+    public void PlayCardForAI()
+    {
+        //Damage opponent 
+        //takes 1 finger away 
+        GameManager.Instance.UpdateHealth(2);
     }
 }

@@ -99,14 +99,10 @@ public class AICardDrawSystem : MonoBehaviour
         uncommonRarity += commonRarity;
         rareRarity += uncommonRarity;
         legendaryRarity += rareRarity;
-
-        totalRarity = legendaryRarity + 5;
+        
+        totalRarity = legendaryRarity;
+        
         //Debug.Log("Total Rarity: " + totalRarity);
-
-        //Debug.Log("Common Chance: " + commonRarity);
-        //Debug.Log("Uncommon Chance: " + uncommonRarity);
-        //Debug.Log("Rare Chance: " + rareRarity);
-        //Debug.Log("Legendary Chance: " + legendaryRarity);
 
         //Add 4 Random Cards To The cardsInHand Array
         for (int i = 0; i < cardsInHand.Length; i++)

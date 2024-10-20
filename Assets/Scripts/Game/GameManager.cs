@@ -72,7 +72,7 @@ public class GameManager : MonoBehaviour
             //For This To Work, Please Make Sure Card's Logic Is Executed In A Public Function Called PlayCard
             //And The Card's Hierarchy Mathches The 'Swing Away' Card
             var card1 = CardDrawSystem.Instance.selectedPosition1.GetChild(0).gameObject.GetComponentAtIndex(1);
-            card1.SendMessage("PlayCard");
+            card1.SendMessage("PlayCardForPlayer");
 
             Destroy(CardDrawSystem.Instance.selectedPosition1.GetChild(0).gameObject);
             CardDrawSystem.Instance.selectedCardCount--;
@@ -82,7 +82,7 @@ public class GameManager : MonoBehaviour
             //For This To Work, Please Make Sure Card's Logic Is Executed In A Public Function Called PlayCard
             //And The Card's Hierarchy Mathches The 'Swing Away' Card
             var card2 = CardDrawSystem.Instance.selectedPosition2.GetChild(0).gameObject.GetComponentAtIndex(1);
-            card2.SendMessage("PlayCard");
+            card2.SendMessage("PlayCardForPlayer");
 
             Destroy(CardDrawSystem.Instance.selectedPosition2.GetChild(0).gameObject);
             CardDrawSystem.Instance.selectedCardCount--;

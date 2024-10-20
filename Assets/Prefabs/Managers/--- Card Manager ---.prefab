@@ -9,6 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7945156872843242839}
+  - component: {fileID: 2406518960279142464}
   - component: {fileID: 5165826222751895394}
   m_Layer: 0
   m_Name: --- Card Manager ---
@@ -32,6 +33,40 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2406518960279142464
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6980760695134244855}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ab734fe4da052524ca10b4c5768102c5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  originalPositions:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  cardsInHand: []
+  selectedPosition1: {fileID: 0}
+  selectedPosition2: {fileID: 0}
+  commonRarity: 45
+  uncommonRarity: 30
+  rareRarity: 15
+  legendaryRarity: 5
+  commonCards:
+  - {fileID: 5151252464221464428, guid: b6856f8c839d32c41800a5a710159730, type: 3}
+  uncommonCards:
+  - {fileID: 5151252464221464428, guid: c19b72001f64ae542b3514d6c91e08cf, type: 3}
+  rareCards:
+  - {fileID: 5151252464221464428, guid: 76e55f57304035f459ce88dd15bad11f, type: 3}
+  legendaryCards:
+  - {fileID: 5151252464221464428, guid: 68a66dd4dee57a445a4abe3f16877851, type: 3}
+  selectedCardCount: 0
+  isPlayersTurn: 1
 --- !u!114 &5165826222751895394
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -52,47 +52,6 @@ public class AICardDrawSystem : MonoBehaviour
         StartGame();
     }
 
-   /* void Update()
-    {
-        Check For Left Mouse Click -- FIGURE OUT HOW TO GET AI TO PLAY
-        if (Input.GetMouseButtonDown(0))
-        {
-            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-            RaycastHit hit;
-
-            //Raycast To Mouse Position
-            if (Physics.Raycast(ray, out hit))
-            {
-                //Check For A Card Collider
-                if (hit.transform.CompareTag(cardTag))
-                {
-                    //Find The Index Of The Card In The cardsInHand Array
-                    int cardIndex = System.Array.IndexOf(cardsInHand, hit.transform.gameObject);
-                    Debug.Log("Card index: " + cardIndex);
-                    //Check That There Is Cards And It's The Players Turn
-                    if ((cardIndex >= 0 && cardIndex < originalPositions.Length) && isPlayersTurn)
-                    {
-                        //Toggle The Card's Selection State
-                        ToggleCardSelection(cardIndex);
-                    }
-                }
-                //Check For Opponent's Collider
-                if (hit.transform.CompareTag(opponentTag))
-                {
-                    //Check If It's The Players Turn And Atleast 1 Card Is Selected
-                    if (isPlayersTurn && selectedCardCount > 0)
-                    {
-                       //Play Selected Hand
-                        GameManager.Instance.PlayHand();
-                        //Handover Turn To AI
-                        isPlayersTurn = false;
-                    }
-                }
-            }
-        }
-    }
-   */
-
     void StartGame()
     {
         //Initialize cardsInHand Array With 4 Slots

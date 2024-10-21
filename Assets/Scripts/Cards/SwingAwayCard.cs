@@ -7,13 +7,12 @@ public class SwingAwayCard : MonoBehaviour
     //Called From GameManager
     public void PlayCardForPlayer()
     {
-        //Skip Turn
+        //Skip AI Turn
         GameManager.Instance.aiSkipNextTurn = true;
     }
     public void PlayCardForAI()
     {
-        //Damage opponent 
-        //takes 1 finger away 
-        GameManager.Instance.playerSkipTurn = true;
+        //Skip Players Turn
+        GameManager.Instance.playerSkipNextTurn = true;
     }
 }

@@ -124,15 +124,6 @@ public class CardDrawSystem : MonoBehaviour
                     {
                         //Check If It's The Players Turn And Atleast 1 Card Is Selected
                         GameManager.Instance.PlayHand();
-                        /*if (selectedCardCount > 0)
-                        {
-                            //Play Selected Hand
-                        }
-                        else if (selectedCardCount == 0)
-                        {
-                            //Skip Turn
-                            GameManager.Instance.SkipPlayerTurn();
-                        }*/
                     }
                 }
             }

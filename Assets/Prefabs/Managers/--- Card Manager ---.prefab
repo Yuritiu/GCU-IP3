@@ -45,6 +45,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ab734fe4da052524ca10b4c5768102c5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  cardTag: Card
+  opponentTag: Player
   originalPositions:
   - {fileID: 0}
   - {fileID: 0}
@@ -64,7 +66,7 @@ MonoBehaviour:
   rareCards:
   - {fileID: 5151252464221464428, guid: 76e55f57304035f459ce88dd15bad11f, type: 3}
   legendaryCards:
-  - {fileID: 5151252464221464428, guid: 68a66dd4dee57a445a4abe3f16877851, type: 3}
+  - {fileID: 5151252464221464428, guid: 130beecb2e8de9741bacdfe90e5da662, type: 3}
   selectedCardCount: 0
   isPlayersTurn: 1
 --- !u!114 &5165826222751895394
@@ -101,6 +103,6 @@ MonoBehaviour:
   rareCards:
   - {fileID: 5151252464221464428, guid: 76e55f57304035f459ce88dd15bad11f, type: 3}
   legendaryCards:
-  - {fileID: 5151252464221464428, guid: 68a66dd4dee57a445a4abe3f16877851, type: 3}
+  - {fileID: 5151252464221464428, guid: 130beecb2e8de9741bacdfe90e5da662, type: 3}
   selectedCardCount: 0
   isPlayersTurn: 1

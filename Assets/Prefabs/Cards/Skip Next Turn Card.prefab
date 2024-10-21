@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 7512414088110293687}
   - component: {fileID: 8153615240554731953}
   m_Layer: 6
-  m_Name: Swing Away Card
+  m_Name: Skip Next Turn Card
   m_TagString: Card
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

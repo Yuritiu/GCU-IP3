@@ -2,8 +2,6 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
-using UnityEditor.SceneManagement;
-using UnityEditor.Search;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -28,7 +26,7 @@ public class GameManager : MonoBehaviour
 
     [Header("Skip Turn Variables")]
     [HideInInspector] public bool aiSkipNextTurn;
-    [HideInInspector] public bool playerSkipTurn;
+    [HideInInspector] public bool playerSkipNextTurn;
     
     [Header("Cards on Table")]
     [HideInInspector] Component cardsOnTable1;
@@ -50,51 +48,71 @@ public class GameManager : MonoBehaviour
 
     public void NextTurn()
     {
-        CardDrawSystem.Instance.isPlayersTurn = true;
-        
-        CardDrawSystem.Instance.debugCurrentTurnText.text = ("Play Time");
-        
+        //aiSkipNextTurn = false;
+        //playerSkipNextTurn = false;
+
+        //Add Cards For Player And AI
         CardDrawSystem.Instance.AddCardAfterTurn();
         AICardDrawSystem.Instance.AddCardAfterTurn();
 
+        if (playerSkipNextTurn)
+        {
+            CardDrawSystem.Instance.isPlayersTurn = false;
 
-        //    //TEMP - REMOVE ONCE AI IMPLEMENTED
-        //    StartCoroutine(switchToPlayersTurnTEMP());
-        //}
-        //else
-        //{
-        //    //Delay Before Giving Card So That The Card Slot Is Null
-        //    StartCoroutine(GiveCard());
-        //    playerSkipTurn = false;
-        //    aiSkipNextTurn = false;
-        //}
+            playerSkipNextTurn = false;
+
+            Debug.Log("PLAYER SKIP");
+            //Debug
+            CardDrawSystem.Instance.debugCurrentTurnText.text = ("Skipped Players Turn");
+
+            PlayHand();
+        }
+        else
+        {
+            CardDrawSystem.Instance.isPlayersTurn = true;
+
+            //Debug
+            CardDrawSystem.Instance.debugCurrentTurnText.text = ("Play Time");
+        }
     }
 
     public void PlayHand()
     {
         Debug.Log("Played Hand");
 
-        StartCoroutine(AIPlaceCards());
+        if (!aiSkipNextTurn)
+        {
+            StartCoroutine(AIPlaceCards());
+        }
+        else
+        {
+            ShowCards();
+        }
     }
-
 
     public void ShowCards()
     {
+        aiSkipNextTurn = false;
+
+        //Debug
+        CardDrawSystem.Instance.debugCurrentTurnText.text = ("Showing Cards");
+
         //IMPORTANT Make Sure The Cards Logic Is Executed Before This Is Called!
         //Could Maybe Add The Destroy To The Card GameObject
-        if (CardDrawSystem.Instance.selectedPosition1.childCount > 0)
+        if (CardDrawSystem.Instance.selectedPosition1.childCount > 0 && !playerSkipNextTurn)
         {
             //For This To Work, Please Make Sure Card's Logic Is Executed In A Public Function Called PlayCard
-            //And The Card's Hierarchy Mathches The 'Swing Away' Card
+            //And The Card's Hierarchy Mathches The 'Skip Next Turn' Card
             cardsOnTable1 = CardDrawSystem.Instance.selectedPosition1.GetChild(0).gameObject.GetComponentAtIndex(1);
+
             cardsOnTable1.SendMessage("PlayCardForPlayer");
 
             CardDrawSystem.Instance.selectedCardCount--;
         }
-        if (CardDrawSystem.Instance.selectedPosition2.childCount > 0)
+        if (CardDrawSystem.Instance.selectedPosition2.childCount > 0 && !playerSkipNextTurn)
         {
             //For This To Work, Please Make Sure Card's Logic Is Executed In A Public Function Called PlayCard
-            //And The Card's Hierarchy Mathches The 'Swing Away' Card
+            //And The Card's Hierarchy Mathches The 'Skip Next Turn' Card
             cardsOnTable2 = CardDrawSystem.Instance.selectedPosition2.GetChild(0).gameObject.GetComponentAtIndex(1);
             cardsOnTable2.SendMessage("PlayCardForPlayer");
 
@@ -103,35 +121,23 @@ public class GameManager : MonoBehaviour
         if (cardsOnTable3 != null)
         {
             //For This To Work, Please Make Sure Card's Logic Is Executed In A Public Function Called PlayCard
-            //And The Card's Hierarchy Mathches The 'Swing Away' Card
+            //And The Card's Hierarchy Mathches The 'Skip Next Turn' Card
             cardsOnTable3.SendMessage("PlayCardForAI");
 
-            //Destroy();
             AICardDrawSystem.Instance.selectedCardCount--;
         }
         if (cardsOnTable4 != null)
         {
             //For This To Work, Please Make Sure Card's Logic Is Executed In A Public Function Called PlayCard
-            //And The Card's Hierarchy Mathches The 'Swing Away' Card
+            //And The Card's Hierarchy Mathches The 'Skip Next Turn' Card
             cardsOnTable4.SendMessage("PlayCardForAI");
 
             AICardDrawSystem.Instance.selectedCardCount--;
         }
 
-        //Handover Turn To AI
-        //CardDrawSystem.Instance.isPlayersTurn = false;
-
         CardDrawSystem.Instance.isPlayersTurn = false;
         StartCoroutine(WaitSoCardsCanReveal());
     }
-
-    /*public void SkipPlayerTurn()
-    {
-        Debug.Log("Skipped Turn");
-        StartCoroutine(WaitSoCardsCanReveal());
-        //Handover Turn To AI
-        NextTurn();
-    }*/
 
     IEnumerator AIPlaceCards()
     {
@@ -141,11 +147,14 @@ public class GameManager : MonoBehaviour
         yield return new WaitForSeconds(0.3f);
         cardsOnTable4 = AICardDrawSystem.Instance.SelectCard(1);
         yield return new WaitForSeconds(0.3f);
-        ShowCards();    
+        ShowCards();
     }
 
     IEnumerator WaitSoCardsCanReveal()
     {
+        //Debug
+        CardDrawSystem.Instance.debugCurrentTurnText.text = ("Revealing Cards");
+
         yield return new WaitForSeconds(5);
         
         if (CardDrawSystem.Instance.selectedPosition1.childCount > 0)

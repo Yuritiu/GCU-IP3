@@ -1688,6 +1688,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2835393507600966868, guid: 5d1329234b220094f9f46837c4f4dd13, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -10.299927
+      objectReference: {fileID: 0}
     - target: {fileID: 6661766338479681208, guid: 5d1329234b220094f9f46837c4f4dd13, type: 3}
       propertyPath: m_text
       value: CHARLIES SCENE

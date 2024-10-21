@@ -1,7 +1,9 @@
+using OpenCover.Framework.Model;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -24,6 +26,10 @@ public class GameManager : MonoBehaviour
     [HideInInspector] public int aiFingers;
     [HideInInspector] public int playerFingers;
 
+    [Header("Armour")]
+    [HideInInspector] public int aiArmour;
+    [HideInInspector] public int playerArmour;  
+    
     [Header("Skip Turn Variables")]
     [HideInInspector] public bool aiSkipNextTurn;
     [HideInInspector] public bool playerSkipNextTurn;
@@ -34,6 +40,9 @@ public class GameManager : MonoBehaviour
     [HideInInspector] Component cardsOnTable3;
     [HideInInspector] Component cardsOnTable4;
 
+    [Header("Cards ready to be compared")]
+    bool IsReadyToCompare;
+ 
     private void Awake()
     {
         Instance = this;
@@ -54,6 +63,8 @@ public class GameManager : MonoBehaviour
         //Add Cards For Player And AI
         CardDrawSystem.Instance.AddCardAfterTurn();
         AICardDrawSystem.Instance.AddCardAfterTurn();
+        playerArmour = 0;
+        aiArmour = 0;
 
         if (playerSkipNextTurn)
         {
@@ -135,6 +146,8 @@ public class GameManager : MonoBehaviour
             AICardDrawSystem.Instance.selectedCardCount--;
         }
 
+        IsReadyToCompare = true;
+
         CardDrawSystem.Instance.isPlayersTurn = false;
         StartCoroutine(WaitSoCardsCanReveal());
     }
@@ -155,7 +168,7 @@ public class GameManager : MonoBehaviour
         //Debug
         CardDrawSystem.Instance.debugCurrentTurnText.text = ("Revealing Cards");
 
-        yield return new WaitForSeconds(5);
+        yield return new WaitForSeconds(4);
         
         if (CardDrawSystem.Instance.selectedPosition1.childCount > 0)
         {
@@ -176,11 +189,24 @@ public class GameManager : MonoBehaviour
 
         yield return new WaitForSeconds(0.5f);
 
+        IsReadyToCompare = false;
         NextTurn();
     }
 
+    public IEnumerator WaitToCompareCards(int character, int type)
+    {
+        //waits for cards to reveal
+        yield return new WaitForSeconds(1);
+        if(type == 1)
+        {
+            CheckArmour(character);
+        }
+    }
+
+
     public void UpdateHealth(int character)
     {
+        //checks if character is player or ai
         if (character == 1)
         {
             aiFingers--;
@@ -205,6 +231,84 @@ public class GameManager : MonoBehaviour
         
         playerFingersText.text = ("Player Fingers: " + playerFingers).ToString();
         aiFingersText.text = ("AI Fingers: " + aiFingers).ToString();
+    }
+
+    public void CheckArmour(int character)
+    {
+        
+        if (character == 1 && IsReadyToCompare)
+        {
+            if (aiArmour > 0)
+            {
+                aiArmour--;
+                if (cardsOnTable1 != null)
+                {
+                    if (cardsOnTable1.gameObject.name.Contains("Gun"))
+                    { //stop gun
+                        return;
+                    }
+                }
+                if (cardsOnTable2 != null)
+                {
+                    if (cardsOnTable2.gameObject.name.Contains("Gun"))
+                    { //stop gun
+                        return;
+                    }
+                }
+                if (cardsOnTable1 != null)
+                {
+                    if (cardsOnTable1.gameObject.name.Contains("Knife"))
+                    { //stop gun
+                        return;
+                    }
+                }
+                if (cardsOnTable2 != null)
+                {
+                    if (cardsOnTable2.gameObject.name.Contains("Knife"))
+                    { //stop gun
+                        return;
+                    }
+                }
+            }
+        }
+        
+        if (character == 2 && IsReadyToCompare)
+        {
+            if (playerArmour > 0)
+            {
+                playerArmour--;
+                if (cardsOnTable3 != null)
+                {
+                    if (cardsOnTable3.gameObject.name.Contains("Gun"))
+                    { //stop gun
+                        return;
+                    }
+                }
+                if (cardsOnTable4 != null)
+                {
+                    if (cardsOnTable4.gameObject.name.Contains("Gun"))
+                    { //stop gun
+                        return;
+                    }
+                }
+                if (cardsOnTable3 != null)
+                {
+                    if (cardsOnTable3.gameObject.name.Contains("Knife"))
+                    { //stop gun
+                        return;
+                    }
+                }
+                if (cardsOnTable4 != null)
+                {
+                    if (cardsOnTable4.gameObject.name.Contains("Knife"))
+                    { //stop gun
+                        return;
+                    }
+                }
+            }
+        }
+
+        UpdateHealth(character);
     }
 }
 

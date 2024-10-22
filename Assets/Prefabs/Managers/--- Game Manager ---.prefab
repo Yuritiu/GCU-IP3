@@ -68,5 +68,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   countdownImage: {fileID: 0}
-  easyCountdownTime: 12
-  hardCountdownTime: 6
+  easyCountdownTime: 300
+  hardCountdownTime: 120

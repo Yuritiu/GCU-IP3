@@ -57,9 +57,6 @@ public class GameManager : MonoBehaviour
 
     public void NextTurn()
     {
-        //aiSkipNextTurn = false;
-        //playerSkipNextTurn = false;
-
         //Add Cards For Player And AI
         CardDrawSystem.Instance.AddCardAfterTurn();
         AICardDrawSystem.Instance.AddCardAfterTurn();
@@ -72,7 +69,6 @@ public class GameManager : MonoBehaviour
 
             playerSkipNextTurn = false;
 
-            Debug.Log("PLAYER SKIP");
             //Debug
             CardDrawSystem.Instance.debugCurrentTurnText.text = ("Skipped Players Turn");
 
@@ -104,9 +100,6 @@ public class GameManager : MonoBehaviour
     public void ShowCards()
     {
         aiSkipNextTurn = false;
-
-        //Debug
-        CardDrawSystem.Instance.debugCurrentTurnText.text = ("Showing Cards");
 
         //IMPORTANT Make Sure The Cards Logic Is Executed Before This Is Called!
         //Could Maybe Add The Destroy To The Card GameObject
@@ -207,11 +200,13 @@ public class GameManager : MonoBehaviour
     public void UpdateHealth(int character)
     {
         //checks if character is player or ai
+        //AI
         if (character == 1)
         {
             aiFingers--;
             aiHand.RemoveFinger(aiFingers);
         }
+        //Player
         else if (character == 2)
         {
             playerFingers--;
@@ -220,13 +215,15 @@ public class GameManager : MonoBehaviour
 
         if (aiFingers <= 0)
         {
-            SceneManager.LoadScene("Game Scene");
+            var activeScene = SceneManager.GetActiveScene().name;
+            SceneManager.LoadScene(activeScene);
             //YOU WIN!!
         }
         else if (playerFingers <= 0)
         {
-            SceneManager.LoadScene("Game Scene");
-            //YOU LOSE
+            var activeScene = SceneManager.GetActiveScene().name;
+            SceneManager.LoadScene(activeScene);
+            //YOU LOSE :(
         }
         
         playerFingersText.text = ("Player Fingers: " + playerFingers).ToString();
@@ -258,14 +255,14 @@ public class GameManager : MonoBehaviour
                 if (cardsOnTable1 != null)
                 {
                     if (cardsOnTable1.gameObject.name.Contains("Knife"))
-                    { //stop gun
+                    { //stop knife
                         return;
                     }
                 }
                 if (cardsOnTable2 != null)
                 {
                     if (cardsOnTable2.gameObject.name.Contains("Knife"))
-                    { //stop gun
+                    { //stop knife
                         return;
                     }
                 }
@@ -294,14 +291,14 @@ public class GameManager : MonoBehaviour
                 if (cardsOnTable3 != null)
                 {
                     if (cardsOnTable3.gameObject.name.Contains("Knife"))
-                    { //stop gun
+                    { //stop knife
                         return;
                     }
                 }
                 if (cardsOnTable4 != null)
                 {
                     if (cardsOnTable4.gameObject.name.Contains("Knife"))
-                    { //stop gun
+                    { //stop knife
                         return;
                     }
                 }

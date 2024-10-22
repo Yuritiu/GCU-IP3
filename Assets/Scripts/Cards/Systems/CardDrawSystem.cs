@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using static UnityEngine.UI.Image;
 
 public class CardDrawSystem : MonoBehaviour
 {
@@ -62,7 +63,6 @@ public class CardDrawSystem : MonoBehaviour
 
     void Update()
     {
-
         //Ensure That Nothing Can Be Interacted With When The Settings Menu Is Open
         if (SettingsMenu.Instance.settingsMenuOpen)
         {
@@ -104,7 +104,10 @@ public class CardDrawSystem : MonoBehaviour
                     {
                         //Enable The Hovering Card Function
                         cardSelection = hit.transform.gameObject.GetComponent<CardSelection>();
-                        cardSelection.CardHovered(true);
+                        if (cardSelection != null)
+                        {
+                            cardSelection.CardHovered(true);
+                        }
                     }
                 }
                 else

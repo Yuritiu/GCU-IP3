@@ -62,8 +62,6 @@ public class AICardDrawSystem : MonoBehaviour
         legendaryRarity += rareRarity;
         
         totalRarity = legendaryRarity;
-        
-        //Debug.Log("Total Rarity: " + totalRarity);
 
         //Add 4 Random Cards To The cardsInHand Array
         for (int i = 0; i < cardsInHand.Length; i++)
@@ -72,6 +70,8 @@ public class AICardDrawSystem : MonoBehaviour
             GameObject card = GetRandomCard();
             //Instantiate And Store The Reference
             cardsInHand[i] = Instantiate(card, originalPositions[i].position, originalPositions[i].rotation);
+            //Destroy The CardSelection Script On The AI's Cards So The Player Can't Hover Them
+            Destroy(cardsInHand[i].GetComponent<CardSelection>());
         }
     }
 
@@ -113,7 +113,6 @@ public class AICardDrawSystem : MonoBehaviour
 
     public Component SelectCard(int index)
     {
-
         if (cardsInHand[index] != null)
         {
             if ((selectedCardCount == 0) || (selectedCardCount == 1 && selectedPosition2.childCount >= 1))
@@ -146,6 +145,7 @@ public class AICardDrawSystem : MonoBehaviour
 
     public void AddCardAfterTurn()
     {
+        //Choose A Random Card Prefab
         GameObject card = GetRandomCard();
         //Add 1 Random Card Prefab After A Turn
         for (int i = 0; i < cardsInHand.Length; i++)
@@ -153,7 +153,10 @@ public class AICardDrawSystem : MonoBehaviour
             //Check If There Is An Available Slot
             if (cardsInHand[i] == null)
             {
+                //Instantiate And Store The Reference
                 cardsInHand[i] = Instantiate(card, originalPositions[i].position, originalPositions[i].rotation);
+                //Destroy The CardSelection Script On The AI's Cards So The Player Can't Hover Them
+                Destroy(cardsInHand[i].GetComponent<CardSelection>());
                 //Mark The Card As Added
                 cardAdded = true;
                 //Exit When Card Is Placed

@@ -8,4 +8,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Game Scene.unity
     guid: 9fc0d4010bbf28b4594072e72b8655ab
+  - enabled: 1
+    path: Assets/Scenes/Dev Environments/Charlie.unity
+    guid: 1f1c22d2b62a39d4aa9aad532b169238
   m_configObjects: {}

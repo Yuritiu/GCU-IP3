@@ -28,6 +28,10 @@ public class Knife : MonoBehaviour
                     StartCoroutine(GameManager.Instance.WaitToCompareCards(1, 1));
                 }
             }
+            else
+            {
+                StartCoroutine(GameManager.Instance.WaitToCompareCards(1, 1));
+            }
         }
         else
         {
@@ -55,6 +59,10 @@ public class Knife : MonoBehaviour
                 {
                     StartCoroutine(GameManager.Instance.WaitToCompareCards(2, 1));
                 }
+            }
+            else
+            {
+                StartCoroutine(GameManager.Instance.WaitToCompareCards(2, 1));
             }
         }
         else

@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class CigarCard : MonoBehaviour
 {
+    //!- Coded By Charlie -!
+
     //Called From GameManager
     public void PlayCardForPlayer()
     {

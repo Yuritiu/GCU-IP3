@@ -6,6 +6,8 @@ using UnityEngine.UI;
 
 public class BloodlossSystem : MonoBehaviour
 {
+    //!- Coded By Charlie -!
+
     public static BloodlossSystem Instance;
 
     //1 is Easy, 2 is Hard

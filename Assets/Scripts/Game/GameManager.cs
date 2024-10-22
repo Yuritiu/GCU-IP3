@@ -242,8 +242,6 @@ public class GameManager : MonoBehaviour
 
     public void CheckArmour(int character)
     {
-        //print(aiArmour);
-        //print(playerArmour);
         if (character == 1 && IsReadyToCompare)
         {
             if (aiArmour > 0)

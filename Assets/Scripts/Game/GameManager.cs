@@ -215,6 +215,12 @@ public class GameManager : MonoBehaviour
         {
             playerFingers--;
             playerHand.RemoveFinger(playerFingers);
+
+            if(playerFingers == 4)
+            {
+                Debug.Log("Countdown Started");
+                BloodlossSystem.Instance.StartCountdown();
+            }
         }
 
         if (aiFingers <= 0)

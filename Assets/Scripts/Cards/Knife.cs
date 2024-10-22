@@ -8,13 +8,13 @@ public class Knife : MonoBehaviour
     public void PlayCardForPlayer()
     {
         //Damage opponent 
-        //takes 1 finger away 
+        //takes 1 finger away
         StartCoroutine(GameManager.Instance.WaitToCompareCards(1, 1));
     }
     public void PlayCardForAI()
     {
         //Damage opponent 
-        //takes 1 finger away 
+        //takes 1 finger away
         StartCoroutine(GameManager.Instance.WaitToCompareCards(2, 1));
     }
 }

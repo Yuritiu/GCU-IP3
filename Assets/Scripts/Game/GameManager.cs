@@ -189,13 +189,17 @@ public class GameManager : MonoBehaviour
     public IEnumerator WaitToCompareCards(int character, int type)
     {
         //waits for cards to reveal
-        yield return new WaitForSeconds(1);
+        yield return new WaitForSeconds(1f);
         if(type == 1)
         {
             CheckArmour(character);
         }
+        if(type == 2)
+        {
+            //Need To Wait For cardsOnTable2 Reference To Be Filled At This Point
+            PlayCigarCard(character);
+        }
     }
-
 
     public void UpdateHealth(int character)
     {
@@ -232,7 +236,6 @@ public class GameManager : MonoBehaviour
 
     public void CheckArmour(int character)
     {
-        
         if (character == 1 && IsReadyToCompare)
         {
             if (aiArmour > 0)
@@ -240,29 +243,15 @@ public class GameManager : MonoBehaviour
                 aiArmour--;
                 if (cardsOnTable1 != null)
                 {
-                    if (cardsOnTable1.gameObject.name.Contains("Gun"))
-                    { //stop gun
+                    if (cardsOnTable1.gameObject.name.Contains("Gun") || cardsOnTable1.gameObject.name.Contains("Knife"))
+                    { //stop gun/ knife
                         return;
                     }
                 }
                 if (cardsOnTable2 != null)
                 {
-                    if (cardsOnTable2.gameObject.name.Contains("Gun"))
-                    { //stop gun
-                        return;
-                    }
-                }
-                if (cardsOnTable1 != null)
-                {
-                    if (cardsOnTable1.gameObject.name.Contains("Knife"))
-                    { //stop knife
-                        return;
-                    }
-                }
-                if (cardsOnTable2 != null)
-                {
-                    if (cardsOnTable2.gameObject.name.Contains("Knife"))
-                    { //stop knife
+                    if (cardsOnTable2.gameObject.name.Contains("Gun") || cardsOnTable2.gameObject.name.Contains("Knife"))
+                    { //stop gun/ knife
                         return;
                     }
                 }
@@ -276,29 +265,15 @@ public class GameManager : MonoBehaviour
                 playerArmour--;
                 if (cardsOnTable3 != null)
                 {
-                    if (cardsOnTable3.gameObject.name.Contains("Gun"))
-                    { //stop gun
+                    if (cardsOnTable3.gameObject.name.Contains("Gun") || cardsOnTable3.gameObject.name.Contains("Knife"))
+                    { //stop gun/ knife
                         return;
                     }
                 }
                 if (cardsOnTable4 != null)
                 {
-                    if (cardsOnTable4.gameObject.name.Contains("Gun"))
-                    { //stop gun
-                        return;
-                    }
-                }
-                if (cardsOnTable3 != null)
-                {
-                    if (cardsOnTable3.gameObject.name.Contains("Knife"))
-                    { //stop knife
-                        return;
-                    }
-                }
-                if (cardsOnTable4 != null)
-                {
-                    if (cardsOnTable4.gameObject.name.Contains("Knife"))
-                    { //stop knife
+                    if (cardsOnTable4.gameObject.name.Contains("Gun") || cardsOnTable4.gameObject.name.Contains("Knife"))
+                    { //stop gun/ knife
                         return;
                     }
                 }
@@ -306,6 +281,59 @@ public class GameManager : MonoBehaviour
         }
 
         UpdateHealth(character);
+    }
+
+    public void PlayCigarCard(int player)
+    {
+        //Player Functions
+        if (player == 1)
+        {
+            if (cardsOnTable1 != null && cardsOnTable2 != null)
+            {
+                var cardObject1 = cardsOnTable1.gameObject;
+                var cardObject2 = cardsOnTable2.gameObject;
+                Component playerClonedCard = null;
+
+                //Card To Be Cloned Is In Slot 2
+                if (cardObject1.name.Contains("Cigar") && !cardObject2.name.Contains("Cigar"))
+                {
+                    Debug.Log("Called Function 1");
+                    playerClonedCard = cardObject2.GetComponentAtIndex(1);
+                    playerClonedCard.SendMessage("PlayCardForPlayer");
+                }
+                //Card To Be Cloned Is In Slot 1
+                if (cardObject2.name.Contains("Cigar") && !cardObject1.name.Contains("Cigar"))
+                {
+                    Debug.Log("Called Function 2");
+                    playerClonedCard = cardObject1.GetComponentAtIndex(1);
+                    playerClonedCard.SendMessage("PlayCardForPlayer");
+                }
+            }
+        }
+        else if (player == 2)
+        {
+            if (cardsOnTable3 != null && cardsOnTable4 != null)
+            {
+                var cardObject3 = cardsOnTable3.gameObject;
+                var cardObject4 = cardsOnTable4.gameObject;
+                Component aiClonedCard = null;
+
+                //Card To Be Cloned Is In Slot 4
+                if (cardObject3.name.Contains("Cigar") && !cardObject4.name.Contains("Cigar"))
+                {
+                    Debug.Log("Called Function 3");
+                    aiClonedCard = cardObject4.GetComponentAtIndex(1);
+                    aiClonedCard.SendMessage("PlayCardForAI");
+                }
+                //Card To Be Cloned Is In Slot 3
+                if (cardObject4.name.Contains("Cigar") && !cardObject3.name.Contains("Cigar"))
+                {
+                    Debug.Log("Called Function 4");
+                    aiClonedCard = cardObject3.GetComponentAtIndex(1);
+                    aiClonedCard.SendMessage("PlayCardForAI");
+                }
+            }
+        }
     }
 }
 

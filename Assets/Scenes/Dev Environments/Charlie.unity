@@ -997,11 +997,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2406518960279142464, guid: 6d97c6adadc67ca4a9fab2ffb0260aee, type: 3}
       propertyPath: commonRarity
-      value: 45000
+      value: 45
       objectReference: {fileID: 0}
     - target: {fileID: 2406518960279142464, guid: 6d97c6adadc67ca4a9fab2ffb0260aee, type: 3}
       propertyPath: legendaryRarity
-      value: 5000
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 2406518960279142464, guid: 6d97c6adadc67ca4a9fab2ffb0260aee, type: 3}
       propertyPath: selectedPosition1
@@ -1037,11 +1037,11 @@ PrefabInstance:
       objectReference: {fileID: 549887126}
     - target: {fileID: 5165826222751895394, guid: 6d97c6adadc67ca4a9fab2ffb0260aee, type: 3}
       propertyPath: commonRarity
-      value: 45000
+      value: 45
       objectReference: {fileID: 0}
     - target: {fileID: 5165826222751895394, guid: 6d97c6adadc67ca4a9fab2ffb0260aee, type: 3}
       propertyPath: legendaryRarity
-      value: 5000
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 5165826222751895394, guid: 6d97c6adadc67ca4a9fab2ffb0260aee, type: 3}
       propertyPath: selectedPosition1

@@ -996,14 +996,6 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 2406518960279142464, guid: 6d97c6adadc67ca4a9fab2ffb0260aee, type: 3}
-      propertyPath: commonRarity
-      value: 45
-      objectReference: {fileID: 0}
-    - target: {fileID: 2406518960279142464, guid: 6d97c6adadc67ca4a9fab2ffb0260aee, type: 3}
-      propertyPath: legendaryRarity
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 2406518960279142464, guid: 6d97c6adadc67ca4a9fab2ffb0260aee, type: 3}
       propertyPath: selectedPosition1
       value: 
       objectReference: {fileID: 1460214438}
@@ -1011,14 +1003,6 @@ PrefabInstance:
       propertyPath: selectedPosition2
       value: 
       objectReference: {fileID: 1136596084}
-    - target: {fileID: 2406518960279142464, guid: 6d97c6adadc67ca4a9fab2ffb0260aee, type: 3}
-      propertyPath: commonCards.Array.size
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 2406518960279142464, guid: 6d97c6adadc67ca4a9fab2ffb0260aee, type: 3}
-      propertyPath: commonCards.Array.data[1]
-      value: 
-      objectReference: {fileID: 5151252464221464428, guid: ff1c425c752908e4e9acef001e29d0cc, type: 3}
     - target: {fileID: 2406518960279142464, guid: 6d97c6adadc67ca4a9fab2ffb0260aee, type: 3}
       propertyPath: originalPositions.Array.data[0]
       value: 
@@ -1036,14 +1020,6 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 549887126}
     - target: {fileID: 5165826222751895394, guid: 6d97c6adadc67ca4a9fab2ffb0260aee, type: 3}
-      propertyPath: commonRarity
-      value: 45
-      objectReference: {fileID: 0}
-    - target: {fileID: 5165826222751895394, guid: 6d97c6adadc67ca4a9fab2ffb0260aee, type: 3}
-      propertyPath: legendaryRarity
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 5165826222751895394, guid: 6d97c6adadc67ca4a9fab2ffb0260aee, type: 3}
       propertyPath: selectedPosition1
       value: 
       objectReference: {fileID: 1339921936}
@@ -1055,18 +1031,6 @@ PrefabInstance:
       propertyPath: debugCurrentTurnText
       value: 
       objectReference: {fileID: 390538607}
-    - target: {fileID: 5165826222751895394, guid: 6d97c6adadc67ca4a9fab2ffb0260aee, type: 3}
-      propertyPath: legendaryCards.Array.size
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 5165826222751895394, guid: 6d97c6adadc67ca4a9fab2ffb0260aee, type: 3}
-      propertyPath: legendaryCards.Array.data[0]
-      value: 
-      objectReference: {fileID: 5151252464221464428, guid: 130beecb2e8de9741bacdfe90e5da662, type: 3}
-    - target: {fileID: 5165826222751895394, guid: 6d97c6adadc67ca4a9fab2ffb0260aee, type: 3}
-      propertyPath: legendaryCards.Array.data[1]
-      value: 
-      objectReference: {fileID: 5151252464221464428, guid: 3d87694ab00b85040a1e91d329ba5f02, type: 3}
     - target: {fileID: 5165826222751895394, guid: 6d97c6adadc67ca4a9fab2ffb0260aee, type: 3}
       propertyPath: originalPositions.Array.data[0]
       value: 

@@ -372,5 +372,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cardInfoImageTag: CardInfoImage
   cardInfoTextTag: CardInfoText
-  cardInfoImage: {fileID: 7319352315363178561, guid: 58a1e12e6c0c842429053033c91e6e08, type: 3}
+  cardInfoImage: {fileID: 7319352315363178561, guid: edb6bd3d944c4a742a6b7546aefbab5a, type: 3}
   cardInfoText: Swing Away - Skip Opponent's Next Turn

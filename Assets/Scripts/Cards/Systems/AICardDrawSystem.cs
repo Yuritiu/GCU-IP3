@@ -119,7 +119,7 @@ public class AICardDrawSystem : MonoBehaviour
         index = Random.Range(0, 3);
         
         //for debugging
-        //index = 0; 
+        index = 0; 
         //print(index);
 
 
@@ -131,6 +131,7 @@ public class AICardDrawSystem : MonoBehaviour
                 cardsInHand[index].gameObject.transform.rotation = selectedPosition1.transform.rotation;
                 //Move To Selected Position 1
                 MoveCardToPosition(index, selectedPosition1);
+                return cardsInHand[index].GetComponentAtIndex(1);
             }
             else if (cardsInHand[index].gameObject.transform.parent != selectedPosition1)
             {
@@ -138,8 +139,8 @@ public class AICardDrawSystem : MonoBehaviour
                 cardsInHand[index].gameObject.transform.rotation = selectedPosition2.transform.rotation;
                 //Move To Selected Position 2
                 MoveCardToPosition(index, selectedPosition2);
+                return cardsInHand[index].GetComponentAtIndex(1);
             }
-            return cardsInHand[index].GetComponentAtIndex(1);
         }
         return null;
     }

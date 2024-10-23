@@ -31,8 +31,8 @@ public class GameManager : MonoBehaviour
     [HideInInspector] public int playerArmour;  
     
     [Header("Skip Turn Variables")]
-    [HideInInspector] public bool aiSkipNextTurn;
-    [HideInInspector] public bool playerSkipNextTurn;
+    [HideInInspector] public int aiSkippedTurns = 0;
+    [HideInInspector] public int playerSkippedTurns = 0;
     
     [Header("Cards on Table")]
     [HideInInspector] Component cardsOnTable1;
@@ -63,11 +63,11 @@ public class GameManager : MonoBehaviour
         playerArmour = 0;
         aiArmour = 0;
 
-        if (playerSkipNextTurn)
+        if (playerSkippedTurns > 0)
         {
             CardDrawSystem.Instance.isPlayersTurn = false;
 
-            playerSkipNextTurn = false;
+            playerSkippedTurns--;
 
             //Debug
             CardDrawSystem.Instance.debugCurrentTurnText.text = ("Skipped Players Turn");
@@ -85,9 +85,12 @@ public class GameManager : MonoBehaviour
 
     public void PlayHand()
     {
+        Debug.Log("Player Skipped Turns 1: " + playerSkippedTurns);
+        Debug.Log("AI Skipped Turns 1: " + aiSkippedTurns);
+
         Debug.Log("Played Hand");
 
-        if (!aiSkipNextTurn)
+        if (aiSkippedTurns == 0)
         {
             StartCoroutine(AIPlaceCards());
         }
@@ -99,11 +102,17 @@ public class GameManager : MonoBehaviour
 
     public void ShowCards()
     {
-        aiSkipNextTurn = false;
+        if (aiSkippedTurns > 0)
+        {
+            aiSkippedTurns--;
+        }
+
+        Debug.Log("Player Skipped Turns 2: " + playerSkippedTurns);
+        Debug.Log("AI Skipped Turns 2: " + aiSkippedTurns);
 
         //IMPORTANT Make Sure The Cards Logic Is Executed Before This Is Called!
         //Could Maybe Add The Destroy To The Card GameObject
-        if (CardDrawSystem.Instance.selectedPosition1.childCount > 0 && !playerSkipNextTurn)
+        if (CardDrawSystem.Instance.selectedPosition1.childCount > 0 && playerSkippedTurns == 0)
         {
             //For This To Work, Please Make Sure Card's Logic Is Executed In A Public Function Called PlayCard
             //And The Card's Hierarchy Mathches The 'Skip Next Turn' Card
@@ -113,7 +122,7 @@ public class GameManager : MonoBehaviour
 
             CardDrawSystem.Instance.selectedCardCount--;
         }
-        if (CardDrawSystem.Instance.selectedPosition2.childCount > 0 && !playerSkipNextTurn)
+        if (CardDrawSystem.Instance.selectedPosition2.childCount > 0 && playerSkippedTurns == 0)
         {
             //For This To Work, Please Make Sure Card's Logic Is Executed In A Public Function Called PlayCard
             //And The Card's Hierarchy Mathches The 'Skip Next Turn' Card

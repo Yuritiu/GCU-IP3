@@ -8,11 +8,11 @@ public class SwingAwayCard : MonoBehaviour
     public void PlayCardForPlayer()
     {
         //Skip AI Turn
-        GameManager.Instance.aiSkipNextTurn = true;
+        GameManager.Instance.aiSkippedTurns++;
     }
     public void PlayCardForAI()
     {
         //Skip Players Turn
-        GameManager.Instance.playerSkipNextTurn = true;
+        GameManager.Instance.playerSkippedTurns++;
     }
 }

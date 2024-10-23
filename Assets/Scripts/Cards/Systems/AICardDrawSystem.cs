@@ -111,18 +111,28 @@ public class AICardDrawSystem : MonoBehaviour
         }
     }
 
-    public Component SelectCard(int index)
+    public Component SelectCard()
     {
+        int index;
+
+        //picks cards AI will use
+        index = Random.Range(0, 3);
+        
+        //for debugging
+        //index = 0; 
+        //print(index);
+
+
         if (cardsInHand[index] != null)
         {
-            if ((selectedCardCount == 0) || (selectedCardCount == 1 && selectedPosition2.childCount >= 1))
+            if (selectedCardCount == 0)
             {
                 //Resize Card
                 cardsInHand[index].gameObject.transform.rotation = selectedPosition1.transform.rotation;
                 //Move To Selected Position 1
                 MoveCardToPosition(index, selectedPosition1);
             }
-            else if (selectedCardCount == 1 && (selectedPosition2.childCount <= 0))
+            else if (cardsInHand[index].gameObject.transform.parent != selectedPosition1)
             {
                 //Resize Card
                 cardsInHand[index].gameObject.transform.rotation = selectedPosition2.transform.rotation;

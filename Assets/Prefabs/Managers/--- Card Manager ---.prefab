@@ -105,6 +105,6 @@ MonoBehaviour:
   rareCards:
   - {fileID: 5151252464221464428, guid: 130beecb2e8de9741bacdfe90e5da662, type: 3}
   legendaryCards:
-  - {fileID: 5151252464221464428, guid: 130beecb2e8de9741bacdfe90e5da662, type: 3}
+  - {fileID: 5151252464221464428, guid: 3d87694ab00b85040a1e91d329ba5f02, type: 3}
   selectedCardCount: 0
   isPlayersTurn: 1

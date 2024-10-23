@@ -190,6 +190,10 @@ PrefabInstance:
       propertyPath: playerFingersText
       value: 
       objectReference: {fileID: 1239972849}
+    - target: {fileID: 2981733723500107123, guid: 5f30ef53536cc8b4694232906fbc92d4, type: 3}
+      propertyPath: countdownImage
+      value: 
+      objectReference: {fileID: 286501873}
     - target: {fileID: 3915920376543808648, guid: 5f30ef53536cc8b4694232906fbc92d4, type: 3}
       propertyPath: m_Name
       value: --- Game Manager ---
@@ -370,6 +374,17 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6afd09848d8c1e34dbf43de5c6151b0f, type: 3}
+--- !u!114 &286501873 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5451675331930714153, guid: 15e81af6a95cd7d46bcfa965d49e2119, type: 3}
+  m_PrefabInstance: {fileID: 1950323746}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &298474150 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5524974818474993214, guid: 4070d1c5937e76747a20cbbed1d6316e, type: 3}
@@ -1610,6 +1625,14 @@ PrefabInstance:
     - target: {fileID: 5451675331930714153, guid: 15e81af6a95cd7d46bcfa965d49e2119, type: 3}
       propertyPath: m_Color.r
       value: 0.78616357
+      objectReference: {fileID: 0}
+    - target: {fileID: 5894781498361527960, guid: 15e81af6a95cd7d46bcfa965d49e2119, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 5894781498361527960, guid: 15e81af6a95cd7d46bcfa965d49e2119, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 8184262763117406225, guid: 15e81af6a95cd7d46bcfa965d49e2119, type: 3}
       propertyPath: m_Pivot.x

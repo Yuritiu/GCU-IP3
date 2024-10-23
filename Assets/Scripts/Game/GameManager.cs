@@ -63,6 +63,8 @@ public class GameManager : MonoBehaviour
         playerArmour = 0;
         aiArmour = 0;
 
+        AICardDrawSystem.Instance.selectedCardCount = 0;
+
         if (playerSkippedTurns > 0)
         {
             CardDrawSystem.Instance.isPlayersTurn = false;
@@ -142,6 +144,11 @@ public class GameManager : MonoBehaviour
             AICardDrawSystem.Instance.selectedCardCount--;
         }
 
+        if (playerSkippedTurns > 0)
+        {
+            playerSkippedTurns--;
+        }
+        
         IsReadyToCompare = true;
 
         CardDrawSystem.Instance.isPlayersTurn = false;
@@ -152,9 +159,9 @@ public class GameManager : MonoBehaviour
     {
         //waits for cards to reveal
         yield return new WaitForSeconds(0.3f);
-        cardsOnTable3 = AICardDrawSystem.Instance.SelectCard(0);
+        cardsOnTable3 = AICardDrawSystem.Instance.SelectCard();
         yield return new WaitForSeconds(0.3f);
-        cardsOnTable4 = AICardDrawSystem.Instance.SelectCard(1);
+        cardsOnTable4 = AICardDrawSystem.Instance.SelectCard();
         yield return new WaitForSeconds(0.3f);
         ShowCards();
     }

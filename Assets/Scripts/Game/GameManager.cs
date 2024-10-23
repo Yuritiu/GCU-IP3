@@ -85,9 +85,6 @@ public class GameManager : MonoBehaviour
 
     public void PlayHand()
     {
-        Debug.Log("Player Skipped Turns 1: " + playerSkippedTurns);
-        Debug.Log("AI Skipped Turns 1: " + aiSkippedTurns);
-
         Debug.Log("Played Hand");
 
         if (aiSkippedTurns == 0)
@@ -106,9 +103,6 @@ public class GameManager : MonoBehaviour
         {
             aiSkippedTurns--;
         }
-
-        Debug.Log("Player Skipped Turns 2: " + playerSkippedTurns);
-        Debug.Log("AI Skipped Turns 2: " + aiSkippedTurns);
 
         //IMPORTANT Make Sure The Cards Logic Is Executed Before This Is Called!
         //Could Maybe Add The Destroy To The Card GameObject

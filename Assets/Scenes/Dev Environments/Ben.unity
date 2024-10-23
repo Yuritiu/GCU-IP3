@@ -1228,7 +1228,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2406518960279142464, guid: 6d97c6adadc67ca4a9fab2ffb0260aee, type: 3}
       propertyPath: commonRarity
-      value: 45000
+      value: 45
       objectReference: {fileID: 0}
     - target: {fileID: 2406518960279142464, guid: 6d97c6adadc67ca4a9fab2ffb0260aee, type: 3}
       propertyPath: selectedPosition1
@@ -1238,6 +1238,10 @@ PrefabInstance:
       propertyPath: selectedPosition2
       value: 
       objectReference: {fileID: 1811927717}
+    - target: {fileID: 2406518960279142464, guid: 6d97c6adadc67ca4a9fab2ffb0260aee, type: 3}
+      propertyPath: uncommonCards.Array.data[0]
+      value: 
+      objectReference: {fileID: 5151252464221464428, guid: d9f73ac08cdc6b04cbaef1985297fc56, type: 3}
     - target: {fileID: 2406518960279142464, guid: 6d97c6adadc67ca4a9fab2ffb0260aee, type: 3}
       propertyPath: originalPositions.Array.data[0]
       value: 
@@ -1256,7 +1260,7 @@ PrefabInstance:
       objectReference: {fileID: 1908238029}
     - target: {fileID: 5165826222751895394, guid: 6d97c6adadc67ca4a9fab2ffb0260aee, type: 3}
       propertyPath: commonRarity
-      value: 45000
+      value: 45
       objectReference: {fileID: 0}
     - target: {fileID: 5165826222751895394, guid: 6d97c6adadc67ca4a9fab2ffb0260aee, type: 3}
       propertyPath: selectedPosition1
@@ -1270,6 +1274,14 @@ PrefabInstance:
       propertyPath: debugCurrentTurnText
       value: 
       objectReference: {fileID: 1239972850}
+    - target: {fileID: 5165826222751895394, guid: 6d97c6adadc67ca4a9fab2ffb0260aee, type: 3}
+      propertyPath: uncommonCards.Array.data[0]
+      value: 
+      objectReference: {fileID: 5151252464221464428, guid: d9f73ac08cdc6b04cbaef1985297fc56, type: 3}
+    - target: {fileID: 5165826222751895394, guid: 6d97c6adadc67ca4a9fab2ffb0260aee, type: 3}
+      propertyPath: legendaryCards.Array.data[0]
+      value: 
+      objectReference: {fileID: 5151252464221464428, guid: 3d87694ab00b85040a1e91d329ba5f02, type: 3}
     - target: {fileID: 5165826222751895394, guid: 6d97c6adadc67ca4a9fab2ffb0260aee, type: 3}
       propertyPath: originalPositions.Array.data[0]
       value: 
@@ -1583,6 +1595,22 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 5451675331930714153, guid: 15e81af6a95cd7d46bcfa965d49e2119, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: c668c9c7c5532fb448501bcc8733799d, type: 3}
+    - target: {fileID: 5451675331930714153, guid: 15e81af6a95cd7d46bcfa965d49e2119, type: 3}
+      propertyPath: m_Color.b
+      value: 0.08652735
+      objectReference: {fileID: 0}
+    - target: {fileID: 5451675331930714153, guid: 15e81af6a95cd7d46bcfa965d49e2119, type: 3}
+      propertyPath: m_Color.g
+      value: 0.08652735
+      objectReference: {fileID: 0}
+    - target: {fileID: 5451675331930714153, guid: 15e81af6a95cd7d46bcfa965d49e2119, type: 3}
+      propertyPath: m_Color.r
+      value: 0.78616357
+      objectReference: {fileID: 0}
     - target: {fileID: 8184262763117406225, guid: 15e81af6a95cd7d46bcfa965d49e2119, type: 3}
       propertyPath: m_Pivot.x
       value: 0

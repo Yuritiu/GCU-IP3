@@ -65,10 +65,9 @@ MonoBehaviour:
   uncommonCards:
   - {fileID: 5151252464221464428, guid: c19b72001f64ae542b3514d6c91e08cf, type: 3}
   rareCards:
-  - {fileID: 5151252464221464428, guid: 76e55f57304035f459ce88dd15bad11f, type: 3}
+  - {fileID: 5151252464221464428, guid: 130beecb2e8de9741bacdfe90e5da662, type: 3}
   legendaryCards:
   - {fileID: 5151252464221464428, guid: 3d87694ab00b85040a1e91d329ba5f02, type: 3}
-  - {fileID: 5151252464221464428, guid: 130beecb2e8de9741bacdfe90e5da662, type: 3}
   selectedCardCount: 0
   isPlayersTurn: 1
 --- !u!114 &5165826222751895394
@@ -104,9 +103,8 @@ MonoBehaviour:
   uncommonCards:
   - {fileID: 5151252464221464428, guid: c19b72001f64ae542b3514d6c91e08cf, type: 3}
   rareCards:
-  - {fileID: 5151252464221464428, guid: 76e55f57304035f459ce88dd15bad11f, type: 3}
+  - {fileID: 5151252464221464428, guid: 130beecb2e8de9741bacdfe90e5da662, type: 3}
   legendaryCards:
   - {fileID: 5151252464221464428, guid: 130beecb2e8de9741bacdfe90e5da662, type: 3}
-  - {fileID: 5151252464221464428, guid: 3d87694ab00b85040a1e91d329ba5f02, type: 3}
   selectedCardCount: 0
   isPlayersTurn: 1

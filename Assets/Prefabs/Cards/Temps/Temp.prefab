@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 3738365108683279466}
   - component: {fileID: 8153615240554731953}
   m_Layer: 6
-  m_Name: Common Temp
+  m_Name: Temp
   m_TagString: Card
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -63,7 +63,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: cec5648a205158947bfdbe8f715d18f4, type: 2}
+  - {fileID: 2100000, guid: 3b0d65cd0dc5a2c4bb8fbd01256d8d5d, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

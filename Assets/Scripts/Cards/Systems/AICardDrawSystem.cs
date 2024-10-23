@@ -131,7 +131,7 @@ public class AICardDrawSystem : MonoBehaviour
                 cardsInHand[index].gameObject.transform.rotation = selectedPosition1.transform.rotation;
                 //Move To Selected Position 1
                 MoveCardToPosition(index, selectedPosition1);
-                return cardsInHand[index].GetComponentAtIndex(1);
+                return cardsInHand[index].GetComponentAtIndex(0);
             }
             else if (cardsInHand[index].gameObject.transform.parent != selectedPosition1)
             {

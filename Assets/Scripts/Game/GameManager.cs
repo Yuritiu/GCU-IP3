@@ -144,11 +144,6 @@ public class GameManager : MonoBehaviour
             AICardDrawSystem.Instance.selectedCardCount--;
         }
 
-        if (playerSkippedTurns > 0)
-        {
-            playerSkippedTurns--;
-        }
-        
         IsReadyToCompare = true;
 
         CardDrawSystem.Instance.isPlayersTurn = false;

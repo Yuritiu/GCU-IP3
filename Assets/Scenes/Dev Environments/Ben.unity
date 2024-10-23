@@ -1242,8 +1242,16 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 2406518960279142464, guid: 6d97c6adadc67ca4a9fab2ffb0260aee, type: 3}
+      propertyPath: rareRarity
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 2406518960279142464, guid: 6d97c6adadc67ca4a9fab2ffb0260aee, type: 3}
       propertyPath: commonRarity
       value: 45
+      objectReference: {fileID: 0}
+    - target: {fileID: 2406518960279142464, guid: 6d97c6adadc67ca4a9fab2ffb0260aee, type: 3}
+      propertyPath: uncommonRarity
+      value: 30
       objectReference: {fileID: 0}
     - target: {fileID: 2406518960279142464, guid: 6d97c6adadc67ca4a9fab2ffb0260aee, type: 3}
       propertyPath: selectedPosition1

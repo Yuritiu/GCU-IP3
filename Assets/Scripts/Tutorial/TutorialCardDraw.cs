@@ -5,11 +5,11 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using static UnityEngine.UI.Image;
 
-public class CardDrawSystem : MonoBehaviour
+public class TutorialCardDraw : MonoBehaviour
 {
     //!-Coded By Charlie-!
 
-    public static CardDrawSystem Instance;
+    public static TutorialCardDraw Instance;
 
     //DEBUG VARIABLES -> REMOVE FROM FINAL BUILD
     [Header("Debug Variables")]
@@ -24,7 +24,7 @@ public class CardDrawSystem : MonoBehaviour
     //Original Positions For The Cards
     [SerializeField] Transform[] originalPositions;
     //Array For Actual Card GameObjects
-    [SerializeField] GameObject[] cardsInHand;
+    [SerializeField] public GameObject[] cardsInHand;
     //Selected Positions For The Cards
     [SerializeField] public Transform selectedPosition1;
     [SerializeField] public Transform selectedPosition2;
@@ -36,20 +36,22 @@ public class CardDrawSystem : MonoBehaviour
     [SerializeField] int legendaryRarity = 5;
     int totalRarity;
 
-    [Header("Unique Cards")]
-    [SerializeField] GameObject[] commonCards;
-    [SerializeField] GameObject[] uncommonCards;
-    [SerializeField] GameObject[] rareCards;
-    [SerializeField] GameObject[] legendaryCards;
+    [Header("Cards")]
+    [SerializeField] GameObject[] knifeCard;
+    [SerializeField] GameObject[] armourCard;
+    [SerializeField] GameObject[] cigarCard;
+    [SerializeField] GameObject[] skipTurnCard;
 
     [HideInInspector]
     //Current Number Of Selected Cards - Max Of 2
     public int selectedCardCount = 0;
+    int cardsNumber = 0;
 
     //Hidden Variables
     [HideInInspector] public bool isPlayersTurn = true;
     [HideInInspector] bool cardAdded = false;
     [HideInInspector] public bool canPlay = true;
+    [HideInInspector] public bool canSelectCards = true;
     [HideInInspector] CardSelection cardSelection;
 
     private void Awake()
@@ -88,11 +90,14 @@ public class CardDrawSystem : MonoBehaviour
                 //Check For A Card Collider
                 if (hit.transform.CompareTag(cardTag) && canPlay)
                 {
+                    if (cardsInHand == null)
+                        return;
+
                     //Find The Index Of The Card In The cardsInHand Array
                     int cardIndex = System.Array.IndexOf(cardsInHand, hit.transform.gameObject);
 
                     //Check For Left Mouse Click
-                    if (Input.GetMouseButtonDown(0))
+                    if (Input.GetMouseButtonDown(0) && canSelectCards)
                     {
                         //Check That There Is Cards And It's The Players Turn
                         if ((cardIndex >= 0 && cardIndex < originalPositions.Length) && isPlayersTurn)
@@ -121,7 +126,7 @@ public class CardDrawSystem : MonoBehaviour
                     }
                 }
                 //Check For Left Mouse Click
-                if (Input.GetMouseButtonDown(0) && canPlay)
+                if (Input.GetMouseButtonDown(0) && canPlay && TutorialManager.Instance.tutorialPhase == 1)
                 {
                     //Check For Opponent's Collider
                     if (hit.transform.CompareTag(opponentTag))
@@ -138,13 +143,6 @@ public class CardDrawSystem : MonoBehaviour
     {
         //Initialize cardsInHand Array With 4 Slots
         cardsInHand = new GameObject[4];
-
-        uncommonRarity += commonRarity;
-        rareRarity += uncommonRarity;
-        legendaryRarity += rareRarity;
-
-        //+5 = 5% Chance For Legendary
-        totalRarity = legendaryRarity + 5;
 
         //Add 4 Random Cards To The cardsInHand Array
         for (int i = 0; i < cardsInHand.Length; i++)
@@ -176,37 +174,34 @@ public class CardDrawSystem : MonoBehaviour
 
     public GameObject GetRandomCard()
     {
-        //Randomly Select A Card Based On Rarity Chance
-        var randomChance = Random.Range(0, totalRarity);
+        cardsNumber++;
 
-        if (randomChance <= commonRarity)
+        if (cardsNumber <= 1)
         {
-            //Common Rarity
-            var commonRandomChance = Random.Range(0, commonCards.Length - 1);
-            return commonCards[Random.Range(0, commonCards.Length)];
+            //Give 2 Knife Cards @ Start Of Tutorial
+            return knifeCard[Random.Range(0, knifeCard.Length)];
         }
-        else if (randomChance > commonRarity && randomChance <= uncommonRarity)
+        else if (cardsNumber > 1 && cardsNumber <= 3)
         {
-            //Uncommon Rarity
-            var uncommonRandomChance = Random.Range(0, uncommonCards.Length - 1);
-            return uncommonCards[Random.Range(0, uncommonCards.Length)];
+            //Give 2 Armour Cards @ Start Of Tutorial
+            return armourCard[Random.Range(0, armourCard.Length)];
         }
-        else if (randomChance > uncommonRarity && randomChance <= rareRarity)
-        {
-            //Rare Rarity
-            var rareRandomChance = Random.Range(0, rareCards.Length - 1);
-            return rareCards[Random.Range(0, rareCards.Length)];
-        }
-        else if (randomChance > rareRarity && randomChance <= legendaryRarity)
-        {
-            //Legendary Rarity
-            var legendaryRandomChance = Random.Range(0, legendaryCards.Length - 1);
-            return legendaryCards[Random.Range(0, legendaryCards.Length)];
-        }
+        //else if (randomChance > uncommonRarity && randomChance <= rareRarity)
+        //{
+        //    //Rare Rarity
+        //    var rareRandomChance = Random.Range(0, rareCards.Length - 1);
+        //    return rareCards[Random.Range(0, rareCards.Length)];
+        //}
+        //else if (randomChance > rareRarity && randomChance <= legendaryRarity)
+        //{
+        //    //Legendary Rarity
+        //    var legendaryRandomChance = Random.Range(0, legendaryCards.Length - 1);
+        //    return legendaryCards[Random.Range(0, legendaryCards.Length)];
+        //}
         else
         {
             //Should Never Be Called - But Function Needs A Default Return Type
-            return commonCards[Random.Range(0, commonCards.Length)];
+            return knifeCard[Random.Range(0, knifeCard.Length)];
         }
     }
 
@@ -250,7 +245,7 @@ public class CardDrawSystem : MonoBehaviour
                 //Move To Selected Position 2
                 MoveCardToPosition(index, selectedPosition2);
             }
-        }     
+        }
     }
 
     void MoveCardToPosition(int index, Transform selectedPosition)

@@ -1877,6 +1877,8 @@ MonoBehaviour:
       m_Image: {fileID: 0}
     - m_Text: Joshs Scene
       m_Image: {fileID: 0}
+    - m_Text: Tutorial Scene
+      m_Image: {fileID: 0}
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []

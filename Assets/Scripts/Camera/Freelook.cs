@@ -19,7 +19,7 @@ public class Freelook : MonoBehaviour
     float yRotation = 0f;
     float currentYRotation = 0f;
 
-    bool canLook = true;
+    [HideInInspector] public bool canLook = true;
 
     void Start()
     {

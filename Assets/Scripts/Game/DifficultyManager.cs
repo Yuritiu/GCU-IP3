@@ -59,6 +59,12 @@ public class DifficultyManager : MonoBehaviour
                 //Load Josh's Scene
                 sceneToLoad = "Josh";
                 break;
+            case 6:
+                //Load Tutorial Scene
+                sceneToLoad = "Tutorial";
+                difficulty = 3;
+                SceneManager.LoadScene(sceneToLoad);
+                break;
             default:
                 Debug.LogWarning("No Dropdown Option Selected");
                 break;

@@ -42,10 +42,14 @@ public class GameManager : MonoBehaviour
 
     [Header("Cards ready to be compared")]
     bool IsReadyToCompare;
+
+    [HideInInspector] public bool canPlay = true;
+    [HideInInspector] public bool isTutorial = false;
  
     private void Awake()
     {
         Instance = this;
+        isTutorial = false;
 
         //Set Fingers To 5
         aiFingers = 5;
@@ -57,45 +61,79 @@ public class GameManager : MonoBehaviour
 
     public void NextTurn()
     {
+        if (!canPlay)
+            return;
+
         //Add Cards For Player And AI
-        CardDrawSystem.Instance.AddCardAfterTurn();
-        AICardDrawSystem.Instance.AddCardAfterTurn();
+        if (!isTutorial)
+        {
+            AICardDrawSystem.Instance.AddCardAfterTurn();
+            AICardDrawSystem.Instance.selectedCardCount = 0;
+            CardDrawSystem.Instance.AddCardAfterTurn();
+        }
+        else
+        {
+            TutorialAICardDraw.Instance.AddCardAfterTurn();
+            TutorialAICardDraw.Instance.selectedCardCount = 0;
+            TutorialCardDraw.Instance.AddCardAfterTurn();
+        }
+
         playerArmour = 0;
         aiArmour = 0;
 
-        AICardDrawSystem.Instance.selectedCardCount = 0;
-
         if (playerSkippedTurns > 0)
         {
-            CardDrawSystem.Instance.isPlayersTurn = false;
+            if (!isTutorial)
+            {
+                CardDrawSystem.Instance.isPlayersTurn = false;
+            }
+            else
+            {
+                TutorialCardDraw.Instance.isPlayersTurn = false;
+            }
 
             playerSkippedTurns--;
-
-            //Debug
-            CardDrawSystem.Instance.debugCurrentTurnText.text = ("Skipped Players Turn");
 
             PlayHand();
         }
         else
         {
-            CardDrawSystem.Instance.isPlayersTurn = true;
+            if (!isTutorial)
+            {
+                CardDrawSystem.Instance.isPlayersTurn = true;
 
-            //Debug
-            CardDrawSystem.Instance.debugCurrentTurnText.text = ("Play Time");
+                //Debug
+                CardDrawSystem.Instance.debugCurrentTurnText.text = ("Play Time");
+            }
+            else
+            {
+                TutorialCardDraw.Instance.isPlayersTurn = true;
+
+                //Debug
+                TutorialCardDraw.Instance.debugCurrentTurnText.text = ("Play Time");
+            }
         }
     }
 
     public void PlayHand()
     {
-        Debug.Log("Played Hand");
+        Debug.Log("Played Hand: " + isTutorial);
 
-        if (aiSkippedTurns == 0)
+        if (aiSkippedTurns == 0 && !isTutorial)
         {
             StartCoroutine(AIPlaceCards());
         }
-        else
+        else if(aiSkippedTurns == 0 && isTutorial)
+        {
+            StartCoroutine(AIPlaceCardsInTutorial());
+        }
+        else if(!isTutorial)
         {
             ShowCards();
+        }
+        else if(isTutorial)
+        {
+            ShowCardsInTutorial();
         }
     }
 
@@ -150,6 +188,58 @@ public class GameManager : MonoBehaviour
         StartCoroutine(WaitSoCardsCanReveal());
     }
 
+    //TUTORIAL SPECIFIC FUNCTION
+    public void ShowCardsInTutorial()
+    {
+        if (aiSkippedTurns > 0)
+        {
+            aiSkippedTurns--;
+        }
+
+        //IMPORTANT Make Sure The Cards Logic Is Executed Before This Is Called!
+        //Could Maybe Add The Destroy To The Card GameObject
+        if (TutorialCardDraw.Instance.selectedPosition1.childCount > 0 && playerSkippedTurns == 0)
+        {
+            //For This To Work, Please Make Sure Card's Logic Is Executed In A Public Function Called PlayCard
+            //And The Card's Hierarchy Mathches The 'Skip Next Turn' Card
+            cardsOnTable1 = TutorialCardDraw.Instance.selectedPosition1.GetChild(0).gameObject.GetComponentAtIndex(1);
+
+            cardsOnTable1.SendMessage("PlayCardForPlayer");
+
+            TutorialCardDraw.Instance.selectedCardCount--;
+        }
+        if (TutorialCardDraw.Instance.selectedPosition2.childCount > 0 && playerSkippedTurns == 0)
+        {
+            //For This To Work, Please Make Sure Card's Logic Is Executed In A Public Function Called PlayCard
+            //And The Card's Hierarchy Mathches The 'Skip Next Turn' Card
+            cardsOnTable2 = TutorialCardDraw.Instance.selectedPosition2.GetChild(0).gameObject.GetComponentAtIndex(1);
+            cardsOnTable2.SendMessage("PlayCardForPlayer");
+
+            TutorialCardDraw.Instance.selectedCardCount--;
+        }
+        if (cardsOnTable3 != null)
+        {
+            //For This To Work, Please Make Sure Card's Logic Is Executed In A Public Function Called PlayCard
+            //And The Card's Hierarchy Mathches The 'Skip Next Turn' Card
+            cardsOnTable3.SendMessage("PlayCardForAI");
+
+            TutorialAICardDraw.Instance.selectedCardCount--;
+        }
+        if (cardsOnTable4 != null)
+        {
+            //For This To Work, Please Make Sure Card's Logic Is Executed In A Public Function Called PlayCard
+            //And The Card's Hierarchy Mathches The 'Skip Next Turn' Card
+            cardsOnTable4.SendMessage("PlayCardForAI");
+
+            TutorialAICardDraw.Instance.selectedCardCount--;
+        }
+
+        IsReadyToCompare = true;
+
+        TutorialCardDraw.Instance.isPlayersTurn = false;
+        StartCoroutine(WaitSoCardsCanRevealInTutorial());
+    }
+
     IEnumerator AIPlaceCards()
     {
         //waits for cards to reveal
@@ -159,6 +249,17 @@ public class GameManager : MonoBehaviour
         cardsOnTable4 = AICardDrawSystem.Instance.SelectCard();
         yield return new WaitForSeconds(0.3f);
         ShowCards();
+    }
+
+    //TUTORIAL SPECIFIC FUNCTION
+    IEnumerator AIPlaceCardsInTutorial()
+    {
+        yield return new WaitForSeconds(0.3f);
+        cardsOnTable3 = TutorialAICardDraw.Instance.SelectCard();
+        yield return new WaitForSeconds(0.3f);
+        cardsOnTable4 = TutorialAICardDraw.Instance.SelectCard();
+        yield return new WaitForSeconds(0.3f);
+        ShowCardsInTutorial();
     }
 
     IEnumerator WaitSoCardsCanReveal()
@@ -183,6 +284,36 @@ public class GameManager : MonoBehaviour
         if (AICardDrawSystem.Instance.selectedPosition2.childCount > 0)
         {
             Destroy(AICardDrawSystem.Instance.selectedPosition2.GetChild(0).gameObject);
+        }
+
+        yield return new WaitForSeconds(0.5f);
+
+        IsReadyToCompare = false;
+        NextTurn();
+    }
+
+    IEnumerator WaitSoCardsCanRevealInTutorial()
+    {
+        //Debug
+        TutorialCardDraw.Instance.debugCurrentTurnText.text = ("Revealing Cards");
+
+        yield return new WaitForSeconds(4);
+
+        if (TutorialCardDraw.Instance.selectedPosition1.childCount > 0)
+        {
+            Destroy(TutorialCardDraw.Instance.selectedPosition1.GetChild(0).gameObject);
+        }
+        if (TutorialCardDraw.Instance.selectedPosition2.childCount > 0)
+        {
+            Destroy(TutorialCardDraw.Instance.selectedPosition2.GetChild(0).gameObject);
+        }
+        if (TutorialAICardDraw.Instance.selectedPosition1.childCount > 0)
+        {
+            Destroy(TutorialAICardDraw.Instance.selectedPosition1.GetChild(0).gameObject);
+        }
+        if (TutorialAICardDraw.Instance.selectedPosition2.childCount > 0)
+        {
+            Destroy(TutorialAICardDraw.Instance.selectedPosition2.GetChild(0).gameObject);
         }
 
         yield return new WaitForSeconds(0.5f);

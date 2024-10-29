@@ -916,6 +916,7 @@ MonoBehaviour:
   maxX: -60
   minY: -35
   maxY: 35
+  canLook: 1
 --- !u!1001 &1127844529
 PrefabInstance:
   m_ObjectHideFlags: 0

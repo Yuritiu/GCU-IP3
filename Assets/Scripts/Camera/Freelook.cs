@@ -8,9 +8,11 @@ public class Freelook : MonoBehaviour
     [SerializeField] float mouseSensitivity = 135f;
     [SerializeField] float mouseSmoothing = 0.1f;
 
-    [Header("Clamp Variables")]
-    [SerializeField] float minX = 35f;
-    [SerializeField] float maxX = -75f;
+    [Header("Clamp Vertical Variables")]
+    [SerializeField] float minX = -35f;
+    [SerializeField] float maxX = 35f;
+
+    [Header("Clamp Horizontal Variables")]
     [SerializeField] float minY = -75f;
     [SerializeField] float maxY = 75f;
 
@@ -39,10 +41,9 @@ public class Freelook : MonoBehaviour
         float mouseX = Input.GetAxis("Mouse X") * mouseSensitivity * Time.deltaTime;
         float mouseY = Input.GetAxis("Mouse Y") * mouseSensitivity * Time.deltaTime;
 
-        //FIX: Clamping The X Doesnt Work - Makes Camera Jump Up On Start
         //Adjust X (Vertical) Rotation And Clamp
         xRotation -= mouseY;
-        //xRotation = Mathf.Clamp(xRotation, minX, maxX);
+        xRotation = Mathf.Clamp(xRotation, minX, maxX);
 
         //Adjust Y (Horizontal) Rotation And Clamp
         yRotation += mouseX;

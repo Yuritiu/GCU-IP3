@@ -119,7 +119,7 @@ public class AICardDrawSystem : MonoBehaviour
         index = Random.Range(0, 3);
         
         //for debugging
-        index = 0; 
+        //index = 0; 
         //print(index);
 
 

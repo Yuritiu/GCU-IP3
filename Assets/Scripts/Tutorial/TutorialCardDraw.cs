@@ -126,13 +126,14 @@ public class TutorialCardDraw : MonoBehaviour
                     }
                 }
                 //Check For Left Mouse Click
-                if (Input.GetMouseButtonDown(0) && canPlay && TutorialManager.Instance.tutorialPhase == 1)
+                if (Input.GetMouseButtonDown(0) && canPlay)
                 {
                     //Check For Opponent's Collider
-                    if (hit.transform.CompareTag(opponentTag))
+                    if (hit.transform.CompareTag(opponentTag) && TutorialManager.Instance.canSkipTurn)
                     {
                         //Check If It's The Players Turn And Atleast 1 Card Is Selected
                         GameManager.Instance.PlayHand();
+                        TutorialManager.Instance.playedHand = true;
                     }
                 }
             }
@@ -174,17 +175,29 @@ public class TutorialCardDraw : MonoBehaviour
 
     public GameObject GetRandomCard()
     {
+        Debug.Log("Called Get Card");
+        //Increment Card Number For Tutorial ONLY So Cards In Hand Can Be Controlled
         cardsNumber++;
 
-        if (cardsNumber <= 1)
+        if (cardsNumber <= 2)
         {
-            //Give 2 Knife Cards @ Start Of Tutorial
+            //Give 3 Knife Cards @ Start Of Tutorial
             return knifeCard[Random.Range(0, knifeCard.Length)];
         }
-        else if (cardsNumber > 1 && cardsNumber <= 3)
+        else if (cardsNumber > 2 && cardsNumber <= 3)
         {
-            //Give 2 Armour Cards @ Start Of Tutorial
+            //Give 1 Armour Card @ Start Of Tutorial
             return armourCard[Random.Range(0, armourCard.Length)];
+        }
+        else if(cardsNumber > 5 && cardsNumber <= 6)
+        {
+            //Give A Cigar Card When Required
+            return skipTurnCard[Random.Range(0, skipTurnCard.Length)];
+        }
+        else if(cardsNumber > 6 && cardsNumber <= 7)
+        {
+            //Give A Skip Turn Card When Required
+            return cigarCard[Random.Range(0, cigarCard.Length)];
         }
         //else if (randomChance > uncommonRarity && randomChance <= rareRarity)
         //{

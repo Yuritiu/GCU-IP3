@@ -78,7 +78,8 @@ public class TutorialAICardDraw : MonoBehaviour
 
     public GameObject GetRandomCard()
     {
-        //Randomly Select A Card Based On Rarity Chance
+        Debug.Log("Called Get Card");
+        //Increment Card Number For Tutorial ONLY So Cards In Hand Can Be Controlled
         cardsNumber++;
 
         if (cardsNumber <= 3)

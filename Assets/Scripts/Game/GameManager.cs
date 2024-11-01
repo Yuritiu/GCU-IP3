@@ -64,6 +64,8 @@ public class GameManager : MonoBehaviour
         if (!canPlay)
             return;
 
+        Debug.Log("Next Turn");
+
         //Add Cards For Player And AI
         if (!isTutorial)
         {
@@ -359,13 +361,13 @@ public class GameManager : MonoBehaviour
             }
         }
 
-        if (aiFingers <= 0)
+        if (aiFingers <= 0 && !isTutorial)
         {
             var activeScene = SceneManager.GetActiveScene().name;
             SceneManager.LoadScene(activeScene);
             //YOU WIN!!
         }
-        else if (playerFingers <= 0)
+        else if (playerFingers <= 0 && !isTutorial)
         {
             var activeScene = SceneManager.GetActiveScene().name;
             SceneManager.LoadScene(activeScene);

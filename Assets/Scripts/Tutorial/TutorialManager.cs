@@ -204,7 +204,7 @@ public class TutorialManager : MonoBehaviour
         "from cutting your finger.";
 
         yield return new WaitForSeconds(8);
-        tutorialText.text = "Now play your hand by clicking the opponent.";
+        tutorialText.text = "Now play your hand by clicking on the opponent.";
 
         //Allow Player To Play Hand
         gameManager.canPlay = true;
@@ -223,7 +223,7 @@ public class TutorialManager : MonoBehaviour
         //Stop Player Being Able To Select Remaining Cards From Hand
         TutorialCardDraw.Instance.canSelectCards = false;
 
-        tutorialText.text = "Good, after each turn each player will gain 1 card.";
+        tutorialText.text = "Good, after each turn each player will draw 1 card.";
 
         yield return new WaitForSeconds(5);
         tutorialText.text = "Now let's play 2 knife cards.";
@@ -250,7 +250,7 @@ public class TutorialManager : MonoBehaviour
 
         yield return new WaitForSeconds(5f);
 
-        tutorialText.text = "Let's place one with a knife";
+        tutorialText.text = "Let's place a skip turn card with a knife";
 
         //Allow Player To Play Hand
         TutorialCardDraw.Instance.canSelectCards = true;
@@ -274,7 +274,7 @@ public class TutorialManager : MonoBehaviour
         tutorialText.text = "Alright, now that we only have 1 card, lets skip our turn so we can play 2 and combine them next turn.";
 
         yield return new WaitForSeconds(5f);
-        tutorialText.text = "Click the opponent with an empty table to skip your turn.";
+        tutorialText.text = "Click the opponent while the table is empty to skip your turn.";
 
         //Allow Player To Play Hand
         gameManager.canPlay = true;

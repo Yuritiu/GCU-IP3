@@ -21,6 +21,10 @@ public class MainMenuManager : MonoBehaviour
     [Header("Menu Items to Toggle")]
     public GameObject[] objectsToToggle;
 
+    [Header("Menus")]
+    public GameObject mainMenuParent;
+    public GameObject settingsMenuParent;
+
     private void Start()
     {
         //Listeners for interactions
@@ -43,6 +47,11 @@ public class MainMenuManager : MonoBehaviour
     private void OpenSettings()
     {
         Debug.Log("Settings menu");
+
+        mainMenuParent.SetActive(false);
+
+        settingsMenuParent.SetActive(true);
+
     }
 
     private void OpenCredits()

@@ -6,6 +6,7 @@ using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
@@ -34,6 +35,11 @@ public class GameManager : MonoBehaviour
     [HideInInspector] public int aiSkippedTurns = 0;
     [HideInInspector] public int playerSkippedTurns = 0;
     
+    [Header("Draw 2 cards")]
+    public Image backfire;
+    [HideInInspector] public bool aiDraw2Cards = false;
+    [HideInInspector] public bool playerDraw2Cards = false;
+    
     [Header("Cards on Table")]
     [HideInInspector] Component cardsOnTable1;
     [HideInInspector] Component cardsOnTable2;
@@ -57,6 +63,7 @@ public class GameManager : MonoBehaviour
 
         //Set Fingers Debug Text
         UpdateHealth(0);
+        backfire.enabled = false;
     }
 
     public void NextTurn()
@@ -64,7 +71,7 @@ public class GameManager : MonoBehaviour
         if (!canPlay)
             return;
 
-        Debug.Log("Next Turn");
+        //Debug.Log("Next Turn");
 
         //Add Cards For Player And AI
         if (!isTutorial)
@@ -72,6 +79,17 @@ public class GameManager : MonoBehaviour
             AICardDrawSystem.Instance.AddCardAfterTurn();
             AICardDrawSystem.Instance.selectedCardCount = 0;
             CardDrawSystem.Instance.AddCardAfterTurn();
+            if (playerDraw2Cards == true)
+            {
+                playerDraw2Cards = false;
+                CardDrawSystem.Instance.AddCardAfterTurn();
+                backfire.enabled = false;
+            }
+            if (aiDraw2Cards == true)
+            {
+                aiDraw2Cards = false;
+                AICardDrawSystem.Instance.AddCardAfterTurn();
+            }
         }
         else
         {

@@ -42,7 +42,6 @@ public class CardDrawSystem : MonoBehaviour
     [SerializeField] GameObject[] rareCards;
     [SerializeField] GameObject[] legendaryCards;
 
-    [HideInInspector]
     //Current Number Of Selected Cards - Max Of 2
     public int selectedCardCount = 0;
 

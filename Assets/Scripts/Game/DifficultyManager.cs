@@ -31,6 +31,12 @@ public class DifficultyManager : MonoBehaviour
         }
     }
 
+    private void Start()
+    {
+        sceneToLoad = "";
+    }
+
+
     public void OnDropdownValueChange()
     {
         if (sceneDropdown == null)
@@ -73,19 +79,19 @@ public class DifficultyManager : MonoBehaviour
 
     public void SetEasyMode()
     {
-        if (sceneDropdown == null)
-            return;
-
-        difficulty = 1;
-        SceneManager.LoadScene(sceneToLoad);
+        if (sceneToLoad != "")
+        {
+            difficulty = 1;
+            SceneManager.LoadScene(sceneToLoad);
+        }
     }
 
     public void SetHardMode()
     {
-        if (sceneDropdown == null)
-            return;
-
-        difficulty = 2;
-        SceneManager.LoadScene(sceneToLoad);
+        if (sceneToLoad != "")
+        {
+            difficulty = 2;
+            SceneManager.LoadScene(sceneToLoad);
+        }
     }
 }

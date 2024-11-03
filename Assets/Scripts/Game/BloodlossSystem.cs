@@ -15,6 +15,7 @@ public class BloodlossSystem : MonoBehaviour
 
     [Header("Countdown References")]
     [SerializeField] Image countdownImage;
+    [SerializeField] Image bloodBlur;
     [SerializeField] float easyCountdownTime = 12f;
     [SerializeField] float hardCountdownTime = 6f;
 
@@ -44,7 +45,7 @@ public class BloodlossSystem : MonoBehaviour
             countdownTime = hardCountdownTime;
         }
 
-        Debug.Log("Difficulty: " + difficulty);
+        //Debug.Log("Difficulty: " + difficulty);
     }
 
     void Update()
@@ -57,6 +58,14 @@ public class BloodlossSystem : MonoBehaviour
             float fillAmount = Mathf.Clamp01(currentTime / countdownTime);
             //Fill Bar Visual
             countdownImage.fillAmount = fillAmount;
+
+            if (bloodlossEffectsEnabled)
+            {
+                Color bloodBlurColour = bloodBlur.color;
+                bloodBlurColour.a = 0.5f - fillAmount;
+                bloodBlur.color = bloodBlurColour;
+                //print(bloodBlur.color.a);
+            }
 
             if (currentTime <= 0f)
             {

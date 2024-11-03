@@ -119,7 +119,7 @@ public class GameManager : MonoBehaviour
 
     public void PlayHand()
     {
-        Debug.Log("Played Hand: " + isTutorial);
+        //Debug.Log("Played Hand: " + isTutorial);
 
         if (aiSkippedTurns == 0 && !isTutorial)
         {
@@ -356,7 +356,7 @@ public class GameManager : MonoBehaviour
 
             if(playerFingers == 4)
             {
-                Debug.Log("Countdown Started");
+                //Debug.Log("Countdown Started");
                 BloodlossSystem.Instance.StartCountdown();
             }
         }
@@ -441,14 +441,14 @@ public class GameManager : MonoBehaviour
                 //Card To Be Cloned Is In Slot 2
                 if (cardObject1.name.Contains("Cigar") && !cardObject2.name.Contains("Cigar"))
                 {
-                    Debug.Log("Called Function 1");
+                    //Debug.Log("Called Function 1");
                     playerClonedCard = cardObject2.GetComponentAtIndex(1);
                     playerClonedCard.SendMessage("PlayCardForPlayer");
                 }
                 //Card To Be Cloned Is In Slot 1
                 if (cardObject2.name.Contains("Cigar") && !cardObject1.name.Contains("Cigar"))
                 {
-                    Debug.Log("Called Function 2");
+                    //Debug.Log("Called Function 2");
                     playerClonedCard = cardObject1.GetComponentAtIndex(1);
                     playerClonedCard.SendMessage("PlayCardForPlayer");
                 }
@@ -465,14 +465,14 @@ public class GameManager : MonoBehaviour
                 //Card To Be Cloned Is In Slot 4
                 if (cardObject3.name.Contains("Cigar") && !cardObject4.name.Contains("Cigar"))
                 {
-                    Debug.Log("Called Function 3");
+                    //Debug.Log("Called Function 3");
                     aiClonedCard = cardObject4.GetComponentAtIndex(1);
                     aiClonedCard.SendMessage("PlayCardForAI");
                 }
                 //Card To Be Cloned Is In Slot 3
                 if (cardObject4.name.Contains("Cigar") && !cardObject3.name.Contains("Cigar"))
                 {
-                    Debug.Log("Called Function 4");
+                    //Debug.Log("Called Function 4");
                     aiClonedCard = cardObject3.GetComponentAtIndex(1);
                     aiClonedCard.SendMessage("PlayCardForAI");
                 }

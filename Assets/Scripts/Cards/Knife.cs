@@ -15,7 +15,7 @@ public class Knife : MonoBehaviour
         {
             if (CardDrawSystem.Instance.selectedPosition1.childCount > 0 && CardDrawSystem.Instance.selectedPosition2.childCount > 0)
             {
-                print("made it");
+                //print("made it");
                 Component card1 = CardDrawSystem.Instance.selectedPosition1.GetChild(0);
                 Component card2 = CardDrawSystem.Instance.selectedPosition2.GetChild(0);
                 //Damage opponent 

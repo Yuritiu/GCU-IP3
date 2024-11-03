@@ -61,6 +61,7 @@ MonoBehaviour:
   legendaryRarity: 5
   commonCards:
   - {fileID: 5151252464221464428, guid: b6856f8c839d32c41800a5a710159730, type: 3}
+  - {fileID: 5135686425681187857, guid: 652e23e310eb81540b2e630bc944146a, type: 3}
   uncommonCards:
   - {fileID: 5151252464221464428, guid: ff1c425c752908e4e9acef001e29d0cc, type: 3}
   rareCards:
@@ -98,6 +99,7 @@ MonoBehaviour:
   legendaryRarity: 5
   commonCards:
   - {fileID: 5151252464221464428, guid: b6856f8c839d32c41800a5a710159730, type: 3}
+  - {fileID: 5135686425681187857, guid: 652e23e310eb81540b2e630bc944146a, type: 3}
   uncommonCards:
   - {fileID: 5151252464221464428, guid: ff1c425c752908e4e9acef001e29d0cc, type: 3}
   rareCards:
@@ -106,3 +108,4 @@ MonoBehaviour:
   - {fileID: 5151252464221464428, guid: 3d87694ab00b85040a1e91d329ba5f02, type: 3}
   selectedCardCount: 0
   isPlayersTurn: 1
+  canPlay: 1

@@ -8,11 +8,13 @@ public class EmptyPromise : MonoBehaviour
     {
         //Places Card But Does Nothing
         int rand = Random.Range(0, 5);
+        //\/Debuging\/
+        //rand = 0;
         if (rand == 0)
         {
             //draw 2 cards
             GameManager.Instance.playerDraw2Cards = true;
-            GameManager.Instance.backfire.enabled = true;
+            GameManager.Instance.backfire.gameObject.SetActive(true);
         }
         return;
     }

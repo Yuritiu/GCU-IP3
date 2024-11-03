@@ -36,7 +36,7 @@ public class GameManager : MonoBehaviour
     [HideInInspector] public int playerSkippedTurns = 0;
     
     [Header("Draw 2 cards")]
-    public Image backfire;
+    public GameObject backfire;
     [HideInInspector] public bool aiDraw2Cards = false;
     [HideInInspector] public bool playerDraw2Cards = false;
     
@@ -63,7 +63,7 @@ public class GameManager : MonoBehaviour
 
         //Set Fingers Debug Text
         UpdateHealth(0);
-        backfire.enabled = false;
+        backfire.gameObject.SetActive(false);
     }
 
     public void NextTurn()
@@ -83,7 +83,7 @@ public class GameManager : MonoBehaviour
             {
                 playerDraw2Cards = false;
                 CardDrawSystem.Instance.AddCardAfterTurn();
-                backfire.enabled = false;
+                backfire.gameObject.SetActive(false);
             }
             if (aiDraw2Cards == true)
             {

@@ -62,7 +62,7 @@ public class BloodlossSystem : MonoBehaviour
             if (bloodlossEffectsEnabled)
             {
                 Color bloodBlurColour = bloodBlur.color;
-                bloodBlurColour.a = 0.5f - fillAmount;
+                bloodBlurColour.a = 0.7f - fillAmount;
                 bloodBlur.color = bloodBlurColour;
                 //print(bloodBlur.color.a);
             }

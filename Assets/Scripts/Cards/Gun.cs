@@ -16,6 +16,7 @@ public class Gun : MonoBehaviour
 
         if(RandomNumber == 1)
         {
+            
             StartCoroutine(WaitToStart(1, 1));
             StartCoroutine(GameManager.Instance.WaitToCompareCards(1, 1));
             GameManager.Instance.EndGameWin();
@@ -56,7 +57,7 @@ public class Gun : MonoBehaviour
     IEnumerator WaitToStart(int character, int type)
     {
         //waits for cards to reveal
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(3f);
         StartCoroutine(GameManager.Instance.WaitToCompareCards(character, type));
     }
 }

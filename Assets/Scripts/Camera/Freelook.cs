@@ -33,7 +33,7 @@ public class Freelook : MonoBehaviour
 
     void Update()
     {
-        if (!canLook)
+        if (!canLook || SettingsMenu.Instance.settingsMenuOpen)
             return;
 
         float mouseX = Input.GetAxis("Mouse X") * mouseSensitivity * Time.deltaTime;

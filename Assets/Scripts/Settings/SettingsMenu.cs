@@ -4,6 +4,8 @@ using System.Diagnostics;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
+using Debug = UnityEngine.Debug;
 
 public class SettingsMenu : MonoBehaviour
 {
@@ -125,9 +127,6 @@ public class SettingsMenu : MonoBehaviour
 
         //Fullscreen Toggle
         fullscreenToggle.onValueChanged.AddListener(OnFullscreenToggle);
-
-        //TODO: IMPLEMENT RETURN TO MENU LOGIC
-        //returnToMenuButton.onValueChanged.AddListener(OnFullscreenToggle);
     }
 
     //Function Called When A New Resolution Is Selected
@@ -163,9 +162,9 @@ public class SettingsMenu : MonoBehaviour
         }
     }
 
-    void ReturnToMenu()
+    public void ReturnToMenu()
     {
-        //TODO: IMPLEMENT RETURN TO MENU LOGIC
+        SceneManager.LoadScene("Main Menu");
     }
 
     void OnControlsMenuButtonClick()

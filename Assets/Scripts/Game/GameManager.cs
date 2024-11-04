@@ -27,6 +27,11 @@ public class GameManager : MonoBehaviour
     [HideInInspector] public int aiFingers;
     [HideInInspector] public int playerFingers;
 
+    [Header("Gun")]
+    [SerializeField] GameObject PlayerGun;
+    [SerializeField] GameObject AIGun;
+    [HideInInspector] public int bullets;
+
     [Header("Armour")]
     [HideInInspector] public int aiArmour;
     [HideInInspector] public int playerArmour;  
@@ -54,6 +59,10 @@ public class GameManager : MonoBehaviour
  
     private void Awake()
     {
+        PlayerGun.SetActive(false);
+        AIGun.SetActive(false);
+
+
         Instance = this;
         isTutorial = false;
 
@@ -64,6 +73,11 @@ public class GameManager : MonoBehaviour
         //Set Fingers Debug Text
         UpdateHealth(0);
         backfire.gameObject.SetActive(false);
+    }
+
+    public void addBullet()
+    {
+        bullets = 2;
     }
 
     public void NextTurn()
@@ -288,6 +302,9 @@ public class GameManager : MonoBehaviour
         CardDrawSystem.Instance.debugCurrentTurnText.text = ("Revealing Cards");
 
         yield return new WaitForSeconds(4);
+
+        PlayerGun.SetActive(false);
+        AIGun.SetActive(false);
         
         if (CardDrawSystem.Instance.selectedPosition1.childCount > 0)
         {
@@ -310,6 +327,16 @@ public class GameManager : MonoBehaviour
 
         IsReadyToCompare = false;
         NextTurn();
+    }
+
+    public void PlayerRoulette()
+    {
+        AIGun.SetActive(true);
+    }
+
+    public void AiRoulette()
+    {
+        PlayerGun.SetActive(true);
     }
 
     IEnumerator WaitSoCardsCanRevealInTutorial()
@@ -497,5 +524,22 @@ public class GameManager : MonoBehaviour
             }
         }
     }
+
+
+    public void EndGameWin()
+    {
+        print("You Win");
+        var activeScene = SceneManager.GetActiveScene().name;
+        SceneManager.LoadScene(activeScene);
+    }
+
+    public void EndGameLose()
+    {
+        print("You Lose");
+        var activeScene = SceneManager.GetActiveScene().name;
+        SceneManager.LoadScene(activeScene);
+    }
+
+
 }
 

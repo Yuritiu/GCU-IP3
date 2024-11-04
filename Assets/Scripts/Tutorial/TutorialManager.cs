@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using Unity.VisualScripting;
+using UnityEngine.SceneManagement;
 
 public class TutorialManager : MonoBehaviour
 {
@@ -76,7 +77,7 @@ public class TutorialManager : MonoBehaviour
         {
             if (tutorialCardDraw.selectedPosition1 != null && tutorialCardDraw.selectedPosition2 != null)
             {
-                if (tutorialCardDraw.selectedPosition1.GetComponentInChildren<Knife>() != null && tutorialCardDraw.selectedPosition2.GetComponentInChildren<Armour>() != null)
+                if ((tutorialCardDraw.selectedPosition1.GetComponentInChildren<Knife>() != null && tutorialCardDraw.selectedPosition2.GetComponentInChildren<Armour>() != null) || (tutorialCardDraw.selectedPosition1.GetComponentInChildren<Armour>() != null && tutorialCardDraw.selectedPosition2.GetComponentInChildren<Knife>() != null))
                 {
                     //Allow Player To Progress
                     tutorialPhase = 1;
@@ -123,7 +124,7 @@ public class TutorialManager : MonoBehaviour
         {
             if (tutorialCardDraw.selectedPosition1 != null && tutorialCardDraw.selectedPosition2 != null)
             {
-                if (tutorialCardDraw.selectedPosition1.GetComponentInChildren<Knife>() != null && tutorialCardDraw.selectedPosition2.GetComponentInChildren<SwingAwayCard>() != null)
+                if ((tutorialCardDraw.selectedPosition1.GetComponentInChildren<Knife>() != null && tutorialCardDraw.selectedPosition2.GetComponentInChildren<SwingAwayCard>() != null) || (tutorialCardDraw.selectedPosition1.GetComponentInChildren<SwingAwayCard>() != null && tutorialCardDraw.selectedPosition2.GetComponentInChildren<Knife>() != null))
                 {
                     Debug.Log("knife + bat placed");
                     TutorialCardDraw.Instance.canSelectCards = false;
@@ -168,7 +169,7 @@ public class TutorialManager : MonoBehaviour
         {
             if (tutorialCardDraw.selectedPosition1 != null && tutorialCardDraw.selectedPosition2 != null)
             {
-                if (tutorialCardDraw.selectedPosition1.GetComponentInChildren<Knife>() != null && tutorialCardDraw.selectedPosition2.GetComponentInChildren<CigarCard>() != null)
+                if ((tutorialCardDraw.selectedPosition1.GetComponentInChildren<Knife>() != null && tutorialCardDraw.selectedPosition2.GetComponentInChildren<CigarCard>() != null) || (tutorialCardDraw.selectedPosition1.GetComponentInChildren<CigarCard>() != null && tutorialCardDraw.selectedPosition2.GetComponentInChildren<Knife>() != null))
                 {
                     TutorialCardDraw.Instance.canSelectCards = false;
 
@@ -329,6 +330,6 @@ public class TutorialManager : MonoBehaviour
 
         yield return new WaitForSeconds(4f);
 
-        //SCENE FADE TO MAIN MENU
+        SceneManager.LoadScene("Main Menu");
     }
 }

@@ -23,6 +23,10 @@ public class GameManager : MonoBehaviour
     [SerializeField] Hand aiHand;
     [SerializeField] Hand playerHand;
 
+
+    [Header("camera")]
+    [SerializeField] public Camera MainCamera;
+
     [Header("Health Variables")]
     [HideInInspector] public int aiFingers;
     [HideInInspector] public int playerFingers;
@@ -371,9 +375,16 @@ public class GameManager : MonoBehaviour
 
     public IEnumerator WaitToCompareCards(int character, int type)
     {
+
+        MainCamera.transform.position = new Vector3(0f, 7.34f, -5.06f);
+        MainCamera.transform.rotation = new Quaternion(77.15f, 0f, 0f, 0f);
         //waits for cards to reveal
-        yield return new WaitForSeconds(1f);
-        if(type == 1)
+        yield return new WaitForSeconds(2f);
+
+        MainCamera.transform.position = new Vector3(0f, 5.45f, -11.04f);
+        MainCamera.transform.rotation = new Quaternion(26.24f, 0f, 0f, 0f);
+
+        if (type == 1)
         {
             CheckArmour(character);
         }
@@ -525,6 +536,20 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    private void Update()
+    {
+        if (Input.GetKey("s"))
+        {
+            MainCamera.transform.position = new Vector3(0f, 5.45f, -11.04f);
+            MainCamera.transform.rotation = new Quaternion(26.24f, 0f, 0f, 0f);
+        }
+
+        if (Input.GetKey("w"))
+        {
+            MainCamera.transform.position = new Vector3(0f, 7.34f, -5.06f);
+            MainCamera.transform.rotation = new Quaternion(77.15f, 0f, 0f, 0f);
+        }
+    }
 
     public void EndGameWin()
     {

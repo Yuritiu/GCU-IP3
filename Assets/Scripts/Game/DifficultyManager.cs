@@ -4,7 +4,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
-using UnityEngine.UIElements;
+// using UnityEngine.UIElements;
 
 public class DifficultyManager : MonoBehaviour
 {
@@ -14,13 +14,19 @@ public class DifficultyManager : MonoBehaviour
 
     //DEBUG ONLY REMOVE LOGIC FROM FINAL BUILD
     [SerializeField] TMP_Dropdown sceneDropdown;
+
+    [Header("Difficulty Buttons")]
+    [SerializeField] Button tutorialButton;
+    [SerializeField] Button easyButton;
+    [SerializeField] Button hardButton;
+
     string sceneToLoad = "";
 
     [SerializeField] public int difficulty;
 
     private void Awake()
     {
-        // Create singleton instance
+        //Create singleton instance
         Instance = this;
         DontDestroyOnLoad(this);
 
@@ -29,6 +35,19 @@ public class DifficultyManager : MonoBehaviour
             //Add Listener To Check For Changed Value
             sceneDropdown.onValueChanged.AddListener(delegate { OnDropdownValueChange(); });
         }
+
+        if (tutorialButton != null)
+        {
+            tutorialButton.onClick.AddListener(SetTutorialMode);
+        }
+        if (easyButton != null)
+        {
+            easyButton.onClick.AddListener(SetEasyMode);
+        }
+        if (hardButton != null)
+        {
+            hardButton.onClick.AddListener(SetHardMode);
+        }
     }
 
     private void Start()
@@ -36,13 +55,12 @@ public class DifficultyManager : MonoBehaviour
         sceneToLoad = "";
     }
 
-
     public void OnDropdownValueChange()
     {
         if (sceneDropdown == null)
             return;
 
-        //Get The Dropdown Value And Load Scenes Based On Selection
+        //Get the dropdown value and load scenes based on selection
         switch (sceneDropdown.value)
         {
             case 1:
@@ -77,21 +95,24 @@ public class DifficultyManager : MonoBehaviour
         }
     }
 
+    public void SetTutorialMode()
+    {
+        sceneToLoad = "Tutorial";
+        difficulty = 3;
+        SceneManager.LoadScene(sceneToLoad);
+    }
+
     public void SetEasyMode()
     {
-        if (sceneToLoad != "")
-        {
-            difficulty = 1;
-            SceneManager.LoadScene(sceneToLoad);
-        }
+        sceneToLoad = "Game Scene";
+        difficulty = 1;
+        SceneManager.LoadScene(sceneToLoad);
     }
 
     public void SetHardMode()
     {
-        if (sceneToLoad != "")
-        {
-            difficulty = 2;
-            SceneManager.LoadScene(sceneToLoad);
-        }
+        sceneToLoad = "Game Scene";
+        difficulty = 2;
+        SceneManager.LoadScene(sceneToLoad);
     }
 }

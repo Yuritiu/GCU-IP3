@@ -25,6 +25,9 @@ public class MainMenuManager : MonoBehaviour
     public GameObject mainMenuParent;
     public GameObject settingsMenuParent;
 
+    [Header("Toggle with F4")]
+    public GameObject toggleDev;
+
     private void Start()
     {
         //Listeners for interactions
@@ -39,6 +42,15 @@ public class MainMenuManager : MonoBehaviour
         closeButton.onClick.AddListener(CloseExpandedMenu);
     }
 
+    private void Update()
+    {
+        //Check if F4 is pressed
+        if (Input.GetKeyDown(KeyCode.F4) && toggleDev != null)
+        {
+            toggleDev.SetActive(!toggleDev.activeSelf);
+        }
+    }
+
     private void StartGame()
     {
         ExpandMainMenu();
@@ -47,11 +59,8 @@ public class MainMenuManager : MonoBehaviour
     private void OpenSettings()
     {
         Debug.Log("Settings menu");
-
         mainMenuParent.SetActive(false);
-
         settingsMenuParent.SetActive(true);
-
     }
 
     private void OpenCredits()
@@ -65,7 +74,6 @@ public class MainMenuManager : MonoBehaviour
     }
 
     //Expanded menu functions
-
     private void StartTutorial()
     {
         Debug.Log("Tutorial");

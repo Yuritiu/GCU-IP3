@@ -2228,6 +2228,8 @@ MonoBehaviour:
   speed: 3
   Target1: {fileID: 834468284}
   Target2: {fileID: 834468284}
+  Target3: {fileID: 834468284}
+  in2ndPos: 0
   MainCamera: {fileID: 1210848906}
   aiFingers: 0
   playerFingers: 0

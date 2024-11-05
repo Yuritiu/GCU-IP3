@@ -25,9 +25,11 @@ public class GameManager : MonoBehaviour
     private bool wPressed;
     private bool sPressed;
 
-    [HideInInspector] public float speed = 3f;
+    [SerializeField] public float speed = 5f;
     [SerializeField] public Transform Target1;
     [SerializeField] public Transform Target2;
+    [SerializeField] public Transform Target3;
+    [HideInInspector] public bool in2ndPos;
 
     [Header("camera")]
     [SerializeField] public Camera MainCamera;
@@ -71,6 +73,9 @@ public class GameManager : MonoBehaviour
         PlayerGun.SetActive(false);
         AIGun.SetActive(false);
 
+        wPressed = false;
+        sPressed = false;
+        in2ndPos = false;
 
         Instance = this;
         isTutorial = false;
@@ -310,14 +315,12 @@ public class GameManager : MonoBehaviour
         //Debug
         CardDrawSystem.Instance.debugCurrentTurnText.text = ("Revealing Cards");
 
-        //TODO: fix? in tutorial
-        MainCamera.transform.position = new Vector3(0f, 7.34f, -5.06f);
-        MainCamera.transform.rotation = new Quaternion(77.15f, 0f, 0f, 0f);
+        StartCoroutine(CameraTransition(Target2));
+        in2ndPos = true;
         //waits for cards to reveal
         yield return new WaitForSeconds(2f);
-
-        MainCamera.transform.position = new Vector3(0f, 5.45f, -11.04f);
-        MainCamera.transform.rotation = new Quaternion(26.24f, 0f, 0f, 0f);
+        StartCoroutine(CameraTransition(Target1));
+        in2ndPos = false;
 
         yield return new WaitForSeconds(4);
 
@@ -390,13 +393,13 @@ public class GameManager : MonoBehaviour
     public IEnumerator WaitToCompareCards(int character, int type)
     {
 
-        MainCamera.transform.position = new Vector3(0f, 7.34f, -5.06f);
-        MainCamera.transform.rotation = new Quaternion(77.15f, 0f, 0f, 0f);
+        StartCoroutine(CameraTransition(Target2));
+        in2ndPos = true;
         //waits for cards to reveal
         yield return new WaitForSeconds(2f);
 
-        MainCamera.transform.position = new Vector3(0f, 5.45f, -11.04f);
-        MainCamera.transform.rotation = new Quaternion(26.24f, 0f, 0f, 0f);
+        StartCoroutine(CameraTransition(Target1));
+        in2ndPos = false;
 
         if (type == 1)
         {
@@ -552,16 +555,14 @@ public class GameManager : MonoBehaviour
 
     private void Update()
     {
-        float step = Time.deltaTime * speed;
-        
 
-        if (Input.GetKey("s"))
+        if (Input.GetKey("s") && wPressed == false)
         {
             sPressed = true;
             print("s pressed");
         }
 
-        if (Input.GetKey("w"))
+        if (Input.GetKey("w") && sPressed == false)
         {
             wPressed = true;
             print("w pressed");
@@ -569,9 +570,9 @@ public class GameManager : MonoBehaviour
 
         if (sPressed == true)
         {
-            
 
-            MainCamera.transform.position = Vector3.MoveTowards(MainCamera.transform.position, Target1.transform.position, step);
+            in2ndPos = false;
+            StartCoroutine(CameraTransition(Target1));
 
             if(MainCamera.transform.position == Target1.transform.position)
             {
@@ -584,7 +585,8 @@ public class GameManager : MonoBehaviour
         if(wPressed == true)
         {
 
-            MainCamera.transform.position = Vector3.MoveTowards(MainCamera.transform.position, Target2.transform.position, step);
+            StartCoroutine(CameraTransition(Target2));
+            in2ndPos = true;
 
             if(MainCamera.transform.position == Target2.transform.position)
             {
@@ -610,6 +612,28 @@ public class GameManager : MonoBehaviour
         SceneManager.LoadScene(activeScene);
     }
 
+    private IEnumerator CameraTransition(Transform Target)
+    {
+        float t = 0.00f;
+        Vector3 startingpos = MainCamera.transform.position;
+
+        while(t < 1.0f)
+        {
+            t += Time.deltaTime * (Time.timeScale * speed);
+
+            MainCamera.transform.LookAt(Target3);
+
+            MainCamera.transform.position = Vector3.Lerp(startingpos, Target.position, t);
+            yield return 0;
+
+        }
+
+        while(in2ndPos == true)
+        {
+            MainCamera.transform.LookAt(Target3);
+            yield return 0;
+        }
+    }
 
 }
 

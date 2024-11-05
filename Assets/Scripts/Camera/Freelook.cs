@@ -33,6 +33,8 @@ public class Freelook : MonoBehaviour
 
     void Update()
     {
+        
+
         if (!canLook || SettingsMenu.Instance.settingsMenuOpen)
             return;
 

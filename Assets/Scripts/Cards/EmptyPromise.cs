@@ -10,11 +10,12 @@ public class EmptyPromise : MonoBehaviour
         int rand = Random.Range(0, 5);
         //\/Debuging\/
         //rand = 0;
+        //print(rand);
         if (rand == 0)
         {
             //draw 2 cards
             GameManager.Instance.playerDraw2Cards = true;
-            GameManager.Instance.backfire.gameObject.SetActive(true);
+            GameManager.Instance.emptyPromiseBackfire.gameObject.SetActive(true);
         }
         return;
     }

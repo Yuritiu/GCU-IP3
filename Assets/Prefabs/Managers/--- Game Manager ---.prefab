@@ -49,12 +49,30 @@ MonoBehaviour:
   playerFingersText: {fileID: 0}
   aiHand: {fileID: 0}
   playerHand: {fileID: 0}
+  speed: 3
+  Target1: {fileID: 0}
+  Target2: {fileID: 0}
+  MainCamera: {fileID: 0}
   aiFingers: 0
   playerFingers: 0
+  PlayerGun: {fileID: 0}
+  AIGun: {fileID: 0}
+  bullets: 0
   aiArmour: 0
   playerArmour: 0
-  aiSkipNextTurn: 0
-  playerSkipNextTurn: 0
+  aiSkippedTurns: 0
+  playerSkippedTurns: 0
+  emptyPromiseBackfire: {fileID: 0}
+  knifeBackfire: {fileID: 0}
+  armourBackfire: {fileID: 0}
+  gunBackfire: {fileID: 0}
+  batBackfire: {fileID: 0}
+  twoInChamberBackfire: {fileID: 0}
+  cigarBackfire: {fileID: 0}
+  aiDraw2Cards: 0
+  playerDraw2Cards: 0
+  canPlay: 1
+  isTutorial: 0
 --- !u!114 &2981733723500107123
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -68,5 +86,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   countdownImage: {fileID: 0}
+  bloodBlur: {fileID: 0}
   easyCountdownTime: 300
   hardCountdownTime: 120

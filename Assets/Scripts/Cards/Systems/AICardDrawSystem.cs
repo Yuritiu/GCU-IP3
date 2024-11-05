@@ -37,10 +37,20 @@ public class AICardDrawSystem : MonoBehaviour
     [SerializeField] GameObject[] rareCards;
     [SerializeField] GameObject[] legendaryCards;
 
+    [Header("Cards to check bans")]
+    bool card1 = true;
+    bool card2 = true;
+    bool card3 = true;
+    bool card4 = true;
+
     [HideInInspector] bool cardAdded = false;
     //Current Number Of Selected Cards - Max Of 2
     [HideInInspector] public int selectedCardCount = 0;
     [HideInInspector] public bool isPlayersTurn = true;
+
+    [Header("Cards that cannot be used")]
+    private int bannedCard = -1;
+    private int bannedCard2 = -1;
 
     private void Awake()
     {
@@ -72,6 +82,21 @@ public class AICardDrawSystem : MonoBehaviour
             cardsInHand[i] = Instantiate(card, originalPositions[i].position, originalPositions[i].rotation);
             //Destroy The CardSelection Script On The AI's Cards So The Player Can't Hover Them
             Destroy(cardsInHand[i].GetComponent<CardSelection>());
+            switch (i)
+            {
+                case 0:
+                    card1 = true;
+                    break;
+                case 1:
+                    card2 = true;
+                    break;
+                case 2:
+                    card3 = true;
+                    break;
+                case 3:
+                    card4 = true;
+                    break;
+            }
         }
     }
 
@@ -123,7 +148,7 @@ public class AICardDrawSystem : MonoBehaviour
         //print(index);
 
 
-        if (cardsInHand[index] != null)
+        if (cardsInHand[index] != null && (index != bannedCard) && (index != bannedCard2))
         {
             if (selectedCardCount == 0)
             {
@@ -152,6 +177,21 @@ public class AICardDrawSystem : MonoBehaviour
         //Set Parent Else It Doesn't Return To The Original Position
         cardsInHand[index].transform.SetParent(selectedPosition);
         selectedCardCount++;
+        switch (index)
+        {
+            case 0:
+                card1 = false;
+                break;
+            case 1:
+                card2 = false;
+                break;
+            case 2:
+                card3 = false;
+                break;
+            case 3:
+                card4 = false;
+                break;
+        }
     }
 
     public void AddCardAfterTurn()
@@ -173,6 +213,123 @@ public class AICardDrawSystem : MonoBehaviour
                 //Exit When Card Is Placed
                 break;
             }
+        }
+    }
+    
+    bool IsCardInSelectedPosition(GameObject card)
+    {
+        //Check If The Card Is Currently In One Of The Selected Positions
+        return card.transform.parent != null && (card.transform.parent == selectedPosition1 || card.transform.parent == selectedPosition2);
+    }
+
+    public void StopOneCard()
+    {
+        int cardsInCurrentHand = 4;
+
+        for (int i = 0; i < cardsInHand.Length; i++)
+        {
+            if (cardsInHand[i] == null)
+            {
+                cardsInCurrentHand--;
+            }
+        }
+
+        if (selectedPosition1.childCount > 0)
+        {
+            cardsInCurrentHand--;
+        }
+        if (selectedPosition2.childCount > 0)
+        {
+            cardsInCurrentHand--;
+        }
+        print(cardsInCurrentHand);
+
+        int rand = UnityEngine.Random.Range(0, cardsInCurrentHand);
+
+        print(rand);
+        if (card1 == true)
+        {
+            if (rand == 0)
+            {
+                GameObject cardNotinUse = cardsInHand[0].gameObject;
+                cardNotinUse.transform.Rotate(0, 180, 0);
+                if (bannedCard != -1)
+                {
+                    bannedCard2 = 0;
+                    return;
+                }
+                bannedCard = 0;
+                return;
+            }
+            rand--;
+        }
+        if (card2 == true)
+        {
+            if (rand == 0)
+            {
+                GameObject cardNotinUse = cardsInHand[1].gameObject;
+                cardNotinUse.transform.Rotate(0, 180, 0);
+                if (bannedCard != -1)
+                {
+                    bannedCard2 = 1;
+                    return;
+                }
+                bannedCard = 1;
+                return;
+            }
+            rand--;
+        }
+        if (card3 == true)
+        {
+            if (rand == 0)
+            {
+                GameObject cardNotinUse = cardsInHand[2].gameObject;
+                cardNotinUse.transform.Rotate(0, 180, 0);
+                if (bannedCard != -1)
+                {
+                    bannedCard2 = 2;
+                    return;
+                }
+                bannedCard = 2;
+                return;
+            }
+            rand--;
+        }
+        if (card4 == true)
+        {
+            if (rand == 0)
+            {
+                GameObject cardNotinUse = cardsInHand[3].gameObject;
+                cardNotinUse.transform.Rotate(0, 180, 0);
+                if (bannedCard != -1)
+                {
+                    bannedCard2 = 3;
+                    return;
+                }
+                bannedCard = 3;
+                return;
+            }
+            rand--;
+        }
+    }
+
+    public void UnbanCards()
+    {
+        if (bannedCard != -1)
+        {
+            if (cardsInHand[bannedCard] != null)
+            {
+                cardsInHand[bannedCard].gameObject.transform.Rotate(0, 180, 0);
+            }
+            bannedCard = -1;
+        }
+        if (bannedCard2 != -1)
+        {
+            if (cardsInHand[bannedCard2] != null)
+            {
+                cardsInHand[bannedCard2].gameObject.transform.Rotate(0, 180, 0);
+            }
+            bannedCard2 = -1;
         }
     }
 }

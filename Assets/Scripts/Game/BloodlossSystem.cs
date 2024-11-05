@@ -16,13 +16,16 @@ public class BloodlossSystem : MonoBehaviour
     [Header("Countdown References")]
     [SerializeField] Image countdownImage;
     [SerializeField] Image bloodBlur;
-    [SerializeField] float easyCountdownTime = 12f;
-    [SerializeField] float hardCountdownTime = 6f;
+    float easyCountdownTime = 400f;
+    float hardCountdownTime = 200f;
 
-    float countdownTime;
-    float currentTime;
+    float maxHealth;
+    float currentHealth;
     bool isCountingDown = false;
     bool bloodlossEffectsEnabled;
+    [HideInInspector] public float bloodlossTime = 0f;
+    [SerializeField] private float knifeBloodlossAdd = 0.05f;
+    public float shieldBloodlossReduce = 0.025f;
 
     private void Awake()
     {
@@ -37,51 +40,52 @@ public class BloodlossSystem : MonoBehaviour
         if(difficulty == 1)
         {
             bloodlossEffectsEnabled = false;
-            countdownTime = easyCountdownTime;
+            maxHealth = easyCountdownTime;
         }
         else
         {
             bloodlossEffectsEnabled = true;
-            countdownTime = hardCountdownTime;
+            maxHealth = hardCountdownTime;
         }
+        currentHealth = maxHealth;
+        countdownImage.fillAmount = 1f;
 
         //Debug.Log("Difficulty: " + difficulty);
     }
 
-    void Update()
+    void FixedUpdate()
     {
         if (isCountingDown)
         {
             //Decrease Time
-            currentTime -= Time.deltaTime;
+            currentHealth -= bloodlossTime;
             //Normalize The Time To 0-1 Range So It Fits In Image Right
-            float fillAmount = Mathf.Clamp01(currentTime / countdownTime);
+            float fillAmount = Mathf.Clamp01(currentHealth / maxHealth);
             //Fill Bar Visual
             countdownImage.fillAmount = fillAmount;
-
+            print(currentHealth);
             if (bloodlossEffectsEnabled)
             {
                 Color bloodBlurColour = bloodBlur.color;
-                bloodBlurColour.a = 0.7f - fillAmount;
+                bloodBlurColour.a = 0.7f - (fillAmount*1.5f);
                 bloodBlur.color = bloodBlurColour;
                 //print(bloodBlur.color.a);
             }
 
-            if (currentTime <= 0f)
+            if (currentHealth <= 0f)
             {
                 //Ended Countdown, Die
-                currentTime = 0f;
+                currentHealth = 0f;
                 isCountingDown = false;
                 CountdownFinished();
             }
         }
     }
 
-    public void StartCountdown()
+    public void IncreaseBloodloss()
     {
-        currentTime = countdownTime;
         isCountingDown = true;
-        countdownImage.fillAmount = 1f;
+        bloodlossTime += knifeBloodlossAdd;
     }
 
     void CountdownFinished()

@@ -10,24 +10,26 @@ public class Gun : MonoBehaviour
 
     public void PlayCardForPlayer()
     {
+        int rand = UnityEngine.Random.Range(0, 5);
+        //\/Debuging\/
+        //rand = 0;
+        //print(rand);
+        if (rand == 0)
+        {
+            //Shoots off your own finger
+            GameManager.Instance.ReduceHealth(2);
+            GameManager.Instance.gunBackfire.gameObject.SetActive(true);
+        }
         RandomNumber = rnd.Next(1, 6);
-        print(RandomNumber);
+        //print(RandomNumber);
         GameManager.Instance.PlayerRoulette();
 
-        if(RandomNumber == 1)
+        if(RandomNumber >= GameManager.Instance.bullets)
         {
             
             StartCoroutine(WaitToStart(1, 1));
             StartCoroutine(GameManager.Instance.WaitToCompareCards(1, 1));
             GameManager.Instance.EndGameWin();
-        }
-
-        if(RandomNumber == 2 && GameManager.Instance.bullets == 2)
-        {
-            StartCoroutine(WaitToStart(1, 1));
-            StartCoroutine(GameManager.Instance.WaitToCompareCards(1, 1));
-            GameManager.Instance.EndGameWin();
-            GameManager.Instance.bullets = 1;
         }
     }
 
@@ -37,19 +39,20 @@ public class Gun : MonoBehaviour
         print(RandomNumber);
         GameManager.Instance.AiRoulette();
 
-        if (RandomNumber == 1)
+        int rand = UnityEngine.Random.Range(0, 5);
+        //\/Debuging\/
+        //rand = 0;
+        //print(rand);
+        if (rand == 0)
         {
-            StartCoroutine(WaitToStart(2, 1));
-            StartCoroutine(GameManager.Instance.WaitToCompareCards(1, 1));
-            GameManager.Instance.EndGameLose();
+            //Shoots off your own finger
+            GameManager.Instance.ReduceHealth(1);
         }
-
-        if (RandomNumber == 2 && GameManager.Instance.bullets == 2)
+        if (RandomNumber >= GameManager.Instance.bullets)
         {
             StartCoroutine(WaitToStart(2, 1));
             StartCoroutine(GameManager.Instance.WaitToCompareCards(1, 1));
             GameManager.Instance.EndGameLose();
-            GameManager.Instance.bullets = 1;
         }
     }
 

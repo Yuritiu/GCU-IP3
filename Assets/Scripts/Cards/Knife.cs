@@ -13,6 +13,16 @@ public class Knife : MonoBehaviour
         //Check If Its The Tutorial First
         if (!GameManager.Instance.isTutorial)
         {
+            int rand = Random.Range(0, 5);
+            //\/Debuging\/
+            //rand = 0;
+            //print(rand);
+            if (rand == 0)
+            {
+                //makes 1 card not usable for 1 turn
+                CardDrawSystem.Instance.StopOneCard();
+                GameManager.Instance.knifeBackfire.gameObject.SetActive(true);
+            }
             if (CardDrawSystem.Instance.selectedPosition1.childCount > 0 && CardDrawSystem.Instance.selectedPosition2.childCount > 0)
             {
                 //print("made it");
@@ -78,6 +88,15 @@ public class Knife : MonoBehaviour
         //Check If Its The Tutorial First
         if (!GameManager.Instance.isTutorial)
         {
+            int rand = Random.Range(0, 5);
+            //\/Debuging\/
+            //rand = 0;
+            //print(rand);
+            if (rand == 0)
+            {
+                //makes 1 card not usable for 1 turn
+                AICardDrawSystem.Instance.StopOneCard();
+            }
             if (AICardDrawSystem.Instance.selectedPosition1.childCount > 0 && AICardDrawSystem.Instance.selectedPosition2.childCount > 0)
             {
                 Component card3 = AICardDrawSystem.Instance.selectedPosition1.GetChild(0);

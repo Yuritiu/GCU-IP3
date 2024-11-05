@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -17,7 +18,7 @@ public class GameManager : MonoBehaviour
     [Header("Debug Variables")]
     [SerializeField] TextMeshProUGUI aiFingersText;
     [SerializeField] TextMeshProUGUI playerFingersText;
-    
+
     [Header("Hand")]
     [SerializeField] Hand aiHand;
     [SerializeField] Hand playerHand;
@@ -45,17 +46,26 @@ public class GameManager : MonoBehaviour
 
     [Header("Armour")]
     [HideInInspector] public int aiArmour;
-    [HideInInspector] public int playerArmour;  
-    
+    [HideInInspector] public int playerArmour;
+
     [Header("Skip Turn Variables")]
     [HideInInspector] public int aiSkippedTurns = 0;
     [HideInInspector] public int playerSkippedTurns = 0;
-    
+
+    [Header("Backfire Text")]
+    public GameObject emptyPromiseBackfire;
+    public GameObject knifeBackfire;
+    public GameObject armourBackfire;
+    public GameObject gunBackfire;
+    public GameObject batBackfire;
+    public GameObject twoInChamberBackfire;
+    public GameObject cigarBackfire;
+
+
     [Header("Draw 2 cards")]
-    public GameObject backfire;
     [HideInInspector] public bool aiDraw2Cards = false;
     [HideInInspector] public bool playerDraw2Cards = false;
-    
+
     [Header("Cards on Table")]
     [HideInInspector] Component cardsOnTable1;
     [HideInInspector] Component cardsOnTable2;
@@ -67,7 +77,7 @@ public class GameManager : MonoBehaviour
 
     [HideInInspector] public bool canPlay = true;
     [HideInInspector] public bool isTutorial = false;
- 
+
     private void Awake()
     {
         PlayerGun.SetActive(false);
@@ -85,13 +95,13 @@ public class GameManager : MonoBehaviour
         playerFingers = 5;
 
         //Set Fingers Debug Text
-        UpdateHealth(0);
-        backfire.gameObject.SetActive(false);
+        ReduceHealth(0);
+        DisableAllBackfires();
     }
 
     public void addBullet()
     {
-        bullets = 2;
+        bullets++;
     }
 
     public void NextTurn()
@@ -99,6 +109,7 @@ public class GameManager : MonoBehaviour
         if (!canPlay)
             return;
 
+        DisableAllBackfires();
         //Debug.Log("Next Turn");
 
         //Add Cards For Player And AI
@@ -111,7 +122,6 @@ public class GameManager : MonoBehaviour
             {
                 playerDraw2Cards = false;
                 CardDrawSystem.Instance.AddCardAfterTurn();
-                backfire.gameObject.SetActive(false);
             }
             if (aiDraw2Cards == true)
             {
@@ -165,21 +175,23 @@ public class GameManager : MonoBehaviour
 
     public void PlayHand()
     {
+        CardDrawSystem.Instance.UnbanCards();
+
         //Debug.Log("Played Hand: " + isTutorial);
 
         if (aiSkippedTurns == 0 && !isTutorial)
         {
             StartCoroutine(AIPlaceCards());
         }
-        else if(aiSkippedTurns == 0 && isTutorial)
+        else if (aiSkippedTurns == 0 && isTutorial)
         {
             StartCoroutine(AIPlaceCardsInTutorial());
         }
-        else if(!isTutorial)
+        else if (!isTutorial)
         {
             ShowCards();
         }
-        else if(isTutorial)
+        else if (isTutorial)
         {
             ShowCardsInTutorial();
         }
@@ -326,7 +338,7 @@ public class GameManager : MonoBehaviour
 
         PlayerGun.SetActive(false);
         AIGun.SetActive(false);
-        
+
         if (CardDrawSystem.Instance.selectedPosition1.childCount > 0)
         {
             Destroy(CardDrawSystem.Instance.selectedPosition1.GetChild(0).gameObject);
@@ -405,14 +417,14 @@ public class GameManager : MonoBehaviour
         {
             CheckArmour(character);
         }
-        if(type == 2)
+        if (type == 2)
         {
             //Need To Wait For cardsOnTable2 Reference To Be Filled At This Point
             PlayCigarCard(character);
         }
     }
 
-    public void UpdateHealth(int character)
+    public void ReduceHealth(int character)
     {
         //checks if character is player or ai
         //AI
@@ -427,11 +439,8 @@ public class GameManager : MonoBehaviour
             playerFingers--;
             playerHand.RemoveFinger(playerFingers);
 
-            if(playerFingers == 4)
-            {
-                //Debug.Log("Countdown Started");
-                BloodlossSystem.Instance.StartCountdown();
-            }
+            //Debug.Log("Countdown Started");
+            BloodlossSystem.Instance.IncreaseBloodloss();
         }
 
         if (aiFingers <= 0 && !isTutorial)
@@ -446,13 +455,14 @@ public class GameManager : MonoBehaviour
             SceneManager.LoadScene(activeScene);
             //YOU LOSE :(
         }
-        
+
         playerFingersText.text = ("Player Fingers: " + playerFingers).ToString();
         aiFingersText.text = ("AI Fingers: " + aiFingers).ToString();
     }
 
     public void CheckArmour(int character)
     {
+        //this ensures the armour stops the gun instead of the knife
         if (character == 1 && IsReadyToCompare)
         {
             if (aiArmour > 0)
@@ -460,21 +470,35 @@ public class GameManager : MonoBehaviour
                 aiArmour--;
                 if (cardsOnTable1 != null)
                 {
-                    if (cardsOnTable1.gameObject.name.Contains("Gun") || cardsOnTable1.gameObject.name.Contains("Knife"))
-                    { //stop gun/ knife
+                    if (cardsOnTable1.gameObject.name.Contains("Gun"))
+                    { //stop gun
                         return;
                     }
                 }
                 if (cardsOnTable2 != null)
                 {
-                    if (cardsOnTable2.gameObject.name.Contains("Gun") || cardsOnTable2.gameObject.name.Contains("Knife"))
-                    { //stop gun/ knife
+                    if (cardsOnTable2.gameObject.name.Contains("Gun"))
+                    { //stop gun
+                        return;
+                    }
+                }
+                if (cardsOnTable1 != null)
+                {
+                    if (cardsOnTable1.gameObject.name.Contains("Knife"))
+                    { //stop Knife
+                        return;
+                    }
+                }
+                if (cardsOnTable2 != null)
+                {
+                    if (cardsOnTable2.gameObject.name.Contains("Knife"))
+                    { //stop Knife
                         return;
                     }
                 }
             }
         }
-        
+
         if (character == 2 && IsReadyToCompare)
         {
             if (playerArmour > 0)
@@ -482,22 +506,36 @@ public class GameManager : MonoBehaviour
                 playerArmour--;
                 if (cardsOnTable3 != null)
                 {
-                    if (cardsOnTable3.gameObject.name.Contains("Gun") || cardsOnTable3.gameObject.name.Contains("Knife"))
-                    { //stop gun/ knife
+                    if (cardsOnTable1.gameObject.name.Contains("Gun"))
+                    { //stop gun
                         return;
                     }
                 }
                 if (cardsOnTable4 != null)
                 {
-                    if (cardsOnTable4.gameObject.name.Contains("Gun") || cardsOnTable4.gameObject.name.Contains("Knife"))
-                    { //stop gun/ knife
+                    if (cardsOnTable2.gameObject.name.Contains("Gun"))
+                    { //stop gun
+                        return;
+                    }
+                }
+                if (cardsOnTable3 != null)
+                {
+                    if (cardsOnTable1.gameObject.name.Contains("Knife"))
+                    { //stop Knife
+                        return;
+                    }
+                }
+                if (cardsOnTable4 != null)
+                {
+                    if (cardsOnTable2.gameObject.name.Contains("Knife"))
+                    { //stop Knife
                         return;
                     }
                 }
             }
         }
 
-        UpdateHealth(character);
+        ReduceHealth(character);
     }
 
     public void PlayCigarCard(int player)
@@ -598,18 +636,15 @@ public class GameManager : MonoBehaviour
         
     }
 
-    public void EndGameWin()
+    private void DisableAllBackfires() 
     {
-        print("You Win");
-        var activeScene = SceneManager.GetActiveScene().name;
-        SceneManager.LoadScene(activeScene);
-    }
-
-    public void EndGameLose()
-    {
-        print("You Lose");
-        var activeScene = SceneManager.GetActiveScene().name;
-        SceneManager.LoadScene(activeScene);
+        emptyPromiseBackfire.gameObject.SetActive(false);
+        knifeBackfire.gameObject.SetActive(false);
+        armourBackfire.gameObject.SetActive(false);
+        batBackfire.gameObject.SetActive(false);
+        gunBackfire.gameObject.SetActive(false);
+        twoInChamberBackfire.gameObject.SetActive(false);
+        cigarBackfire.gameObject.SetActive(false);
     }
 
     private IEnumerator CameraTransition(Transform Target)
@@ -633,6 +668,19 @@ public class GameManager : MonoBehaviour
             MainCamera.transform.LookAt(Target3);
             yield return 0;
         }
+    }
+    public void EndGameWin()
+    {
+        print("You Win");
+        var activeScene = SceneManager.GetActiveScene().name;
+        SceneManager.LoadScene(activeScene);
+    }
+
+    public void EndGameLose()
+    {
+        print("You Lose");
+        var activeScene = SceneManager.GetActiveScene().name;
+        SceneManager.LoadScene(activeScene);
     }
 
 }

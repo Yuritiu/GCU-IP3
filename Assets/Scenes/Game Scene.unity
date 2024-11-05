@@ -122,6 +122,11 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &104509135 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6251507221299206397, guid: 15e81af6a95cd7d46bcfa965d49e2119, type: 3}
+  m_PrefabInstance: {fileID: 694210905}
+  m_PrefabAsset: {fileID: 0}
 --- !u!114 &108820062 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 1148584488116116778, guid: 51b7432981d42044aab0051738de45d3, type: 3}
@@ -190,6 +195,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 03314d4e1b3e2fc48b429e4354c3ffbf, type: 3}
+--- !u!1 &189632686 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5923945009068736511, guid: 15e81af6a95cd7d46bcfa965d49e2119, type: 3}
+  m_PrefabInstance: {fileID: 694210905}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &200504384 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 8452839874705936482, guid: dbbb7bd85022dc44784f6867df3bf58a, type: 3}
@@ -461,6 +471,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8038ccc5ebbeee74497e182ae137f77f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &504081715 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1819904462300589382, guid: 15e81af6a95cd7d46bcfa965d49e2119, type: 3}
+  m_PrefabInstance: {fileID: 694210905}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &536802224 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 299102547681388462, guid: 1b56a49aeb37ad04988de1962bb9eecc, type: 3}
@@ -1342,13 +1357,41 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 108820062}
     - target: {fileID: 2229647336694770922, guid: 5f30ef53536cc8b4694232906fbc92d4, type: 3}
+      propertyPath: batBackfire
+      value: 
+      objectReference: {fileID: 189632686}
+    - target: {fileID: 2229647336694770922, guid: 5f30ef53536cc8b4694232906fbc92d4, type: 3}
+      propertyPath: gunBackfire
+      value: 
+      objectReference: {fileID: 504081715}
+    - target: {fileID: 2229647336694770922, guid: 5f30ef53536cc8b4694232906fbc92d4, type: 3}
       propertyPath: aiFingersText
       value: 
       objectReference: {fileID: 595854291}
     - target: {fileID: 2229647336694770922, guid: 5f30ef53536cc8b4694232906fbc92d4, type: 3}
+      propertyPath: cigarBackfire
+      value: 
+      objectReference: {fileID: 1336330634}
+    - target: {fileID: 2229647336694770922, guid: 5f30ef53536cc8b4694232906fbc92d4, type: 3}
+      propertyPath: knifeBackfire
+      value: 
+      objectReference: {fileID: 1863662005}
+    - target: {fileID: 2229647336694770922, guid: 5f30ef53536cc8b4694232906fbc92d4, type: 3}
+      propertyPath: armourBackfire
+      value: 
+      objectReference: {fileID: 1356642036}
+    - target: {fileID: 2229647336694770922, guid: 5f30ef53536cc8b4694232906fbc92d4, type: 3}
       propertyPath: playerFingersText
       value: 
       objectReference: {fileID: 595854290}
+    - target: {fileID: 2229647336694770922, guid: 5f30ef53536cc8b4694232906fbc92d4, type: 3}
+      propertyPath: emptyPromiseBackfire
+      value: 
+      objectReference: {fileID: 1772904239}
+    - target: {fileID: 2229647336694770922, guid: 5f30ef53536cc8b4694232906fbc92d4, type: 3}
+      propertyPath: twoInChamberBackfire
+      value: 
+      objectReference: {fileID: 104509135}
     - target: {fileID: 2981733723500107123, guid: 5f30ef53536cc8b4694232906fbc92d4, type: 3}
       propertyPath: Bloodblur
       value: 
@@ -1361,6 +1404,14 @@ PrefabInstance:
       propertyPath: countdownImage
       value: 
       objectReference: {fileID: 694210906}
+    - target: {fileID: 2981733723500107123, guid: 5f30ef53536cc8b4694232906fbc92d4, type: 3}
+      propertyPath: knifeBloodlossAdd
+      value: 0.025
+      objectReference: {fileID: 0}
+    - target: {fileID: 2981733723500107123, guid: 5f30ef53536cc8b4694232906fbc92d4, type: 3}
+      propertyPath: shieldBloodlossReduce
+      value: 0.012
+      objectReference: {fileID: 0}
     - target: {fileID: 3915920376543808648, guid: 5f30ef53536cc8b4694232906fbc92d4, type: 3}
       propertyPath: m_Name
       value: --- Game Manager ---
@@ -1553,6 +1604,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9085046f02f69544eb97fd06b6048fe2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &1336330634 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1695953292109445011, guid: 15e81af6a95cd7d46bcfa965d49e2119, type: 3}
+  m_PrefabInstance: {fileID: 694210905}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &1356642036 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3795460768780157864, guid: 15e81af6a95cd7d46bcfa965d49e2119, type: 3}
+  m_PrefabInstance: {fileID: 694210905}
+  m_PrefabAsset: {fileID: 0}
 --- !u!114 &1425330949 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 2038487379026948778, guid: dbbb7bd85022dc44784f6867df3bf58a, type: 3}
@@ -1585,6 +1646,22 @@ PrefabInstance:
       propertyPath: selectedPosition2
       value: 
       objectReference: {fileID: 536802224}
+    - target: {fileID: 2406518960279142464, guid: 6d97c6adadc67ca4a9fab2ffb0260aee, type: 3}
+      propertyPath: rareCards.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2406518960279142464, guid: 6d97c6adadc67ca4a9fab2ffb0260aee, type: 3}
+      propertyPath: rareCards.Array.data[1]
+      value: 
+      objectReference: {fileID: 5151252464221464428, guid: 8fdd04e6501799345abe11ba74238a06, type: 3}
+    - target: {fileID: 2406518960279142464, guid: 6d97c6adadc67ca4a9fab2ffb0260aee, type: 3}
+      propertyPath: legendaryCards.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2406518960279142464, guid: 6d97c6adadc67ca4a9fab2ffb0260aee, type: 3}
+      propertyPath: legendaryCards.Array.data[1]
+      value: 
+      objectReference: {fileID: 5151252464221464428, guid: 91e1477c9db10b44cb91eda5bfcddc59, type: 3}
     - target: {fileID: 2406518960279142464, guid: 6d97c6adadc67ca4a9fab2ffb0260aee, type: 3}
       propertyPath: originalPositions.Array.data[0]
       value: 
@@ -1921,6 +1998,11 @@ PrefabInstance:
 Transform:
   m_CorrespondingSourceObject: {fileID: 3484902134779856793, guid: 6afd09848d8c1e34dbf43de5c6151b0f, type: 3}
   m_PrefabInstance: {fileID: 1784638894}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &1863662005 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7898173984765771052, guid: 15e81af6a95cd7d46bcfa965d49e2119, type: 3}
+  m_PrefabInstance: {fileID: 694210905}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &1865322085
 GameObject:

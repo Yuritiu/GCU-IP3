@@ -23,6 +23,12 @@ public class GameManager : MonoBehaviour
     [SerializeField] Hand aiHand;
     [SerializeField] Hand playerHand;
 
+    private bool wPressed;
+    private bool sPressed;
+
+    [HideInInspector] public float speed = 3f;
+    [SerializeField] public Transform Target1;
+    [SerializeField] public Transform Target2;
 
     [Header("camera")]
     [SerializeField] public Camera MainCamera;
@@ -305,6 +311,14 @@ public class GameManager : MonoBehaviour
         //Debug
         CardDrawSystem.Instance.debugCurrentTurnText.text = ("Revealing Cards");
 
+        MainCamera.transform.position = new Vector3(0f, 7.34f, -5.06f);
+        MainCamera.transform.rotation = new Quaternion(77.15f, 0f, 0f, 0f);
+        //waits for cards to reveal
+        yield return new WaitForSeconds(2f);
+
+        MainCamera.transform.position = new Vector3(0f, 5.45f, -11.04f);
+        MainCamera.transform.rotation = new Quaternion(26.24f, 0f, 0f, 0f);
+
         yield return new WaitForSeconds(4);
 
         PlayerGun.SetActive(false);
@@ -538,17 +552,48 @@ public class GameManager : MonoBehaviour
 
     private void Update()
     {
+        float step = Time.deltaTime * speed;
+        
+
         if (Input.GetKey("s"))
         {
-            MainCamera.transform.position = new Vector3(0f, 5.45f, -11.04f);
-            MainCamera.transform.rotation = new Quaternion(26.24f, 0f, 0f, 0f);
+            sPressed = true;
+            print("s pressed");
         }
 
         if (Input.GetKey("w"))
         {
-            MainCamera.transform.position = new Vector3(0f, 7.34f, -5.06f);
-            MainCamera.transform.rotation = new Quaternion(77.15f, 0f, 0f, 0f);
+            wPressed = true;
+            print("w pressed");
         }
+
+        if (sPressed == true)
+        {
+            
+
+            MainCamera.transform.position = Vector3.MoveTowards(MainCamera.transform.position, Target1.transform.position, step);
+
+            if(MainCamera.transform.position == Target1.transform.position)
+            {
+                sPressed = false;
+                MainCamera.transform.position = MainCamera.transform.position;
+            }
+
+        }
+
+        if(wPressed == true)
+        {
+
+            MainCamera.transform.position = Vector3.MoveTowards(MainCamera.transform.position, Target2.transform.position, step);
+
+            if(MainCamera.transform.position == Target2.transform.position)
+            {
+                wPressed = false;
+                MainCamera.transform.position = MainCamera.transform.position;
+            }
+        }
+
+        
     }
 
     public void EndGameWin()

@@ -25,7 +25,7 @@ public class GameManager : MonoBehaviour
     private bool wPressed;
     private bool sPressed;
 
-    [SerializeField] public float speed = 5f;
+    [SerializeField] public float speed;
     [SerializeField] public Transform Target1;
     [SerializeField] public Transform Target2;
     [SerializeField] public Transform Target3;

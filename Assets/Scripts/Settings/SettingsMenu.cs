@@ -68,7 +68,8 @@ public class SettingsMenu : MonoBehaviour
         {
             settingsCanvas.SetActive(true);
             settingsMenuOpen = true;
-
+            Cursor.visible = true;
+            Cursor.lockState = CursorLockMode.Confined;
             //Default To Video Menu When The Settings Menu Opens
             OnVideoMenuButtonClick();
         }
@@ -76,6 +77,8 @@ public class SettingsMenu : MonoBehaviour
         {
             settingsCanvas.SetActive(false);
             settingsMenuOpen = false;
+            Cursor.visible = false;
+            Cursor.lockState = CursorLockMode.Locked;
         }
     }
 

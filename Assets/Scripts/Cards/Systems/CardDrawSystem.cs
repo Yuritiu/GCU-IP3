@@ -164,6 +164,7 @@ public class CardDrawSystem : MonoBehaviour
             GameObject card = GetRandomCard();
             //Instantiate And Store The Reference
             cardsInHand[i] = Instantiate(card, originalPositions[i].position, originalPositions[i].rotation);
+            //updates what cards are banned
             switch (i)
             {
                 case 0:
@@ -191,6 +192,7 @@ public class CardDrawSystem : MonoBehaviour
             //Check If There Is An Available Slot
             if (cardsInHand[i] == null)
             {
+                //updates what cards are banned
                 switch (i)
                 {
                     case 0:
@@ -293,6 +295,7 @@ public class CardDrawSystem : MonoBehaviour
             }
             switch (index)
             {
+                //updates what cards are banned
                 case 0:
                     card1 = false;
                     break;
@@ -328,7 +331,8 @@ public class CardDrawSystem : MonoBehaviour
         cardsInHand[index].transform.rotation = originalPositions[index].rotation;
 
         selectedCardCount--;
-        
+
+        //updates what cards are banned
         switch (index)
         {
             case 0:
@@ -368,6 +372,8 @@ public class CardDrawSystem : MonoBehaviour
             }
         }*/
 
+
+        //says how many cards are avalible
         int cardsInCurrentHand = 4;
 
         for (int i = 0; i < cardsInHand.Length; i++)
@@ -386,11 +392,13 @@ public class CardDrawSystem : MonoBehaviour
         {
             cardsInCurrentHand--;
         }
-        print(cardsInCurrentHand);
+        //print(cardsInCurrentHand);
 
         int rand = UnityEngine.Random.Range(0, cardsInCurrentHand);
 
-        print(rand);
+        //print(rand);
+
+        //checks what card to ban
         if(card1 == true)
         {
             if(rand == 0)

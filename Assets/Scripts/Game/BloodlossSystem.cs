@@ -84,6 +84,7 @@ public class BloodlossSystem : MonoBehaviour
 
     public void IncreaseBloodloss()
     {
+        //increases the speed of bloodloss
         isCountingDown = true;
         bloodlossTime += knifeBloodlossAdd;
     }

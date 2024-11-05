@@ -781,82 +781,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 728776410305669556, guid: 15e81af6a95cd7d46bcfa965d49e2119, type: 3}
-      propertyPath: m_fontStyle
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 728776410305669556, guid: 15e81af6a95cd7d46bcfa965d49e2119, type: 3}
-      propertyPath: m_fontColor.b
-      value: 0.21176471
-      objectReference: {fileID: 0}
-    - target: {fileID: 728776410305669556, guid: 15e81af6a95cd7d46bcfa965d49e2119, type: 3}
-      propertyPath: m_fontColor.g
-      value: 0.21176471
-      objectReference: {fileID: 0}
-    - target: {fileID: 728776410305669556, guid: 15e81af6a95cd7d46bcfa965d49e2119, type: 3}
-      propertyPath: m_fontColor.r
-      value: 0.9843137
-      objectReference: {fileID: 0}
-    - target: {fileID: 728776410305669556, guid: 15e81af6a95cd7d46bcfa965d49e2119, type: 3}
-      propertyPath: m_fontColor32.rgba
-      value: 4281743099
-      objectReference: {fileID: 0}
-    - target: {fileID: 1261450546601815088, guid: 15e81af6a95cd7d46bcfa965d49e2119, type: 3}
-      propertyPath: m_Color.a
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1261450546601815088, guid: 15e81af6a95cd7d46bcfa965d49e2119, type: 3}
-      propertyPath: m_Color.b
-      value: 0.26226407
-      objectReference: {fileID: 0}
-    - target: {fileID: 1261450546601815088, guid: 15e81af6a95cd7d46bcfa965d49e2119, type: 3}
-      propertyPath: m_Color.g
-      value: 0.26226407
-      objectReference: {fileID: 0}
-    - target: {fileID: 1261450546601815088, guid: 15e81af6a95cd7d46bcfa965d49e2119, type: 3}
-      propertyPath: m_Color.r
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2395639832695754026, guid: 15e81af6a95cd7d46bcfa965d49e2119, type: 3}
-      propertyPath: m_fontStyle
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2395639832695754026, guid: 15e81af6a95cd7d46bcfa965d49e2119, type: 3}
-      propertyPath: m_fontColor.b
-      value: 0.21370581
-      objectReference: {fileID: 0}
-    - target: {fileID: 2395639832695754026, guid: 15e81af6a95cd7d46bcfa965d49e2119, type: 3}
-      propertyPath: m_fontColor.g
-      value: 0.21370581
-      objectReference: {fileID: 0}
-    - target: {fileID: 2395639832695754026, guid: 15e81af6a95cd7d46bcfa965d49e2119, type: 3}
-      propertyPath: m_fontColor.r
-      value: 0.98490566
-      objectReference: {fileID: 0}
-    - target: {fileID: 2395639832695754026, guid: 15e81af6a95cd7d46bcfa965d49e2119, type: 3}
-      propertyPath: m_fontColor32.rgba
-      value: 4281743099
-      objectReference: {fileID: 0}
-    - target: {fileID: 2430164819143764043, guid: 15e81af6a95cd7d46bcfa965d49e2119, type: 3}
-      propertyPath: m_fontStyle
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2430164819143764043, guid: 15e81af6a95cd7d46bcfa965d49e2119, type: 3}
-      propertyPath: m_fontColor.b
-      value: 0.21176471
-      objectReference: {fileID: 0}
-    - target: {fileID: 2430164819143764043, guid: 15e81af6a95cd7d46bcfa965d49e2119, type: 3}
-      propertyPath: m_fontColor.g
-      value: 0.21176471
-      objectReference: {fileID: 0}
-    - target: {fileID: 2430164819143764043, guid: 15e81af6a95cd7d46bcfa965d49e2119, type: 3}
-      propertyPath: m_fontColor.r
-      value: 0.9843137
-      objectReference: {fileID: 0}
-    - target: {fileID: 2430164819143764043, guid: 15e81af6a95cd7d46bcfa965d49e2119, type: 3}
-      propertyPath: m_fontColor32.rgba
-      value: 4281743099
-      objectReference: {fileID: 0}
     - target: {fileID: 8184262763117406225, guid: 15e81af6a95cd7d46bcfa965d49e2119, type: 3}
       propertyPath: m_Pivot.x
       value: 0
@@ -2838,13 +2762,13 @@ SceneRoots:
   m_Roots:
   - {fileID: 565869794}
   - {fileID: 705507995}
+  - {fileID: 1146023760}
+  - {fileID: 778152247695438019}
+  - {fileID: 1698909537}
   - {fileID: 595854287}
   - {fileID: 694210905}
-  - {fileID: 778152247695438019}
   - {fileID: 5156374501101811987}
   - {fileID: 162708649}
-  - {fileID: 1146023760}
-  - {fileID: 1698909537}
   - {fileID: 1127844529}
   - {fileID: 322346557}
   - {fileID: 5765025611772741749}

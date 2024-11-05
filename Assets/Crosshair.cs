@@ -20,7 +20,7 @@ public class Crosshair : MonoBehaviour
 
     void Start()
     {
-        if (crosshairOuter != null)
+        if (crosshairInner != null)
         {
             originalOuterScale = crosshairOuter.localScale;
             targetScale = originalOuterScale;
@@ -29,17 +29,7 @@ public class Crosshair : MonoBehaviour
 
     void Update()
     {
-        //Needs to be changed to find hovering from CardSelection script, can't work it out
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            HoverScale(true);
-        }
-        else if (Input.GetKeyUp(KeyCode.Space))
-        {
-            HoverScale(false);
-        }
-
-        if (crosshairOuter != null)
+        if (isHovering)
         {
             scaleTimer += Time.deltaTime / tweenDuration;
             crosshairOuter.localScale = Vector3.Lerp(crosshairOuter.localScale, targetScale, scaleTimer);
@@ -49,7 +39,16 @@ public class Crosshair : MonoBehaviour
     public void HoverScale(bool hovering)
     {
         isHovering = hovering;
-        targetScale = isHovering ? originalOuterScale * hoverScale : originalOuterScale;
+
+        if(isHovering)
+        {
+            targetScale = originalOuterScale * hoverScale;
+        }
+        else
+        {
+            crosshairOuter.localScale = originalOuterScale;
+        }
+        //targetScale = isHovering ? originalInnerScale * hoverScale : originalInnerScale;
         scaleTimer = 0;
     }
 }

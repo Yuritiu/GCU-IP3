@@ -311,6 +311,7 @@ public class GameManager : MonoBehaviour
         //Debug
         CardDrawSystem.Instance.debugCurrentTurnText.text = ("Revealing Cards");
 
+        //TODO: fix? in tutorial
         MainCamera.transform.position = new Vector3(0f, 7.34f, -5.06f);
         MainCamera.transform.rotation = new Quaternion(77.15f, 0f, 0f, 0f);
         //waits for cards to reveal

@@ -26,6 +26,7 @@ public class TutorialManager : MonoBehaviour
 
     [Header("Text Variables")]
     [SerializeField] TextMeshProUGUI tutorialText;
+    [SerializeField] TextMeshProUGUI currentObjectives;
 
     [HideInInspector] public int tutorialPhase = -1;
     [HideInInspector] public bool playedHand = false;
@@ -57,13 +58,14 @@ public class TutorialManager : MonoBehaviour
     {
         yield return new WaitForSeconds(1);
         //Pos 1 Text
-        tutorialText.text = "Hello, welcome to *INSERT NAME*, why don't you start by having a look at your hand in the bottom right.";
+        tutorialText.text = "Hello, why don't you start by having a look at your hand in the bottom right.";
 
         yield return new WaitForSeconds(1);
         freelook.canLook = true;
 
         yield return new WaitForSeconds(3);
         tutorialText.text = "Now why don't we get started...place a knife and an armour card on the table.";
+        currentObjectives.text = "- Place a 'KNIFE' card. \n- Place an 'ARMOUR' card.";
         gameManager.canPlay = true;
         tutorialCardDraw.canPlay = true;
 
@@ -204,8 +206,12 @@ public class TutorialManager : MonoBehaviour
         tutorialText.text = "Great, the knife will attempt to cut off one finger, and the armour will attempt to stop an attacking knife, or bullet, " +
         "from cutting your finger.";
 
+        currentObjectives.text = "";
+
         yield return new WaitForSeconds(8);
         tutorialText.text = "Now play your hand by clicking on the opponent.";
+
+        currentObjectives.text = "- Click on the opponent to play your hand.";
 
         //Allow Player To Play Hand
         gameManager.canPlay = true;
@@ -225,9 +231,12 @@ public class TutorialManager : MonoBehaviour
         TutorialCardDraw.Instance.canSelectCards = false;
 
         tutorialText.text = "Good, after each turn each player will draw 1 card.";
+        currentObjectives.text = "";
 
         yield return new WaitForSeconds(5);
         tutorialText.text = "Now let's play 2 knife cards.";
+
+        currentObjectives.text = "- Play 2 'KNIFE' cards.";
 
         TutorialCardDraw.Instance.canSelectCards = true;
         gameManager.canPlay = true;
@@ -248,10 +257,13 @@ public class TutorialManager : MonoBehaviour
         yield return new WaitForSeconds(0.1f);
 
         tutorialText.text = "A skip turn card will skip the opponent's next turn";
+        currentObjectives.text = "";
 
         yield return new WaitForSeconds(5f);
 
         tutorialText.text = "Let's place a skip turn card with a knife";
+
+        currentObjectives.text = "- Play a 'SKIP TURN' card. \n- Play a 'KNIFE' card.";
 
         //Allow Player To Play Hand
         TutorialCardDraw.Instance.canSelectCards = true;
@@ -273,9 +285,12 @@ public class TutorialManager : MonoBehaviour
         yield return new WaitForSeconds(0.1f);
 
         tutorialText.text = "Alright, now that we only have 1 card, lets skip our turn so we can play 2 and combine them next turn.";
+        currentObjectives.text = "";
 
         yield return new WaitForSeconds(5f);
         tutorialText.text = "Click the opponent while the table is empty to skip your turn.";
+
+        currentObjectives.text = "- Click on the opponent with an empty hand to skip your turn.";
 
         //Allow Player To Play Hand
         gameManager.canPlay = true;
@@ -297,9 +312,13 @@ public class TutorialManager : MonoBehaviour
 
         tutorialText.text = "A cigar card will clone any card it is placed with";
 
+        currentObjectives.text = "";
+
         yield return new WaitForSeconds(4f);
 
         tutorialText.text = "Now lets use a cigar card with our knife to duplicate the effect";
+
+        currentObjectives.text = "- Play a 'CIGAR' card. \n- Play a 'KNIFE' card.";
 
         //Allow Player To Play Hand
         TutorialCardDraw.Instance.canSelectCards = true;
@@ -319,6 +338,8 @@ public class TutorialManager : MonoBehaviour
         yield return new WaitForSeconds(5f);
 
         tutorialText.text = "Looks like you get to live, for now at least";
+
+        currentObjectives.text = "Tutorial Completed.";
 
         yield return new WaitForSeconds(4f);
 

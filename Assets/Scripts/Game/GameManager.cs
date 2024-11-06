@@ -80,6 +80,17 @@ public class GameManager : MonoBehaviour
     [HideInInspector] public bool canPlay = true;
     [HideInInspector] public bool isTutorial = false;
 
+
+    [Header("Win And Lose Screens")]
+    [SerializeField] public GameObject WinScreen;
+    [SerializeField] public GameObject LoseScreen;
+    
+
+
+    public void Start()
+    {
+        Time.timeScale = 1f;
+    }
     private void Awake()
     {
         PlayerGun.SetActive(false);
@@ -102,6 +113,7 @@ public class GameManager : MonoBehaviour
         //Set Fingers Debug Text
         ReduceHealth(0);
         DisableAllBackfires();
+        
     }
 
     public void addBullet()
@@ -449,14 +461,21 @@ public class GameManager : MonoBehaviour
 
         if (aiFingers <= 0 && !isTutorial)
         {
-            var activeScene = SceneManager.GetActiveScene().name;
-            SceneManager.LoadScene(activeScene);
+            print("You Win");
+            WinScreen.SetActive(true);
+            Cursor.visible = true;
+            Cursor.lockState = CursorLockMode.Confined;
+            Time.timeScale = 0f;
             //YOU WIN!!
         }
         else if (playerFingers <= 0 && !isTutorial)
         {
-            var activeScene = SceneManager.GetActiveScene().name;
-            SceneManager.LoadScene(activeScene);
+            print("You Lose");
+            LoseScreen.SetActive(true);
+            Cursor.visible = true;
+            Cursor.lockState = CursorLockMode.Confined;
+            Time.timeScale = 0f;
+
             //YOU LOSE :(
         }
 
@@ -710,16 +729,25 @@ public class GameManager : MonoBehaviour
     public void EndGameWin()
     {
         print("You Win");
-        var activeScene = SceneManager.GetActiveScene().name;
-        SceneManager.LoadScene(activeScene);
+        WinScreen.SetActive(true);
+        Cursor.visible = true;
+        Cursor.lockState = CursorLockMode.Confined;
+        Time.timeScale = 0f;
     }
 
     public void EndGameLose()
     {
         print("You Lose");
+        LoseScreen.SetActive(true);
+        Cursor.visible = true;
+        Cursor.lockState = CursorLockMode.Confined;
+        Time.timeScale = 0f;
+    }
+
+    public void RestartGame()
+    {
         var activeScene = SceneManager.GetActiveScene().name;
         SceneManager.LoadScene(activeScene);
     }
-
 }
 

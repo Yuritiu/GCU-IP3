@@ -104,9 +104,7 @@ public class BloodlossSystem : MonoBehaviour
     {
         Debug.Log("You Lost All Your Blood :(");
 
-        //Reload Scene
-        var activeScene = SceneManager.GetActiveScene().name;
-        SceneManager.LoadScene(activeScene);
+        GameManager.Instance.EndGameLose();
     }
 
 

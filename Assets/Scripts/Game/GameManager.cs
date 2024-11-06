@@ -327,12 +327,15 @@ public class GameManager : MonoBehaviour
         //Debug
         CardDrawSystem.Instance.debugCurrentTurnText.text = ("Revealing Cards");
 
-        StartCoroutine(CameraTransition(Target2));
+
         in2ndPos = true;
+        StartCoroutine(CameraTransition(Target2));
+        
         //waits for cards to reveal
         yield return new WaitForSeconds(2f);
-        StartCoroutine(CameraTransition(Target1));
         in2ndPos = false;
+        StartCoroutine(CameraTransition(Target1));
+        
 
         yield return new WaitForSeconds(4);
 
@@ -404,14 +407,14 @@ public class GameManager : MonoBehaviour
 
     public IEnumerator WaitToCompareCards(int character, int type)
     {
-
-        StartCoroutine(CameraTransition(Target2));
         in2ndPos = true;
+        StartCoroutine(CameraTransition(Target2));
+        
         //waits for cards to reveal
         yield return new WaitForSeconds(2f);
-
-        StartCoroutine(CameraTransition(Target1));
         in2ndPos = false;
+        StartCoroutine(CameraTransition(Target1));
+        
 
         if (type == 1)
         {
@@ -622,9 +625,9 @@ public class GameManager : MonoBehaviour
 
         if(wPressed == true)
         {
-
-            StartCoroutine(CameraTransition(Target2));
             in2ndPos = true;
+            StartCoroutine(CameraTransition(Target2));
+            
 
             if(MainCamera.transform.position == Target2.transform.position)
             {
@@ -652,22 +655,33 @@ public class GameManager : MonoBehaviour
         float t = 0.00f;
         Vector3 startingpos = MainCamera.transform.position;
 
-        while(t < 1.0f)
+        
+
+        while (t < 1.0f && in2ndPos == false)
         {
             t += Time.deltaTime * (Time.timeScale * speed);
-
-            MainCamera.transform.LookAt(Target3);
 
             MainCamera.transform.position = Vector3.Lerp(startingpos, Target.position, t);
             yield return 0;
 
         }
 
-        while(in2ndPos == true)
+        while (in2ndPos == true && t < 1.0f)
+        {
+            t += Time.deltaTime * (Time.timeScale * speed);
+
+            MainCamera.transform.position = Vector3.Lerp(startingpos, Target.position, t);
+
+            MainCamera.transform.LookAt(Target3);
+            yield return 0;
+        }
+
+        while (in2ndPos == true)
         {
             MainCamera.transform.LookAt(Target3);
             yield return 0;
         }
+
     }
     public void EndGameWin()
     {

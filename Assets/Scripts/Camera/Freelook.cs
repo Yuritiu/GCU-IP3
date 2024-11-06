@@ -33,7 +33,15 @@ public class Freelook : MonoBehaviour
 
     void Update()
     {
-        
+        if(GameManager.Instance.in2ndPos == true)
+        {
+            canLook = false;
+        }
+
+        if (GameManager.Instance.in2ndPos == false)
+        {
+            canLook = true;
+        }
 
         if (!canLook || SettingsMenu.Instance.settingsMenuOpen)
             return;

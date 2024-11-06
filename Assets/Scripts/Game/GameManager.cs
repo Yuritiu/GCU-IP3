@@ -30,7 +30,9 @@ public class GameManager : MonoBehaviour
     [SerializeField] public Transform Target1;
     [SerializeField] public Transform Target2;
     [SerializeField] public Transform Target3;
+    [SerializeField] public Transform Target4;
     [HideInInspector] public bool in2ndPos;
+    
 
     [Header("camera")]
     [SerializeField] public Camera MainCamera;
@@ -611,14 +613,18 @@ public class GameManager : MonoBehaviour
 
         if (sPressed == true)
         {
-
             in2ndPos = false;
+            
             StartCoroutine(CameraTransition(Target1));
 
             if(MainCamera.transform.position == Target1.transform.position)
             {
-                sPressed = false;
+                
+                sPressed = false; 
                 MainCamera.transform.position = MainCamera.transform.position;
+                StopCoroutine(CameraTransition(Target1));
+               
+                
             }
 
         }
@@ -633,6 +639,7 @@ public class GameManager : MonoBehaviour
             {
                 wPressed = false;
                 MainCamera.transform.position = MainCamera.transform.position;
+                StopCoroutine(CameraTransition(Target2));
             }
         }
 
@@ -654,31 +661,37 @@ public class GameManager : MonoBehaviour
     {
         float t = 0.00f;
         Vector3 startingpos = MainCamera.transform.position;
-
+        
         
 
         while (t < 1.0f && in2ndPos == false)
         {
             t += Time.deltaTime * (Time.timeScale * speed);
-
+            
             MainCamera.transform.position = Vector3.Lerp(startingpos, Target.position, t);
+            //MainCamera.transform.rotation = Quaternion.Slerp(MainCamera.transform.rotation, Quaternion.LookRotation(Target4.position - MainCamera.transform.position), 100f * Time.deltaTime);
+
             yield return 0;
 
         }
+        
 
         while (in2ndPos == true && t < 1.0f)
         {
             t += Time.deltaTime * (Time.timeScale * speed);
 
             MainCamera.transform.position = Vector3.Lerp(startingpos, Target.position, t);
+            //Target4.position = new Vector3(MainCamera.GetComponent<Freelook>().currentXRotation, MainCamera.GetComponent<Freelook>().currentYRotation, 0f);
 
-            MainCamera.transform.LookAt(Target3);
+            MainCamera.transform.rotation = Quaternion.Slerp(MainCamera.transform.rotation, Quaternion.LookRotation(Target3.position - MainCamera.transform.position), speed * Time.deltaTime);
             yield return 0;
         }
 
+        
+
         while (in2ndPos == true)
         {
-            MainCamera.transform.LookAt(Target3);
+            MainCamera.transform.rotation = Quaternion.Slerp(MainCamera.transform.rotation, Quaternion.LookRotation(Target3.position - MainCamera.transform.position), speed * Time.deltaTime);
             yield return 0;
         }
 

@@ -20,7 +20,7 @@ public class Gun : MonoBehaviour
         }
 
         int randForBullet = UnityEngine.Random.Range(1, 7);
-        print(randForBullet);
+        //print(randForBullet);
         GameManager.Instance.PlayerRoulette();
         if (randForBullet <= GameManager.Instance.bullets)
         {

@@ -2987,7 +2987,7 @@ PrefabInstance:
       objectReference: {fileID: 1616607367}
     - target: {fileID: 5165826222751895394, guid: 6d97c6adadc67ca4a9fab2ffb0260aee, type: 3}
       propertyPath: legendaryRarity
-      value: 50000
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 5165826222751895394, guid: 6d97c6adadc67ca4a9fab2ffb0260aee, type: 3}
       propertyPath: selectedPosition1

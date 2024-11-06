@@ -76,17 +76,17 @@ public class MainMenuManager : MonoBehaviour
     //Expanded menu functions
     private void StartTutorial()
     {
-        Debug.Log("Tutorial");
+        //Debug.Log("Tutorial");
     }
 
     private void StartEasyMode()
     {
-        Debug.Log("Easy");
+        //Debug.Log("Easy");
     }
 
     private void StartHardMode()
     {
-        Debug.Log("Hard mode started");
+        //Debug.Log("Hard mode started");
     }
 
     private void CloseExpandedMenu()

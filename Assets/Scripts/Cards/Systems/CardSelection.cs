@@ -50,8 +50,11 @@ public class CardSelection : MonoBehaviour
             if (hovering)
             {
                 //Set Info Image And Text
-                cardImage.color = cardInfoImage.color;
-                cardText.text = cardInfoText;
+                if(cardInfoImage != null)
+                {
+                    cardImage.color = cardInfoImage.color;
+                    cardText.text = cardInfoText;
+                }
             }
             else
             {

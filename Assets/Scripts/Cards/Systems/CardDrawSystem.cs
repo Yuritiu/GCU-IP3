@@ -318,7 +318,7 @@ public class CardDrawSystem : MonoBehaviour
         cardsInHand[index].transform.position = selectedPosition.position;
         //Set Parent Else It Doesn't Return To The Original Position
         cardsInHand[index].transform.SetParent(selectedPosition);
-        selectedCardCount++;
+        selectedCardCount = CheckSelectedCards();
     }
 
     void DeselectCard(int index)
@@ -330,7 +330,7 @@ public class CardDrawSystem : MonoBehaviour
         cardsInHand[index].transform.position = originalPositions[index].position;
         cardsInHand[index].transform.rotation = originalPositions[index].rotation;
 
-        selectedCardCount--;
+        selectedCardCount = CheckSelectedCards();
 
         //updates what cards are banned
         switch (index)
@@ -355,6 +355,23 @@ public class CardDrawSystem : MonoBehaviour
         //Check If The Card Is Currently In One Of The Selected Positions
         return card.transform.parent != null && (card.transform.parent == selectedPosition1 || card.transform.parent == selectedPosition2);
     }
+
+    int CheckSelectedCards()
+    {
+        if(selectedPosition1.childCount > 0 && selectedPosition2.childCount > 0)
+        {
+            return 2;
+        }
+        if (selectedPosition1.childCount > 0 || selectedPosition2.childCount > 0)
+        {
+            return 1;
+        }
+        else
+        {
+            return 0;
+        }
+    }
+
 
     public void StopOneCard()
     {

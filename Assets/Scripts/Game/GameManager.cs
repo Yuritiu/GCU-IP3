@@ -96,6 +96,9 @@ public class GameManager : MonoBehaviour
         aiFingers = 5;
         playerFingers = 5;
 
+        //sets number of bullets
+        bullets = 1;
+
         //Set Fingers Debug Text
         ReduceHealth(0);
         DisableAllBackfires();
@@ -327,7 +330,7 @@ public class GameManager : MonoBehaviour
     IEnumerator WaitSoCardsCanReveal()
     {
         //Debug
-        CardDrawSystem.Instance.debugCurrentTurnText.text = ("Revealing Cards");
+        //CardDrawSystem.Instance.debugCurrentTurnText.text = ("Revealing Cards");
 
 
         in2ndPos = true;
@@ -409,18 +412,14 @@ public class GameManager : MonoBehaviour
 
     public IEnumerator WaitToCompareCards(int character, int type)
     {
-        in2ndPos = true;
-        StartCoroutine(CameraTransition(Target2));
         
         //waits for cards to reveal
-        yield return new WaitForSeconds(2f);
-        in2ndPos = false;
-        StartCoroutine(CameraTransition(Target1));
-        
+        yield return new WaitForSeconds(1f);
 
-        if (type == 1)
+
+        if (type == 1 || type == 3)
         {
-            CheckArmour(character);
+            CheckArmour(character, type);
         }
         if (type == 2)
         {
@@ -465,7 +464,7 @@ public class GameManager : MonoBehaviour
         aiFingersText.text = ("AI Fingers: " + aiFingers).ToString();
     }
 
-    public void CheckArmour(int character)
+    public void CheckArmour(int character, int type)
     {
         //this ensures the armour stops the gun instead of the knife
         if (character == 1 && IsReadyToCompare)
@@ -540,7 +539,22 @@ public class GameManager : MonoBehaviour
             }
         }
 
-        ReduceHealth(character);
+        if(type == 1)
+        {
+            ReduceHealth(character);
+        }
+        if (type == 3)
+        {
+            //GUN WINS GAME
+            if (character == 1)
+            {
+                EndGameWin();
+            }
+            if (character == 2)
+            {
+                EndGameLose();
+            }
+        }
     }
 
     public void PlayCigarCard(int player)
@@ -552,21 +566,18 @@ public class GameManager : MonoBehaviour
             {
                 var cardObject1 = cardsOnTable1.gameObject;
                 var cardObject2 = cardsOnTable2.gameObject;
-                Component playerClonedCard = null;
 
                 //Card To Be Cloned Is In Slot 2
-                if (cardObject1.name.Contains("Cigar") && !cardObject2.name.Contains("Cigar"))
+                if (cardObject1.name.Contains("cigar") && !cardObject2.name.Contains("cigar"))
                 {
                     //Debug.Log("Called Function 1");
-                    playerClonedCard = cardObject2.GetComponentAtIndex(1);
-                    playerClonedCard.SendMessage("PlayCardForPlayer");
+                    cardObject2.SendMessage("PlayCardForPlayer");
                 }
                 //Card To Be Cloned Is In Slot 1
-                if (cardObject2.name.Contains("Cigar") && !cardObject1.name.Contains("Cigar"))
+                if (cardObject2.name.Contains("cigar") && !cardObject1.name.Contains("cigar"))
                 {
                     //Debug.Log("Called Function 2");
-                    playerClonedCard = cardObject1.GetComponentAtIndex(1);
-                    playerClonedCard.SendMessage("PlayCardForPlayer");
+                    cardObject1.SendMessage("PlayCardForPlayer");
                 }
             }
         }

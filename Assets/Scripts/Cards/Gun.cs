@@ -5,8 +5,6 @@ using System;
 
 public class Gun : MonoBehaviour
 {
-    System.Random rnd = new System.Random();
-    int RandomNumber;
 
     public void PlayCardForPlayer()
     {
@@ -20,23 +18,25 @@ public class Gun : MonoBehaviour
             GameManager.Instance.ReduceHealth(2);
             GameManager.Instance.gunBackfire.gameObject.SetActive(true);
         }
-        RandomNumber = rnd.Next(1, 6);
-        //print(RandomNumber);
-        GameManager.Instance.PlayerRoulette();
 
-        if(RandomNumber >= GameManager.Instance.bullets)
+        int randForBullet = UnityEngine.Random.Range(1, 7);
+        print(randForBullet);
+        GameManager.Instance.PlayerRoulette();
+        if (randForBullet <= GameManager.Instance.bullets)
         {
-            
-            StartCoroutine(WaitToStart(1, 1));
-            StartCoroutine(GameManager.Instance.WaitToCompareCards(1, 1));
-            GameManager.Instance.EndGameWin();
+            StartCoroutine(WaitToStart(1, 3));
+        }
+        else
+        {
+            if(GameManager.Instance.bullets != 1)
+            {
+                GameManager.Instance.bullets--;
+            }
         }
     }
 
     public void PlayCardForAI()
     {
-        RandomNumber = rnd.Next(1, 6);
-        print(RandomNumber);
         GameManager.Instance.AiRoulette();
 
         int rand = UnityEngine.Random.Range(0, 5);
@@ -48,11 +48,10 @@ public class Gun : MonoBehaviour
             //Shoots off your own finger
             GameManager.Instance.ReduceHealth(1);
         }
-        if (RandomNumber >= GameManager.Instance.bullets)
+        int randForBullet = UnityEngine.Random.Range(1, 7);
+        if (randForBullet >= GameManager.Instance.bullets)
         {
-            StartCoroutine(WaitToStart(2, 1));
-            StartCoroutine(GameManager.Instance.WaitToCompareCards(1, 1));
-            GameManager.Instance.EndGameLose();
+            StartCoroutine(WaitToStart(2, 3));
         }
     }
 

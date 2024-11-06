@@ -34,7 +34,15 @@ public class BloodlossSystem : MonoBehaviour
 
     private void Start()
     {
-        difficulty = DifficultyManager.Instance.difficulty;
+        if (DifficultyManager.Instance != null)
+        {
+            difficulty = DifficultyManager.Instance.difficulty;
+        }
+        else
+        {
+            difficulty = 1;
+        }
+
 
         //Only Enable Blood Loss Side Effects If It's Hard Mode
         if(difficulty == 1)
@@ -52,6 +60,21 @@ public class BloodlossSystem : MonoBehaviour
 
         //Debug.Log("Difficulty: " + difficulty);
     }
+    private void Update()
+    {
+        //Normalize The Time To 0-1 Range So It Fits In Image Right
+        float fillAmount = Mathf.Clamp01(currentHealth / maxHealth);
+        //Fill Bar Visual
+        countdownImage.fillAmount = fillAmount;
+        //print(currentHealth);
+        if (bloodlossEffectsEnabled)
+        {
+            Color bloodBlurColour = bloodBlur.color;
+            bloodBlurColour.a = 0.7f - (fillAmount * 1.5f);
+            bloodBlur.color = bloodBlurColour;
+            //print(bloodBlur.color.a);
+        }
+    }
 
     void FixedUpdate()
     {
@@ -59,19 +82,7 @@ public class BloodlossSystem : MonoBehaviour
         {
             //Decrease Time
             currentHealth -= bloodlossTime;
-            //Normalize The Time To 0-1 Range So It Fits In Image Right
-            float fillAmount = Mathf.Clamp01(currentHealth / maxHealth);
-            //Fill Bar Visual
-            countdownImage.fillAmount = fillAmount;
-            print(currentHealth);
-            if (bloodlossEffectsEnabled)
-            {
-                Color bloodBlurColour = bloodBlur.color;
-                bloodBlurColour.a = 0.7f - (fillAmount*1.5f);
-                bloodBlur.color = bloodBlurColour;
-                //print(bloodBlur.color.a);
-            }
-
+        
             if (currentHealth <= 0f)
             {
                 //Ended Countdown, Die

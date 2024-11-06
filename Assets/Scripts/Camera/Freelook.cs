@@ -8,12 +8,12 @@ public class Freelook : MonoBehaviour
     [SerializeField] float mouseSmoothing = 0.1f;
 
     [Header("Clamp Vertical Variables")]
-    [SerializeField] float minX = -35f;
-    [SerializeField] float maxX = 35f;
+    public float minX = -35f;
+    public float maxX = 35f;
 
     [Header("Clamp Horizontal Variables")]
-    [SerializeField] float minY = -75f;
-    [SerializeField] float maxY = 75f;
+    public float minY = -75f;
+    public float maxY = 75f;
 
     public float xRotation = 0f;
     public float currentXRotation = 0f;

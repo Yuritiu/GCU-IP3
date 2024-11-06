@@ -76,6 +76,9 @@ public class GameManager : MonoBehaviour
 
     [Header("Cards ready to be compared")]
     bool IsReadyToCompare;
+    
+    [Header("Blur")]
+    [SerializeField] public GameObject blur;
 
     [HideInInspector] public bool canPlay = true;
     [HideInInspector] public bool isTutorial = false;
@@ -113,7 +116,8 @@ public class GameManager : MonoBehaviour
         //Set Fingers Debug Text
         ReduceHealth(0);
         DisableAllBackfires();
-        
+
+        blur.SetActive(false);
     }
 
     public void addBullet()
@@ -193,6 +197,7 @@ public class GameManager : MonoBehaviour
     public void PlayHand()
     {
         CardDrawSystem.Instance.UnbanCards();
+        blur.SetActive(false);
 
         //Debug.Log("Played Hand: " + isTutorial);
 
@@ -749,5 +754,5 @@ public class GameManager : MonoBehaviour
         var activeScene = SceneManager.GetActiveScene().name;
         SceneManager.LoadScene(activeScene);
     }
+    
 }
-

@@ -501,4 +501,22 @@ public class CardDrawSystem : MonoBehaviour
             bannedCard2 = -1;
         }
     }
+
+    public void ShuffleHand()
+    {
+        GameObject[] array = {cardsInHand[3], cardsInHand[0], cardsInHand[1], cardsInHand[2]};
+        cardsInHand = array;
+
+        for (int i = 0; i < cardsInHand.Length; i++)
+        {
+            if (cardsInHand[i] != null)
+            {
+                if (cardsInHand[i].transform.position != selectedPosition1.position && cardsInHand[i].transform.position != selectedPosition2.position)
+                {
+                    cardsInHand[i].transform.position = originalPositions[i].position;
+                    cardsInHand[i].transform.rotation = originalPositions[i].rotation;
+                }
+            } 
+        }
+    }
 }

@@ -504,6 +504,7 @@ public class CardDrawSystem : MonoBehaviour
 
     public void ShuffleHand()
     {
+        //TODO add several array options then pick one of them at random
         GameObject[] array = {cardsInHand[3], cardsInHand[0], cardsInHand[1], cardsInHand[2]};
         cardsInHand = array;
 

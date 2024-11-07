@@ -94,8 +94,11 @@ public class GameManager : MonoBehaviour
     {
         Time.timeScale = 1f;
     }
+
     private void Awake()
     {
+        Instance = this;
+
         PlayerGun.SetActive(false);
         AIGun.SetActive(false);
 
@@ -103,7 +106,6 @@ public class GameManager : MonoBehaviour
         sPressed = false;
         in2ndPos = false;
 
-        Instance = this;
         isTutorial = false;
 
         //Set Fingers To 5
@@ -452,13 +454,13 @@ public class GameManager : MonoBehaviour
         if (character == 1)
         {
             aiFingers--;
-            aiHand.RemoveFinger(aiFingers);
+            aiHand.RemoveFinger(aiFingers, true);
         }
         //Player
         else if (character == 2)
         {
             playerFingers--;
-            playerHand.RemoveFinger(playerFingers);
+            playerHand.RemoveFinger(playerFingers, false);
 
             //Debug.Log("Countdown Started");
             BloodlossSystem.Instance.IncreaseBloodloss();

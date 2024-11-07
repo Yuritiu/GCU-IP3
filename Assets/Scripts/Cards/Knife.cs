@@ -14,12 +14,13 @@ public class Knife : MonoBehaviour
             //\/Debuging\/
             //rand = 0;
             //print(rand);
-            //if (rand == 0)
-            //{
-            //    //makes 1 card not usable for 1 turn
-            //    CardDrawSystem.Instance.StopOneCard();
-            //    GameManager.Instance.knifeBackfire.gameObject.SetActive(true);
-            //}
+            if (rand == 0)
+            {
+                //makes 1 card not usable for 1 turn
+                CardDrawSystem.Instance.StopOneCard();
+                GameManager.Instance.knifeBackfire.gameObject.SetActive(true);
+            }
+
             if (CardDrawSystem.Instance.selectedPosition1.childCount > 0 && CardDrawSystem.Instance.selectedPosition2.childCount > 0)
             {
                 //print("made it");

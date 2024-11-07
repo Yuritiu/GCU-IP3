@@ -16,6 +16,7 @@ public class Armour : MonoBehaviour
             //slows bloodloss
             BloodlossSystem.Instance.bloodlossTime -= BloodlossSystem.Instance.shieldBloodlossReduce;
             GameManager.Instance.armourBackfire.gameObject.SetActive(true);
+            GameManager.Instance.playerArmour++;
         }
         //Damage opponent 
         //takes 1 finger away 

@@ -18,9 +18,13 @@ public class Armour : MonoBehaviour
             GameManager.Instance.armourBackfire.gameObject.SetActive(true);
             GameManager.Instance.playerArmour++;
         }
-        //Damage opponent 
-        //takes 1 finger away 
-        GameManager.Instance.playerArmour++;
+        else
+        {
+            //Damage opponent 
+            //takes 1 finger away 
+            GameManager.Instance.playerArmour++;
+        }
+
     } 
            
     public void PlayCardForAI()

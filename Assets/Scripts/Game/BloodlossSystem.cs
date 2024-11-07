@@ -43,18 +43,29 @@ public class BloodlossSystem : MonoBehaviour
             difficulty = 1;
         }
 
-
         //Only Enable Blood Loss Side Effects If It's Hard Mode
-        if(difficulty == 1)
+        //if(difficulty == 1)
+        //{
+        //    bloodlossEffectsEnabled = false;
+        //    maxHealth = easyCountdownTime;
+        //}
+        //else
+        //{
+        //    bloodlossEffectsEnabled = true;
+        //    maxHealth = hardCountdownTime;
+        //}
+
+        bloodlossEffectsEnabled = true;
+
+        if (difficulty == 0)
         {
-            bloodlossEffectsEnabled = false;
             maxHealth = easyCountdownTime;
         }
         else
         {
-            bloodlossEffectsEnabled = true;
             maxHealth = hardCountdownTime;
         }
+
         currentHealth = maxHealth;
         countdownImage.fillAmount = 1f;
 

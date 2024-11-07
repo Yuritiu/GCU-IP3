@@ -11,19 +11,19 @@ public class Armour : MonoBehaviour
         //\/Debuging\/
         //rand = 0;
         //print(rand);
-        if (rand == 0)
-        {
-            //slows bloodloss
-            BloodlossSystem.Instance.bloodlossTime -= BloodlossSystem.Instance.shieldBloodlossReduce;
-            GameManager.Instance.armourBackfire.gameObject.SetActive(true);
-            GameManager.Instance.playerArmour++;
-        }
-        else
-        {
+        //if (rand == 0)
+        //{
+        //    //slows bloodloss
+        //    BloodlossSystem.Instance.bloodlossTime -= BloodlossSystem.Instance.shieldBloodlossReduce;
+        //    GameManager.Instance.armourBackfire.gameObject.SetActive(true);
+        //    GameManager.Instance.playerArmour++;
+        //}
+        //else
+        //{
             //Damage opponent 
             //takes 1 finger away 
             GameManager.Instance.playerArmour++;
-        }
+        //}
 
     } 
            

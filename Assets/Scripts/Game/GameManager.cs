@@ -124,25 +124,25 @@ public class GameManager : MonoBehaviour
     void FixedUpdate()
     {
         //TODO: Move to crosshair script later
-        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-        RaycastHit hit;
+        //Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+       // RaycastHit hit;
 
-        var crosshair = GameObject.FindGameObjectWithTag("Crosshair").GetComponent<Crosshair>();
+        //var crosshair = GameObject.FindGameObjectWithTag("Crosshair").GetComponent<Crosshair>();
 
         //Raycast To Mouse Position
-        if (Physics.Raycast(ray, out hit))
-        {
-            if (hit.transform.CompareTag("Opponent") && canPlay)
-            {
-                //Enables Inner Crosshair When Hovering
-                 crosshair.HoverScale(true);
-            }
-            else
-            {
-                //Enables Inner Crosshair When Hovering
-                crosshair.HoverScale(false);
-            }
-        }
+        //if (Physics.Raycast(ray, out hit))
+        //{
+        //    if (hit.transform.CompareTag("Opponent") && canPlay)
+        //    {
+        //        //Enables Inner Crosshair When Hovering
+        //         crosshair.HoverScale(true);
+        //    }
+        //    else
+        //    {
+        //        //Enables Inner Crosshair When Hovering
+        //        crosshair.HoverScale(false);
+        //    }
+        //}
     }
 
 

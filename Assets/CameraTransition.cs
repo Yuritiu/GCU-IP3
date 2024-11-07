@@ -18,9 +18,13 @@ public class CameraTransition : MonoBehaviour
     public float transitionMinY = 0f;
     public float transitionMaxY = 0f;
 
+    [Header("Pause Duration")]
+    public float pauseDuration = 2f;
+
     [Header("Internal State Variables")]
     private Camera mainCamera;
     private bool transitioningToTarget = false;
+    private bool isCoroutineRunning = false;
     private Vector3 initialMousePosition;
     private Quaternion initialRotation;
     private Quaternion targetRotation;
@@ -51,43 +55,86 @@ public class CameraTransition : MonoBehaviour
 
     private void Update()
     {
-        HandleInput();
         UpdateCameraPositionAndRotation();
         SmoothMouseLook();
+
+        if (Input.GetKeyDown(KeyCode.Y)){MoveCameraForward();}
+        if (Input.GetKeyDown(KeyCode.H)){MoveCameraBackward();}
     }
 
-    private void HandleInput()
+    public void MoveCameraForward()
     {
-        if (Input.GetKeyDown(KeyCode.Y))
-        {
-            transitioningToTarget = true;
-            initialRotation = mainCamera.transform.rotation;
-            targetRotation = targetCameraPosition.rotation;
-            initialMousePosition = Input.mousePosition;
+        transitioningToTarget = true;
+        initialRotation = mainCamera.transform.rotation;
+        targetRotation = targetCameraPosition.rotation;
+        initialMousePosition = Input.mousePosition;
 
-            if (freeLookScript != null)
-            {
-                freeLookScript.minX = transitionMinX;
-                freeLookScript.maxX = transitionMaxX;
-                freeLookScript.minY = transitionMinY;
-                freeLookScript.maxY = transitionMaxY;
-            }
-        }
-        else if (Input.GetKeyDown(KeyCode.H))
+        if (freeLookScript != null)
         {
-            transitioningToTarget = false;
-            initialRotation = mainCamera.transform.rotation;
-            targetRotation = initialCameraPosition.rotation;
-            initialMousePosition = Input.mousePosition;
-
-            if (freeLookScript != null)
-            {
-                freeLookScript.minX = originalMinX;
-                freeLookScript.maxX = originalMaxX;
-                freeLookScript.minY = originalMinY;
-                freeLookScript.maxY = originalMaxY;
-            }
+            freeLookScript.minX = transitionMinX;
+            freeLookScript.maxX = transitionMaxX;
+            freeLookScript.minY = transitionMinY;
+            freeLookScript.maxY = transitionMaxY;
         }
+    }
+
+    public void MoveCameraBackward()
+    {
+        transitioningToTarget = false;
+        initialRotation = mainCamera.transform.rotation;
+        targetRotation = initialCameraPosition.rotation;
+        initialMousePosition = Input.mousePosition;
+
+        if (freeLookScript != null)
+        {
+            freeLookScript.minX = originalMinX;
+            freeLookScript.maxX = originalMaxX;
+            freeLookScript.minY = originalMinY;
+            freeLookScript.maxY = originalMaxY;
+        }
+    }
+
+    public void TriggerCameraTransition()
+    {
+        if (!isCoroutineRunning)
+        {
+            StartCoroutine(MoveCameraWithPause());
+        }
+    }
+
+    public IEnumerator MoveCameraWithPause()
+    {
+        isCoroutineRunning = true;
+        transitioningToTarget = true;
+        initialRotation = mainCamera.transform.rotation;
+        targetRotation = targetCameraPosition.rotation;
+        initialMousePosition = Input.mousePosition;
+
+        if (freeLookScript != null)
+        {
+            freeLookScript.minX = transitionMinX;
+            freeLookScript.maxX = transitionMaxX;
+            freeLookScript.minY = transitionMinY;
+            freeLookScript.maxY = transitionMaxY;
+        }
+
+        yield return new WaitUntil(() => Vector3.Distance(mainCamera.transform.position, targetCameraPosition.position) < 0.01f);
+        yield return new WaitForSeconds(pauseDuration);
+
+        transitioningToTarget = false;
+        initialRotation = mainCamera.transform.rotation;
+        targetRotation = initialCameraPosition.rotation;
+
+        if (freeLookScript != null)
+        {
+            freeLookScript.minX = originalMinX;
+            freeLookScript.maxX = originalMaxX;
+            freeLookScript.minY = originalMinY;
+            freeLookScript.maxY = originalMaxY;
+        }
+
+        yield return new WaitUntil(() => Vector3.Distance(mainCamera.transform.position, initialCameraPosition.position) < 0.01f);
+        isCoroutineRunning = false;
     }
 
     private void UpdateCameraPositionAndRotation()
@@ -98,10 +145,11 @@ public class CameraTransition : MonoBehaviour
 
     private void SmoothMouseLook()
     {
+        if (isCoroutineRunning) return;
+
         Vector3 mouseOffset = Input.mousePosition - initialMousePosition;
         mouseOffset *= mouseSensitivity * Time.deltaTime;
 
         mainCamera.transform.rotation = Quaternion.Lerp(mainCamera.transform.rotation, (transitioningToTarget ? targetRotation : initialRotation) * Quaternion.Euler(-mouseOffset.y, mouseOffset.x, 0), Time.deltaTime * transitionSpeed);
     }
 }
-

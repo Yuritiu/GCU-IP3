@@ -527,6 +527,10 @@ public class GameManager : MonoBehaviour
                     }
                 }
             }
+            else
+            {
+                ReduceHealth(1);
+            }
         }
 
         if (character == 2 && IsReadyToCompare)
@@ -563,11 +567,15 @@ public class GameManager : MonoBehaviour
                     }
                 }
             }
+            else
+            {
+                ReduceHealth(2);
+            }
         }
 
         if(type == 1)
         {
-            ReduceHealth(character);
+            //ReduceHealth(character);
         }
         if (type == 3)
         {

@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 public class BloodlossSystem : MonoBehaviour
 {
-    //!- Coded By Charlie -!
+    //!- Coded By Charlie & Ben-!
 
     public static BloodlossSystem Instance;
 
@@ -18,6 +18,11 @@ public class BloodlossSystem : MonoBehaviour
     [SerializeField] Image bloodBlur;
     float easyCountdownTime = 400f;
     float hardCountdownTime = 200f;
+
+    [Header("Audio References")]
+    [SerializeField] AudioSource heartbeat;
+    [SerializeField] AudioSource thud;
+    bool heartbeatStartCalled;
 
     float maxHealth;
     float currentHealth;
@@ -43,18 +48,6 @@ public class BloodlossSystem : MonoBehaviour
             difficulty = 1;
         }
 
-        //Only Enable Blood Loss Side Effects If It's Hard Mode
-        //if(difficulty == 1)
-        //{
-        //    bloodlossEffectsEnabled = false;
-        //    maxHealth = easyCountdownTime;
-        //}
-        //else
-        //{
-        //    bloodlossEffectsEnabled = true;
-        //    maxHealth = hardCountdownTime;
-        //}
-
         bloodlossEffectsEnabled = true;
 
         if (difficulty == 0)
@@ -75,6 +68,7 @@ public class BloodlossSystem : MonoBehaviour
     {
         //Normalize The Time To 0-1 Range So It Fits In Image Right
         float fillAmount = Mathf.Clamp01(currentHealth / maxHealth);
+        Debug.Log(fillAmount);
         //Fill Bar Visual
         countdownImage.fillAmount = fillAmount;
         //print(currentHealth);
@@ -84,6 +78,20 @@ public class BloodlossSystem : MonoBehaviour
             bloodBlurColour.a = 0.7f - (fillAmount * 1.5f);
             bloodBlur.color = bloodBlurColour;
             //print(bloodBlur.color.a);
+        }
+
+        //Play Heartbeat SFX
+        if(fillAmount <= 0.5f && !heartbeatStartCalled)
+        {
+            heartbeatStartCalled = true;
+
+            heartbeat.Play();
+            heartbeat.pitch = 1;
+        }
+
+        if(fillAmount <= 0.25f)
+        {
+            heartbeat.pitch = 2;
         }
     }
 
@@ -115,8 +123,9 @@ public class BloodlossSystem : MonoBehaviour
     {
         Debug.Log("You Lost All Your Blood :(");
 
+        heartbeat.Stop();
+        thud.Play();
+
         GameManager.Instance.EndGameLose();
     }
-
-
 }

@@ -9,6 +9,7 @@ TagManager:
   - CardInfoImage
   - CardInfoText
   - Crosshair
+  - Rulebook
   layers:
   - Default
   - TransparentFX

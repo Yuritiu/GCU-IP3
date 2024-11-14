@@ -138,6 +138,7 @@ public class CardDrawSystem : MonoBehaviour
                     if (hit.transform.CompareTag(opponentTag))
                     {
                         //Check If It's The Players Turn And Atleast 1 Card Is Selected
+                        canPlay = false;
                         GameManager.Instance.PlayHand();
                     }
                 }

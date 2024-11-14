@@ -8,6 +8,7 @@ public class Gun : MonoBehaviour
 
     public void PlayCardForPlayer()
     {
+        //GameManager.Instance.playerHasGun = true;
         int rand = UnityEngine.Random.Range(0, 5);
         //\/Debuging\/
         //rand = 0;
@@ -37,6 +38,7 @@ public class Gun : MonoBehaviour
 
     public void PlayCardForAI()
     {
+        //GameManager.Instance.aiHasGun = true;   
         GameManager.Instance.AiRoulette();
 
         int rand = UnityEngine.Random.Range(0, 5);

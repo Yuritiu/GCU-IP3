@@ -7,6 +7,7 @@ using Unity.Burst.CompilerServices;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.TextCore.Text;
 using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
@@ -54,6 +55,10 @@ public class GameManager : MonoBehaviour
     [Header("Skip Turn Variables")]
     [HideInInspector] public int aiSkippedTurns = 0;
     [HideInInspector] public int playerSkippedTurns = 0;
+
+    [Header("check if there is a gun")]
+    [HideInInspector] public bool aiHasGun = false;
+    [HideInInspector] public bool playerHasGun = false;
 
     [Header("Backfire Text")]
     public GameObject emptyPromiseBackfire;
@@ -146,646 +151,616 @@ public class GameManager : MonoBehaviour
     }
 
 
-        public void addBullet()
+    public void addBullet()
+    {
+        bullets++;
+    }
+
+    public void NextTurn()
+    {
+        if (!canPlay)
+            return;
+
+        playerHasGun = false;
+        aiHasGun = false;
+
+        DisableAllBackfires();
+        //Debug.Log("Next Turn");
+
+        //Add Cards For Player And AI
+        if (!isTutorial)
         {
-            bullets++;
+            AICardDrawSystem.Instance.AddCardAfterTurn();
+            AICardDrawSystem.Instance.selectedCardCount = 0;
+            CardDrawSystem.Instance.AddCardAfterTurn();
+            if (playerDraw2Cards == true)
+            {
+                playerDraw2Cards = false;
+                CardDrawSystem.Instance.AddCardAfterTurn();
+            }
+            if (aiDraw2Cards == true)
+            {
+                aiDraw2Cards = false;
+                AICardDrawSystem.Instance.AddCardAfterTurn();
+            }
+        }
+        else
+        {
+            TutorialAICardDraw.Instance.AddCardAfterTurn();
+            TutorialAICardDraw.Instance.selectedCardCount = 0;
+            TutorialCardDraw.Instance.AddCardAfterTurn();
         }
 
-        public void NextTurn()
+        playerArmour = 0;
+        aiArmour = 0;
+
+        if (playerSkippedTurns > 0)
         {
-            if (!canPlay)
-                return;
-
-            DisableAllBackfires();
-            //Debug.Log("Next Turn");
-
-            //Add Cards For Player And AI
             if (!isTutorial)
             {
-                AICardDrawSystem.Instance.AddCardAfterTurn();
-                AICardDrawSystem.Instance.selectedCardCount = 0;
-                CardDrawSystem.Instance.AddCardAfterTurn();
-                if (playerDraw2Cards == true)
-                {
-                    playerDraw2Cards = false;
-                    CardDrawSystem.Instance.AddCardAfterTurn();
-                }
-                if (aiDraw2Cards == true)
-                {
-                    aiDraw2Cards = false;
-                    AICardDrawSystem.Instance.AddCardAfterTurn();
-                }
+                CardDrawSystem.Instance.isPlayersTurn = false;
             }
             else
             {
-                TutorialAICardDraw.Instance.AddCardAfterTurn();
-                TutorialAICardDraw.Instance.selectedCardCount = 0;
-                TutorialCardDraw.Instance.AddCardAfterTurn();
+                TutorialCardDraw.Instance.isPlayersTurn = false;
             }
 
-            playerArmour = 0;
-            aiArmour = 0;
+            playerSkippedTurns--;
 
-            if (playerSkippedTurns > 0)
+            PlayHand();
+        }
+        else
+        {
+            if (!isTutorial)
             {
-                if (!isTutorial)
-                {
-                    CardDrawSystem.Instance.isPlayersTurn = false;
-                }
-                else
-                {
-                    TutorialCardDraw.Instance.isPlayersTurn = false;
-                }
+                CardDrawSystem.Instance.isPlayersTurn = true;
 
-                playerSkippedTurns--;
-
-                PlayHand();
+                //Debug
+                CardDrawSystem.Instance.debugCurrentTurnText.text = ("Play Time");
             }
             else
             {
-                if (!isTutorial)
-                {
-                    CardDrawSystem.Instance.isPlayersTurn = true;
+                TutorialCardDraw.Instance.isPlayersTurn = true;
 
-                    //Debug
-                    CardDrawSystem.Instance.debugCurrentTurnText.text = ("Play Time");
-                }
-                else
-                {
-                    TutorialCardDraw.Instance.isPlayersTurn = true;
-
-                    //Debug
-                    TutorialCardDraw.Instance.debugCurrentTurnText.text = ("Play Time");
-                }
+                //Debug
+                TutorialCardDraw.Instance.debugCurrentTurnText.text = ("Play Time");
             }
         }
+    }
 
-        public void PlayHand()
+    public void PlayHand()
+    {
+        CardDrawSystem.Instance.UnbanCards();
+        blur.SetActive(false);
+
+        //Debug.Log("Played Hand: " + isTutorial);
+
+        if (aiSkippedTurns == 0 && !isTutorial)
         {
-            CardDrawSystem.Instance.UnbanCards();
-            blur.SetActive(false);
-
-            //Debug.Log("Played Hand: " + isTutorial);
-
-            if (aiSkippedTurns == 0 && !isTutorial)
-            {
-                StartCoroutine(AIPlaceCards());
-            }
-            else if (aiSkippedTurns == 0 && isTutorial)
-            {
-                StartCoroutine(AIPlaceCardsInTutorial());
-            }
-            else if (!isTutorial)
-            {
-                ShowCards();
-            }
-            else if (isTutorial)
-            {
-                ShowCardsInTutorial();
-            }
+            StartCoroutine(AIPlaceCards());
         }
-
-        public void ShowCards()
+        else if (aiSkippedTurns == 0 && isTutorial)
         {
-            if (aiSkippedTurns > 0)
-            {
-                aiSkippedTurns--;
-            }
-
-            //IMPORTANT Make Sure The Cards Logic Is Executed Before This Is Called!
-            //Could Maybe Add The Destroy To The Card GameObject
-            if (CardDrawSystem.Instance.selectedPosition1.childCount > 0 && playerSkippedTurns == 0)
-            {
-                //For This To Work, Please Make Sure Card's Logic Is Executed In A Public Function Called PlayCard
-                //And The Card's Hierarchy Mathches The 'Skip Next Turn' Card
-                cardsOnTable1 = CardDrawSystem.Instance.selectedPosition1.GetChild(0).gameObject.GetComponentAtIndex(1);
-
-                cardsOnTable1.SendMessage("PlayCardForPlayer");
-
-                CardDrawSystem.Instance.selectedCardCount--;
-            }
-            if (CardDrawSystem.Instance.selectedPosition2.childCount > 0 && playerSkippedTurns == 0)
-            {
-                //For This To Work, Please Make Sure Card's Logic Is Executed In A Public Function Called PlayCard
-                //And The Card's Hierarchy Mathches The 'Skip Next Turn' Card
-                cardsOnTable2 = CardDrawSystem.Instance.selectedPosition2.GetChild(0).gameObject.GetComponentAtIndex(1);
-                cardsOnTable2.SendMessage("PlayCardForPlayer");
-
-                CardDrawSystem.Instance.selectedCardCount--;
-            }
-            if (cardsOnTable3 != null)
-            {
-                //For This To Work, Please Make Sure Card's Logic Is Executed In A Public Function Called PlayCard
-                //And The Card's Hierarchy Mathches The 'Skip Next Turn' Card
-                cardsOnTable3.SendMessage("PlayCardForAI");
-
-                AICardDrawSystem.Instance.selectedCardCount--;
-            }
-            if (cardsOnTable4 != null)
-            {
-                //For This To Work, Please Make Sure Card's Logic Is Executed In A Public Function Called PlayCard
-                //And The Card's Hierarchy Mathches The 'Skip Next Turn' Card
-                cardsOnTable4.SendMessage("PlayCardForAI");
-
-                AICardDrawSystem.Instance.selectedCardCount--;
-            }
-
-            IsReadyToCompare = true;
-
-            CardDrawSystem.Instance.isPlayersTurn = false;
-            StartCoroutine(WaitSoCardsCanReveal());
+            StartCoroutine(AIPlaceCardsInTutorial());
         }
-
-        //TUTORIAL SPECIFIC FUNCTION
-        public void ShowCardsInTutorial()
+        else if (!isTutorial)
         {
-            if (aiSkippedTurns > 0)
-            {
-                aiSkippedTurns--;
-            }
-
-            //IMPORTANT Make Sure The Cards Logic Is Executed Before This Is Called!
-            //Could Maybe Add The Destroy To The Card GameObject
-            if (TutorialCardDraw.Instance.selectedPosition1.childCount > 0 && playerSkippedTurns == 0)
-            {
-                //For This To Work, Please Make Sure Card's Logic Is Executed In A Public Function Called PlayCard
-                //And The Card's Hierarchy Mathches The 'Skip Next Turn' Card
-                cardsOnTable1 = TutorialCardDraw.Instance.selectedPosition1.GetChild(0).gameObject.GetComponentAtIndex(1);
-
-                cardsOnTable1.SendMessage("PlayCardForPlayer");
-
-                TutorialCardDraw.Instance.selectedCardCount--;
-            }
-            if (TutorialCardDraw.Instance.selectedPosition2.childCount > 0 && playerSkippedTurns == 0)
-            {
-                //For This To Work, Please Make Sure Card's Logic Is Executed In A Public Function Called PlayCard
-                //And The Card's Hierarchy Mathches The 'Skip Next Turn' Card
-                cardsOnTable2 = TutorialCardDraw.Instance.selectedPosition2.GetChild(0).gameObject.GetComponentAtIndex(1);
-                cardsOnTable2.SendMessage("PlayCardForPlayer");
-
-                TutorialCardDraw.Instance.selectedCardCount--;
-            }
-            if (cardsOnTable3 != null)
-            {
-                //For This To Work, Please Make Sure Card's Logic Is Executed In A Public Function Called PlayCard
-                //And The Card's Hierarchy Mathches The 'Skip Next Turn' Card
-                cardsOnTable3.SendMessage("PlayCardForAI");
-
-                TutorialAICardDraw.Instance.selectedCardCount--;
-            }
-            if (cardsOnTable4 != null)
-            {
-                //For This To Work, Please Make Sure Card's Logic Is Executed In A Public Function Called PlayCard
-                //And The Card's Hierarchy Mathches The 'Skip Next Turn' Card
-                cardsOnTable4.SendMessage("PlayCardForAI");
-
-                TutorialAICardDraw.Instance.selectedCardCount--;
-            }
-
-            IsReadyToCompare = true;
-
-            TutorialCardDraw.Instance.isPlayersTurn = false;
-            StartCoroutine(WaitSoCardsCanRevealInTutorial());
-        }
-
-        IEnumerator AIPlaceCards()
-        {
-            //waits for cards to reveal
-            yield return new WaitForSeconds(0.3f);
-            cardsOnTable3 = AICardDrawSystem.Instance.SelectCard();
-            yield return new WaitForSeconds(0.3f);
-            cardsOnTable4 = AICardDrawSystem.Instance.SelectCard();
-            yield return new WaitForSeconds(0.3f);
             ShowCards();
         }
-
-        //TUTORIAL SPECIFIC FUNCTION
-        IEnumerator AIPlaceCardsInTutorial()
+        else if (isTutorial)
         {
-            yield return new WaitForSeconds(0.3f);
-            cardsOnTable3 = TutorialAICardDraw.Instance.SelectCard();
-            yield return new WaitForSeconds(0.3f);
-            cardsOnTable4 = TutorialAICardDraw.Instance.SelectCard();
-            yield return new WaitForSeconds(0.3f);
             ShowCardsInTutorial();
         }
+    }
 
-        IEnumerator WaitSoCardsCanReveal()
+    public void ShowCards()
+    {
+        if (aiSkippedTurns > 0)
         {
-            //Debug
-            //CardDrawSystem.Instance.debugCurrentTurnText.text = ("Revealing Cards");
-
-
-            in2ndPos = true;
-            StartCoroutine(CameraTransition(Target2));
-
-            //waits for cards to reveal
-            yield return new WaitForSeconds(2f);
-            in2ndPos = false;
-            StartCoroutine(CameraTransition(Target1));
-
-
-            yield return new WaitForSeconds(4);
-
-            PlayerGun.SetActive(false);
-            AIGun.SetActive(false);
-
-            if (CardDrawSystem.Instance.selectedPosition1.childCount > 0)
-            {
-                Destroy(CardDrawSystem.Instance.selectedPosition1.GetChild(0).gameObject);
-            }
-            if (CardDrawSystem.Instance.selectedPosition2.childCount > 0)
-            {
-                Destroy(CardDrawSystem.Instance.selectedPosition2.GetChild(0).gameObject);
-            }
-            if (AICardDrawSystem.Instance.selectedPosition1.childCount > 0)
-            {
-                Destroy(AICardDrawSystem.Instance.selectedPosition1.GetChild(0).gameObject);
-            }
-            if (AICardDrawSystem.Instance.selectedPosition2.childCount > 0)
-            {
-                Destroy(AICardDrawSystem.Instance.selectedPosition2.GetChild(0).gameObject);
-            }
-
-            yield return new WaitForSeconds(0.5f);
-
-            IsReadyToCompare = false;
-            NextTurn();
+            aiSkippedTurns--;
         }
 
-        public void PlayerRoulette()
+        //IMPORTANT Make Sure The Cards Logic Is Executed Before This Is Called!
+        //Could Maybe Add The Destroy To The Card GameObject
+        if (CardDrawSystem.Instance.selectedPosition1.childCount > 0 && playerSkippedTurns == 0)
         {
-            AIGun.SetActive(true);
+            //For This To Work, Please Make Sure Card's Logic Is Executed In A Public Function Called PlayCard
+            //And The Card's Hierarchy Mathches The 'Skip Next Turn' Card
+            cardsOnTable1 = CardDrawSystem.Instance.selectedPosition1.GetChild(0).gameObject.GetComponentAtIndex(1);
+
+            cardsOnTable1.SendMessage("PlayCardForPlayer");
+
+            CardDrawSystem.Instance.selectedCardCount--;
+        }
+        if (CardDrawSystem.Instance.selectedPosition2.childCount > 0 && playerSkippedTurns == 0)
+        {
+            //For This To Work, Please Make Sure Card's Logic Is Executed In A Public Function Called PlayCard
+            //And The Card's Hierarchy Mathches The 'Skip Next Turn' Card
+            cardsOnTable2 = CardDrawSystem.Instance.selectedPosition2.GetChild(0).gameObject.GetComponentAtIndex(1);
+            cardsOnTable2.SendMessage("PlayCardForPlayer");
+
+            CardDrawSystem.Instance.selectedCardCount--;
+        }
+        if (cardsOnTable3 != null)
+        {
+            //For This To Work, Please Make Sure Card's Logic Is Executed In A Public Function Called PlayCard
+            //And The Card's Hierarchy Mathches The 'Skip Next Turn' Card
+            cardsOnTable3.SendMessage("PlayCardForAI");
+
+            AICardDrawSystem.Instance.selectedCardCount--;
+        }
+        if (cardsOnTable4 != null)
+        {
+            //For This To Work, Please Make Sure Card's Logic Is Executed In A Public Function Called PlayCard
+            //And The Card's Hierarchy Mathches The 'Skip Next Turn' Card
+            cardsOnTable4.SendMessage("PlayCardForAI");
+
+            AICardDrawSystem.Instance.selectedCardCount--;
         }
 
-        public void AiRoulette()
+        IsReadyToCompare = true;
+
+        CardDrawSystem.Instance.isPlayersTurn = false;
+        StartCoroutine(WaitSoCardsCanReveal());
+    }
+
+    //TUTORIAL SPECIFIC FUNCTION
+    public void ShowCardsInTutorial()
+    {
+        if (aiSkippedTurns > 0)
         {
-            PlayerGun.SetActive(true);
+            aiSkippedTurns--;
         }
 
-        IEnumerator WaitSoCardsCanRevealInTutorial()
+        //IMPORTANT Make Sure The Cards Logic Is Executed Before This Is Called!
+        //Could Maybe Add The Destroy To The Card GameObject
+        if (TutorialCardDraw.Instance.selectedPosition1.childCount > 0 && playerSkippedTurns == 0)
         {
-            //Debug
-            TutorialCardDraw.Instance.debugCurrentTurnText.text = ("Revealing Cards");
+            //For This To Work, Please Make Sure Card's Logic Is Executed In A Public Function Called PlayCard
+            //And The Card's Hierarchy Mathches The 'Skip Next Turn' Card
+            cardsOnTable1 = TutorialCardDraw.Instance.selectedPosition1.GetChild(0).gameObject.GetComponentAtIndex(1);
 
-            yield return new WaitForSeconds(4);
+            cardsOnTable1.SendMessage("PlayCardForPlayer");
 
-            if (TutorialCardDraw.Instance.selectedPosition1.childCount > 0)
-            {
-                Destroy(TutorialCardDraw.Instance.selectedPosition1.GetChild(0).gameObject);
-            }
-            if (TutorialCardDraw.Instance.selectedPosition2.childCount > 0)
-            {
-                Destroy(TutorialCardDraw.Instance.selectedPosition2.GetChild(0).gameObject);
-            }
-            if (TutorialAICardDraw.Instance.selectedPosition1.childCount > 0)
-            {
-                Destroy(TutorialAICardDraw.Instance.selectedPosition1.GetChild(0).gameObject);
-            }
-            if (TutorialAICardDraw.Instance.selectedPosition2.childCount > 0)
-            {
-                Destroy(TutorialAICardDraw.Instance.selectedPosition2.GetChild(0).gameObject);
-            }
+            TutorialCardDraw.Instance.selectedCardCount--;
+        }
+        if (TutorialCardDraw.Instance.selectedPosition2.childCount > 0 && playerSkippedTurns == 0)
+        {
+            //For This To Work, Please Make Sure Card's Logic Is Executed In A Public Function Called PlayCard
+            //And The Card's Hierarchy Mathches The 'Skip Next Turn' Card
+            cardsOnTable2 = TutorialCardDraw.Instance.selectedPosition2.GetChild(0).gameObject.GetComponentAtIndex(1);
+            cardsOnTable2.SendMessage("PlayCardForPlayer");
 
-            yield return new WaitForSeconds(0.5f);
+            TutorialCardDraw.Instance.selectedCardCount--;
+        }
+        if (cardsOnTable3 != null)
+        {
+            //For This To Work, Please Make Sure Card's Logic Is Executed In A Public Function Called PlayCard
+            //And The Card's Hierarchy Mathches The 'Skip Next Turn' Card
+            cardsOnTable3.SendMessage("PlayCardForAI");
 
-            IsReadyToCompare = false;
-            NextTurn();
+            TutorialAICardDraw.Instance.selectedCardCount--;
+        }
+        if (cardsOnTable4 != null)
+        {
+            //For This To Work, Please Make Sure Card's Logic Is Executed In A Public Function Called PlayCard
+            //And The Card's Hierarchy Mathches The 'Skip Next Turn' Card
+            cardsOnTable4.SendMessage("PlayCardForAI");
+
+            TutorialAICardDraw.Instance.selectedCardCount--;
         }
 
-        public IEnumerator WaitToCompareCards(int character, int type)
+        IsReadyToCompare = true;
+
+        TutorialCardDraw.Instance.isPlayersTurn = false;
+        StartCoroutine(WaitSoCardsCanRevealInTutorial());
+    }
+
+    IEnumerator AIPlaceCards()
+    {
+        //waits for cards to reveal
+        yield return new WaitForSeconds(0.3f);
+        cardsOnTable3 = AICardDrawSystem.Instance.SelectCard();
+        yield return new WaitForSeconds(0.3f);
+        cardsOnTable4 = AICardDrawSystem.Instance.SelectCard();
+        yield return new WaitForSeconds(0.3f);
+        ShowCards();
+    }
+
+    //TUTORIAL SPECIFIC FUNCTION
+    IEnumerator AIPlaceCardsInTutorial()
+    {
+        yield return new WaitForSeconds(0.3f);
+        cardsOnTable3 = TutorialAICardDraw.Instance.SelectCard();
+        yield return new WaitForSeconds(0.3f);
+        cardsOnTable4 = TutorialAICardDraw.Instance.SelectCard();
+        yield return new WaitForSeconds(0.3f);
+        ShowCardsInTutorial();
+    }
+
+    IEnumerator WaitSoCardsCanReveal()
+    {
+        //Debug
+        //CardDrawSystem.Instance.debugCurrentTurnText.text = ("Revealing Cards");
+
+
+        in2ndPos = true;
+        StartCoroutine(CameraTransition(Target2));
+
+        //waits for cards to reveal
+        yield return new WaitForSeconds(2f);
+        in2ndPos = false;
+        StartCoroutine(CameraTransition(Target1));
+
+
+        yield return new WaitForSeconds(4);
+
+        PlayerGun.SetActive(false);
+        AIGun.SetActive(false);
+
+        if (CardDrawSystem.Instance.selectedPosition1.childCount > 0)
         {
+            Destroy(CardDrawSystem.Instance.selectedPosition1.GetChild(0).gameObject);
+        }
+        if (CardDrawSystem.Instance.selectedPosition2.childCount > 0)
+        {
+            Destroy(CardDrawSystem.Instance.selectedPosition2.GetChild(0).gameObject);
+        }
+        if (AICardDrawSystem.Instance.selectedPosition1.childCount > 0)
+        {
+            Destroy(AICardDrawSystem.Instance.selectedPosition1.GetChild(0).gameObject);
+        }
+        if (AICardDrawSystem.Instance.selectedPosition2.childCount > 0)
+        {
+            Destroy(AICardDrawSystem.Instance.selectedPosition2.GetChild(0).gameObject);
+        }
 
-            //waits for cards to reveal
-            yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(0.5f);
+
+        IsReadyToCompare = false;
+        CardDrawSystem.Instance.canPlay = true;
+        NextTurn();
+    }
+
+    public void PlayerRoulette()
+    {
+        AIGun.SetActive(true);
+    }
+
+    public void AiRoulette()
+    {
+        PlayerGun.SetActive(true);
+    }
+
+    IEnumerator WaitSoCardsCanRevealInTutorial()
+    {
+        //Debug
+        TutorialCardDraw.Instance.debugCurrentTurnText.text = ("Revealing Cards");
+
+        yield return new WaitForSeconds(4);
+
+        if (TutorialCardDraw.Instance.selectedPosition1.childCount > 0)
+        {
+            Destroy(TutorialCardDraw.Instance.selectedPosition1.GetChild(0).gameObject);
+        }
+        if (TutorialCardDraw.Instance.selectedPosition2.childCount > 0)
+        {
+            Destroy(TutorialCardDraw.Instance.selectedPosition2.GetChild(0).gameObject);
+        }
+        if (TutorialAICardDraw.Instance.selectedPosition1.childCount > 0)
+        {
+            Destroy(TutorialAICardDraw.Instance.selectedPosition1.GetChild(0).gameObject);
+        }
+        if (TutorialAICardDraw.Instance.selectedPosition2.childCount > 0)
+        {
+            Destroy(TutorialAICardDraw.Instance.selectedPosition2.GetChild(0).gameObject);
+        }
+
+        yield return new WaitForSeconds(0.5f);
+
+        IsReadyToCompare = false;
+        CardDrawSystem.Instance.canPlay = true;
+        NextTurn();
+    }
+
+    public IEnumerator WaitToCompareCards(int character, int type)
+    {
+        //waits for cards to reveal
+        yield return new WaitForSeconds(1f);
 
 
-            if (type == 1 || type == 3)
+        if (type == 1 || type == 3)
+        {
+            if(type == 1)
             {
                 CheckArmour(character, type);
             }
-            if (type == 2)
-            {
-                //Need To Wait For cardsOnTable2 Reference To Be Filled At This Point
-                PlayCigarCard(character);
-            }
         }
-
-        public void ReduceHealth(int character)
+        if (type == 2)
         {
-            //checks if character is player or ai
-            //AI
-            if (character == 1)
-            {
-                aiFingers--;
-                aiHand.RemoveFinger(aiFingers, true);
-            }
-            //Player
-            else if (character == 2)
-            {
-                playerFingers--;
-                playerHand.RemoveFinger(playerFingers, false);
-
-                //Debug.Log("Countdown Started");
-                BloodlossSystem.Instance.IncreaseBloodloss();
-            }
-
-            if (aiFingers <= 0 && !isTutorial)
-            {
-                print("You Win");
-                WinScreen.SetActive(true);
-                Cursor.visible = true;
-                Cursor.lockState = CursorLockMode.Confined;
-                Time.timeScale = 0f;
-                //YOU WIN!!
-            }
-            else if (playerFingers <= 0 && !isTutorial)
-            {
-                print("You Lose");
-                LoseScreen.SetActive(true);
-                Cursor.visible = true;
-                Cursor.lockState = CursorLockMode.Confined;
-                Time.timeScale = 0f;
-
-                //YOU LOSE :(
-            }
-
-            playerFingersText.text = ("Player Fingers: " + playerFingers).ToString();
-            aiFingersText.text = ("AI Fingers: " + aiFingers).ToString();
+            //Need To Wait For cardsOnTable2 Reference To Be Filled At This Point
+            PlayCigarCard(character);
         }
+    }
 
-        public void CheckArmour(int character, int type)
+    public void ReduceHealth(int character)
+    {
+        //checks if character is player or ai
+        //AI
+        if (character == 1)
         {
-            //this ensures the armour stops the gun instead of the knife
-            if (character == 1 && IsReadyToCompare)
-            {
-                if (aiArmour > 0)
-                {
-                    aiArmour--;
-                    if (cardsOnTable1 != null)
-                    {
-                        if (cardsOnTable1.gameObject.name.Contains("Gun"))
-                        { //stop gun
-                            return;
-                        }
-                    }
-                    if (cardsOnTable2 != null)
-                    {
-                        if (cardsOnTable2.gameObject.name.Contains("Gun"))
-                        { //stop gun
-                            return;
-                        }
-                    }
-                    if (cardsOnTable1 != null)
-                    {
-                        if (cardsOnTable1.gameObject.name.Contains("Knife"))
-                        { //stop Knife
-                            return;
-                        }
-                    }
-                    if (cardsOnTable2 != null)
-                    {
-                        if (cardsOnTable2.gameObject.name.Contains("Knife"))
-                        { //stop Knife
-                            return;
-                        }
-                    }
-                }
-                else
-                {
-                    ReduceHealth(1);
-                }
-            }
-
-            if (character == 2 && IsReadyToCompare)
-            {
-                if (playerArmour > 0)
-                {
-                    playerArmour--;
-                    if (cardsOnTable3 != null)
-                    {
-                        if (cardsOnTable1.gameObject.name.Contains("Gun"))
-                        { //stop gun
-                            return;
-                        }
-                    }
-                    if (cardsOnTable4 != null)
-                    {
-                        if (cardsOnTable2.gameObject.name.Contains("Gun"))
-                        { //stop gun
-                            return;
-                        }
-                    }
-                    if (cardsOnTable3 != null)
-                    {
-                        if (cardsOnTable1.gameObject.name.Contains("Knife"))
-                        { //stop Knife
-                            return;
-                        }
-                    }
-                    if (cardsOnTable4 != null)
-                    {
-                        if (cardsOnTable2.gameObject.name.Contains("Knife"))
-                        { //stop Knife
-                            return;
-                        }
-                    }
-                }
-                else
-                {
-                    ReduceHealth(2);
-                }
-            }
-
-            if (type == 1)
-            {
-                //ReduceHealth(character);
-            }
-            if (type == 3)
-            {
-                //GUN WINS GAME
-                if (character == 1)
-                {
-                    EndGameWin();
-                }
-                if (character == 2)
-                {
-                    EndGameLose();
-                }
-            }
+            aiFingers--;
+            aiHand.RemoveFinger(aiFingers, true);
         }
-
-        public void PlayCigarCard(int player)
+        //Player
+        else if (character == 2)
         {
-            //Player Functions
-            if (player == 1)
-            {
-                if (cardsOnTable1 != null && cardsOnTable2 != null)
-                {
-                    var cardObject1 = cardsOnTable1.gameObject;
-                    var cardObject2 = cardsOnTable2.gameObject;
+            playerFingers--;
+            playerHand.RemoveFinger(playerFingers, false);
 
-                    //Card To Be Cloned Is In Slot 2
-                    if (cardObject1.name.Contains("cigar") && !cardObject2.name.Contains("cigar"))
-                    {
-                        //Debug.Log("Called Function 1");
-                        cardObject2.SendMessage("PlayCardForPlayer");
-                    }
-                    //Card To Be Cloned Is In Slot 1
-                    if (cardObject2.name.Contains("cigar") && !cardObject1.name.Contains("cigar"))
-                    {
-                        //Debug.Log("Called Function 2");
-                        cardObject1.SendMessage("PlayCardForPlayer");
-                    }
-                }
-            }
-            else if (player == 2)
-            {
-                if (cardsOnTable3 != null && cardsOnTable4 != null)
-                {
-                    var cardObject3 = cardsOnTable3.gameObject;
-                    var cardObject4 = cardsOnTable4.gameObject;
-                    Component aiClonedCard = null;
-
-                    //Card To Be Cloned Is In Slot 4
-                    if (cardObject3.name.Contains("Cigar") && !cardObject4.name.Contains("Cigar"))
-                    {
-                        //Debug.Log("Called Function 3");
-                        aiClonedCard = cardObject4.GetComponentAtIndex(1);
-                        aiClonedCard.SendMessage("PlayCardForAI");
-                    }
-                    //Card To Be Cloned Is In Slot 3
-                    if (cardObject4.name.Contains("Cigar") && !cardObject3.name.Contains("Cigar"))
-                    {
-                        //Debug.Log("Called Function 4");
-                        aiClonedCard = cardObject3.GetComponentAtIndex(1);
-                        aiClonedCard.SendMessage("PlayCardForAI");
-                    }
-                }
-            }
+            //Debug.Log("Countdown Started");
+            BloodlossSystem.Instance.IncreaseBloodloss();
         }
 
-        private void Update()
-        {
-
-            if (Input.GetKey("s") && wPressed == false)
-            {
-                sPressed = true;
-                print("s pressed");
-            }
-
-            if (Input.GetKey("w") && sPressed == false)
-            {
-                wPressed = true;
-                print("w pressed");
-            }
-
-            if (sPressed == true)
-            {
-                in2ndPos = false;
-
-                StartCoroutine(CameraTransition(Target1));
-
-                if (MainCamera.transform.position == Target1.transform.position)
-                {
-
-                    sPressed = false;
-                    MainCamera.transform.position = MainCamera.transform.position;
-                    StopCoroutine(CameraTransition(Target1));
-
-
-                }
-
-            }
-
-            if (wPressed == true)
-            {
-                in2ndPos = true;
-                StartCoroutine(CameraTransition(Target2));
-
-
-                if (MainCamera.transform.position == Target2.transform.position)
-                {
-                    wPressed = false;
-                    MainCamera.transform.position = MainCamera.transform.position;
-                    StopCoroutine(CameraTransition(Target2));
-                }
-            }
-
-
-        }
-
-        private void DisableAllBackfires()
-        {
-            emptyPromiseBackfire.gameObject.SetActive(false);
-            knifeBackfire.gameObject.SetActive(false);
-            armourBackfire.gameObject.SetActive(false);
-            batBackfire.gameObject.SetActive(false);
-            gunBackfire.gameObject.SetActive(false);
-            twoInChamberBackfire.gameObject.SetActive(false);
-            cigarBackfire.gameObject.SetActive(false);
-        }
-
-        private IEnumerator CameraTransition(Transform Target)
-        {
-            float t = 0.00f;
-            Vector3 startingpos = MainCamera.transform.position;
-
-
-
-            while (t < 1.0f && in2ndPos == false)
-            {
-                t += Time.deltaTime * (Time.timeScale * speed);
-
-                MainCamera.transform.position = Vector3.Lerp(startingpos, Target.position, t);
-                //MainCamera.transform.rotation = Quaternion.Slerp(MainCamera.transform.rotation, Quaternion.LookRotation(Target4.position - MainCamera.transform.position), 100f * Time.deltaTime);
-
-                yield return 0;
-
-            }
-
-
-            while (in2ndPos == true && t < 1.0f)
-            {
-                t += Time.deltaTime * (Time.timeScale * speed);
-
-                MainCamera.transform.position = Vector3.Lerp(startingpos, Target.position, t);
-                //Target4.position = new Vector3(MainCamera.GetComponent<Freelook>().currentXRotation, MainCamera.GetComponent<Freelook>().currentYRotation, 0f);
-
-                MainCamera.transform.rotation = Quaternion.Slerp(MainCamera.transform.rotation, Quaternion.LookRotation(Target3.position - MainCamera.transform.position), speed * Time.deltaTime);
-                yield return 0;
-            }
-
-
-
-            while (in2ndPos == true)
-            {
-                MainCamera.transform.rotation = Quaternion.Slerp(MainCamera.transform.rotation, Quaternion.LookRotation(Target3.position - MainCamera.transform.position), speed * Time.deltaTime);
-                yield return 0;
-            }
-
-        }
-        public void EndGameWin()
+        if (aiFingers <= 0 && !isTutorial)
         {
             print("You Win");
             WinScreen.SetActive(true);
             Cursor.visible = true;
             Cursor.lockState = CursorLockMode.Confined;
             Time.timeScale = 0f;
+            //YOU WIN!!
         }
-
-        public void EndGameLose()
+        else if (playerFingers <= 0 && !isTutorial)
         {
             print("You Lose");
             LoseScreen.SetActive(true);
             Cursor.visible = true;
             Cursor.lockState = CursorLockMode.Confined;
             Time.timeScale = 0f;
+
+            //YOU LOSE :(
         }
 
-        public void RestartGame()
+        playerFingersText.text = ("Player Fingers: " + playerFingers).ToString();
+        aiFingersText.text = ("AI Fingers: " + aiFingers).ToString();
+    }
+
+    public void CheckArmour(int character, int type)
+    {
+
+        //this ensures the armour stops the gun instead of the knife
+        if (character == 1)
         {
-            var activeScene = SceneManager.GetActiveScene().name;
-            SceneManager.LoadScene(activeScene);
+            if (aiHasGun)
+            {
+                return;
+            }
+            else
+            {
+                if (aiArmour > 0)
+                {
+                    aiArmour--;
+                    return;
+                }
+                if (type == 1)
+                {
+                    ReduceHealth(character);
+                }
+                if (type == 3)
+                {
+                    FireGun(character);
+                }
+            }
         }
+        if (character == 2)
+        {
+            if (aiHasGun)
+            {
+                return;
+            }
+            else
+            {
+                if (aiArmour > 0)
+                {
+                    aiArmour--;
+                    return;
+                }
+                if (type == 1)
+                {
+                    ReduceHealth(character);
+                }
+                if (type == 3)
+                {
+                    FireGun(character);
+                }
+            }
+        }
+    }
+
+    private void FireGun(int character)
+    {
+        //GUN WINS GAME
+        if (character == 1)
+        {
+            EndGameWin();
+        }
+        if (character == 2)
+        {
+            EndGameLose();
+        }
+    }
+
+
+    public void PlayCigarCard(int player)
+    {
+        //Player Functions
+        if (player == 1)
+        {
+            if (cardsOnTable1 != null && cardsOnTable2 != null)
+            {
+                var cardObject1 = cardsOnTable1.gameObject;
+                var cardObject2 = cardsOnTable2.gameObject;
+
+                //Card To Be Cloned Is In Slot 2
+                if (cardObject1.name.Contains("cigar") && !cardObject2.name.Contains("cigar"))
+                {
+                    //Debug.Log("Called Function 1");
+                    cardObject2.SendMessage("PlayCardForPlayer");
+                }
+                //Card To Be Cloned Is In Slot 1
+                if (cardObject2.name.Contains("cigar") && !cardObject1.name.Contains("cigar"))
+                {
+                    //Debug.Log("Called Function 2");
+                    cardObject1.SendMessage("PlayCardForPlayer");
+                }
+            }
+        }
+        else if (player == 2)
+        {
+            if (cardsOnTable3 != null && cardsOnTable4 != null)
+            {
+                var cardObject3 = cardsOnTable3.gameObject;
+                var cardObject4 = cardsOnTable4.gameObject;
+                Component aiClonedCard = null;
+
+                //Card To Be Cloned Is In Slot 4
+                if (cardObject3.name.Contains("Cigar") && !cardObject4.name.Contains("Cigar"))
+                {
+                    //Debug.Log("Called Function 3");
+                    aiClonedCard = cardObject4.GetComponentAtIndex(1);
+                    aiClonedCard.SendMessage("PlayCardForAI");
+                }
+                //Card To Be Cloned Is In Slot 3
+                if (cardObject4.name.Contains("Cigar") && !cardObject3.name.Contains("Cigar"))
+                {
+                    //Debug.Log("Called Function 4");
+                    aiClonedCard = cardObject3.GetComponentAtIndex(1);
+                    aiClonedCard.SendMessage("PlayCardForAI");
+                }
+            }
+        }
+    }
+
+    private void Update()
+    {
+
+        if (Input.GetKey("s") && wPressed == false)
+        {
+            sPressed = true;
+            print("s pressed");
+        }
+
+        if (Input.GetKey("w") && sPressed == false)
+        {
+            wPressed = true;
+            print("w pressed");
+        }
+
+        if (sPressed == true)
+        {
+            in2ndPos = false;
+
+            StartCoroutine(CameraTransition(Target1));
+
+            if (MainCamera.transform.position == Target1.transform.position)
+            {
+
+                sPressed = false;
+                MainCamera.transform.position = MainCamera.transform.position;
+                StopCoroutine(CameraTransition(Target1));
+
+
+            }
+
+        }
+
+        if (wPressed == true)
+        {
+            in2ndPos = true;
+            StartCoroutine(CameraTransition(Target2));
+
+
+            if (MainCamera.transform.position == Target2.transform.position)
+            {
+                wPressed = false;
+                MainCamera.transform.position = MainCamera.transform.position;
+                StopCoroutine(CameraTransition(Target2));
+            }
+        }
+    }
+
+    private void DisableAllBackfires()
+    {
+        emptyPromiseBackfire.gameObject.SetActive(false);
+        knifeBackfire.gameObject.SetActive(false);
+        armourBackfire.gameObject.SetActive(false);
+        batBackfire.gameObject.SetActive(false);
+        gunBackfire.gameObject.SetActive(false);
+        twoInChamberBackfire.gameObject.SetActive(false);
+        cigarBackfire.gameObject.SetActive(false);
+    }
+
+    private IEnumerator CameraTransition(Transform Target)
+    {
+        float t = 0.00f;
+        Vector3 startingpos = MainCamera.transform.position;
+
+
+
+        while (t < 1.0f && in2ndPos == false)
+        {
+            t += Time.deltaTime * (Time.timeScale * speed);
+
+            MainCamera.transform.position = Vector3.Lerp(startingpos, Target.position, t);
+            //MainCamera.transform.rotation = Quaternion.Slerp(MainCamera.transform.rotation, Quaternion.LookRotation(Target4.position - MainCamera.transform.position), 100f * Time.deltaTime);
+
+            yield return 0;
+
+        }
+
+
+        while (in2ndPos == true && t < 1.0f)
+        {
+            t += Time.deltaTime * (Time.timeScale * speed);
+
+            MainCamera.transform.position = Vector3.Lerp(startingpos, Target.position, t);
+            //Target4.position = new Vector3(MainCamera.GetComponent<Freelook>().currentXRotation, MainCamera.GetComponent<Freelook>().currentYRotation, 0f);
+
+            MainCamera.transform.rotation = Quaternion.Slerp(MainCamera.transform.rotation, Quaternion.LookRotation(Target3.position - MainCamera.transform.position), speed * Time.deltaTime);
+            yield return 0;
+        }
+
+
+
+        while (in2ndPos == true)
+        {
+            MainCamera.transform.rotation = Quaternion.Slerp(MainCamera.transform.rotation, Quaternion.LookRotation(Target3.position - MainCamera.transform.position), speed * Time.deltaTime);
+            yield return 0;
+        }
+
+    }
+    public void EndGameWin()
+    {
+        print("You Win");
+        WinScreen.SetActive(true);
+        Cursor.visible = true;
+        Cursor.lockState = CursorLockMode.Confined;
+        Time.timeScale = 0f;
+    }
+
+    public void EndGameLose()
+    {
+        print("You Lose");
+        LoseScreen.SetActive(true);
+        Cursor.visible = true;
+        Cursor.lockState = CursorLockMode.Confined;
+        Time.timeScale = 0f;
+    }
+
+    public void RestartGame()
+    {
+        var activeScene = SceneManager.GetActiveScene().name;
+        SceneManager.LoadScene(activeScene);
+    }
 }

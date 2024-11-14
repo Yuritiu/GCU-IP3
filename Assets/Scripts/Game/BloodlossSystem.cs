@@ -17,7 +17,7 @@ public class BloodlossSystem : MonoBehaviour
     [SerializeField] Image countdownImage;
     [SerializeField] Image bloodBlur;
     float easyCountdownTime = 400f;
-    float hardCountdownTime = 200f;
+    float hardCountdownTime = 350f;
 
     [Header("Audio References")]
     [SerializeField] AudioSource heartbeat;

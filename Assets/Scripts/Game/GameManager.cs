@@ -268,7 +268,7 @@ public class GameManager : MonoBehaviour
             //And The Card's Hierarchy Mathches The 'Skip Next Turn' Card
             cardsOnTable1 = CardDrawSystem.Instance.selectedPosition1.GetChild(0).gameObject.GetComponentAtIndex(1);
 
-            cardsOnTable1.SendMessage("PlayCardForPlayer");
+            cardsOnTable1.SendMessage("PlayCardForPlayer");      
 
             CardDrawSystem.Instance.selectedCardCount--;
         }
@@ -277,6 +277,7 @@ public class GameManager : MonoBehaviour
             //For This To Work, Please Make Sure Card's Logic Is Executed In A Public Function Called PlayCard
             //And The Card's Hierarchy Mathches The 'Skip Next Turn' Card
             cardsOnTable2 = CardDrawSystem.Instance.selectedPosition2.GetChild(0).gameObject.GetComponentAtIndex(1);
+
             cardsOnTable2.SendMessage("PlayCardForPlayer");
 
             CardDrawSystem.Instance.selectedCardCount--;
@@ -383,7 +384,6 @@ public class GameManager : MonoBehaviour
         //Debug
         //CardDrawSystem.Instance.debugCurrentTurnText.text = ("Revealing Cards");
 
-
         in2ndPos = true;
         StartCoroutine(CameraTransition(Target2));
 
@@ -400,6 +400,7 @@ public class GameManager : MonoBehaviour
 
         if (CardDrawSystem.Instance.selectedPosition1.childCount > 0)
         {
+            //TODO: UPDATE DISCARD PILE CARD COUNT
             Destroy(CardDrawSystem.Instance.selectedPosition1.GetChild(0).gameObject);
         }
         if (CardDrawSystem.Instance.selectedPosition2.childCount > 0)

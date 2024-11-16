@@ -26,29 +26,16 @@ public class CardDrawSystem : MonoBehaviour
     [SerializeField] Transform[] originalPositions;
     //Array For Actual Card GameObjects
     [SerializeField] GameObject[] cardsInHand;
+    [SerializeField] public GameObject currentCardInHand;
     //Selected Positions For The Cards
     [SerializeField] public Transform selectedPosition1;
     [SerializeField] public Transform selectedPosition2;
-
-    [Header("Rarity Chance")]
-    [SerializeField] int commonRarity = 45;
-    [SerializeField] int uncommonRarity = 30;
-    [SerializeField] int rareRarity = 15;
-    [SerializeField] int legendaryRarity = 5;
-    int totalRarity;
-
-    [Header("Unique Cards")]
-    [SerializeField] GameObject[] commonCards;
-    [SerializeField] GameObject[] uncommonCards;
-    [SerializeField] GameObject[] rareCards;
-    [SerializeField] GameObject[] legendaryCards;    
     
     [Header("Cards to check bans")]
     bool card1 = true;
     bool card2 = true;
     bool card3 = true;
     bool card4 = true;
-
 
     [Header("Cards that cannot be used")]
     private int bannedCard = -1;
@@ -148,114 +135,73 @@ public class CardDrawSystem : MonoBehaviour
 
     void StartGame()
     {
-        //Initialize cardsInHand Array With 4 Slots
+        Debug.Log("Deck Count Before Creating Hand: " + CardDeck.Instance.deck.Count);
+
+        //Initialize cardsInHand With 4 Slots
         cardsInHand = new GameObject[4];
 
-        uncommonRarity += commonRarity;
-        rareRarity += uncommonRarity;
-        legendaryRarity += rareRarity;
-
-        //+5 = 5% Chance For Legendary
-        totalRarity = legendaryRarity + 5;
-
-        //Add 4 Random Cards To The cardsInHand Array
         for (int i = 0; i < cardsInHand.Length; i++)
         {
-            //Choose A Random Card Prefab
-            GameObject card = GetRandomCard();
-            //Instantiate And Store The Reference
+            //Get The Next Card From The Deck
+            GameObject card = CardDeck.Instance.DrawCard();
+
+            if (card == null)
+            {
+                break;
+            }
+
+            Debug.Log("Drew Card: " +  card.name + " Remaining Cards In Deck: " + CardDeck.Instance.deck.Count);
+
             cardsInHand[i] = Instantiate(card, originalPositions[i].position, originalPositions[i].rotation);
+
             //updates what cards are banned
             switch (i)
             {
-                case 0:
-                    card1 = true;
-                    break;
-                case 1:
-                    card2 = true;
-                    break;
-                case 2:
-                    card3 = true;
-                    break;
-                case 3:
-                    card4 = true;
-                    break;
+                case 0: card1 = true; break;
+                case 1: card2 = true; break;
+                case 2: card3 = true; break;
+                case 3: card4 = true; break;
             }
         }
-    }
 
+        Debug.Log("Deck Count After Creating Hand: " + CardDeck.Instance.deck.Count);
+    }
+    
     public void AddCardAfterTurn()
     {
-        GameObject card = GetRandomCard();
-        //Add 1 Random Card Prefab After A Turn
+        Debug.Log("Attempting To Add A Card After The Turn...");
+
         for (int i = 0; i < cardsInHand.Length; i++)
         {
-            //Check If There Is An Available Slot
-            if (cardsInHand[i] == null)
+            if (cardsInHand[i] == null && CardDeck.Instance.deck.Count > 0)
             {
-                //updates what cards are banned
+                GameObject card = CardDeck.Instance.DrawCard();
+                if (card == null)
+                {
+                    return;
+                }
+                Debug.Log("Adding Card " + card.name + " To Slot " + i);
+
+                // Updates what cards are banned
                 switch (i)
                 {
-                    case 0:
-                    card1 = true; 
-                        break;
-                    case 1:
-                    card2 = true; 
-                        break;
-                    case 2:
-                    card3 = true; 
-                        break;
-                    case 3:
-                    card4 = true; 
-                        break;
+                    case 0: card1 = true; break;
+                    case 1: card2 = true; break;
+                    case 2: card3 = true; break;
+                    case 3: card4 = true; break;
                 }
+
                 cardsInHand[i] = Instantiate(card, originalPositions[i].position, originalPositions[i].rotation);
-                //Mark The Card As Added
                 cardAdded = true;
-                //Exit When Card Is Placed
+
+                Debug.Log("Card Added Successfully.");
                 break;
             }
         }
     }
 
-    public GameObject GetRandomCard()
-    {
-        //Randomly Select A Card Based On Rarity Chance
-        var randomChance = UnityEngine.Random.Range(0, totalRarity);
-
-        if (randomChance <= commonRarity)
-        {
-            //Common Rarity
-            var commonRandomChance = UnityEngine.Random.Range(0, commonCards.Length - 1);
-            return commonCards[UnityEngine.Random.Range(0, commonCards.Length)];
-        }
-        else if (randomChance > commonRarity && randomChance <= uncommonRarity)
-        {
-            //Uncommon Rarity
-            var uncommonRandomChance = UnityEngine.Random.Range(0, uncommonCards.Length - 1);
-            return uncommonCards[UnityEngine.Random.Range(0, uncommonCards.Length)];
-        }
-        else if (randomChance > uncommonRarity && randomChance <= rareRarity)
-        {
-            //Rare Rarity
-            var rareRandomChance = UnityEngine.Random.Range(0, rareCards.Length - 1);
-            return rareCards[UnityEngine.Random.Range(0, rareCards.Length)];
-        }
-        else if (randomChance > rareRarity && randomChance <= legendaryRarity)
-        {
-            //Legendary Rarity
-            var legendaryRandomChance = UnityEngine.Random.Range(0, legendaryCards.Length - 1);
-            return legendaryCards[UnityEngine.Random.Range(0, legendaryCards.Length)];
-        }
-        else
-        {
-            //Should Never Be Called - But Function Needs A Default Return Type
-            return commonCards[UnityEngine.Random.Range(0, commonCards.Length)];
-        }
-    }
-
     void ToggleCardSelection(int index)
-    {   
+    {
         //Check If The Card Is Currently In The Selected Position
         bool isSelected = IsCardInSelectedPosition(cardsInHand[index]);
 
@@ -294,21 +240,13 @@ public class CardDrawSystem : MonoBehaviour
                 //Move To Selected Position 2
                 MoveCardToPosition(index, selectedPosition2);
             }
+            // Updates what cards are banned
             switch (index)
             {
-                //updates what cards are banned
-                case 0:
-                    card1 = false;
-                    break;
-                case 1:
-                    card2 = false;
-                    break;
-                case 2:
-                    card3 = false;
-                    break;
-                case 3:
-                    card4 = false;
-                    break;
+                case 0: card1 = true; break;
+                case 1: card2 = true; break;
+                case 2: card3 = true; break;
+                case 3: card4 = true; break;
             }
         }     
     }
@@ -336,18 +274,10 @@ public class CardDrawSystem : MonoBehaviour
         //updates what cards are banned
         switch (index)
         {
-            case 0:
-                card1 = true;
-                break;
-            case 1:
-                card2 = true;
-                break;
-            case 2:
-                card3 = true;
-                break;
-            case 3:
-                card4 = true;
-                break;
+            case 0: card1 = true; break;
+            case 1: card2 = true; break;
+            case 2: card3 = true; break;
+            case 3: card4 = true; break;
         }
     }
 

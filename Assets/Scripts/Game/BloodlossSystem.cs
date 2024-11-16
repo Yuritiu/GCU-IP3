@@ -68,7 +68,6 @@ public class BloodlossSystem : MonoBehaviour
     {
         //Normalize The Time To 0-1 Range So It Fits In Image Right
         float fillAmount = Mathf.Clamp01(currentHealth / maxHealth);
-        Debug.Log(fillAmount);
         //Fill Bar Visual
         countdownImage.fillAmount = fillAmount;
         //print(currentHealth);

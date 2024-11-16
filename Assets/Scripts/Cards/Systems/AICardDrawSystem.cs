@@ -24,19 +24,6 @@ public class AICardDrawSystem : MonoBehaviour
     [SerializeField] public Transform selectedPosition1;
     [SerializeField] public Transform selectedPosition2;
 
-    [Header("Rarity Chance")]
-    [SerializeField] int commonRarity = 45;
-    [SerializeField] int uncommonRarity = 30;
-    [SerializeField] int rareRarity = 15;
-    [SerializeField] int legendaryRarity = 5;
-    int totalRarity;
-
-    [Header("Unique Cards")]
-    [SerializeField] GameObject[] commonCards;
-    [SerializeField] GameObject[] uncommonCards;
-    [SerializeField] GameObject[] rareCards;
-    [SerializeField] GameObject[] legendaryCards;
-
     [Header("Cards to check bans")]
     bool card1 = true;
     bool card2 = true;
@@ -64,76 +51,39 @@ public class AICardDrawSystem : MonoBehaviour
 
     void StartGame()
     {
-        //Initialize cardsInHand Array With 4 Slots
+        Debug.Log("Deck Count Before Creating Hand: " + CardDeck.Instance.deck.Count);
+
+        //Initialize cardsInHand With 4 Slots
         cardsInHand = new GameObject[4];
 
-        uncommonRarity += commonRarity;
-        rareRarity += uncommonRarity;
-        legendaryRarity += rareRarity;
-        
-        totalRarity = legendaryRarity;
-
-        //Add 4 Random Cards To The cardsInHand Array
         for (int i = 0; i < cardsInHand.Length; i++)
         {
-            //Choose A Random Card Prefab
-            GameObject card = GetRandomCard();
+            //Get The Next Card From The Deck
+            GameObject card = CardDeck.Instance.DrawCard();
+
+            if (card == null)
+            {
+                break;
+            }
+
+            Debug.Log("Drew Card: " + card.name + " Remaining Cards In Deck: " + CardDeck.Instance.deck.Count);
+
             //Instantiate And Store The Reference
             cardsInHand[i] = Instantiate(card, originalPositions[i].position, originalPositions[i].rotation);
             //Destroy The CardSelection Script On The AI's Cards So The Player Can't Hover Them
             Destroy(cardsInHand[i].GetComponent<CardSelection>());
+
+            // Updates what cards are banned
             switch (i)
             {
-                case 0:
-                    card1 = true;
-                    break;
-                case 1:
-                    card2 = true;
-                    break;
-                case 2:
-                    card3 = true;
-                    break;
-                case 3:
-                    card4 = true;
-                    break;
+                case 0: card1 = true; break;
+                case 1: card2 = true; break;
+                case 2: card3 = true; break;
+                case 3: card4 = true; break;
             }
         }
-    }
 
-    public GameObject GetRandomCard()
-    {
-        //Randomly Select A Card Based On Rarity Chance
-        var randomChance = Random.Range(0, totalRarity);
-
-        if (randomChance <= commonRarity)
-        {
-            //Common Rarity
-            var commonRandomChance = Random.Range(0, commonCards.Length - 1);
-            return commonCards[Random.Range(0, commonCards.Length)];
-        }
-        else if (randomChance > commonRarity && randomChance <= uncommonRarity)
-        {
-            //Uncommon Rarity
-            var uncommonRandomChance = Random.Range(0, uncommonCards.Length - 1);
-            return uncommonCards[Random.Range(0, uncommonCards.Length)];
-        }
-        else if (randomChance > uncommonRarity && randomChance <= rareRarity)
-        {
-            //Rare Rarity
-            var rareRandomChance = Random.Range(0, rareCards.Length - 1);
-            return rareCards[Random.Range(0, rareCards.Length)];
-        }
-        else if (randomChance > rareRarity && randomChance <= legendaryRarity)
-        {
-            //Legendary Rarity
-            var legendaryRandomChance = Random.Range(0, legendaryCards.Length - 1);
-            return legendaryCards[Random.Range(0, legendaryCards.Length)];
-        }
-        else
-        {
-            //Should Never Be Called - But Function Needs A Default Return Type
-            return commonCards[Random.Range(0, commonCards.Length)];
-        }
+        Debug.Log("Deck Count After Creating Hand: " + CardDeck.Instance.deck.Count);
     }
 
     public Component SelectCard()
@@ -196,21 +146,23 @@ public class AICardDrawSystem : MonoBehaviour
 
     public void AddCardAfterTurn()
     {
-        //Choose A Random Card Prefab
-        GameObject card = GetRandomCard();
-        //Add 1 Random Card Prefab After A Turn
+        Debug.Log("Attempting To Add An AI Card After The Turn...");
+
         for (int i = 0; i < cardsInHand.Length; i++)
         {
-            //Check If There Is An Available Slot
-            if (cardsInHand[i] == null)
+            if (cardsInHand[i] == null && CardDeck.Instance.deck.Count > 0)
             {
-                //Instantiate And Store The Reference
+                GameObject card = CardDeck.Instance.DrawCard();
+                if (card == null)
+                {
+                    return;
+                }
+                Debug.Log("Adding Card " + card.name + " To Slot " + i);
+
                 cardsInHand[i] = Instantiate(card, originalPositions[i].position, originalPositions[i].rotation);
-                //Destroy The CardSelection Script On The AI's Cards So The Player Can't Hover Them
-                Destroy(cardsInHand[i].GetComponent<CardSelection>());
-                //Mark The Card As Added
                 cardAdded = true;
-                //Exit When Card Is Placed
+
+                Debug.Log("Card Added Successfully.");
                 break;
             }
         }

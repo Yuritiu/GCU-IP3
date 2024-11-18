@@ -64,4 +64,9 @@ public class Gun : MonoBehaviour
         yield return new WaitForSeconds(3f);
         StartCoroutine(GameManager.Instance.WaitToCompareCards(character, type));
     }
+
+    IEnumerator WaitForGun()
+    {
+        yield return new WaitForSeconds(2f);
+    }
 }

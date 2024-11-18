@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using TMPro;
-using Unity.Burst.CompilerServices;
+using Unity.Burst.CompilerServices;             
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -395,8 +395,7 @@ public class GameManager : MonoBehaviour
 
         yield return new WaitForSeconds(4);
 
-        PlayerGun.SetActive(false);
-        AIGun.SetActive(false);
+        
 
         if (CardDrawSystem.Instance.selectedPosition1.childCount > 0)
         {
@@ -425,12 +424,19 @@ public class GameManager : MonoBehaviour
 
     public void PlayerRoulette()
     {
-        AIGun.SetActive(true);
+        StartCoroutine(WaitForGun(AIGun));
     }
 
     public void AiRoulette()
     {
-        PlayerGun.SetActive(true);
+        StartCoroutine(WaitForGun(PlayerGun));
+    }
+
+    IEnumerator WaitForGun(GameObject gun)
+    {
+        yield return new WaitForSeconds(3f);
+        gun.SetActive(true);
+
     }
 
     IEnumerator WaitSoCardsCanRevealInTutorial()

@@ -47,6 +47,7 @@ public class CardDrawSystem : MonoBehaviour
     //Hidden Variables
     [HideInInspector] public bool isPlayersTurn = true;
     [HideInInspector] bool cardAdded = false;
+    [HideInInspector] public bool cardMoving;
     [HideInInspector] public bool canPlay = true;
     [HideInInspector] CardSelection cardSelection;
 
@@ -90,7 +91,7 @@ public class CardDrawSystem : MonoBehaviour
                     int cardIndex = System.Array.IndexOf(cardsInHand, hit.transform.gameObject);
 
                     //Check For Left Mouse Click && Checks card is not banned
-                    if (Input.GetMouseButtonDown(0) && (cardIndex != bannedCard) && (cardIndex != bannedCard2))
+                    if (Input.GetMouseButtonDown(0) && (cardIndex != bannedCard) && (cardIndex != bannedCard2) && !cardMoving)
                     {
                         //Check That There Is Cards And It's The Players Turn
                         if ((cardIndex >= 0 && cardIndex < originalPositions.Length) && isPlayersTurn)
@@ -248,16 +249,129 @@ public class CardDrawSystem : MonoBehaviour
                 case 2: card3 = true; break;
                 case 3: card4 = true; break;
             }
-        }     
+        }
     }
 
     void MoveCardToPosition(int index, Transform selectedPosition)
     {
-        //Move The Card To The Selected Position
-        cardsInHand[index].transform.position = selectedPosition.position;
-        //Set Parent Else It Doesn't Return To The Original Position
+        if (cardMoving)
+            return;
+
+        //Stop Player Moving 2 Cards At Once
+        cardMoving = true;
+
+        cardSelection.canSelect = false;
+
+        StartCoroutine(MoveCardToPosition(index, selectedPosition, 0.5f, 0.1f));
+        ////Move The Card To The Selected Position
+        //cardsInHand[index].transform.position = selectedPosition.position;
+        ////Set Parent Else It Doesn't Return To The Original Position
+        //cardsInHand[index].transform.SetParent(selectedPosition);
+        //selectedCardCount = CheckSelectedCards();
+    }
+
+    IEnumerator MoveCardToPosition(int index, Transform selectedPosition, float duration, float pauseDuration)
+    {
+        //TODO: FIX ISSUE WITH CARDS NOT BEING ABLE TO BE DESELECTED
+        //TODO: ADD ANIMATIONS WHEN DESELECTING CARDS
+        //TODO: ADD ANIMATIONS TO AI CARD DRAW
+
+        Vector3 startPosition = cardsInHand[index].transform.position;
+        Quaternion startRotation = cardsInHand[index].transform.rotation;
+
+        //Halfway Flip
+        Quaternion halfwayRotation = Quaternion.Euler(-20, 180, -33);
+
+        //Final Position
+        Vector3 targetPosition = selectedPosition.position;
+        Quaternion targetRotation = Quaternion.Euler(-90, 180, 0f);
+
+        //Lift Position
+        Vector3 liftPosition = new Vector3(startPosition.x, startPosition.y + 0.1f, startPosition.z);
+        Quaternion liftRotation = Quaternion.Euler(-20, -180, -0.235f);
+
+        //Halfway Position
+        Vector3 halfwayPosition = (liftPosition + targetPosition) / 2 + Vector3.up * 0.03f;
+
+        float elapsedTime = 0f;
+
+        //Movement 1: Lift up
+        while (elapsedTime < duration * 0.3f)
+        {
+            //Calculate Normalized Time
+            float t = elapsedTime / (duration * 0.3f);
+            float easedT = EaseMovementCubic(t);
+
+            //Lerp Position And Keep Rotation The Same
+            cardsInHand[index].transform.position = Vector3.Lerp(startPosition, liftPosition, easedT);
+            cardsInHand[index].transform.rotation = Quaternion.Lerp(startRotation, liftRotation, easedT);
+
+            elapsedTime += Time.deltaTime;
+            yield return null;
+        }
+
+        //Verify Positions
+        cardsInHand[index].transform.position = liftPosition;
+        cardsInHand[index].transform.rotation = liftRotation;
+
+        //Pause Briefly
+        yield return new WaitForSeconds(pauseDuration);
+
+        elapsedTime = 0f;
+
+        //Movement 2 & 3: Placement Motion
+        while (elapsedTime < duration * 0.7f)
+        {
+            //Calculate Normalized Time
+            float t = elapsedTime / (duration * 0.7f);
+            float easedT = EaseMovementCubic(t);
+
+            if (easedT < 0.5f)
+            {
+                //Movement 2: Move Towards Halfway Position And Rotation
+                //Normalize 0-0.5 Range To 0-1
+                float phase2T = easedT * 2f;
+                cardsInHand[index].transform.position = Vector3.Lerp(liftPosition, halfwayPosition, phase2T);
+                cardsInHand[index].transform.rotation = Quaternion.Lerp(liftRotation, halfwayRotation, phase2T);
+            }
+            else
+            {
+                //Movement 3: Move Towards Final Position And Rotation
+                //Normalize 0.5-1 Range To 0-1
+                float phase3T = (easedT - 0.5f) * 2f;
+                cardsInHand[index].transform.position = Vector3.Lerp(halfwayPosition, targetPosition, phase3T);
+                cardsInHand[index].transform.rotation = Quaternion.Lerp(halfwayRotation, targetRotation, phase3T);
+            }
+
+            elapsedTime += Time.deltaTime;
+            yield return null;
+        }
+
+        //Verify Positions
+        cardsInHand[index].transform.position = targetPosition;
+        cardsInHand[index].transform.rotation = targetRotation;
+
+        //Set Parent After Movement
         cardsInHand[index].transform.SetParent(selectedPosition);
+
+        cardSelection.canSelect = true;
+        cardMoving = false;
+
+        //Recalculate Selected Card Count
         selectedCardCount = CheckSelectedCards();
+    }
+
+    //This Makes The Cards Movement Increase Over Time At The Start And Decrease Near The End
+    float EaseMovementCubic(float t)
+    {
+        if (t < 0.5f)
+        {
+            return 4f * t * t * t;
+        }
+        else
+        {
+            return 1f - Mathf.Pow(-2f * t + 2f, 3f) / 2f;
+        }
     }
 
     void DeselectCard(int index)
@@ -302,7 +416,6 @@ public class CardDrawSystem : MonoBehaviour
             return 0;
         }
     }
-
 
     public void StopOneCard()
     {

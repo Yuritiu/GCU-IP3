@@ -84,7 +84,7 @@ public class CardDeck : MonoBehaviour
     void ReshuffleDeck()
     {
         InitializeDeck();
-        Debug.Log($"Deck Reshuffled. New deck count: " + deck.Count);
+        Debug.Log("Deck Reshuffled. New deck count: " + deck.Count);
         //Might Be A Problem Just Adding A Card
         DrawCard();
     }

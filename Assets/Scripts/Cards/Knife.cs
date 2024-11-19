@@ -68,6 +68,7 @@ public class Knife : MonoBehaviour
         {
             GameManager.Instance.inKnifeAction = true;
 
+
             int rand = Random.Range(0, 5);
             //\/Debuging\/
             //rand = 0;
@@ -77,46 +78,35 @@ public class Knife : MonoBehaviour
                 //makes 1 card not usable for 1 turn
                 AICardDrawSystem.Instance.StopOneCard();
             }
-            if (AICardDrawSystem.Instance.selectedPosition1.childCount > 0 && AICardDrawSystem.Instance.selectedPosition2.childCount > 0)
-            {
-                Component card3 = AICardDrawSystem.Instance.selectedPosition1.GetChild(0);
-                Component card4 = AICardDrawSystem.Instance.selectedPosition2.GetChild(0);
 
-                //ADDS a delay to the second knife to give time for the first knife to work first
-                if (card3.gameObject.name.Contains("Knife") && card4.gameObject.name.Contains("Knife"))
+            if (AICardDrawSystem.Instance.selectedPosition1.gameObject.transform.childCount > 0)
+            {
+                if (AICardDrawSystem.Instance.selectedPosition1.gameObject.transform.GetChild(0).name.Contains("knife") && !GameManager.Instance.knife1used)
                 {
-                    if (card4.gameObject == this.gameObject)
+                    GameManager.Instance.knife1used = true;
+                    GameManager.Instance.numberOfKnifeCards++;
+                    StartCoroutine(GameManager.Instance.WaitToCompareCards(2, 1));
+                }
+            }
+
+            if (AICardDrawSystem.Instance.selectedPosition2.gameObject.transform.childCount > 0)
+            {
+                if (AICardDrawSystem.Instance.selectedPosition2.gameObject.transform.GetChild(0).name.Contains("knife") &&  !GameManager.Instance.knife2used)
+                {
+                    GameManager.Instance.knife2used = true;
+                    GameManager.Instance.numberOfKnifeCards++;
+                    if (!GameManager.Instance.knife1used)
                     {
-                        StartCoroutine(WaitToStart(2, 1));
-                        return;
+
+                        StartCoroutine(GameManager.Instance.WaitToCompareCards(2, 1));
                     }
                 }
             }
-            StartCoroutine(GameManager.Instance.WaitToCompareCards(2, 1));
-        }
-        else
-        {
-            if (TutorialAICardDraw.Instance.selectedPosition1.childCount > 0 && TutorialAICardDraw.Instance.selectedPosition2.childCount > 0)
-            {
-                Component card3 = TutorialAICardDraw.Instance.selectedPosition1.GetChild(0);
-                Component card4 = TutorialAICardDraw.Instance.selectedPosition2.GetChild(0);
-
-
-                //Damage opponent 
-                //takes 1 finger away
-                if (card3.gameObject.name.Contains("Knife") && card4.gameObject.name.Contains("Knife"))
-                {
-                    if (card4.gameObject == this.gameObject)
-                    {
-                        StartCoroutine(WaitToStart(2, 1));
-                        return;
-                    }
-                }
-            }
-            StartCoroutine(GameManager.Instance.WaitToCompareCards(2, 1));
         }
     }
 
+    
+    
     //ADDS a delay to the second knife to give time for the first knife to work first
     IEnumerator WaitToStart(int character, int type)
     {

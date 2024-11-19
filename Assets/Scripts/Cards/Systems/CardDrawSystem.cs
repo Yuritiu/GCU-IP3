@@ -136,7 +136,7 @@ public class CardDrawSystem : MonoBehaviour
 
     void StartGame()
     {
-        Debug.Log("Deck Count Before Creating Hand: " + CardDeck.Instance.deck.Count);
+        //Debug.Log("Deck Count Before Creating Hand: " + CardDeck.Instance.deck.Count);
 
         //Initialize cardsInHand With 4 Slots
         cardsInHand = new GameObject[4];
@@ -151,7 +151,7 @@ public class CardDrawSystem : MonoBehaviour
                 break;
             }
 
-            Debug.Log("Drew Card: " +  card.name + " Remaining Cards In Deck: " + CardDeck.Instance.deck.Count);
+            //Debug.Log("Drew Card: " +  card.name + " Remaining Cards In Deck: " + CardDeck.Instance.deck.Count);
 
             cardsInHand[i] = Instantiate(card, originalPositions[i].position, originalPositions[i].rotation);
 
@@ -165,12 +165,12 @@ public class CardDrawSystem : MonoBehaviour
             }
         }
 
-        Debug.Log("Deck Count After Creating Hand: " + CardDeck.Instance.deck.Count);
+        //Debug.Log("Deck Count After Creating Hand: " + CardDeck.Instance.deck.Count);
     }
     
     public void AddCardAfterTurn()
     {
-        Debug.Log("Attempting To Add A Card After The Turn...");
+        //Debug.Log("Attempting To Add A Card After The Turn...");
 
         for (int i = 0; i < cardsInHand.Length; i++)
         {
@@ -181,7 +181,7 @@ public class CardDrawSystem : MonoBehaviour
                 {
                     return;
                 }
-                Debug.Log("Adding Card " + card.name + " To Slot " + i);
+                //Debug.Log("Adding Card " + card.name + " To Slot " + i);
 
                 // Updates what cards are banned
                 switch (i)
@@ -195,7 +195,7 @@ public class CardDrawSystem : MonoBehaviour
                 cardsInHand[i] = Instantiate(card, originalPositions[i].position, originalPositions[i].rotation);
                 cardAdded = true;
 
-                Debug.Log("Card Added Successfully.");
+               //Debug.Log("Card Added Successfully.");
                 break;
             }
         }

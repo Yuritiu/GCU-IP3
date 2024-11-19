@@ -102,6 +102,10 @@ public class GameManager : MonoBehaviour
     private bool canMoveOn;
     [HideInInspector] public bool inKnifeAction = false;
     [HideInInspector] public bool inGunAction = false;
+    [HideInInspector] public int numberOfKnifeCards = 0;
+    
+    [HideInInspector] public bool knife1used = false;
+    [HideInInspector] public bool knife2used = false;
 
     public void Start()
     {
@@ -124,7 +128,7 @@ public class GameManager : MonoBehaviour
 
         //Set Fingers To 5
         aiFingers = 5;
-        playerFingers = 5;
+        playerFingers = 4;
 
         //sets number of bullets
         bullets = 1;
@@ -401,10 +405,13 @@ public class GameManager : MonoBehaviour
         //waits for cards to reveal
         yield return new WaitForSeconds(3f);
         in2ndPos = false;
-        StartCoroutine(CameraTransitionIEnum(Target1));
-        
-        IsReadyToCompare = true;
 
+        if (!in3rdPos)
+        {
+            StartCoroutine(CameraTransitionIEnum(Target1));
+        }
+
+        IsReadyToCompare = true;
     }
 
     IEnumerator WaitSoCardsCanReveal()
@@ -520,13 +527,13 @@ public class GameManager : MonoBehaviour
         //Player
         else if (character == 2)
         {
-            playerFingers--;
             if (type == 1)
             {
                 playerHand.StartOfAction();
             }
-            if (type == 2)
+            if (type == 3)
             {
+                playerFingers--;
                 playerHand.RemoveFinger(playerFingers);
             }
             //Debug.Log("Countdown Started");

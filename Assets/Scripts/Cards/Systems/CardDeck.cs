@@ -50,7 +50,7 @@ public class CardDeck : MonoBehaviour
 
     void InitializeDeck()
     {
-        Debug.Log("Card Deck Initialized");
+        //Debug.Log("Card Deck Initialized");
 
         deck.Clear();
         foreach (CardPrefab card in cardPrefabs)
@@ -65,12 +65,12 @@ public class CardDeck : MonoBehaviour
         }
 
         ShuffleDeck();
-        Debug.Log("Deck Created With " + deck.Count + " Cards.");
+        //Debug.Log("Deck Created With " + deck.Count + " Cards.");
     }
 
     void ShuffleDeck()
     {
-        Debug.Log("Deck Shuffling...");
+        //Debug.Log("Deck Shuffling...");
         for (int i = 0; i < deck.Count; i++)
         {
             int randomIndex = Random.Range(0, deck.Count);
@@ -78,13 +78,13 @@ public class CardDeck : MonoBehaviour
             deck[i] = deck[randomIndex];
             deck[randomIndex] = temp;
         }
-        Debug.Log("Deck Shuffled.");
+        //Debug.Log("Deck Shuffled.");
     }
 
     void ReshuffleDeck()
     {
         InitializeDeck();
-        Debug.Log("Deck Reshuffled. New deck count: " + deck.Count);
+        //Debug.Log("Deck Reshuffled. New deck count: " + deck.Count);
         //Might Be A Problem Just Adding A Card
         DrawCard();
     }
@@ -101,13 +101,13 @@ public class CardDeck : MonoBehaviour
 
         if (card == null)
         {
-            Debug.LogError("Drawn Card Is Null.");
+            //Debug.LogError("Drawn Card Is Null.");
             return null;
         }
 
         //Remove The Drawn Card From The Deck
         deck.RemoveAt(0);
-        Debug.Log($"Drew Card: " +  card.name + " Remaining Cards In Deck: " + deck.Count);
+        //Debug.Log($"Drew Card: " +  card.name + " Remaining Cards In Deck: " + deck.Count);
         return card;
     }
 

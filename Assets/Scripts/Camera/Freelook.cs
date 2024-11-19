@@ -34,7 +34,6 @@ public class Freelook : MonoBehaviour
 
     void Update()
     {
-
         if(GameManager.Instance.in2ndPos == true)
         {
             canLook = false;
@@ -51,7 +50,6 @@ public class Freelook : MonoBehaviour
         {
             canLook = true;
         }
-        
 
         if (!canLook || SettingsMenu.Instance.settingsMenuOpen)
             return;
@@ -70,14 +68,7 @@ public class Freelook : MonoBehaviour
         //Apply Mouse Smoothing To The Camera To Stop Jittering
         currentXRotation = Mathf.Lerp(currentXRotation, xRotation, mouseSmoothing * Time.deltaTime);
         currentYRotation = Mathf.Lerp(currentYRotation, yRotation, mouseSmoothing * Time.deltaTime);
-
-        
         
         transform.localRotation = Quaternion.Euler(currentXRotation, currentYRotation, 0f);
-        
-        
     }
-
-    
-    
 }

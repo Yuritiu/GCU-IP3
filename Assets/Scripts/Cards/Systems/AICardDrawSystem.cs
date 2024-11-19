@@ -51,7 +51,7 @@ public class AICardDrawSystem : MonoBehaviour
 
     void StartGame()
     {
-        Debug.Log("Deck Count Before Creating Hand: " + CardDeck.Instance.deck.Count);
+        //Debug.Log("Deck Count Before Creating Hand: " + CardDeck.Instance.deck.Count);
 
         //Initialize cardsInHand With 4 Slots
         cardsInHand = new GameObject[4];
@@ -66,7 +66,7 @@ public class AICardDrawSystem : MonoBehaviour
                 break;
             }
 
-            Debug.Log("Drew Card: " + card.name + " Remaining Cards In Deck: " + CardDeck.Instance.deck.Count);
+            //Debug.Log("Drew Card: " + card.name + " Remaining Cards In Deck: " + CardDeck.Instance.deck.Count);
 
             //Instantiate And Store The Reference
             cardsInHand[i] = Instantiate(card, originalPositions[i].position, originalPositions[i].rotation);
@@ -83,7 +83,7 @@ public class AICardDrawSystem : MonoBehaviour
             }
         }
 
-        Debug.Log("Deck Count After Creating Hand: " + CardDeck.Instance.deck.Count);
+        //Debug.Log("Deck Count After Creating Hand: " + CardDeck.Instance.deck.Count);
     }
 
     public Component SelectCard()
@@ -146,7 +146,7 @@ public class AICardDrawSystem : MonoBehaviour
 
     public void AddCardAfterTurn()
     {
-        Debug.Log("Attempting To Add An AI Card After The Turn...");
+        //Debug.Log("Attempting To Add An AI Card After The Turn...");
 
         for (int i = 0; i < cardsInHand.Length; i++)
         {
@@ -157,12 +157,12 @@ public class AICardDrawSystem : MonoBehaviour
                 {
                     return;
                 }
-                Debug.Log("Adding Card " + card.name + " To Slot " + i);
+                //Debug.Log("Adding Card " + card.name + " To Slot " + i);
 
                 cardsInHand[i] = Instantiate(card, originalPositions[i].position, originalPositions[i].rotation);
                 cardAdded = true;
 
-                Debug.Log("Card Added Successfully.");
+                //Debug.Log("Card Added Successfully.");
                 break;
             }
         }
@@ -194,11 +194,11 @@ public class AICardDrawSystem : MonoBehaviour
         {
             cardsInCurrentHand--;
         }
-        print(cardsInCurrentHand);
+        //print(cardsInCurrentHand);
 
         int rand = UnityEngine.Random.Range(0, cardsInCurrentHand);
 
-        print(rand);
+        //print(rand);
         if (card1 == true)
         {
             if (rand == 0)

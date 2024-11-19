@@ -27,13 +27,17 @@ public class GameManager : MonoBehaviour
 
     private bool wPressed;
     private bool sPressed;
+    private bool pPressed;
 
     [SerializeField] public float speed;
     [SerializeField] public Transform Target1;
     [SerializeField] public Transform Target2;
     [SerializeField] public Transform Target3;
     [SerializeField] public Transform Target4;
+    [SerializeField] public Transform Target5;
+    [SerializeField] public Transform Target6;
     [HideInInspector] public bool in2ndPos;
+    [HideInInspector] public bool in3rdPos;
 
 
     [Header("camera")]
@@ -94,6 +98,11 @@ public class GameManager : MonoBehaviour
     [SerializeField] public GameObject WinScreen;
     [SerializeField] public GameObject LoseScreen;
 
+    [Header("Action ")]
+    private bool canMoveOn;
+    [HideInInspector] public bool inKnifeAction = false;
+    [HideInInspector] public bool inGunAction = false;
+
     public void Start()
     {
         Time.timeScale = 1f;
@@ -109,6 +118,7 @@ public class GameManager : MonoBehaviour
         wPressed = false;
         sPressed = false;
         in2ndPos = false;
+        in3rdPos = false;
 
         isTutorial = false;
 
@@ -120,7 +130,7 @@ public class GameManager : MonoBehaviour
         bullets = 1;
 
         //Set Fingers Debug Text
-        ReduceHealth(0);
+        ReduceHealth(0, 0);
         DisableAllBackfires();
 
         blur.SetActive(false);
@@ -158,6 +168,7 @@ public class GameManager : MonoBehaviour
 
     public void NextTurn()
     {
+
         if (!canPlay)
             return;
 
@@ -230,6 +241,7 @@ public class GameManager : MonoBehaviour
 
     public void PlayHand()
     {
+
         CardDrawSystem.Instance.UnbanCards();
         blur.SetActive(false);
 
@@ -259,6 +271,7 @@ public class GameManager : MonoBehaviour
         {
             aiSkippedTurns--;
         }
+
 
         //IMPORTANT Make Sure The Cards Logic Is Executed Before This Is Called!
         //Could Maybe Add The Destroy To The Card GameObject
@@ -299,10 +312,11 @@ public class GameManager : MonoBehaviour
             AICardDrawSystem.Instance.selectedCardCount--;
         }
 
-        IsReadyToCompare = true;
+        canMoveOn = true;
+
 
         CardDrawSystem.Instance.isPlayersTurn = false;
-        StartCoroutine(WaitSoCardsCanReveal());
+        StartCoroutine(MoveCamera());
     }
 
     //TUTORIAL SPECIFIC FUNCTION
@@ -379,23 +393,26 @@ public class GameManager : MonoBehaviour
         ShowCardsInTutorial();
     }
 
+    IEnumerator MoveCamera()
+    {
+        in2ndPos = true;
+        StartCoroutine(CameraTransitionIEnum(Target2));
+
+        //waits for cards to reveal
+        yield return new WaitForSeconds(3f);
+        in2ndPos = false;
+        StartCoroutine(CameraTransitionIEnum(Target1));
+        
+        IsReadyToCompare = true;
+
+    }
+
     IEnumerator WaitSoCardsCanReveal()
     {
         //Debug
         //CardDrawSystem.Instance.debugCurrentTurnText.text = ("Revealing Cards");
 
-        in2ndPos = true;
-        StartCoroutine(CameraTransition(Target2));
-
-        //waits for cards to reveal
-        yield return new WaitForSeconds(2f);
-        in2ndPos = false;
-        StartCoroutine(CameraTransition(Target1));
-
-
-        yield return new WaitForSeconds(4);
-
-        
+        yield return new WaitForSeconds(5);
 
         if (CardDrawSystem.Instance.selectedPosition1.childCount > 0)
         {
@@ -475,6 +492,7 @@ public class GameManager : MonoBehaviour
         //waits for cards to reveal
         yield return new WaitForSeconds(1f);
 
+        // type meaning // 1 is knife // 2 is cigar // 3 in gun//
 
         if (type == 1 || type == 3)
         {
@@ -490,21 +508,27 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    public void ReduceHealth(int character)
+    public void ReduceHealth(int character, int type)
     {
         //checks if character is player or ai
         //AI
         if (character == 1)
         {
             aiFingers--;
-            aiHand.RemoveFinger(aiFingers, true);
+            aiHand.RemoveFinger(aiFingers);
         }
         //Player
         else if (character == 2)
         {
             playerFingers--;
-            playerHand.RemoveFinger(playerFingers, false);
-
+            if (type == 1)
+            {
+                playerHand.StartOfAction();
+            }
+            if (type == 2)
+            {
+                playerHand.RemoveFinger(playerFingers);
+            }
             //Debug.Log("Countdown Started");
             BloodlossSystem.Instance.IncreaseBloodloss();
         }
@@ -552,7 +576,7 @@ public class GameManager : MonoBehaviour
                 }
                 if (type == 1)
                 {
-                    ReduceHealth(character);
+                    ReduceHealth(character, type);
                 }
                 if (type == 3)
                 {
@@ -575,7 +599,7 @@ public class GameManager : MonoBehaviour
                 }
                 if (type == 1)
                 {
-                    ReduceHealth(character);
+                    ReduceHealth(character, type);
                 }
                 if (type == 3)
                 {
@@ -655,45 +679,69 @@ public class GameManager : MonoBehaviour
         if (Input.GetKey("s") && wPressed == false)
         {
             sPressed = true;
-            print("s pressed");
+            //print("s pressed");
         }
 
         if (Input.GetKey("w") && sPressed == false)
         {
             wPressed = true;
-            print("w pressed");
+            //print("w pressed");
+        }
+        
+        if (Input.GetKey("p") && wPressed == false && sPressed == false)
+        {
+            pPressed = true;
+            //print("p pressed");
         }
 
         if (sPressed == true)
         {
             in2ndPos = false;
+            in3rdPos = false;
 
-            StartCoroutine(CameraTransition(Target1));
+            StartCoroutine(CameraTransitionIEnum(Target1));
 
             if (MainCamera.transform.position == Target1.transform.position)
             {
 
                 sPressed = false;
                 MainCamera.transform.position = MainCamera.transform.position;
-                StopCoroutine(CameraTransition(Target1));
-
-
+                StopCoroutine(CameraTransitionIEnum(Target1));
             }
-
         }
 
         if (wPressed == true)
         {
             in2ndPos = true;
-            StartCoroutine(CameraTransition(Target2));
+            in3rdPos = false;
+            StartCoroutine(CameraTransitionIEnum(Target2));
 
 
             if (MainCamera.transform.position == Target2.transform.position)
             {
                 wPressed = false;
                 MainCamera.transform.position = MainCamera.transform.position;
-                StopCoroutine(CameraTransition(Target2));
+                StopCoroutine(CameraTransitionIEnum(Target2));
             }
+        }
+        
+        if (pPressed == true)
+        {
+            in3rdPos = true;
+            in2ndPos = false;
+            StartCoroutine(CameraTransitionIEnum(Target3));
+
+
+            if (MainCamera.transform.position == Target3.transform.position)
+            {
+                pPressed = false;
+                MainCamera.transform.position = MainCamera.transform.position;
+                StopCoroutine(CameraTransitionIEnum(Target3));
+            }
+        }
+        if (allActionsDone() == true)
+        {
+            StartCoroutine(WaitSoCardsCanReveal());
         }
     }
 
@@ -708,14 +756,12 @@ public class GameManager : MonoBehaviour
         cigarBackfire.gameObject.SetActive(false);
     }
 
-    private IEnumerator CameraTransition(Transform Target)
+    public IEnumerator CameraTransitionIEnum(Transform Target)
     {
         float t = 0.00f;
         Vector3 startingpos = MainCamera.transform.position;
 
-
-
-        while (t < 1.0f && in2ndPos == false)
+        while (t < 1.0f && in2ndPos == false && in3rdPos == false)
         {
             t += Time.deltaTime * (Time.timeScale * speed);
 
@@ -726,26 +772,37 @@ public class GameManager : MonoBehaviour
 
         }
 
-
         while (in2ndPos == true && t < 1.0f)
         {
             t += Time.deltaTime * (Time.timeScale * speed);
 
             MainCamera.transform.position = Vector3.Lerp(startingpos, Target.position, t);
-            //Target4.position = new Vector3(MainCamera.GetComponent<Freelook>().currentXRotation, MainCamera.GetComponent<Freelook>().currentYRotation, 0f);
+            //Target5.position = new Vector3(MainCamera.GetComponent<Freelook>().currentXRotation, MainCamera.GetComponent<Freelook>().currentYRotation, 0f);
 
-            MainCamera.transform.rotation = Quaternion.Slerp(MainCamera.transform.rotation, Quaternion.LookRotation(Target3.position - MainCamera.transform.position), speed * Time.deltaTime);
+            MainCamera.transform.rotation = Quaternion.Slerp(MainCamera.transform.rotation, Quaternion.LookRotation(Target5.position - MainCamera.transform.position), speed * Time.deltaTime);
             yield return 0;
         }
-
-
 
         while (in2ndPos == true)
         {
-            MainCamera.transform.rotation = Quaternion.Slerp(MainCamera.transform.rotation, Quaternion.LookRotation(Target3.position - MainCamera.transform.position), speed * Time.deltaTime);
+            MainCamera.transform.rotation = Quaternion.Slerp(MainCamera.transform.rotation, Quaternion.LookRotation(Target5.position - MainCamera.transform.position), speed * Time.deltaTime);
             yield return 0;
         }
 
+        while (in3rdPos == true && t < 1.0f)
+        {
+            t += Time.deltaTime * (Time.timeScale * speed);
+
+            MainCamera.transform.position = Vector3.Lerp(startingpos, Target.position, t);
+            MainCamera.transform.rotation = Quaternion.Slerp(MainCamera.transform.rotation, Quaternion.LookRotation(Target6.position - MainCamera.transform.position), speed * Time.deltaTime);
+            yield return 0;
+        }
+
+        while (in3rdPos == true)
+        {
+            MainCamera.transform.rotation = Quaternion.Slerp(MainCamera.transform.rotation, Quaternion.LookRotation(Target6.position - MainCamera.transform.position), speed * Time.deltaTime);
+            yield return 0;
+        }
     }
     public void EndGameWin()
     {
@@ -769,5 +826,21 @@ public class GameManager : MonoBehaviour
     {
         var activeScene = SceneManager.GetActiveScene().name;
         SceneManager.LoadScene(activeScene);
+    }
+    
+    private bool allActionsDone()
+    {
+        if (canMoveOn)
+        {
+            if (!inKnifeAction)
+            {
+                if (!inGunAction)
+                {
+                    canMoveOn = false;
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 }

@@ -16,12 +16,13 @@ public class Gun : MonoBehaviour
         if (rand == 0)
         {
             //Shoots off your own finger
-            GameManager.Instance.ReduceHealth(2);
+            GameManager.Instance.ReduceHealth(2, 2);
             GameManager.Instance.gunBackfire.gameObject.SetActive(true);
         }
 
         int randForBullet = UnityEngine.Random.Range(1, 7);
         //print(randForBullet);
+        GameManager.Instance.inGunAction = true;
         GameManager.Instance.PlayerRoulette();
         if (randForBullet <= GameManager.Instance.bullets)
         {
@@ -48,7 +49,7 @@ public class Gun : MonoBehaviour
         if (rand == 0)
         {
             //Shoots off your own finger
-            GameManager.Instance.ReduceHealth(1);
+            GameManager.Instance.ReduceHealth(1, 2);
         }
         int randForBullet = UnityEngine.Random.Range(1, 7);
         if (randForBullet >= GameManager.Instance.bullets)
@@ -63,10 +64,5 @@ public class Gun : MonoBehaviour
         //waits for cards to reveal
         yield return new WaitForSeconds(3f);
         StartCoroutine(GameManager.Instance.WaitToCompareCards(character, type));
-    }
-
-    IEnumerator WaitForGun()
-    {
-        yield return new WaitForSeconds(2f);
     }
 }

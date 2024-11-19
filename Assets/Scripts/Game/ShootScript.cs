@@ -30,10 +30,11 @@ public class ShootScript : MonoBehaviour
             In2ndPos = true;
         }
 
-        if (gameObject.name == "Player Gun" && Input.GetKey("f"))
+        if (gameObject.name == "Player Gun" && Input.GetMouseButtonDown(0))
         {
             gameObject.SetActive(false);
             In2ndPos = false;
+            GameManager.Instance.inGunAction = false;
         }
 
     }
@@ -56,8 +57,6 @@ public class ShootScript : MonoBehaviour
 
         }
 
-
-
         yield return 0;
     }
 
@@ -65,10 +64,7 @@ public class ShootScript : MonoBehaviour
 
     private IEnumerator DestroyAiGun(GameObject Gun)
     {
-
-
         yield return new WaitForSeconds(6);
         Gun.SetActive(false);
-        
     }
 }

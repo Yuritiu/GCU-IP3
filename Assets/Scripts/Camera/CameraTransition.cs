@@ -94,6 +94,7 @@ public class CameraTransition : MonoBehaviour
         }
     }
 
+
     public void TriggerCameraTransition()
     {
         if (!isCoroutineRunning)

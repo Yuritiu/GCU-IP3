@@ -38,11 +38,16 @@ public class Freelook : MonoBehaviour
         if(GameManager.Instance.in2ndPos == true)
         {
             canLook = false;
-            xRotation = GameManager.Instance.Target4.position.x;
-            yRotation = GameManager.Instance.Target4.position.y;
-            
+            xRotation = GameManager.Instance.Target5.position.x;
+            yRotation = GameManager.Instance.Target5.position.y;
         }
-        if(GameManager.Instance.in2ndPos == false)
+        if(GameManager.Instance.in3rdPos == true)
+        {
+            canLook = false;
+            xRotation = GameManager.Instance.Target6.position.x;
+            yRotation = GameManager.Instance.Target6.position.y;
+        }
+        if(GameManager.Instance.in2ndPos == false && GameManager.Instance.in3rdPos == false)
         {
             canLook = true;
         }

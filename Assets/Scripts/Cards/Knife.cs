@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class Knife : MonoBehaviour
@@ -33,27 +34,17 @@ public class Knife : MonoBehaviour
                     if (card2.gameObject == this.gameObject)
                     {
                         StartCoroutine(WaitToStart(1, 1));
-                    }
-                    else
-                    {
-                        StartCoroutine(GameManager.Instance.WaitToCompareCards(1, 1));
+                        return;
                     }
                 }
-                else
-                {
-                    StartCoroutine(GameManager.Instance.WaitToCompareCards(1, 1));
-                }
             }
-            else
-            {
-                StartCoroutine(GameManager.Instance.WaitToCompareCards(1, 1));
-            }
+            StartCoroutine(GameManager.Instance.WaitToCompareCards(1, 1));
         }
         else
         {
             if (TutorialCardDraw.Instance.selectedPosition1.childCount > 0 && TutorialCardDraw.Instance.selectedPosition2.childCount > 0)
             {
-                print("made it");
+                //print("made it");
                 Component card1 = TutorialCardDraw.Instance.selectedPosition1.GetChild(0);
                 Component card2 = TutorialCardDraw.Instance.selectedPosition2.GetChild(0);
                 //Damage opponent 
@@ -63,29 +54,20 @@ public class Knife : MonoBehaviour
                     if (card2.gameObject == this.gameObject)
                     {
                         StartCoroutine(WaitToStart(1, 1));
-                    }
-                    else
-                    {
-                        StartCoroutine(GameManager.Instance.WaitToCompareCards(1, 1));
+                        return;
                     }
                 }
-                else
-                {
-                    StartCoroutine(GameManager.Instance.WaitToCompareCards(1, 1));
-                }
             }
-            else
-            {
-                StartCoroutine(GameManager.Instance.WaitToCompareCards(1, 1));
-            }
+            StartCoroutine(GameManager.Instance.WaitToCompareCards(1, 1));
         }
-            
     }
     public void PlayCardForAI()
     {
         //Check If Its The Tutorial First
         if (!GameManager.Instance.isTutorial)
         {
+            GameManager.Instance.inKnifeAction = true;
+
             int rand = Random.Range(0, 5);
             //\/Debuging\/
             //rand = 0;
@@ -100,29 +82,17 @@ public class Knife : MonoBehaviour
                 Component card3 = AICardDrawSystem.Instance.selectedPosition1.GetChild(0);
                 Component card4 = AICardDrawSystem.Instance.selectedPosition2.GetChild(0);
 
-
-                //Damage opponent 
-                //takes 1 finger away
+                //ADDS a delay to the second knife to give time for the first knife to work first
                 if (card3.gameObject.name.Contains("Knife") && card4.gameObject.name.Contains("Knife"))
                 {
                     if (card4.gameObject == this.gameObject)
                     {
                         StartCoroutine(WaitToStart(2, 1));
-                    }
-                    else
-                    {
-                        StartCoroutine(GameManager.Instance.WaitToCompareCards(2, 1));
+                        return;
                     }
                 }
-                else
-                {
-                    StartCoroutine(GameManager.Instance.WaitToCompareCards(2, 1));
-                }
             }
-            else
-            {
-                StartCoroutine(GameManager.Instance.WaitToCompareCards(2, 1));
-            }
+            StartCoroutine(GameManager.Instance.WaitToCompareCards(2, 1));
         }
         else
         {
@@ -139,23 +109,12 @@ public class Knife : MonoBehaviour
                     if (card4.gameObject == this.gameObject)
                     {
                         StartCoroutine(WaitToStart(2, 1));
-                    }
-                    else
-                    {
-                        StartCoroutine(GameManager.Instance.WaitToCompareCards(2, 1));
+                        return;
                     }
                 }
-                else
-                {
-                    StartCoroutine(GameManager.Instance.WaitToCompareCards(2, 1));
-                }
             }
-            else
-            {
-                StartCoroutine(GameManager.Instance.WaitToCompareCards(2, 1));
-            }
+            StartCoroutine(GameManager.Instance.WaitToCompareCards(2, 1));
         }
-        
     }
 
     //ADDS a delay to the second knife to give time for the first knife to work first

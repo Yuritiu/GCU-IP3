@@ -676,6 +676,18 @@ public class GameManager : MonoBehaviour
     private void Update()
     {
 
+        if(PlayerGun.activeInHierarchy == true)
+        {
+            inGunAction = true;
+        }
+
+        if(AIGun.activeInHierarchy == true)
+        {
+            inGunAction = true;
+        }
+
+      
+
         if (Input.GetKey("s") && wPressed == false)
         {
             sPressed = true;

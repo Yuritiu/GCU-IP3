@@ -9,32 +9,46 @@ public class ShootScript : MonoBehaviour
     [SerializeField] public Transform Target1;
     [SerializeField] public Transform Target2;
     [HideInInspector] public bool In2ndPos;
+    public float delay;
+    bool firePressed;
+    public Animator gunAnim;
 
-
+    private void Start()
+    {
+        gunAnim = gameObject.GetComponent<Animator>();
+    }
 
 
     private void OnEnable()
     {
-        gameObject.transform.position = Target1.position;
+
+        
+        In2ndPos = false;
 
         if(gameObject.name == "Ai Gun")
         {
             StartCoroutine(DestroyAiGun(gameObject));
         }
     }
-    void Update()
+    private void Update()
     {
-        if(gameObject.activeInHierarchy && In2ndPos == false)
+        if(gameObject.activeInHierarchy == true && In2ndPos == false)
         {
             StartCoroutine(MoveGun(Target2));
             In2ndPos = true;
         }
 
-        if (gameObject.name == "Player Gun" && Input.GetMouseButtonDown(0))
+        gameObject.transform.position = Target2.position;
+        if (gameObject.name == "Ai Gun" && firePressed == false)
         {
-            gameObject.SetActive(false);
+            StartCoroutine(Fire());
+        }
+
+        if (gameObject.name == "Player Gun" && Input.GetMouseButtonDown(0) && firePressed == false)
+        {
+            StartCoroutine(Fire());
             In2ndPos = false;
-            GameManager.Instance.inGunAction = false;
+            
         }
 
     }
@@ -54,7 +68,7 @@ public class ShootScript : MonoBehaviour
         {
             t += Time.deltaTime * (Time.timeScale * speed);
             gameObject.transform.position = Vector3.Lerp(startingPos, Target.position, t);
-
+            yield return 0;
         }
 
         yield return 0;
@@ -66,5 +80,17 @@ public class ShootScript : MonoBehaviour
     {
         yield return new WaitForSeconds(6);
         Gun.SetActive(false);
+    }
+
+    private IEnumerator Fire()
+    {
+        yield return new WaitForSeconds(1.5f);
+        firePressed = true;
+        gunAnim.Play("recoil");
+        yield return new WaitForSeconds(delay);
+        gameObject.SetActive(false);
+        GameManager.Instance.inGunAction = false;
+        gunAnim.Play("GunPause");
+        firePressed = false;
     }
 }

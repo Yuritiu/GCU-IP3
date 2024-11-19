@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5333116497694472727}
   - component: {fileID: 5128300180416186954}
+  - component: {fileID: 6364199873939054069}
   m_Layer: 0
   m_Name: Gun
   m_TagString: Untagged
@@ -45,6 +46,32 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c444c4e41dc992848b7f85d9be11ed40, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  speed: 1
+  Target1: {fileID: 0}
+  Target2: {fileID: 0}
+  In2ndPos: 0
+  delay: 3
+--- !u!95 &6364199873939054069
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8431981742270796655}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: d89ed4c6ddc27d24193edd8a310463f0, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1001 &9072068022076889848
 PrefabInstance:
   m_ObjectHideFlags: 0

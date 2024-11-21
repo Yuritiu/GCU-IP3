@@ -9,6 +9,8 @@ public class Gun : MonoBehaviour
     public void PlayCardForPlayer()
     {
         //GameManager.Instance.playerHasGun = true;
+        
+        
         int rand = UnityEngine.Random.Range(0, 5);
         //\/Debuging\/
         //rand = 0;
@@ -20,10 +22,13 @@ public class Gun : MonoBehaviour
             GameManager.Instance.gunBackfire.gameObject.SetActive(true);
         }
 
-        int randForBullet = UnityEngine.Random.Range(1, 7);
-        //print(randForBullet);
-        GameManager.Instance.inGunAction = true;
         GameManager.Instance.PlayerRoulette();
+        GameManager.Instance.inGunAction = true;
+
+        int randForBullet = UnityEngine.Random.Range(1, 7);
+        print("player " + randForBullet);
+        ShootScript.instance2.PRandom = randForBullet;
+        
         if (randForBullet <= GameManager.Instance.bullets)
         {
             StartCoroutine(WaitToStart(1, 3));
@@ -52,11 +57,16 @@ public class Gun : MonoBehaviour
             GameManager.Instance.ReduceHealth(1, 2);
         }
         int randForBullet = UnityEngine.Random.Range(1, 7);
+        print("ai "+ randForBullet);
+        ShootScript.instance1.AiRandom = randForBullet;
         if (randForBullet >= GameManager.Instance.bullets)
         {
             StartCoroutine(WaitToStart(2, 3));
         }
     }
+
+
+
 
 
     IEnumerator WaitToStart(int character, int type)

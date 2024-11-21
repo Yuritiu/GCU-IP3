@@ -27,7 +27,12 @@ public class Hand : MonoBehaviour
 
     private void Update()
     {
-        print(GameManager.Instance.playerFingers);
+
+        if (GameManager.Instance.inGunAction)
+        {
+            return;
+        }
+        //print(GameManager.Instance.playerFingers);
         if (this.gameObject.tag == "Player")
         {
             if (GameManager.Instance.inKnifeAction)

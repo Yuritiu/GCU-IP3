@@ -116,6 +116,8 @@ public class GameManager : MonoBehaviour
     {
         Instance = this;
 
+        
+
         PlayerGun.SetActive(false);
         AIGun.SetActive(false);
 
@@ -693,7 +695,7 @@ public class GameManager : MonoBehaviour
             inGunAction = true;
         }
 
-      
+        
 
         if (Input.GetKey("s") && wPressed == false)
         {

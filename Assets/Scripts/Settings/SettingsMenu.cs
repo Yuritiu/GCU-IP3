@@ -59,6 +59,11 @@ public class SettingsMenu : MonoBehaviour
             //Add Listener To Call The OnControlsMenuButtonClick Function When The Button Is Clicked
             controlsMenuButton.onClick.AddListener(OnControlsMenuButtonClick);
         }
+        if (audioMenuButton != null)
+        {
+            //Add Listener To Call The OnControlsMenuButtonClick Function When The Button Is Clicked
+            audioMenuButton.onClick.AddListener(OnAudioMenuButtonClick);
+        }
     }
 
 
@@ -178,6 +183,19 @@ public class SettingsMenu : MonoBehaviour
         rulesMenu.SetActive(false);
         //Enable Controls Menu
         controlsMenu.SetActive(true);
+
+        //Assists Toggle
+        assistsToggle.onValueChanged.AddListener(OnAssistsToggle);
+    }
+
+    void OnAudioMenuButtonClick()
+    {
+        //Disable All Other Menus
+        videoMenu.SetActive(false);
+        controlsMenu.SetActive(false);
+        rulesMenu.SetActive(false);
+        //Enable Controls Menu
+        audioMenu.SetActive(true);
 
         //Assists Toggle
         assistsToggle.onValueChanged.AddListener(OnAssistsToggle);

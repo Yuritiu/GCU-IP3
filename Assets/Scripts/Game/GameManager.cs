@@ -107,9 +107,16 @@ public class GameManager : MonoBehaviour
     [HideInInspector] public bool knife1used = false;
     [HideInInspector] public bool knife2used = false;
 
+    [SerializeField] private AudioClip musictest;
+
+
     public void Start()
     {
         Time.timeScale = 1f;
+
+        SFXManager.instance.PlayMusicClip(musictest, transform, 1f);
+
+
     }
 
     private void Awake()
@@ -832,6 +839,7 @@ public class GameManager : MonoBehaviour
         Cursor.visible = true;
         Cursor.lockState = CursorLockMode.Confined;
         Time.timeScale = 0f;
+        
     }
 
     public void EndGameLose()

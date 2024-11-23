@@ -54,7 +54,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] GameObject AIGun;
     [SerializeField] public GameObject Gun;
     [HideInInspector] public int bullets;
-    [HideInInspector] public bool showddown = false;
+    public bool showddown = false;
 
     [Header("Armour")]
     [HideInInspector] public int aiArmour;

@@ -23,8 +23,9 @@ public class CardDeck : MonoBehaviour
     //[SerializeField] public Transform deckPosition;
     //[SerializeField] public Transform discardPilePosition;
 
-    bool reshuffling = false;
-
+    public bool shooting = false;
+    public int noOfEmptySlots = 0;
+    bool reshuffling;
     void Awake()
     {
         Instance = this;
@@ -44,17 +45,25 @@ public class CardDeck : MonoBehaviour
         if (deck.Count == 0 && !reshuffling)
         {
             reshuffling = true;
-            ReshuffleDeck();
+            //ReshuffleDeck();
         }
     }
 
+     
+
     void InitializeDeck()
     {
+
+        if (deck.Count == 0)
+        {
+            GameManager.Instance.Showdown();
+        }
         //Debug.Log("Card Deck Initialized");
 
         deck.Clear();
         foreach (CardPrefab card in cardPrefabs)
         {
+
             for (int i = 0; i < card.quantity; i++)
             {
                 if (card.cardPrefab != null)
@@ -89,10 +98,13 @@ public class CardDeck : MonoBehaviour
         DrawCard();
     }
 
+
+
     public GameObject DrawCard()
     {
         if (deck.Count == 0)
         {
+            
             ReshuffleDeck();
         }
 

@@ -17,6 +17,8 @@ public class GameManager : MonoBehaviour
     //DEBUG VARIABLES -> REMOVE FROM FINAL BUILD
     public static GameManager Instance;
 
+    [HideInInspector] public bool playerGunActive;
+
     [Header("Debug Variables")]
     [SerializeField] TextMeshProUGUI aiFingersText;
     [SerializeField] TextMeshProUGUI playerFingersText;
@@ -50,7 +52,9 @@ public class GameManager : MonoBehaviour
     [Header("Gun")]
     [SerializeField] GameObject PlayerGun;
     [SerializeField] GameObject AIGun;
+    [SerializeField] public GameObject Gun;
     [HideInInspector] public int bullets;
+    [HideInInspector] public bool showddown = false;
 
     [Header("Armour")]
     [HideInInspector] public int aiArmour;
@@ -457,18 +461,41 @@ public class GameManager : MonoBehaviour
 
     public void PlayerRoulette()
     {
+        ShootScript.instance2.PlayerShot = true;
+        inGunAction = true;
+        playerGunActive = true;
         StartCoroutine(WaitForGun(AIGun));
+        
     }
 
     public void AiRoulette()
     {
+        ShootScript.instance1.AiShot = true;
+        inGunAction = true;
         StartCoroutine(WaitForGun(PlayerGun));
     }
 
     IEnumerator WaitForGun(GameObject gun)
     {
+        
         yield return new WaitForSeconds(3f);
-        gun.SetActive(true);
+        Gun.SetActive(false);
+
+        if(gun.name == "Player Gun")
+        {
+            gun.SetActive(true);
+        }
+
+        if (gun.name == "Ai Gun" && playerGunActive == false)
+        {
+            gun.SetActive(true);
+        }
+
+        if (gun.name == "Ai Gun" && playerGunActive == true)
+        {
+            AiRoulette();
+        }
+
 
     }
 
@@ -691,8 +718,12 @@ public class GameManager : MonoBehaviour
 
     private void Update()
     {
+        if (showddown == true && ShootScript.instance1.AiShot == false && ShootScript.instance2.PlayerShot == false)
+        {
+            GameManager.Instance.Showdown();
+        }
 
-        if(PlayerGun.activeInHierarchy == true)
+        if (PlayerGun.activeInHierarchy == true)
         {
             inGunAction = true;
         }
@@ -771,8 +802,22 @@ public class GameManager : MonoBehaviour
         {
             StartCoroutine(WaitSoCardsCanReveal());
         }
+
+
+
+        
     }
 
+    public void Showdown()
+    {
+        int randForBullet = UnityEngine.Random.Range(1, 7);
+        ShootScript.instance2.PRandom = randForBullet;
+        randForBullet = UnityEngine.Random.Range(1, 7);
+        ShootScript.instance1.AiRandom = randForBullet;
+        showddown = true;
+        AiRoulette();
+        PlayerRoulette();
+    }
     private void DisableAllBackfires()
     {
         emptyPromiseBackfire.gameObject.SetActive(false);

@@ -6,6 +6,7 @@ using System;
 public class Gun : MonoBehaviour
 {
 
+
     public void PlayCardForPlayer()
     {
         //GameManager.Instance.playerHasGun = true;
@@ -22,11 +23,14 @@ public class Gun : MonoBehaviour
             GameManager.Instance.gunBackfire.gameObject.SetActive(true);
         }
 
+        
+
         GameManager.Instance.PlayerRoulette();
         GameManager.Instance.inGunAction = true;
 
         int randForBullet = UnityEngine.Random.Range(1, 7);
         print("player " + randForBullet);
+
         ShootScript.instance2.PRandom = randForBullet;
         
         if (randForBullet <= GameManager.Instance.bullets)

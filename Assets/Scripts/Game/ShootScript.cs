@@ -13,6 +13,9 @@ public class ShootScript : MonoBehaviour
     public ParticleSystem Flash;
     public int PRandom;
     public int AiRandom;
+    public bool PlayerShot;
+    public bool AiShot;
+    
 
     private void Start()
     {
@@ -41,20 +44,30 @@ public class ShootScript : MonoBehaviour
 
         if (gameObject.name == "Ai Gun")
         {
+            
             StartCoroutine(AiFire(gameObject));
+            
         }
     }
     private void Update()
     {
 
 
+      
+
+
         gunAnim = GetComponent<Animator>();
         if (gameObject.name == "Player Gun" && Input.GetMouseButtonDown(0) && firePressed == false)
         {
+            
             StartCoroutine(Fire(gameObject));
+            
         }
 
+       
+
     }
+
 
     private IEnumerator AiFire(GameObject gun)
     {
@@ -71,10 +84,16 @@ public class ShootScript : MonoBehaviour
         {
             GameManager.Instance.EndGameLose();
         }
+
+        GameManager.Instance.Gun.SetActive(true);
         gun.SetActive(false);
+
         GameManager.Instance.inGunAction = false;
         gunAnim.Play("GunPause");
         firePressed = false;
+        AiShot = false;
+        
+        
     }
 
 
@@ -92,9 +111,17 @@ public class ShootScript : MonoBehaviour
         {
             GameManager.Instance.EndGameWin();
         }
+
+        GameManager.Instance.playerGunActive = false;
+        GameManager.Instance.Gun.SetActive(true);
         gun.SetActive(false);
         GameManager.Instance.inGunAction = false;
         gunAnim.Play("GunPause");
         firePressed = false;
+        PlayerShot = false;
+
+        
+
+        
     }
 }

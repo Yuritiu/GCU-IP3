@@ -1814,6 +1814,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: AIHand
       objectReference: {fileID: 0}
+    - target: {fileID: 5720598291271363683, guid: 51b7432981d42044aab0051738de45d3, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7069703205338382025, guid: 51b7432981d42044aab0051738de45d3, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
@@ -6289,6 +6293,10 @@ PrefabInstance:
       propertyPath: playOnAwake
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1861752495454914813, guid: 24c94e7929bad4b408a3c87aac8caa73, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5128300180416186954, guid: 24c94e7929bad4b408a3c87aac8caa73, type: 3}
       propertyPath: speed
       value: 0.2
@@ -6364,6 +6372,10 @@ PrefabInstance:
     - target: {fileID: 8431981742270796655, guid: 24c94e7929bad4b408a3c87aac8caa73, type: 3}
       propertyPath: m_Name
       value: Ai Gun
+      objectReference: {fileID: 0}
+    - target: {fileID: 8431981742270796655, guid: 24c94e7929bad4b408a3c87aac8caa73, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8856383424956249434, guid: 24c94e7929bad4b408a3c87aac8caa73, type: 3}
       propertyPath: m_Materials.Array.data[0]

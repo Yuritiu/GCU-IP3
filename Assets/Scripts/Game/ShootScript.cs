@@ -102,12 +102,12 @@ public class ShootScript : MonoBehaviour
         
         firePressed = true;
         gunAnim.Play("recoil");
-        if (PRandom == 1)
+        if (PRandom == 2)
         {
             Flash.Play();
         }
         yield return new WaitForSeconds(delay);
-        if(PRandom == 1)
+        if(PRandom == 2)
         {
             GameManager.Instance.EndGameWin();
         }

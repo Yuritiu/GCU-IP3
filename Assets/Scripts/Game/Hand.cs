@@ -54,7 +54,7 @@ public class Hand : MonoBehaviour
                         movedKnifeEnough++;
                         sideToHit = false;
                     }
-                    knife.transform.localRotation = Quaternion.Euler(0, 0, 10f);
+                    knife.transform.localRotation = Quaternion.Euler(0, 0, 5f);
                 }
                 if (knife.transform.localRotation.z < -0.15)
                 {
@@ -64,7 +64,7 @@ public class Hand : MonoBehaviour
                         movedKnifeEnough++;
                         sideToHit = true;
                     }
-                    knife.transform.localRotation = Quaternion.Euler(0, 0, -15f);
+                    knife.transform.localRotation = Quaternion.Euler(0, 0, -10f);
                 }
 
                 //after knife has moved back and forward several times remove it from the hand
@@ -79,13 +79,22 @@ public class Hand : MonoBehaviour
 
     public void StartOfAction()
     {
-        //move camera infront of hand
-        GameManager.Instance.in2ndPos = false;
-        GameManager.Instance.in3rdPos = true;
-        StartCoroutine(GameManager.Instance.CameraTransitionIEnum(GameManager.Instance.Target3));
-        //move knife into finger
-        Transform knifeGameObject = knife.gameObject.transform;
-        knifeGameObject.SetPositionAndRotation(fingers[GameManager.Instance.playerFingers].gameObject.transform.position, Quaternion.Euler(0, -150, 0));
+
+        if (!GameManager.Instance.inGunAction)
+        {
+
+            //move camera infront of hand
+            GameManager.Instance.in2ndPos = false;
+            GameManager.Instance.in3rdPos = true;
+            StartCoroutine(GameManager.Instance.CameraTransitionIEnum(GameManager.Instance.Target3));
+            //move knife into finger
+            Transform knifeGameObject = knife.gameObject.transform;
+            knifeGameObject.SetPositionAndRotation(fingers[GameManager.Instance.playerFingers].gameObject.transform.position, Quaternion.Euler(0, -150, 0));
+        }
+        else
+        {
+            StartCoroutine(WaitToStart());
+        }
     }
 
     private void EndOfAction(int num)
@@ -120,5 +129,12 @@ public class Hand : MonoBehaviour
         CheckForSecondAction();
         Destroy(fingers[num]);
         fingers.Remove(fingers[num]);
+    }
+
+    IEnumerator WaitToStart()
+    {
+        //waits for cards to reveal
+        yield return new WaitForSeconds(1f);
+        StartOfAction();
     }
 }

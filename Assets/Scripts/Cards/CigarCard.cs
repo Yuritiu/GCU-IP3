@@ -18,6 +18,7 @@ public class CigarCard : MonoBehaviour
         //print(rand);
         if (rand == 0)
         {
+            
             //skips players next turn
             GameManager.Instance.playerSkippedTurns++;
             GameManager.Instance.cigarBackfire.gameObject.SetActive(true);

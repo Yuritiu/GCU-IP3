@@ -9,7 +9,7 @@ public class Gun : MonoBehaviour
 
     public void PlayCardForPlayer()
     {
-        //GameManager.Instance.playerHasGun = true;
+        GameManager.Instance.playerHasGun = true;
         
         
         int rand = UnityEngine.Random.Range(0, 5);
@@ -22,8 +22,6 @@ public class Gun : MonoBehaviour
             GameManager.Instance.ReduceHealth(2, 3);
             GameManager.Instance.gunBackfire.gameObject.SetActive(true);
         }
-
-        
 
         GameManager.Instance.PlayerRoulette();
         GameManager.Instance.inGunAction = true;
@@ -50,6 +48,7 @@ public class Gun : MonoBehaviour
     {
         //GameManager.Instance.aiHasGun = true;   
         GameManager.Instance.AiRoulette();
+        GameManager.Instance.aiHasGun = true;
 
         int rand = UnityEngine.Random.Range(0, 5);
         //\/Debuging\/

@@ -65,9 +65,11 @@ public class GameManager : MonoBehaviour
     [HideInInspector] public int aiSkippedTurns = 0;
     [HideInInspector] public int playerSkippedTurns = 0;
 
-    [Header("check if there is a gun")]
+    [Header("check what weapons plays have")]
     [HideInInspector] public bool aiHasGun = false;
     [HideInInspector] public bool playerHasGun = false;
+    [HideInInspector] public bool playerHasKnife = false;
+    [HideInInspector] public bool aiHasKnife = false;
 
     [Header("Backfire Text")]
     public GameObject emptyPromiseBackfire;
@@ -450,7 +452,6 @@ public class GameManager : MonoBehaviour
 
         else if (gun.name == "Ai Gun" && !playerGunActive && !aiGunActive)
         {
-            print("shooting");
             aiGunActive = true;
             gun.SetActive(true);
         }
@@ -567,14 +568,28 @@ public class GameManager : MonoBehaviour
         //this ensures the armour stops the gun instead of the knife
         if (character == 1)
         {
-            if (aiHasGun)
+            if (aiArmour == 1)
             {
-                if (aiArmour > 0)
+                if (playerHasGun && playerHasKnife)
+                {
+                    if (type == 1)
+                    {
+                        ReduceHealth(character, type);
+                    }
+                }
+                else if (aiArmour > 0)
                 {
                     aiArmour--;
                     return;
                 }
-                return;
+                else if (type == 1)
+                {
+                    ReduceHealth(character, type);
+                }
+                else if (type == 3)
+                {
+                    FireGun(character);
+                }
             }
             else
             {
@@ -595,14 +610,28 @@ public class GameManager : MonoBehaviour
         }
         if (character == 2)
         {
-            if (playerHasGun)
+            if (playerArmour == 1)
             {
-                if (playerArmour > 0)
+                if (aiHasGun && aiHasKnife)
+                {
+                    if (type == 1)
+                    {
+                        ReduceHealth(character, type);
+                    }
+                }
+                else if (playerArmour > 0)
                 {
                     playerArmour--;
                     return;
                 }
-                return;
+                else if (type == 1)
+                {
+                    ReduceHealth(character, type);
+                }
+                else if (type == 3)
+                {
+                    FireGun(character);
+                }
             }
             else
             {
@@ -873,6 +902,10 @@ public class GameManager : MonoBehaviour
     
     private bool allActionsDone()
     {
+        //print(inKnifeAction);
+        //print(inGunAction);
+        //print(canMoveOn);
+
         if (canMoveOn)
         {
             if (!inKnifeAction)

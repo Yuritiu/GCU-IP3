@@ -109,8 +109,7 @@ public class AICardDrawSystem : MonoBehaviour
         int index;
 
         //picks cards AI will use
-        index = Random.Range(0, 3);
-        
+        index = Random.Range(0, 4);
         //for debugging
         //index = 0; 
         //print(index);

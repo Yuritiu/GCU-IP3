@@ -19,7 +19,6 @@ public class ShootScript : MonoBehaviour
 
     private void Start()
     {
-        
         gunAnim = GetComponent<Animator>();
     }
 
@@ -39,33 +38,20 @@ public class ShootScript : MonoBehaviour
 
     private void OnEnable()
     {
-
         gunAnim = GetComponent<Animator>();
 
         if (gameObject.name == "Ai Gun")
         {
-            
             StartCoroutine(AiFire(gameObject));
-            
         }
     }
     private void Update()
     {
-
-
-      
-
-
         gunAnim = GetComponent<Animator>();
         if (gameObject.name == "Player Gun" && Input.GetMouseButtonDown(0) && firePressed == false)
         {
-            
             StartCoroutine(Fire(gameObject));
-            
         }
-
-       
-
     }
 
 
@@ -74,23 +60,18 @@ public class ShootScript : MonoBehaviour
         yield return new WaitForSeconds(1.5f);
         firePressed = true;
         gunAnim.Play("Airecoil");
-        if (AiRandom == 1)
+        if (AiRandom <= GameManager.Instance.bullets)
         {
             Flash.Play();
         }
-        if (GameManager.Instance.bullets > 1 && AiRandom == 2)
+        if (AiRandom <= GameManager.Instance.bullets)
         {
             Flash.Play();
         }
         yield return new WaitForSeconds(delay);
-
-        if(AiRandom == 1)
+        if (AiRandom <= GameManager.Instance.bullets)
         {
-            GameManager.Instance.EndGameLose();
-        }
-        if (GameManager.Instance.bullets > 1 && AiRandom == 2)
-        {
-            GameManager.Instance.EndGameLose();
+            GameManager.Instance.CheckArmour(2, 3);
             GameManager.Instance.bullets = 1;
         }
 
@@ -111,22 +92,18 @@ public class ShootScript : MonoBehaviour
         
         firePressed = true;
         gunAnim.Play("recoil");
-        if (PRandom == 1)
+        if (PRandom <= GameManager.Instance.bullets)
         {
             Flash.Play();
         }
-        if(GameManager.Instance.bullets > 1 && PRandom == 2)
+        if(PRandom <= GameManager.Instance.bullets)
         {
             Flash.Play();
         }
         yield return new WaitForSeconds(delay);
-        if(PRandom == 1)
+        if (PRandom <= GameManager.Instance.bullets)
         {
-            GameManager.Instance.EndGameWin();
-        }
-        if (GameManager.Instance.bullets > 1 && PRandom == 2)
-        {
-            GameManager.Instance.EndGameWin();
+            GameManager.Instance.CheckArmour(1,3);
             GameManager.Instance.bullets = 1;
         }
 
@@ -137,7 +114,5 @@ public class ShootScript : MonoBehaviour
         gunAnim.Play("GunPause");
         firePressed = false;
         PlayerShot = false;
-
-        
     }
 }

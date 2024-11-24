@@ -19,7 +19,7 @@ public class Gun : MonoBehaviour
         if (rand == 0)
         {
             //Shoots off your own finger
-            GameManager.Instance.ReduceHealth(2, 2);
+            GameManager.Instance.ReduceHealth(2, 3);
             GameManager.Instance.gunBackfire.gameObject.SetActive(true);
         }
 
@@ -29,7 +29,7 @@ public class Gun : MonoBehaviour
         GameManager.Instance.inGunAction = true;
 
         int randForBullet = UnityEngine.Random.Range(1, 7);
-        print("player " + randForBullet);
+        //print("player " + randForBullet);
 
         ShootScript.instance2.PRandom = randForBullet;
         
@@ -58,10 +58,10 @@ public class Gun : MonoBehaviour
         if (rand == 0)
         {
             //Shoots off your own finger
-            GameManager.Instance.ReduceHealth(1, 2);
+            GameManager.Instance.ReduceHealth(1, 3);
         }
         int randForBullet = UnityEngine.Random.Range(1, 7);
-        print("ai "+ randForBullet);
+        //print("ai "+ randForBullet);
         ShootScript.instance1.AiRandom = randForBullet;
         if (randForBullet >= GameManager.Instance.bullets)
         {

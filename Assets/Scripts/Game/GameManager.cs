@@ -453,8 +453,6 @@ public class GameManager : MonoBehaviour
         {
             AiRoulette();
         }
-
-
     }
 
     IEnumerator WaitSoCardsCanRevealInTutorial()
@@ -533,29 +531,24 @@ public class GameManager : MonoBehaviour
             //Debug.Log("Countdown Started");
             BloodlossSystem.Instance.IncreaseBloodloss();
         }
+        CheckFingers();
+    }
+
+    public void CheckFingers()
+    {
 
         if (aiFingers <= 0 && !isTutorial)
         {
-            print("You Win");
-            WinScreen.SetActive(true);
-            Cursor.visible = true;
-            Cursor.lockState = CursorLockMode.Confined;
-            Time.timeScale = 0f;
-            //YOU WIN!!
+            EndGameWin();
         }
-        else if (playerFingers <= 0 && !isTutorial)
+        else if (playerFingers < 0 && !isTutorial)
         {
-            print("You Lose");
-            LoseScreen.SetActive(true);
-            Cursor.visible = true;
-            Cursor.lockState = CursorLockMode.Confined;
-            Time.timeScale = 0f;
-
-            //YOU LOSE :(
+            EndGameLose();
         }
 
         playerFingersText.text = ("Player Fingers: " + playerFingers).ToString();
         aiFingersText.text = ("AI Fingers: " + aiFingers).ToString();
+
     }
 
     public void CheckArmour(int character, int type)
@@ -574,11 +567,11 @@ public class GameManager : MonoBehaviour
                     aiArmour--;
                     return;
                 }
-                if (type == 1)
+                else if (type == 1)
                 {
                     ReduceHealth(character, type);
                 }
-                if (type == 3)
+                else if (type == 3)
                 {
                     FireGun(character);
                 }
@@ -586,7 +579,7 @@ public class GameManager : MonoBehaviour
         }
         if (character == 2)
         {
-            if (aiHasGun)
+            if (playerHasGun)
             {
                 return;
             }
@@ -597,11 +590,11 @@ public class GameManager : MonoBehaviour
                     aiArmour--;
                     return;
                 }
-                if (type == 1)
+                else if (type == 1)
                 {
                     ReduceHealth(character, type);
                 }
-                if (type == 3)
+                else if (type == 3)
                 {
                     FireGun(character);
                 }
@@ -675,6 +668,8 @@ public class GameManager : MonoBehaviour
 
     private void Update()
     {
+        //print(playerFingers);
+
         if (showddown == true && ShootScript.instance1.AiShot == false && ShootScript.instance2.PlayerShot == false)
         {
             GameManager.Instance.Showdown();
@@ -759,10 +754,6 @@ public class GameManager : MonoBehaviour
         {
             StartCoroutine(WaitSoCardsCanReveal());
         }
-
-
-
-        
     }
 
     public void Showdown()

@@ -54,7 +54,7 @@ public class Hand : MonoBehaviour
                         movedKnifeEnough++;
                         sideToHit = false;
                     }
-                    knife.transform.localRotation = Quaternion.Euler(0, 0, 5f);
+                    knife.transform.localRotation = Quaternion.Euler(0, 0, 8f);
                 }
                 if (knife.transform.localRotation.z < -0.15)
                 {
@@ -64,7 +64,7 @@ public class Hand : MonoBehaviour
                         movedKnifeEnough++;
                         sideToHit = true;
                     }
-                    knife.transform.localRotation = Quaternion.Euler(0, 0, -10f);
+                    knife.transform.localRotation = Quaternion.Euler(0, 0, -13f);
                 }
 
                 //after knife has moved back and forward several times remove it from the hand
@@ -79,16 +79,16 @@ public class Hand : MonoBehaviour
 
     public void StartOfAction()
     {
-
+        print("Start of knife action");
         if (!GameManager.Instance.inGunAction)
         {
-
+            GameManager.Instance.inKnifeAction = true;
+            //move knife into finger
+            Transform knifeGameObject = knife.gameObject.transform;
             //move camera infront of hand
             GameManager.Instance.in2ndPos = false;
             GameManager.Instance.in3rdPos = true;
             StartCoroutine(GameManager.Instance.CameraTransitionIEnum(GameManager.Instance.Target3));
-            //move knife into finger
-            Transform knifeGameObject = knife.gameObject.transform;
             knifeGameObject.SetPositionAndRotation(fingers[GameManager.Instance.playerFingers].gameObject.transform.position, Quaternion.Euler(0, -150, 0));
         }
         else
@@ -100,13 +100,16 @@ public class Hand : MonoBehaviour
     private void EndOfAction(int num)
     {
         knife.gameObject.transform.SetPositionAndRotation(knifePos,knifeRot);
-        
+
+        GameManager.Instance.playerFingers--;
+        CheckForSecondAction();
         RemoveFinger(num);
     }
 
     public void CheckForSecondAction()
     {
         GameManager.Instance.numberOfKnifeCards--;
+        print(GameManager.Instance.numberOfKnifeCards);
         if (GameManager.Instance.numberOfKnifeCards >= 1)
         {
             StartOfAction();
@@ -114,21 +117,20 @@ public class Hand : MonoBehaviour
         }
         else
         {
+            GameManager.Instance.knife1used = false;
+            GameManager.Instance.knife2used = false;
             GameManager.Instance.inKnifeAction = false;
         }
     }
 
     public void RemoveFinger(int num)
     {
-        GameManager.Instance.playerFingers--;
-        GameManager.Instance.knife1used = false;
-        GameManager.Instance.knife2used = false;
         GameManager.Instance.in3rdPos = false;
         StartCoroutine(GameManager.Instance.CameraTransitionIEnum(GameManager.Instance.Target1));
         movedKnifeEnough = 0;
-        CheckForSecondAction();
         Destroy(fingers[num]);
         fingers.Remove(fingers[num]);
+        GameManager.Instance.CheckFingers();
     }
 
     IEnumerator WaitToStart()

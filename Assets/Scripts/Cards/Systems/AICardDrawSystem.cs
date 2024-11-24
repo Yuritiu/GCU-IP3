@@ -42,6 +42,9 @@ public class AICardDrawSystem : MonoBehaviour
     private int bannedCard = -1;
     private int bannedCard2 = -1;
 
+    [Header("cards that have been used")]
+    private int selectedCard1Index = 0;
+
     private void Awake()
     {
         Instance = this;
@@ -120,9 +123,10 @@ public class AICardDrawSystem : MonoBehaviour
             {
                 //Move To Selected Position 1
                 MoveCard1ToPosition(index, selectedPosition1, cardsInHand[index].transform);
+                selectedCard1Index = index;
                 return cardsInHand[index].GetComponentAtIndex(0);
             }
-            else if (cardsInHand[index].gameObject.transform.parent != selectedPosition1 && selectedCardCount == 2)
+            else if (selectedCardCount == 2 && index != selectedCard1Index)
             {
                 //Move To Selected Position 2
                 MoveCard2ToPosition(index, selectedPosition2, cardsInHand[index].transform);

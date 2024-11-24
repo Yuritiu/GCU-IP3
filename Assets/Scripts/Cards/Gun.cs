@@ -28,22 +28,22 @@ public class Gun : MonoBehaviour
         GameManager.Instance.PlayerRoulette();
         GameManager.Instance.inGunAction = true;
 
-        int randForBullet = UnityEngine.Random.Range(1, 7);
+        //int randForBullet = UnityEngine.Random.Range(1, 7);
         //print("player " + randForBullet);
 
-        ShootScript.instance2.PRandom = randForBullet;
+        //ShootScript.instance2.PRandom = randForBullet;
         
-        if (randForBullet <= GameManager.Instance.bullets)
-        {
-            StartCoroutine(WaitToStart(1, 3));
-        }
-        else
-        {
-            if(GameManager.Instance.bullets != 1)
-            {
-                GameManager.Instance.bullets--;
-            }
-        }
+        //if (randForBullet <= GameManager.Instance.bullets)
+        //{
+        //    StartCoroutine(WaitToStart(1, 3));
+        //}
+        //else
+        //{
+        //    if(GameManager.Instance.bullets != 1)
+        //    {
+        //        GameManager.Instance.bullets--;
+        //    }
+        //}
     }
 
     public void PlayCardForAI()
@@ -60,18 +60,12 @@ public class Gun : MonoBehaviour
             //Shoots off your own finger
             GameManager.Instance.ReduceHealth(1, 3);
         }
-        int randForBullet = UnityEngine.Random.Range(1, 7);
-        //print("ai "+ randForBullet);
-        ShootScript.instance1.AiRandom = randForBullet;
-        if (randForBullet >= GameManager.Instance.bullets)
-        {
-            StartCoroutine(WaitToStart(2, 3));
-        }
+        //ShootScript.instance1.AiRandom = randForBullet;
+        //if (randForBullet <= GameManager.Instance.bullets)
+        //{
+        //    StartCoroutine(WaitToStart(2, 3));
+        //}
     }
-
-
-
-
 
     IEnumerator WaitToStart(int character, int type)
     {

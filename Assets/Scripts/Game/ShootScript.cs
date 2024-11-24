@@ -57,13 +57,16 @@ public class ShootScript : MonoBehaviour
 
     private IEnumerator AiFire(GameObject gun)
     {
+        int randForBullet = UnityEngine.Random.Range(1, 7);
+
+        AiRandom = randForBullet;
+
+        //UnityEngine.Debug.Log("bullet " + GameManager.Instance.bullets);
+        //UnityEngine.Debug.Log("random " + AiRandom);
+
         yield return new WaitForSeconds(1.5f);
         firePressed = true;
         gunAnim.Play("Airecoil");
-        if (AiRandom <= GameManager.Instance.bullets)
-        {
-            Flash.Play();
-        }
         if (AiRandom <= GameManager.Instance.bullets)
         {
             Flash.Play();
@@ -76,6 +79,7 @@ public class ShootScript : MonoBehaviour
         }
 
         GameManager.Instance.Gun.SetActive(true);
+        GameManager.Instance.aiGunActive = false;
         gun.SetActive(false);
 
         GameManager.Instance.inGunAction = false;
@@ -89,14 +93,13 @@ public class ShootScript : MonoBehaviour
 
     private IEnumerator Fire(GameObject gun)
     {
-        
+        int randForBullet = UnityEngine.Random.Range(1, 7);
+
+        PRandom = randForBullet;
+
         firePressed = true;
         gunAnim.Play("recoil");
         if (PRandom <= GameManager.Instance.bullets)
-        {
-            Flash.Play();
-        }
-        if(PRandom <= GameManager.Instance.bullets)
         {
             Flash.Play();
         }
@@ -109,6 +112,7 @@ public class ShootScript : MonoBehaviour
 
         GameManager.Instance.playerGunActive = false;
         GameManager.Instance.Gun.SetActive(true);
+        GameManager.Instance.playerGunActive = false;
         gun.SetActive(false);
         GameManager.Instance.inGunAction = false;
         gunAnim.Play("GunPause");

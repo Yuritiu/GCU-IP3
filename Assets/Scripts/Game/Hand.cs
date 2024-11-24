@@ -33,7 +33,7 @@ public class Hand : MonoBehaviour
             return;
         }
         //print(GameManager.Instance.playerFingers);
-        if (this.gameObject.tag == "Player")
+        else if (this.gameObject.tag == "Player")
         {
             if (GameManager.Instance.inKnifeAction)
             {

@@ -17,7 +17,8 @@ public class GameManager : MonoBehaviour
     //DEBUG VARIABLES -> REMOVE FROM FINAL BUILD
     public static GameManager Instance;
 
-    [HideInInspector] public bool playerGunActive;
+    [HideInInspector] public bool playerGunActive = false;
+    [HideInInspector] public bool aiGunActive = false;
 
     [Header("Debug Variables")]
     [SerializeField] TextMeshProUGUI aiFingersText;
@@ -421,9 +422,7 @@ public class GameManager : MonoBehaviour
     {
         ShootScript.instance2.PlayerShot = true;
         inGunAction = true;
-        playerGunActive = true;
         StartCoroutine(WaitForGun(AIGun));
-        
     }
 
     public void AiRoulette()
@@ -439,17 +438,29 @@ public class GameManager : MonoBehaviour
         yield return new WaitForSeconds(3f);
         Gun.SetActive(false);
 
-        if(gun.name == "Player Gun")
+        if (gun.name == "Player Gun" && !playerGunActive)
         {
+            playerGunActive = true;
+            gun.SetActive(true);
+        }
+        else if (gun.name == "Player Gun" && playerGunActive)
+        {
+            PlayerRoulette();
+        }
+
+        else if (gun.name == "Ai Gun" && !playerGunActive && !aiGunActive)
+        {
+            print("shooting");
+            aiGunActive = true;
             gun.SetActive(true);
         }
 
-        if (gun.name == "Ai Gun" && playerGunActive == false)
+        else if (gun.name == "Ai Gun" && playerGunActive)
         {
-            gun.SetActive(true);
+            AiRoulette();
         }
-
-        if (gun.name == "Ai Gun" && playerGunActive == true)
+        
+        else if (gun.name == "Ai Gun" && !playerGunActive && aiGunActive)
         {
             AiRoulette();
         }
@@ -558,6 +569,11 @@ public class GameManager : MonoBehaviour
         {
             if (aiHasGun)
             {
+                if (aiArmour > 0)
+                {
+                    aiArmour--;
+                    return;
+                }
                 return;
             }
             else
@@ -581,6 +597,11 @@ public class GameManager : MonoBehaviour
         {
             if (playerHasGun)
             {
+                if (playerArmour > 0)
+                {
+                    playerArmour--;
+                    return;
+                }
                 return;
             }
             else

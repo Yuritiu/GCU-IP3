@@ -585,9 +585,9 @@ public class GameManager : MonoBehaviour
             }
             else
             {
-                if (aiArmour > 0)
+                if (playerArmour > 0)
                 {
-                    aiArmour--;
+                    playerArmour--;
                     return;
                 }
                 else if (type == 1)

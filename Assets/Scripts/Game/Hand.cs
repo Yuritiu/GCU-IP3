@@ -79,7 +79,7 @@ public class Hand : MonoBehaviour
 
     public void StartOfAction()
     {
-        print("Start of knife action");
+        //print("Start of knife action");
         if (!GameManager.Instance.inGunAction)
         {
             GameManager.Instance.inKnifeAction = true;
@@ -109,7 +109,7 @@ public class Hand : MonoBehaviour
     public void CheckForSecondAction()
     {
         GameManager.Instance.numberOfKnifeCards--;
-        print(GameManager.Instance.numberOfKnifeCards);
+        //print(GameManager.Instance.numberOfKnifeCards);
         if (GameManager.Instance.numberOfKnifeCards >= 1)
         {
             StartOfAction();
@@ -120,13 +120,13 @@ public class Hand : MonoBehaviour
             GameManager.Instance.knife1used = false;
             GameManager.Instance.knife2used = false;
             GameManager.Instance.inKnifeAction = false;
+            GameManager.Instance.numberOfKnifeCards = 0;
+            DisableCamera();
         }
     }
 
     public void RemoveFinger(int num)
     {
-        GameManager.Instance.in3rdPos = false;
-        StartCoroutine(GameManager.Instance.CameraTransitionIEnum(GameManager.Instance.Target1));
         movedKnifeEnough = 0;
         Destroy(fingers[num]);
         fingers.Remove(fingers[num]);
@@ -138,5 +138,11 @@ public class Hand : MonoBehaviour
         //waits for cards to reveal
         yield return new WaitForSeconds(1f);
         StartOfAction();
+    }
+
+    private void DisableCamera()
+    {
+        GameManager.Instance.in3rdPos = false;
+        StartCoroutine(GameManager.Instance.CameraTransitionIEnum(GameManager.Instance.Target1));
     }
 }

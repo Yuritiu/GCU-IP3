@@ -63,6 +63,22 @@ public class Knife : MonoBehaviour
     }
     public void PlayCardForAI()
     {
+        StartCoroutine(PlayAiKnife());
+    }
+    
+    //ADDS a delay to the second knife to give time for the first knife to work first
+    IEnumerator WaitToStart(int character, int type)
+    {
+        //waits for cards to reveal
+        yield return new WaitForSeconds(1f);
+        StartCoroutine(GameManager.Instance.WaitToCompareCards(character, type));
+    }
+    
+    IEnumerator PlayAiKnife()
+    {
+        //waits for cards to reveal
+        yield return new WaitForSeconds(0.5f);
+
         //Check If Its The Tutorial First
         if (!GameManager.Instance.isTutorial)
         {
@@ -78,19 +94,19 @@ public class Knife : MonoBehaviour
 
             if (AICardDrawSystem.Instance.selectedPosition1.childCount > 0)
             {
-                print("checking knife 1");
+                //print("checking knife 1");
                 if (AICardDrawSystem.Instance.selectedPosition1.GetChild(0).name.Contains("knife") && !GameManager.Instance.knife1used)
                 {
+                    GameManager.Instance.inKnifeAction = true;
                     GameManager.Instance.knife1used = true;
                     GameManager.Instance.numberOfKnifeCards++;
                     StartCoroutine(GameManager.Instance.WaitToCompareCards(2, 1));
                 }
             }
-                print(AICardDrawSystem.Instance.selectedPosition2.childCount);
             if (AICardDrawSystem.Instance.selectedPosition2.childCount > 0)
             {
-                print(AICardDrawSystem.Instance.selectedPosition2.childCount);
-                if (AICardDrawSystem.Instance.selectedPosition2.GetChild(0).name.Contains("knife") &&  !GameManager.Instance.knife2used)
+                //print("checking knife 2");
+                if (AICardDrawSystem.Instance.selectedPosition2.GetChild(0).name.Contains("knife") && !GameManager.Instance.knife2used)
                 {
                     GameManager.Instance.knife2used = true;
                     GameManager.Instance.numberOfKnifeCards++;
@@ -101,13 +117,5 @@ public class Knife : MonoBehaviour
                 }
             }
         }
-    }
-    
-    //ADDS a delay to the second knife to give time for the first knife to work first
-    IEnumerator WaitToStart(int character, int type)
-    {
-        //waits for cards to reveal
-        yield return new WaitForSeconds(1f);
-        StartCoroutine(GameManager.Instance.WaitToCompareCards(character, type));
     }
 }

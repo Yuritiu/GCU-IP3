@@ -78,11 +78,20 @@ public class ShootScript : MonoBehaviour
         {
             Flash.Play();
         }
+        if (GameManager.Instance.bullets > 1 && AiRandom == 2)
+        {
+            Flash.Play();
+        }
         yield return new WaitForSeconds(delay);
 
         if(AiRandom == 1)
         {
             GameManager.Instance.EndGameLose();
+        }
+        if (GameManager.Instance.bullets > 1 && AiRandom == 2)
+        {
+            GameManager.Instance.EndGameLose();
+            GameManager.Instance.bullets = 1;
         }
 
         GameManager.Instance.Gun.SetActive(true);
@@ -102,14 +111,23 @@ public class ShootScript : MonoBehaviour
         
         firePressed = true;
         gunAnim.Play("recoil");
-        if (PRandom == 2)
+        if (PRandom == 1)
+        {
+            Flash.Play();
+        }
+        if(GameManager.Instance.bullets > 1 && PRandom == 2)
         {
             Flash.Play();
         }
         yield return new WaitForSeconds(delay);
-        if(PRandom == 2)
+        if(PRandom == 1)
         {
             GameManager.Instance.EndGameWin();
+        }
+        if (GameManager.Instance.bullets > 1 && PRandom == 2)
+        {
+            GameManager.Instance.EndGameWin();
+            GameManager.Instance.bullets = 1;
         }
 
         GameManager.Instance.playerGunActive = false;
@@ -119,8 +137,6 @@ public class ShootScript : MonoBehaviour
         gunAnim.Play("GunPause");
         firePressed = false;
         PlayerShot = false;
-
-        
 
         
     }

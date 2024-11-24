@@ -52,7 +52,6 @@ public class CardDeck : MonoBehaviour
 
     void InitializeDeck()
     {
-
         if (deck.Count == 0 && reshuffling == true)
         {
             GameManager.Instance.Showdown();

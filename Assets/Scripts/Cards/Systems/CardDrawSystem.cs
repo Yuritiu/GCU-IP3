@@ -2,13 +2,14 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using static UnityEngine.UI.Image;
 
 public class CardDrawSystem : MonoBehaviour
 {
-    //!-Coded By Charlie-!
+    //!-Coded By Charlie & Ben-!
 
     public static CardDrawSystem Instance;
 
@@ -30,7 +31,17 @@ public class CardDrawSystem : MonoBehaviour
     //Selected Positions For The Cards
     [SerializeField] public Transform selectedPosition1;
     [SerializeField] public Transform selectedPosition2;
-    
+
+    [Header("Discard Deck Location Reference")]
+    [SerializeField] GameObject discardDeckLocation;
+
+    [Header("Discard Deck Variables")]
+    GameObject[] cardsToDiscard;
+    Transform discardBasePosition;
+    //Distance Between Cards
+    float stackHeightIncrement = 0.002f;
+    float currentStackHeight;
+
     [Header("Cards to check bans")]
     bool card1 = true;
     bool card2 = true;
@@ -59,6 +70,15 @@ public class CardDrawSystem : MonoBehaviour
 
     void Start()
     {
+        if(discardDeckLocation != null)
+        {
+            discardBasePosition = discardDeckLocation.transform;
+        }
+        else
+        {
+            Debug.LogError("No Discard Deck Location Assigned");
+        }
+
         StartGame();
     }
 
@@ -279,6 +299,33 @@ public class CardDrawSystem : MonoBehaviour
         }
     }
 
+    public void FindCardsOnTable()
+    {
+        //List To Temporarily Store Found Cards
+        List<GameObject> foundCards = new List<GameObject>();
+
+        //Find All Cards In The Scene
+        foreach (GameObject card in FindObjectsOfType<GameObject>())
+        {
+            if (card.transform.parent != null && card.transform.parent.name.Contains("Selected"))
+            {
+                //Clear Parent
+                card.transform.parent = null;
+                card.name = "Discarded Card";
+                if(card.GetComponent <CardSelection>() != null && card.GetComponent<BoxCollider>() != null)
+                {
+                    Destroy(card.GetComponent<CardSelection>());
+                    Destroy(card.GetComponent<BoxCollider>());
+                }
+                AICardDrawSystem.Instance.DeleteCardsInHand();
+                foundCards.Add(card.gameObject);
+            }
+        }
+
+        //Convert The List To An Array
+        cardsToDiscard = foundCards.ToArray();
+    }
+
     void MoveCardToPosition(int index, Transform selectedPosition, Transform currentPosition)
     {
         if (cardMoving)
@@ -290,17 +337,10 @@ public class CardDrawSystem : MonoBehaviour
         cardSelection.canSelect = false;
 
         StartCoroutine(MoveCardToPosition(index, selectedPosition, 0.5f, 0.1f, currentPosition));
-        ////Move The Card To The Selected Position
-        //cardsInHand[index].transform.position = selectedPosition.position;
-        ////Set Parent Else It Doesn't Return To The Original Position
-        //cardsInHand[index].transform.SetParent(selectedPosition);
-        //selectedCardCount = CheckSelectedCards();
     }
 
     IEnumerator MoveCardToPosition(int index, Transform selectedPosition, float duration, float pauseDuration, Transform currentPosition)
     {
-        //TODO: ADD ANIMATIONS TO AI CARD DRAW
-
         Vector3 startPosition;
         Quaternion startRotation;
 
@@ -334,7 +374,6 @@ public class CardDrawSystem : MonoBehaviour
 
             //Final Position
             targetPosition = selectedPosition.transform.position;
-            //targetRotation = selectedPosition.rotation;
             targetRotation = selectedPosition.rotation;
         }
 
@@ -427,6 +466,67 @@ public class CardDrawSystem : MonoBehaviour
 
         //Recalculate Selected Card Count
         selectedCardCount = CheckSelectedCards();
+    }
+
+    public IEnumerator ClearCardsOffTable(float duration)
+    {
+        if (cardsToDiscard.Length == 0)
+        {
+            //No Cards On Table To Clear
+            yield break;
+        }
+
+        //Start Position
+        Vector3[] startPositions = new Vector3[cardsToDiscard.Length];
+        Quaternion[] startRotations = new Quaternion[cardsToDiscard.Length];
+
+        for (int i = 0; i < cardsToDiscard.Length; i++)
+        {
+            startPositions[i] = cardsToDiscard[i].transform.position;
+            startRotations[i] = cardsToDiscard[i].transform.rotation;
+        }
+
+        //Final Position
+        Vector3 targetPosition = discardDeckLocation.transform.position;
+        Quaternion targetRotation = Quaternion.Euler(-90, 180, 0f);
+
+        float elapsedTime = 0f;
+
+        //Movement 1: Slide To Edge Of Table
+        while (elapsedTime < duration * 0.3f)
+        {
+            //Calculate Normalized Time
+            float t = elapsedTime / (duration * 0.3f);
+            float easedT = EaseMovementCubic(t);
+
+            for (int i = 0; i < cardsToDiscard.Length; i++)
+            {
+                if (cardsToDiscard[i] != null)
+                {
+                    Vector3 discardDeckStackPosition = discardBasePosition.position + new Vector3(0, currentStackHeight + i * stackHeightIncrement, 0);
+
+                    //Lerp Cards To Discard Pile Location
+                    cardsToDiscard[i].transform.position = Vector3.Lerp(startPositions[i], discardDeckStackPosition, t);
+                    cardsToDiscard[i].transform.rotation = Quaternion.Lerp(startRotations[i], targetRotation, t);
+                }
+            }
+
+            elapsedTime += Time.deltaTime;
+            yield return null;
+        }
+
+        for (int i = 0; i < cardsToDiscard.Length; i++)
+        {
+            if (cardsToDiscard[i] != null)
+            {
+                //Set Final Position
+                cardsToDiscard[i].transform.position = discardBasePosition.position + new Vector3(0, currentStackHeight + i * stackHeightIncrement, 0);
+                cardsToDiscard[i].transform.rotation = targetRotation;
+            }
+        }
+
+        //Update The Stack Height
+        currentStackHeight += cardsToDiscard.Length * stackHeightIncrement;
     }
 
     //This Makes The Cards Movement Increase Over Time At The Start And Decrease Near The End

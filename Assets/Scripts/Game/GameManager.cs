@@ -118,7 +118,7 @@ public class GameManager : MonoBehaviour
     {
         Time.timeScale = 1f;
 
-        SFXManager.instance.PlayMusicClip(musictest, transform, 1f);
+        //SFXManager.instance.PlayMusicClip(musictest, transform, 1f);
     }
 
     private void Awake()
@@ -167,6 +167,11 @@ public class GameManager : MonoBehaviour
         AICardDrawSystem.Instance.card2Moving = false;
 
         DisableAllBackfires();
+
+        //Move Played Cards To Discard Pile
+        CardDrawSystem.Instance.FindCardsOnTable();
+        StartCoroutine(CardDrawSystem.Instance.ClearCardsOffTable(0.5f));
+
         //Debug.Log("Next Turn");
 
         //Add Cards For Player And AI
@@ -263,7 +268,6 @@ public class GameManager : MonoBehaviour
         {
             aiSkippedTurns--;
         }
-
 
         //IMPORTANT Make Sure The Cards Logic Is Executed Before This Is Called!
         //Could Maybe Add The Destroy To The Card GameObject
@@ -409,23 +413,23 @@ public class GameManager : MonoBehaviour
 
         yield return new WaitForSeconds(5);
 
-        if (CardDrawSystem.Instance.selectedPosition1.childCount > 0)
-        {
-            //TODO: UPDATE DISCARD PILE CARD COUNT
-            Destroy(CardDrawSystem.Instance.selectedPosition1.GetChild(0).gameObject);
-        }
-        if (CardDrawSystem.Instance.selectedPosition2.childCount > 0)
-        {
-            Destroy(CardDrawSystem.Instance.selectedPosition2.GetChild(0).gameObject);
-        }
-        if (AICardDrawSystem.Instance.selectedPosition1.childCount > 0)
-        {
-            Destroy(AICardDrawSystem.Instance.selectedPosition1.GetChild(0).gameObject);
-        }
-        if (AICardDrawSystem.Instance.selectedPosition2.childCount > 0)
-        {
-            Destroy(AICardDrawSystem.Instance.selectedPosition2.GetChild(0).gameObject);
-        }
+        //if (CardDrawSystem.Instance.selectedPosition1.childCount > 0)
+        //{
+        //    //TODO: UPDATE DISCARD PILE CARD COUNT
+        //    //Destroy(CardDrawSystem.Instance.selectedPosition1.GetChild(0).gameObject);
+        //}
+        //if (CardDrawSystem.Instance.selectedPosition2.childCount > 0)
+        //{
+        //    //Destroy(CardDrawSystem.Instance.selectedPosition2.GetChild(0).gameObject);
+        //}
+        //if (AICardDrawSystem.Instance.selectedPosition1.childCount > 0)
+        //{
+        //    //Destroy(AICardDrawSystem.Instance.selectedPosition1.GetChild(0).gameObject);
+        //}
+        //if (AICardDrawSystem.Instance.selectedPosition2.childCount > 0)
+        //{
+        //    //Destroy(AICardDrawSystem.Instance.selectedPosition2.GetChild(0).gameObject);
+        //}
 
         yield return new WaitForSeconds(0.5f);
 
@@ -578,7 +582,6 @@ public class GameManager : MonoBehaviour
 
     public void CheckArmour(int character, int type)
     {
-
         //this ensures the armour stops the gun instead of the knife
         if (character == 1)
         {

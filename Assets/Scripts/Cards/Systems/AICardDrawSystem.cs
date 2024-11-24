@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -74,6 +75,7 @@ public class AICardDrawSystem : MonoBehaviour
             cardsInHand[i] = Instantiate(card, originalPositions[i].position, originalPositions[i].rotation);
             //Destroy The CardSelection Script On The AI's Cards So The Player Can't Hover Them
             Destroy(cardsInHand[i].GetComponent<CardSelection>());
+            Destroy(cardsInHand[i].GetComponent<BoxCollider>());
 
             // Updates what cards are banned
             switch (i)
@@ -86,6 +88,17 @@ public class AICardDrawSystem : MonoBehaviour
         }
 
         //Debug.Log("Deck Count After Creating Hand: " + CardDeck.Instance.deck.Count);
+    }
+
+    public void DeleteCardsInHand()
+    {
+        for (int i = 0; i < cardsInHand.Length; i++)
+        {
+            if (cardsInHand[i] != null && cardsInHand[i].name == "Discarded Card")
+            {
+                cardsInHand[i] = null;
+            }
+        }
     }
 
     public Component SelectCard()

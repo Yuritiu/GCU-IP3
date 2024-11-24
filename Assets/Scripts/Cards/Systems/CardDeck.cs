@@ -48,9 +48,7 @@ public class CardDeck : MonoBehaviour
             GameManager.Instance.Showdown();
             //ReshuffleDeck();
         }
-    }
-
-     
+    }   
 
     void InitializeDeck()
     {
@@ -99,13 +97,10 @@ public class CardDeck : MonoBehaviour
         DrawCard();
     }
 
-
-
     public GameObject DrawCard()
     {
         if (deck.Count == 0)
-        {
-            
+        {   
             ReshuffleDeck();
         }
 

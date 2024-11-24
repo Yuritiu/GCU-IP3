@@ -31,6 +31,8 @@ public class AICardDrawSystem : MonoBehaviour
     bool card4 = true;
 
     [HideInInspector] bool cardAdded = false;
+    [HideInInspector] public bool card1Moving = false;
+    [HideInInspector] public bool card2Moving = false;
     //Current Number Of Selected Cards - Max Of 2
     [HideInInspector] public int selectedCardCount = 0;
     [HideInInspector] public bool isPlayersTurn = true;
@@ -97,36 +99,64 @@ public class AICardDrawSystem : MonoBehaviour
         //index = 0; 
         //print(index);
 
-
         if (cardsInHand[index] != null && (index != bannedCard) && (index != bannedCard2))
         {
-            if (selectedCardCount == 0)
+            selectedCardCount++;
+
+            if (selectedCardCount == 1)
             {
                 //Resize Card
-                cardsInHand[index].gameObject.transform.rotation = selectedPosition1.transform.rotation;
+                //cardsInHand[index].gameObject.transform.rotation = selectedPosition1.transform.rotation;
                 //Move To Selected Position 1
-                MoveCardToPosition(index, selectedPosition1);
+                Debug.Log("Sending to pos 1 " + selectedCardCount);
+                MoveCard1ToPosition(index, selectedPosition1, cardsInHand[index].transform);
                 return cardsInHand[index].GetComponentAtIndex(0);
             }
-            else if (cardsInHand[index].gameObject.transform.parent != selectedPosition1)
+            else if (cardsInHand[index].gameObject.transform.parent != selectedPosition1 && selectedCardCount == 2)
             {
                 //Resize Card
-                cardsInHand[index].gameObject.transform.rotation = selectedPosition2.transform.rotation;
+                //cardsInHand[index].gameObject.transform.rotation = selectedPosition2.transform.rotation;
                 //Move To Selected Position 2
-                MoveCardToPosition(index, selectedPosition2);
+                Debug.Log("Sending to pos 2 " + selectedCardCount);
+                MoveCard2ToPosition(index, selectedPosition2, cardsInHand[index].transform);
                 return cardsInHand[index].GetComponentAtIndex(1);
             }
         }
         return null;
     }
 
-    void MoveCardToPosition(int index, Transform selectedPosition)
+    //void MoveCardToPosition(int index, Transform selectedPosition)
+    //{
+    //    //Move The Card To The Selected Position
+    //    cardsInHand[index].transform.position = selectedPosition.position;
+    //    //Set Parent Else It Doesn't Return To The Original Position
+    //    cardsInHand[index].transform.SetParent(selectedPosition);
+    //    selectedCardCount++;
+    //    switch (index)
+    //    {
+    //        case 0:
+    //            card1 = false;
+    //            break;
+    //        case 1:
+    //            card2 = false;
+    //            break;
+    //        case 2:
+    //            card3 = false;
+    //            break;
+    //        case 3:
+    //            card4 = false;
+    //            break;
+    //    }
+    //}
+
+    void MoveCard1ToPosition(int index, Transform selectedPosition, Transform currentPosition)
     {
-        //Move The Card To The Selected Position
-        cardsInHand[index].transform.position = selectedPosition.position;
-        //Set Parent Else It Doesn't Return To The Original Position
-        cardsInHand[index].transform.SetParent(selectedPosition);
-        selectedCardCount++;
+        if (card1Moving)
+            return;
+
+        //Stop Player Moving 2 Cards At Once
+        card1Moving = true;
+
         switch (index)
         {
             case 0:
@@ -141,6 +171,130 @@ public class AICardDrawSystem : MonoBehaviour
             case 3:
                 card4 = false;
                 break;
+        }
+
+        StartCoroutine(MoveCardToPosition(index, selectedPosition, 0.5f, 0.1f, currentPosition));
+    }
+
+    void MoveCard2ToPosition(int index, Transform selectedPosition, Transform currentPosition)
+    {
+        if (card2Moving)
+            return;
+
+        //Stop Player Moving 2 Cards At Once
+        card2Moving = true;
+
+        switch (index)
+        {
+            case 0:
+                card1 = false;
+                break;
+            case 1:
+                card2 = false;
+                break;
+            case 2:
+                card3 = false;
+                break;
+            case 3:
+                card4 = false;
+                break;
+        }
+
+        StartCoroutine(MoveCardToPosition(index, selectedPosition, 0.5f, 0.1f, currentPosition));
+    }
+
+    IEnumerator MoveCardToPosition(int index, Transform selectedPosition, float duration, float pauseDuration, Transform currentPosition)
+    {
+        //TODO: ADD ANIMATIONS TO AI CARD DRAW
+
+        //Start Position
+        Vector3 startPosition = currentPosition.transform.position;
+        Quaternion startRotation = currentPosition.transform.rotation;
+
+        //Lift Position
+        Vector3 liftPosition = new Vector3(startPosition.x, startPosition.y + 0.08f, startPosition.z);
+        Quaternion liftRotation = Quaternion.Euler(-20, 0, 0.235f);
+
+        //Final Position
+        Vector3 targetPosition = selectedPosition.position;
+        Quaternion targetRotation = Quaternion.Euler(-90, 0, 0f);
+
+        //Halfway Position
+        Vector3 halfwayPosition = (liftPosition + targetPosition) / 2 + Vector3.up * 0.03f;
+        Quaternion halfwayRotation = Quaternion.Euler(-20, 0, -33);
+
+        float elapsedTime = 0f;
+
+        //Movement 1: Lift up
+        while (elapsedTime < duration * 0.3f)
+        {
+            //Calculate Normalized Time
+            float t = elapsedTime / (duration * 0.3f);
+            float easedT = EaseMovementCubic(t);
+
+            //Lerp Position And Keep Rotation The Same
+            cardsInHand[index].transform.position = Vector3.Lerp(startPosition, liftPosition, easedT);
+            cardsInHand[index].transform.rotation = Quaternion.Lerp(startRotation, liftRotation, easedT);
+
+            elapsedTime += Time.deltaTime;
+            yield return null;
+        }
+
+        //Verify Positions
+        cardsInHand[index].transform.position = liftPosition;
+        cardsInHand[index].transform.rotation = liftRotation;
+
+        //Pause Briefly
+        yield return new WaitForSeconds(pauseDuration);
+
+        elapsedTime = 0f;
+
+        //Movement 2 & 3: Placement Motion
+        while (elapsedTime < duration * 0.7f)
+        {
+            //Calculate Normalized Time
+            float t = elapsedTime / (duration * 0.7f);
+            float easedT = EaseMovementCubic(t);
+
+            if (easedT < 0.5f)
+            {
+                //Movement 2: Move Towards Halfway Position And Rotation
+                //Normalize 0-0.5 Range To 0-1
+                float phase2T = easedT * 2f;
+                currentPosition.transform.position = Vector3.Lerp(liftPosition, halfwayPosition, phase2T);
+                currentPosition.transform.rotation = Quaternion.Lerp(liftRotation, halfwayRotation, phase2T);
+            }
+            else
+            {
+                //Movement 3: Move Towards Final Position And Rotation
+                //Normalize 0.5-1 Range To 0-1
+                float phase3T = (easedT - 0.5f) * 2f;
+                currentPosition.transform.position = Vector3.Lerp(halfwayPosition, targetPosition, phase3T);
+                currentPosition.transform.rotation = Quaternion.Lerp(halfwayRotation, targetRotation, phase3T);
+            }
+
+            elapsedTime += Time.deltaTime;
+            yield return null;
+        }
+
+        //Verify Positions
+        currentPosition.transform.position = targetPosition;
+        currentPosition.transform.rotation = targetRotation;
+
+        //Set Parent After Movement
+        currentPosition.transform.SetParent(selectedPosition);
+    }
+
+    //This Makes The Cards Movement Increase Over Time At The Start And Decrease Near The End
+    float EaseMovementCubic(float t)
+    {
+        if (t < 0.5f)
+        {
+            return 4f * t * t * t;
+        }
+        else
+        {
+            return 1f - Mathf.Pow(-2f * t + 2f, 3f) / 2f;
         }
     }
 

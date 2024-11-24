@@ -47,6 +47,7 @@ public class CardDrawSystem : MonoBehaviour
     //Hidden Variables
     [HideInInspector] public bool isPlayersTurn = true;
     [HideInInspector] bool cardAdded = false;
+    [HideInInspector] bool cardMovingToTable = false;
     [HideInInspector] public bool cardMoving;
     [HideInInspector] public bool canPlay = true;
     [HideInInspector] CardSelection cardSelection;
@@ -232,14 +233,16 @@ public class CardDrawSystem : MonoBehaviour
                 //Resize Card
                 cardsInHand[index].gameObject.transform.rotation = selectedPosition1.transform.rotation;
                 //Move To Selected Position 1
-                MoveCardToPosition(index, selectedPosition1);
+                cardMovingToTable = true;
+                MoveCardToPosition(index, selectedPosition1, cardsInHand[index].transform);
             }
             else if (selectedCardCount == 1 && (selectedPosition2.childCount <= 0))
             {
                 //Resize Card
                 cardsInHand[index].gameObject.transform.rotation = selectedPosition2.transform.rotation;
                 //Move To Selected Position 2
-                MoveCardToPosition(index, selectedPosition2);
+                cardMovingToTable = true;
+                MoveCardToPosition(index, selectedPosition2, cardsInHand[index].transform);
             }
             // Updates what cards are banned
             switch (index)
@@ -252,7 +255,31 @@ public class CardDrawSystem : MonoBehaviour
         }
     }
 
-    void MoveCardToPosition(int index, Transform selectedPosition)
+    void DeselectCard(int index)
+    {
+        //Reset The Parent To Null
+        cardsInHand[index].transform.SetParent(null);
+
+        //Move The Card Back To It's Original Position And Rotation
+        //cardsInHand[index].transform.position = originalPositions[index].position;
+        //cardsInHand[index].transform.rotation = originalPositions[index].rotation;
+
+        cardMovingToTable = false;
+        MoveCardToPosition(index, originalPositions[index].transform, cardsInHand[index].transform);
+
+        selectedCardCount = CheckSelectedCards();
+
+        //updates what cards are banned
+        switch (index)
+        {
+            case 0: card1 = true; break;
+            case 1: card2 = true; break;
+            case 2: card3 = true; break;
+            case 3: card4 = true; break;
+        }
+    }
+
+    void MoveCardToPosition(int index, Transform selectedPosition, Transform currentPosition)
     {
         if (cardMoving)
             return;
@@ -262,7 +289,7 @@ public class CardDrawSystem : MonoBehaviour
 
         cardSelection.canSelect = false;
 
-        StartCoroutine(MoveCardToPosition(index, selectedPosition, 0.5f, 0.1f));
+        StartCoroutine(MoveCardToPosition(index, selectedPosition, 0.5f, 0.1f, currentPosition));
         ////Move The Card To The Selected Position
         //cardsInHand[index].transform.position = selectedPosition.position;
         ////Set Parent Else It Doesn't Return To The Original Position
@@ -270,28 +297,69 @@ public class CardDrawSystem : MonoBehaviour
         //selectedCardCount = CheckSelectedCards();
     }
 
-    IEnumerator MoveCardToPosition(int index, Transform selectedPosition, float duration, float pauseDuration)
+    IEnumerator MoveCardToPosition(int index, Transform selectedPosition, float duration, float pauseDuration, Transform currentPosition)
     {
-        //TODO: FIX ISSUE WITH CARDS NOT BEING ABLE TO BE DESELECTED
-        //TODO: ADD ANIMATIONS WHEN DESELECTING CARDS
         //TODO: ADD ANIMATIONS TO AI CARD DRAW
 
-        Vector3 startPosition = cardsInHand[index].transform.position;
-        Quaternion startRotation = cardsInHand[index].transform.rotation;
+        Vector3 startPosition;
+        Quaternion startRotation;
+
+        Vector3 targetPosition;
+        Quaternion targetRotation;
 
         //Halfway Flip
-        Quaternion halfwayRotation = Quaternion.Euler(-20, 180, -33);
+        Quaternion halfwayRotation;
 
-        //Final Position
-        Vector3 targetPosition = selectedPosition.position;
-        Quaternion targetRotation = Quaternion.Euler(-90, 180, 0f);
+        //Check If The Card Is Being Selected (true) OR Deselected (false)
+        if (cardMovingToTable)
+        {
+            //Start Position TODO: CHECK WHAT POSITION
+            startPosition = currentPosition.transform.position;
+            startRotation = currentPosition.transform.rotation;
+
+            halfwayRotation = Quaternion.Euler(-20, 180, -33);
+
+            //Final Position
+            targetPosition = selectedPosition.position;
+            targetRotation = Quaternion.Euler(-90, 180, 0f);
+
+        }
+        else
+        {
+            //Start Position
+            startPosition = currentPosition.transform.position;
+            startRotation = currentPosition.transform.rotation;
+
+            halfwayRotation = Quaternion.Euler(-20, 180, -33);
+
+            //Final Position
+            targetPosition = selectedPosition.transform.position;
+            //targetRotation = selectedPosition.rotation;
+            targetRotation = selectedPosition.rotation;
+        }
 
         //Lift Position
-        Vector3 liftPosition = new Vector3(startPosition.x, startPosition.y + 0.1f, startPosition.z);
-        Quaternion liftRotation = Quaternion.Euler(-20, -180, -0.235f);
+        Vector3 liftPosition;
+        Quaternion liftRotation;
 
         //Halfway Position
-        Vector3 halfwayPosition = (liftPosition + targetPosition) / 2 + Vector3.up * 0.03f;
+        Vector3 halfwayPosition;
+
+        //Check If The Card Is Being Selected (true) OR Deselected (false)
+        if (cardMovingToTable)
+        {
+            liftPosition = new Vector3(startPosition.x, startPosition.y + 0.08f, startPosition.z);
+            liftRotation = Quaternion.Euler(-20, 180, -0.235f);
+
+            halfwayPosition = (liftPosition + targetPosition) / 2 + Vector3.up * 0.03f;
+        }
+        else
+        {
+            liftPosition = new Vector3(startPosition.x, startPosition.y + 0.1f, startPosition.z);
+            liftRotation = Quaternion.Euler(-20, 180, 0.235f);
+
+            halfwayPosition = (liftPosition + targetPosition) / 2 + Vector3.up * -0.03f;
+        }
 
         float elapsedTime = 0f;
 
@@ -331,16 +399,16 @@ public class CardDrawSystem : MonoBehaviour
                 //Movement 2: Move Towards Halfway Position And Rotation
                 //Normalize 0-0.5 Range To 0-1
                 float phase2T = easedT * 2f;
-                cardsInHand[index].transform.position = Vector3.Lerp(liftPosition, halfwayPosition, phase2T);
-                cardsInHand[index].transform.rotation = Quaternion.Lerp(liftRotation, halfwayRotation, phase2T);
+                currentPosition.transform.position = Vector3.Lerp(liftPosition, halfwayPosition, phase2T);
+                currentPosition.transform.rotation = Quaternion.Lerp(liftRotation, halfwayRotation, phase2T);
             }
             else
             {
                 //Movement 3: Move Towards Final Position And Rotation
                 //Normalize 0.5-1 Range To 0-1
                 float phase3T = (easedT - 0.5f) * 2f;
-                cardsInHand[index].transform.position = Vector3.Lerp(halfwayPosition, targetPosition, phase3T);
-                cardsInHand[index].transform.rotation = Quaternion.Lerp(halfwayRotation, targetRotation, phase3T);
+                currentPosition.transform.position = Vector3.Lerp(halfwayPosition, targetPosition, phase3T);
+                currentPosition.transform.rotation = Quaternion.Lerp(halfwayRotation, targetRotation, phase3T);
             }
 
             elapsedTime += Time.deltaTime;
@@ -348,11 +416,11 @@ public class CardDrawSystem : MonoBehaviour
         }
 
         //Verify Positions
-        cardsInHand[index].transform.position = targetPosition;
-        cardsInHand[index].transform.rotation = targetRotation;
+        currentPosition.transform.position = targetPosition;
+        currentPosition.transform.rotation = targetRotation;
 
         //Set Parent After Movement
-        cardsInHand[index].transform.SetParent(selectedPosition);
+        currentPosition.transform.SetParent(selectedPosition);
 
         cardSelection.canSelect = true;
         cardMoving = false;
@@ -371,27 +439,6 @@ public class CardDrawSystem : MonoBehaviour
         else
         {
             return 1f - Mathf.Pow(-2f * t + 2f, 3f) / 2f;
-        }
-    }
-
-    void DeselectCard(int index)
-    {
-        //Reset The Parent To Null
-        cardsInHand[index].transform.SetParent(null);
-
-        //Move The Card Back To It's Original Position And Rotation
-        cardsInHand[index].transform.position = originalPositions[index].position;
-        cardsInHand[index].transform.rotation = originalPositions[index].rotation;
-
-        selectedCardCount = CheckSelectedCards();
-
-        //updates what cards are banned
-        switch (index)
-        {
-            case 0: card1 = true; break;
-            case 1: card2 = true; break;
-            case 2: card3 = true; break;
-            case 3: card4 = true; break;
         }
     }
 

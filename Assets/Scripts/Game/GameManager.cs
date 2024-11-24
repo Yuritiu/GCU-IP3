@@ -163,6 +163,9 @@ public class GameManager : MonoBehaviour
         playerHasGun = false;
         aiHasGun = false;
 
+        AICardDrawSystem.Instance.card1Moving = false;
+        AICardDrawSystem.Instance.card2Moving = false;
+
         DisableAllBackfires();
         //Debug.Log("Next Turn");
 

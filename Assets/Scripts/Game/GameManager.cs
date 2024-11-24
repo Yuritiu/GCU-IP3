@@ -119,15 +119,11 @@ public class GameManager : MonoBehaviour
         Time.timeScale = 1f;
 
         SFXManager.instance.PlayMusicClip(musictest, transform, 1f);
-
-
     }
 
     private void Awake()
     {
         Instance = this;
-
-        
 
         PlayerGun.SetActive(false);
         AIGun.SetActive(false);
@@ -138,6 +134,7 @@ public class GameManager : MonoBehaviour
         in3rdPos = false;
 
         isTutorial = false;
+        canPlay = true;
 
         //Set Fingers To 5
         aiFingers = 5;
@@ -153,31 +150,6 @@ public class GameManager : MonoBehaviour
         blur.SetActive(false);
     }
 
-    void FixedUpdate()
-    {
-        //TODO: Move to crosshair script later
-        //Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-       // RaycastHit hit;
-
-        //var crosshair = GameObject.FindGameObjectWithTag("Crosshair").GetComponent<Crosshair>();
-
-        //Raycast To Mouse Position
-        //if (Physics.Raycast(ray, out hit))
-        //{
-        //    if (hit.transform.CompareTag("Opponent") && canPlay)
-        //    {
-        //        //Enables Inner Crosshair When Hovering
-        //         crosshair.HoverScale(true);
-        //    }
-        //    else
-        //    {
-        //        //Enables Inner Crosshair When Hovering
-        //        crosshair.HoverScale(false);
-        //    }
-        //}
-    }
-
-
     public void addBullet()
     {
         bullets++;
@@ -185,7 +157,6 @@ public class GameManager : MonoBehaviour
 
     public void NextTurn()
     {
-
         if (!canPlay)
             return;
 
@@ -258,6 +229,7 @@ public class GameManager : MonoBehaviour
 
     public void PlayHand()
     {
+        canPlay = false;
 
         CardDrawSystem.Instance.UnbanCards();
         blur.SetActive(false);
@@ -456,6 +428,7 @@ public class GameManager : MonoBehaviour
 
         IsReadyToCompare = false;
         CardDrawSystem.Instance.canPlay = true;
+        canPlay = true;
         NextTurn();
     }
 

@@ -5,6 +5,8 @@ using UnityEngine.UI;
 
 public class Crosshair : MonoBehaviour
 {
+    //!- Coded By Charlie -!
+
     [Header("References")]
     public RectTransform crosshairInner;
     public RectTransform crosshairOuter;
@@ -33,6 +35,31 @@ public class Crosshair : MonoBehaviour
         {
             scaleTimer += Time.deltaTime / tweenDuration;
             crosshairOuter.localScale = Vector3.Lerp(crosshairOuter.localScale, targetScale, scaleTimer);
+        }
+
+        if (!GameManager.Instance.canPlay)
+        {
+            //Disables Inner Crosshair When Not Players Turn
+            HoverScale(false);
+            return;
+        }
+
+        RaycastHit hit;
+        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+
+        //Raycast To Mouse Position
+        if (Physics.Raycast(ray, out hit))
+        {
+            if ((hit.transform.CompareTag("Opponent") && GameManager.Instance.canPlay) || (hit.transform.CompareTag("Card") && GameManager.Instance.canPlay))
+            {
+                //Enables Inner Crosshair When Hovering
+                HoverScale(true);
+            }
+            else
+            {
+                //Disables Inner Crosshair When Not Hovering
+                HoverScale(false);
+            }
         }
     }
 

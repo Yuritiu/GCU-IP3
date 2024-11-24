@@ -105,19 +105,13 @@ public class AICardDrawSystem : MonoBehaviour
 
             if (selectedCardCount == 1)
             {
-                //Resize Card
-                //cardsInHand[index].gameObject.transform.rotation = selectedPosition1.transform.rotation;
                 //Move To Selected Position 1
-                Debug.Log("Sending to pos 1 " + selectedCardCount);
                 MoveCard1ToPosition(index, selectedPosition1, cardsInHand[index].transform);
                 return cardsInHand[index].GetComponentAtIndex(0);
             }
             else if (cardsInHand[index].gameObject.transform.parent != selectedPosition1 && selectedCardCount == 2)
             {
-                //Resize Card
-                //cardsInHand[index].gameObject.transform.rotation = selectedPosition2.transform.rotation;
                 //Move To Selected Position 2
-                Debug.Log("Sending to pos 2 " + selectedCardCount);
                 MoveCard2ToPosition(index, selectedPosition2, cardsInHand[index].transform);
                 return cardsInHand[index].GetComponentAtIndex(1);
             }
@@ -125,36 +119,11 @@ public class AICardDrawSystem : MonoBehaviour
         return null;
     }
 
-    //void MoveCardToPosition(int index, Transform selectedPosition)
-    //{
-    //    //Move The Card To The Selected Position
-    //    cardsInHand[index].transform.position = selectedPosition.position;
-    //    //Set Parent Else It Doesn't Return To The Original Position
-    //    cardsInHand[index].transform.SetParent(selectedPosition);
-    //    selectedCardCount++;
-    //    switch (index)
-    //    {
-    //        case 0:
-    //            card1 = false;
-    //            break;
-    //        case 1:
-    //            card2 = false;
-    //            break;
-    //        case 2:
-    //            card3 = false;
-    //            break;
-    //        case 3:
-    //            card4 = false;
-    //            break;
-    //    }
-    //}
-
     void MoveCard1ToPosition(int index, Transform selectedPosition, Transform currentPosition)
     {
         if (card1Moving)
             return;
 
-        //Stop Player Moving 2 Cards At Once
         card1Moving = true;
 
         switch (index)

@@ -170,7 +170,7 @@ public class GameManager : MonoBehaviour
 
         //Move Played Cards To Discard Pile
         CardDrawSystem.Instance.FindCardsOnTable();
-        StartCoroutine(CardDrawSystem.Instance.ClearCardsOffTable(0.5f));
+        StartCoroutine(CardDrawSystem.Instance.LerpCardsToDiscardDeck(0.5f));
 
         //Debug.Log("Next Turn");
 
@@ -408,30 +408,8 @@ public class GameManager : MonoBehaviour
 
     IEnumerator WaitSoCardsCanReveal()
     {
-        //Debug
-        //CardDrawSystem.Instance.debugCurrentTurnText.text = ("Revealing Cards");
-
-        yield return new WaitForSeconds(5);
-
-        //if (CardDrawSystem.Instance.selectedPosition1.childCount > 0)
-        //{
-        //    //TODO: UPDATE DISCARD PILE CARD COUNT
-        //    //Destroy(CardDrawSystem.Instance.selectedPosition1.GetChild(0).gameObject);
-        //}
-        //if (CardDrawSystem.Instance.selectedPosition2.childCount > 0)
-        //{
-        //    //Destroy(CardDrawSystem.Instance.selectedPosition2.GetChild(0).gameObject);
-        //}
-        //if (AICardDrawSystem.Instance.selectedPosition1.childCount > 0)
-        //{
-        //    //Destroy(AICardDrawSystem.Instance.selectedPosition1.GetChild(0).gameObject);
-        //}
-        //if (AICardDrawSystem.Instance.selectedPosition2.childCount > 0)
-        //{
-        //    //Destroy(AICardDrawSystem.Instance.selectedPosition2.GetChild(0).gameObject);
-        //}
-
-        yield return new WaitForSeconds(0.5f);
+        //CHANGED FROM 5.5 TO 4 - Felt Too Long
+        yield return new WaitForSeconds(4);
 
         IsReadyToCompare = false;
         CardDrawSystem.Instance.canPlay = true;

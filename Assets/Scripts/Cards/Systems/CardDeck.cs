@@ -15,17 +15,20 @@ public class CardDeck : MonoBehaviour
     }
 
     [Header("All Card Prefabs")]
-    [SerializeField] private List<CardPrefab> cardPrefabs;
+    [SerializeField] List<CardPrefab> cardPrefabs;
     [SerializeField] public List<GameObject> deck = new List<GameObject>();
 
-    [Header("Card Piles")]
-    [SerializeField] GameObject cardPrefab;
-    //[SerializeField] public Transform deckPosition;
-    //[SerializeField] public Transform discardPilePosition;
+    [Header("Playing Card Pile")]
+    [SerializeField] GameObject emptyCardPrefab;
+    [SerializeField] Transform deckPosition;
+    //Distance Between Cards
+    [SerializeField] float cardStackOffset = 0.002f;
+    [SerializeField] float currentDeckStackHeight;
 
-    public bool shooting = false;
-    public int noOfEmptySlots = 0;
-    bool reshuffling;
+    private List<GameObject> visualDeck = new List<GameObject>();
+
+    private bool reshuffling;
+
     void Awake()
     {
         Instance = this;
@@ -35,7 +38,6 @@ public class CardDeck : MonoBehaviour
             Destroy(gameObject);
             return;
         }
-        //DontDestroyOnLoad(gameObject);
 
         InitializeDeck();
     }
@@ -46,9 +48,8 @@ public class CardDeck : MonoBehaviour
         {
             reshuffling = true;
             GameManager.Instance.Showdown();
-            //ReshuffleDeck();
         }
-    }   
+    }
 
     void InitializeDeck()
     {
@@ -56,16 +57,27 @@ public class CardDeck : MonoBehaviour
         {
             GameManager.Instance.Showdown();
         }
-        //Debug.Log("Card Deck Initialized");
 
         deck.Clear();
         foreach (CardPrefab card in cardPrefabs)
         {
-
             for (int i = 0; i < card.quantity; i++)
             {
-                if (card.cardPrefab != null)
+                if (card != null)
                 {
+                    //For Each Card In The Deck Instantiate A Visual Card Prefab At The Proper Position
+                    Vector3 playingDeckStackPosition = deckPosition.position + new Vector3(90, currentDeckStackHeight + cardStackOffset, 0);
+                    GameObject emptyCard = Instantiate(emptyCardPrefab, playingDeckStackPosition, Quaternion.identity);
+
+                    emptyCard.transform.localPosition = new Vector3(deckPosition.position.x, playingDeckStackPosition.y, deckPosition.position.z);
+                    emptyCard.transform.localRotation = Quaternion.Euler(90, 0, 0);
+
+                    // Add to the list of visual cards
+                    visualDeck.Add(emptyCard);
+
+                    // Update the stack height
+                    currentDeckStackHeight += cardStackOffset;
+
                     deck.Add(card.cardPrefab);
                 }
             }
@@ -99,7 +111,7 @@ public class CardDeck : MonoBehaviour
     public GameObject DrawCard()
     {
         if (deck.Count == 0)
-        {   
+        {
             ReshuffleDeck();
         }
 
@@ -114,15 +126,25 @@ public class CardDeck : MonoBehaviour
 
         //Remove The Drawn Card From The Deck
         deck.RemoveAt(0);
-        //Debug.Log($"Drew Card: " +  card.name + " Remaining Cards In Deck: " + deck.Count);
+        RemoveCards(1);
+
         return card;
     }
 
-    public void DiscardCard(GameObject card)
+    void RemoveCards(int numberOfCardsToRemove)
     {
-        if (card != null)
+        //Ensure The Number To Remove Doesn't Exceed The Deck Size
+        int cardsToRemove = Mathf.Min(numberOfCardsToRemove, deck.Count);
+
+        for (int i = 0; i < cardsToRemove; i++)
         {
-            Destroy(card);
+            //Get The Top Visual Card Prefab From Playing Deck
+            GameObject visualCard = visualDeck[visualDeck.Count - 1];
+
+            Destroy(visualCard);
+
+            //Remove The Destroyed Card From The List Of Visual Cards
+            visualDeck.RemoveAt(visualDeck.Count - 1);
         }
     }
 }

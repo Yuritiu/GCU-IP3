@@ -32,15 +32,22 @@ public class CardDrawSystem : MonoBehaviour
     [SerializeField] public Transform selectedPosition1;
     [SerializeField] public Transform selectedPosition2;
 
-    [Header("Discard Deck Location Reference")]
+    [Header("Deck Location References")]
     [SerializeField] GameObject discardDeckLocation;
+    [SerializeField] GameObject playingDeckLocation;
 
     [Header("Discard Deck Variables")]
     GameObject[] cardsToDiscard;
     Transform discardBasePosition;
     //Distance Between Cards
     float stackHeightIncrement = 0.002f;
-    float currentStackHeight;
+    float currentDiscardStackHeight;
+
+    [Header("Playing Deck Variables")]
+    GameObject[] cardsToPlay;
+    [HideInInspector] public Transform playingBasePosition;
+    //Distance Between Cards
+    float currentPlayingStackHeight;
 
     [Header("Cards to check bans")]
     bool card1 = true;
@@ -77,6 +84,15 @@ public class CardDrawSystem : MonoBehaviour
         else
         {
             Debug.LogError("No Discard Deck Location Assigned");
+        }
+
+        if (playingDeckLocation != null)
+        {
+            playingBasePosition = playingDeckLocation.transform;
+        }
+        else
+        {
+            Debug.LogError("No Playing Deck Location Assigned");
         }
 
         StartGame();
@@ -169,7 +185,7 @@ public class CardDrawSystem : MonoBehaviour
 
             if (card == null)
             {
-                break;
+                return;
             }
 
             //Debug.Log("Drew Card: " +  card.name + " Remaining Cards In Deck: " + CardDeck.Instance.deck.Count);
@@ -188,7 +204,7 @@ public class CardDrawSystem : MonoBehaviour
 
         //Debug.Log("Deck Count After Creating Hand: " + CardDeck.Instance.deck.Count);
     }
-    
+
     public void AddCardAfterTurn()
     {
         //Debug.Log("Attempting To Add A Card After The Turn...");
@@ -197,12 +213,13 @@ public class CardDrawSystem : MonoBehaviour
         {
             if (cardsInHand[i] == null && CardDeck.Instance.deck.Count > 0)
             {
+                //Get The Next Card From The Deck
                 GameObject card = CardDeck.Instance.DrawCard();
+
                 if (card == null)
                 {
                     return;
                 }
-                //Debug.Log("Adding Card " + card.name + " To Slot " + i);
 
                 // Updates what cards are banned
                 switch (i)
@@ -216,7 +233,7 @@ public class CardDrawSystem : MonoBehaviour
                 cardsInHand[i] = Instantiate(card, originalPositions[i].position, originalPositions[i].rotation);
                 cardAdded = true;
 
-               //Debug.Log("Card Added Successfully.");
+                //Debug.Log("Card Added Successfully.");
                 break;
             }
         }
@@ -280,10 +297,6 @@ public class CardDrawSystem : MonoBehaviour
         //Reset The Parent To Null
         cardsInHand[index].transform.SetParent(null);
 
-        //Move The Card Back To It's Original Position And Rotation
-        //cardsInHand[index].transform.position = originalPositions[index].position;
-        //cardsInHand[index].transform.rotation = originalPositions[index].rotation;
-
         cardMovingToTable = false;
         MoveCardToPosition(index, originalPositions[index].transform, cardsInHand[index].transform);
 
@@ -318,12 +331,24 @@ public class CardDrawSystem : MonoBehaviour
                     Destroy(card.GetComponent<BoxCollider>());
                 }
                 AICardDrawSystem.Instance.DeleteCardsInHand();
+                DeleteCardsInHand();
                 foundCards.Add(card.gameObject);
             }
         }
 
         //Convert The List To An Array
         cardsToDiscard = foundCards.ToArray();
+    }
+
+    public void DeleteCardsInHand()
+    {
+        for (int i = 0; i < cardsInHand.Length; i++)
+        {
+            if (cardsInHand[i] != null && cardsInHand[i].name == "Discarded Card")
+            {
+                cardsInHand[i] = null;
+            }
+        }
     }
 
     void MoveCardToPosition(int index, Transform selectedPosition, Transform currentPosition)
@@ -468,7 +493,7 @@ public class CardDrawSystem : MonoBehaviour
         selectedCardCount = CheckSelectedCards();
     }
 
-    public IEnumerator ClearCardsOffTable(float duration)
+    public IEnumerator LerpCardsToDiscardDeck(float duration)
     {
         if (cardsToDiscard.Length == 0)
         {
@@ -503,7 +528,7 @@ public class CardDrawSystem : MonoBehaviour
             {
                 if (cardsToDiscard[i] != null)
                 {
-                    Vector3 discardDeckStackPosition = discardBasePosition.position + new Vector3(0, currentStackHeight + i * stackHeightIncrement, 0);
+                    Vector3 discardDeckStackPosition = discardBasePosition.position + new Vector3(0, currentDiscardStackHeight + i * stackHeightIncrement, 0);
 
                     //Lerp Cards To Discard Pile Location
                     cardsToDiscard[i].transform.position = Vector3.Lerp(startPositions[i], discardDeckStackPosition, t);
@@ -520,13 +545,13 @@ public class CardDrawSystem : MonoBehaviour
             if (cardsToDiscard[i] != null)
             {
                 //Set Final Position
-                cardsToDiscard[i].transform.position = discardBasePosition.position + new Vector3(0, currentStackHeight + i * stackHeightIncrement, 0);
+                cardsToDiscard[i].transform.position = discardBasePosition.position + new Vector3(0, currentDiscardStackHeight + i * stackHeightIncrement, 0);
                 cardsToDiscard[i].transform.rotation = targetRotation;
             }
         }
 
         //Update The Stack Height
-        currentStackHeight += cardsToDiscard.Length * stackHeightIncrement;
+        currentDiscardStackHeight += cardsToDiscard.Length * stackHeightIncrement;
     }
 
     //This Makes The Cards Movement Increase Over Time At The Start And Decrease Near The End

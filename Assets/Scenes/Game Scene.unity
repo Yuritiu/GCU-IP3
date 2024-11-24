@@ -5170,6 +5170,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1481883096}
     - target: {fileID: 5165826222751895394, guid: 6d97c6adadc67ca4a9fab2ffb0260aee, type: 3}
+      propertyPath: playingDeckLocation
+      value: 
+      objectReference: {fileID: 1946011885}
+    - target: {fileID: 5165826222751895394, guid: 6d97c6adadc67ca4a9fab2ffb0260aee, type: 3}
       propertyPath: debugCurrentTurnText
       value: 
       objectReference: {fileID: 595854288}
@@ -5872,6 +5876,37 @@ Transform:
   - {fileID: 1347151987}
   m_Father: {fileID: 1254743915}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1946011885
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1946011886}
+  m_Layer: 0
+  m_Name: Playing Deck Location
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1946011886
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1946011885}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
+  m_LocalPosition: {x: -0.628, y: 0.7518, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
 --- !u!1 &1947822339
 GameObject:
   m_ObjectHideFlags: 0
@@ -6245,9 +6280,10 @@ MonoBehaviour:
   - cardPrefab: {fileID: 1833519795021809735, guid: 5483eb8b06d5b644d88d87dbd32457d3, type: 3}
     quantity: 8
   deck: []
-  cardPrefab: {fileID: 0}
-  shooting: 0
-  noOfEmptySlots: 0
+  emptyCardPrefab: {fileID: 1833519795021809735, guid: a90b0b83808e8bd479fa48eecd5fdf3f, type: 3}
+  deckPosition: {fileID: 1946011886}
+  cardStackOffset: 0.002
+  currentDeckStackHeight: 0
 --- !u!1 &2064874318 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 2443115110922757717, guid: 21966fa850b76bc49aafea508c7ca3a0, type: 3}
@@ -7302,6 +7338,7 @@ SceneRoots:
   - {fileID: 2043439504}
   - {fileID: 1698909537}
   - {fileID: 1481883097}
+  - {fileID: 1946011886}
   - {fileID: 595854287}
   - {fileID: 694210905}
   - {fileID: 5156374501101811987}

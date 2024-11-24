@@ -66,7 +66,7 @@ public class AICardDrawSystem : MonoBehaviour
 
             if (card == null)
             {
-                break;
+                return;
             }
 
             //Debug.Log("Drew Card: " + card.name + " Remaining Cards In Deck: " + CardDeck.Instance.deck.Count);
@@ -289,11 +289,11 @@ public class AICardDrawSystem : MonoBehaviour
             if (cardsInHand[i] == null && CardDeck.Instance.deck.Count > 0)
             {
                 GameObject card = CardDeck.Instance.DrawCard();
+
                 if (card == null)
                 {
                     return;
                 }
-                //Debug.Log("Adding Card " + card.name + " To Slot " + i);
 
                 cardsInHand[i] = Instantiate(card, originalPositions[i].position, originalPositions[i].rotation);
                 cardAdded = true;

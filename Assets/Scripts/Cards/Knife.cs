@@ -86,10 +86,10 @@ public class Knife : MonoBehaviour
                     StartCoroutine(GameManager.Instance.WaitToCompareCards(2, 1));
                 }
             }
-               // print(AICardDrawSystem.Instance.selectedPosition2.childCount);
+                print(AICardDrawSystem.Instance.selectedPosition2.childCount);
             if (AICardDrawSystem.Instance.selectedPosition2.childCount > 0)
             {
-               // print(AICardDrawSystem.Instance.selectedPosition2.childCount);
+                print(AICardDrawSystem.Instance.selectedPosition2.childCount);
                 if (AICardDrawSystem.Instance.selectedPosition2.GetChild(0).name.Contains("knife") &&  !GameManager.Instance.knife2used)
                 {
                     GameManager.Instance.knife2used = true;

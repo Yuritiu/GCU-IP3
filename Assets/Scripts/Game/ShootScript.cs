@@ -64,42 +64,45 @@ public class ShootScript : MonoBehaviour
             //\/Debuging\/
             //rand = 0;
             //print(rand);
+           
+            int randForBullet = UnityEngine.Random.Range(1, 7);
+
+            AiRandom = randForBullet;
+
+            //UnityEngine.Debug.Log("bullet " + GameManager.Instance.bullets);
+            //UnityEngine.Debug.Log("random " + AiRandom);
+
+            yield return new WaitForSeconds(1.5f);
+            firePressed = true;
+            gunAnim.Play("Airecoil");
+            if (AiRandom <= GameManager.Instance.bullets)
+            {
+                Flash.Play();
+            }
+            yield return new WaitForSeconds(delay);
             if (rand == 0)
             {
                 //Shoots off your own finger
                 GameManager.Instance.ReduceHealth(2, 3);
                 GameManager.Instance.gunBackfire.gameObject.SetActive(true);
             }
-            else
+            else if (AiRandom <= GameManager.Instance.bullets)
             {
-
-                int randForBullet = UnityEngine.Random.Range(1, 7);
-
-                AiRandom = randForBullet;
-
-                //UnityEngine.Debug.Log("bullet " + GameManager.Instance.bullets);
-                //UnityEngine.Debug.Log("random " + AiRandom);
-
-                yield return new WaitForSeconds(1.5f);
-                firePressed = true;
-                gunAnim.Play("Airecoil");
-                if (AiRandom <= GameManager.Instance.bullets)
-                {
-                    Flash.Play();
-                }
-                yield return new WaitForSeconds(delay);
-                if (AiRandom <= GameManager.Instance.bullets)
-                {
-                    GameManager.Instance.CheckArmour(2, 3);
-                    GameManager.Instance.bullets = 1;
-                }
+                GameManager.Instance.CheckArmour(2, 3);
+                GameManager.Instance.bullets = 1;
             }
+           
 
             GameManager.Instance.Gun.SetActive(true);
             GameManager.Instance.aiGunActive = false;
             gun.SetActive(false);
 
-            GameManager.Instance.inGunAction = false;
+            //if other card is gun then wait
+            if (GameManager.Instance.has2Guns == false)
+            {
+                GameManager.Instance.inGunAction = false;
+            }
+
             gunAnim.Play("GunPause");
             firePressed = false;
             AiShot = false;
@@ -116,37 +119,38 @@ public class ShootScript : MonoBehaviour
             //\/Debuging\/
             //rand = 0;
             //print(rand);
+            
+            int randForBullet = UnityEngine.Random.Range(1, 7);
+
+            PRandom = randForBullet;
+
+            firePressed = true;
+            gunAnim.Play("recoil");
+            if (PRandom <= GameManager.Instance.bullets)
+            {
+                Flash.Play();
+            }
+            yield return new WaitForSeconds(delay);
             if (rand == 0)
             {
                 //Shoots off your own finger
                 GameManager.Instance.ReduceHealth(2, 3);
                 GameManager.Instance.gunBackfire.gameObject.SetActive(true);
             }
-            else
+            else if (PRandom <= GameManager.Instance.bullets)
             {
-                int randForBullet = UnityEngine.Random.Range(1, 7);
-
-                PRandom = randForBullet;
-
-                firePressed = true;
-                gunAnim.Play("recoil");
-                if (PRandom <= GameManager.Instance.bullets)
-                {
-                    Flash.Play();
-                }
-                yield return new WaitForSeconds(delay);
-                if (PRandom <= GameManager.Instance.bullets)
-                {
-                    GameManager.Instance.CheckArmour(1, 3);
-                    GameManager.Instance.bullets = 1;
-                }
+                GameManager.Instance.CheckArmour(1, 3);
+                GameManager.Instance.bullets = 1;
             }
-
+        
             GameManager.Instance.playerGunActive = false;
             GameManager.Instance.Gun.SetActive(true);
             GameManager.Instance.playerGunActive = false;
             gun.SetActive(false);
-            GameManager.Instance.inGunAction = false;
+            if (GameManager.Instance.has2Guns == false)
+            {
+                GameManager.Instance.inGunAction = false;
+            }
             gunAnim.Play("GunPause");
             firePressed = false;
             PlayerShot = false;

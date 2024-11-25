@@ -105,11 +105,12 @@ public class GameManager : MonoBehaviour
     [SerializeField] public GameObject WinScreen;
     [SerializeField] public GameObject LoseScreen;
 
-    [Header("Action ")]
+    [Header("Action")]
     private bool canMoveOn;
     [HideInInspector] public bool inKnifeAction = false;
     [HideInInspector] public bool canCutFinger = false;
     [HideInInspector] public bool inGunAction = false;
+    [HideInInspector] public bool has2Guns = false;
     [HideInInspector] public int numberOfKnifeCards = 0;
     
     [HideInInspector] public bool knife1used = false;
@@ -449,16 +450,19 @@ public class GameManager : MonoBehaviour
 
         if (gun.name == "Player Gun" && !playerGunActive)
         {
+            has2Guns = false;
             playerGunActive = true;
             gun.SetActive(true);
         }
         else if (gun.name == "Player Gun" && playerGunActive)
         {
+            has2Guns = true;
             PlayerRoulette();
         }
 
         else if (gun.name == "Ai Gun" && !playerGunActive && !aiGunActive)
         {
+            has2Guns = false;
             aiGunActive = true;
             gun.SetActive(true);
         }
@@ -470,6 +474,7 @@ public class GameManager : MonoBehaviour
         
         else if (gun.name == "Ai Gun" && !playerGunActive && aiGunActive)
         {
+            has2Guns = true;
             AiRoulette();
         }
     }
@@ -532,8 +537,8 @@ public class GameManager : MonoBehaviour
         //AI
         if (character == 1)
         {
-            aiFingers--;
             aiHand.RemoveFinger(aiFingers);
+            aiFingers--;
         }
         //Player
         else if (character == 2)
@@ -544,8 +549,8 @@ public class GameManager : MonoBehaviour
             }
             if (type == 3)
             {
-                playerFingers--;
                 playerHand.RemoveFinger(playerFingers);
+                playerFingers--;
             }
             //Debug.Log("Countdown Started");
             BloodlossSystem.Instance.IncreaseBloodloss();

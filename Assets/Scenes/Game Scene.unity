@@ -946,6 +946,10 @@ PrefabInstance:
       propertyPath: Target2
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 5128300180416186954, guid: 24c94e7929bad4b408a3c87aac8caa73, type: 3}
+      propertyPath: gunAnim
+      value: 
+      objectReference: {fileID: 268935123}
     - target: {fileID: 5333116497694472727, guid: 24c94e7929bad4b408a3c87aac8caa73, type: 3}
       propertyPath: m_LocalScale.x
       value: 0.099999994
@@ -1037,6 +1041,11 @@ GameObject:
 --- !u!4 &268935122 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5333116497694472727, guid: 24c94e7929bad4b408a3c87aac8caa73, type: 3}
+  m_PrefabInstance: {fileID: 268935118}
+  m_PrefabAsset: {fileID: 0}
+--- !u!95 &268935123 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 6364199873939054069, guid: 24c94e7929bad4b408a3c87aac8caa73, type: 3}
   m_PrefabInstance: {fileID: 268935118}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &275776745 stripped
@@ -9370,6 +9379,10 @@ PrefabInstance:
       propertyPath: Target2
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 5128300180416186954, guid: 24c94e7929bad4b408a3c87aac8caa73, type: 3}
+      propertyPath: gunAnim
+      value: 
+      objectReference: {fileID: 2126444671}
     - target: {fileID: 5333116497694472727, guid: 24c94e7929bad4b408a3c87aac8caa73, type: 3}
       propertyPath: m_LocalScale.x
       value: 0.099999994
@@ -9453,6 +9466,11 @@ PrefabInstance:
 --- !u!1 &2126444670 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 8431981742270796655, guid: 24c94e7929bad4b408a3c87aac8caa73, type: 3}
+  m_PrefabInstance: {fileID: 2126444669}
+  m_PrefabAsset: {fileID: 0}
+--- !u!95 &2126444671 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 6364199873939054069, guid: 24c94e7929bad4b408a3c87aac8caa73, type: 3}
   m_PrefabInstance: {fileID: 2126444669}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &2127988889 stripped

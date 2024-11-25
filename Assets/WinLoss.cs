@@ -12,7 +12,7 @@ public class WinLoss : MonoBehaviour
     public Button[] mainMenuButtons;
 
     [Header("FeedbackURL")]
-    public string feedbackURL = "https://www.google.co.uk/";
+    public string feedbackURL = "https://forms.gle/4rPB2aM3a4HumPxD8";
 
     private void Start()
     {

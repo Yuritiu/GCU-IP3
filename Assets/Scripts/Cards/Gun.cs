@@ -5,32 +5,33 @@ using System;
 
 public class Gun : MonoBehaviour
 {
-
-
     public void PlayCardForPlayer()
     {
         GameManager.Instance.playerHasGun = true;
 
         GameManager.Instance.PlayerRoulette();
         GameManager.Instance.inGunAction = true;
-       
+    }
 
-        //int randForBullet = UnityEngine.Random.Range(1, 7);
-        //print("player " + randForBullet);
+    public void CloneGunCardForPlayer()
+    {
+        GameManager.Instance.playerHasGun = true;
 
-        //ShootScript.instance2.PRandom = randForBullet;
-        
-        //if (randForBullet <= GameManager.Instance.bullets)
-        //{
-        //    StartCoroutine(WaitToStart(1, 3));
-        //}
-        //else
-        //{
-        //    if(GameManager.Instance.bullets != 1)
-        //    {
-        //        GameManager.Instance.bullets--;
-        //    }
-        //}
+        int rand = UnityEngine.Random.Range(0, 5);
+        //\/Debuging\/
+        //rand = 0;
+        //print(rand);
+        if (rand == 0)
+        {
+            //Shoots off your own finger
+            GameManager.Instance.ReduceHealth(2, 3);
+            GameManager.Instance.gunBackfire.gameObject.SetActive(true);
+        }
+        else
+        {
+            GameManager.Instance.PlayerRoulette();
+            GameManager.Instance.inGunAction = true;
+        }
     }
 
     public void PlayCardForAI()

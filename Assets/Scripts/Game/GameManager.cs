@@ -117,6 +117,8 @@ public class GameManager : MonoBehaviour
 
     [SerializeField] private AudioClip musictest;
 
+    public int timesToShoot = 0;
+
 
     public void Start()
     {
@@ -162,6 +164,8 @@ public class GameManager : MonoBehaviour
     public void NextTurn()
     {
         //print("NEXT TURN");
+
+        timesToShoot = 0;
 
         if (!canPlay)
             return;
@@ -425,6 +429,7 @@ public class GameManager : MonoBehaviour
 
     public void PlayerRoulette()
     {
+        timesToShoot++;
         ShootScript.instance2.PlayerShot = true;
         inGunAction = true;
         StartCoroutine(WaitForGun(AIGun));
@@ -439,8 +444,7 @@ public class GameManager : MonoBehaviour
 
     IEnumerator WaitForGun(GameObject gun)
     {
-        
-        yield return new WaitForSeconds(3f);
+        yield return new WaitForSeconds(1f);
         Gun.SetActive(false);
 
         if (gun.name == "Player Gun" && !playerGunActive)

@@ -81,8 +81,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   SFXObject: {fileID: 2727074419289531052}
-  SFXLoopObject: {fileID: 0}
+  SFXLoopObject: {fileID: 1783096910778841799}
   MusicObject: {fileID: 899742023238716202}
+  clipEnded: 0
 --- !u!1 &2760361780315032773
 GameObject:
   m_ObjectHideFlags: 0

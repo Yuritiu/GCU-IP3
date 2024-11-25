@@ -1,5 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading;
+using Unity.VisualScripting;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -20,9 +23,12 @@ public class BloodlossSystem : MonoBehaviour
     float hardCountdownTime = 350f;
 
     [Header("Audio References")]
-    [SerializeField] AudioSource heartbeat;
-    [SerializeField] AudioSource thud;
+    [SerializeField] private AudioSource heartbeat;
+    [SerializeField] private AudioSource heartbeatfast;// faster version when low
+    [SerializeField] private AudioClip thud;
     bool heartbeatStartCalled;
+    bool heartbeatfastStartCalled;
+    
 
     float maxHealth;
     float currentHealth;
@@ -83,14 +89,18 @@ public class BloodlossSystem : MonoBehaviour
         if(fillAmount <= 0.5f && !heartbeatStartCalled)
         {
             heartbeatStartCalled = true;
-
+            
             heartbeat.Play();
-            heartbeat.pitch = 1;
+            
         }
 
-        if(fillAmount <= 0.25f)
+        if(fillAmount <= 0.25f && !heartbeatfastStartCalled)
         {
-            heartbeat.pitch = 2;
+            heartbeatfastStartCalled = true;
+
+            heartbeat.Stop();
+            
+            heartbeatfast.Play();
         }
     }
 
@@ -122,8 +132,8 @@ public class BloodlossSystem : MonoBehaviour
     {
         Debug.Log("You Lost All Your Blood :(");
 
-        heartbeat.Stop();
-        thud.Play();
+        heartbeatfast.Stop();
+        SFXManager.instance.PlaySFXClip(thud, transform, 1f);
 
         GameManager.Instance.EndGameLose();
     }

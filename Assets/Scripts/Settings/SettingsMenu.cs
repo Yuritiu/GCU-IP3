@@ -175,6 +175,7 @@ public class SettingsMenu : MonoBehaviour
     public void ReturnToMenu()
     {
         SceneManager.LoadScene("Main Menu");
+        Time.timeScale = 1f;
     }
 
     void OnControlsMenuButtonClick()

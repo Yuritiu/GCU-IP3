@@ -3,9 +3,12 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using TMPro;
-using Unity.Burst.CompilerServices;             
+using Unity.Burst.CompilerServices;
+using Unity.Services.Analytics;
+using Unity.Services.Core;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Analytics;
 using UnityEngine.SceneManagement;
 using UnityEngine.TextCore.Text;
 using UnityEngine.UI;
@@ -120,12 +123,14 @@ public class GameManager : MonoBehaviour
 
     public int timesToShoot = 0;
 
-
-    public void Start()
+    async void Start()
     {
         Time.timeScale = 1f;
 
         //SFXManager.instance.PlayMusicClip(musictest, transform, 1f);
+
+        await UnityServices.InitializeAsync();
+        AnalyticsService.Instance.StartDataCollection();
     }
 
     private void Awake()
@@ -756,6 +761,12 @@ public class GameManager : MonoBehaviour
     {
         //print(playerFingers);
 
+        if(Input.GetKeyDown(KeyCode.Space))
+        {
+            EndGameLose();
+            EndGameWin();
+        }
+
         if (showddown == true && ShootScript.instance1.AiShot == false && ShootScript.instance2.PlayerShot == false)
         {
             GameManager.Instance.Showdown();
@@ -911,9 +922,18 @@ public class GameManager : MonoBehaviour
             yield return 0;
         }
     }
+
     public void EndGameWin()
     {
         print("You Win");
+
+        Unity.Services.Analytics.CustomEvent timesWon = new Unity.Services.Analytics.CustomEvent("TimesWon")
+        {
+            { "timesWon", 1 }
+        };
+
+        Debug.Log("Analytic Recorded: " + "Times Won");
+
         WinScreen.SetActive(true);
         Cursor.visible = true;
         Cursor.lockState = CursorLockMode.Confined;
@@ -924,6 +944,14 @@ public class GameManager : MonoBehaviour
     public void EndGameLose()
     {
         print("You Lose");
+
+        Unity.Services.Analytics.CustomEvent timesDied = new Unity.Services.Analytics.CustomEvent("TimesDied")
+        {
+            { "timesDied", 1 }
+        };
+
+        Debug.Log("Analytic Recorded: " + "Times Died");
+
         LoseScreen.SetActive(true);
         Cursor.visible = true;
         Cursor.lockState = CursorLockMode.Confined;

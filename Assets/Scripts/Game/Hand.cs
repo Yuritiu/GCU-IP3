@@ -35,7 +35,7 @@ public class Hand : MonoBehaviour
         //print(GameManager.Instance.playerFingers);
         else if (this.gameObject.tag == "Player")
         {
-            if (GameManager.Instance.inKnifeAction)
+            if (GameManager.Instance.canCutFinger)
             {
                 //move knife back and forward
                 //from -0.15 to 0.1 degrees rotation on the z axis
@@ -120,6 +120,7 @@ public class Hand : MonoBehaviour
             GameManager.Instance.knife1used = false;
             GameManager.Instance.knife2used = false;
             GameManager.Instance.inKnifeAction = false;
+            GameManager.Instance.canCutFinger= false;
             GameManager.Instance.numberOfKnifeCards = 0;
             DisableCamera();
         }

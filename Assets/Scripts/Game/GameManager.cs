@@ -108,6 +108,7 @@ public class GameManager : MonoBehaviour
     [Header("Action ")]
     private bool canMoveOn;
     [HideInInspector] public bool inKnifeAction = false;
+    [HideInInspector] public bool canCutFinger = false;
     [HideInInspector] public bool inGunAction = false;
     [HideInInspector] public int numberOfKnifeCards = 0;
     
@@ -160,6 +161,8 @@ public class GameManager : MonoBehaviour
 
     public void NextTurn()
     {
+        print("NEXT TURN");
+
         if (!canPlay)
             return;
 

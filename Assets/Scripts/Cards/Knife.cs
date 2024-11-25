@@ -25,6 +25,7 @@ public class Knife : MonoBehaviour
     
     IEnumerator PlayAiKnife()
     {
+        GameManager.Instance.inKnifeAction = true;
         yield return new WaitForSeconds(0.5f);
 
         //Check If Its The Tutorial First
@@ -45,7 +46,7 @@ public class Knife : MonoBehaviour
                 //print("checking knife 1");
                 if (AICardDrawSystem.Instance.selectedPosition1.GetChild(0).name.Contains("knife") && !GameManager.Instance.knife1used && GameManager.Instance.playerArmour == 0)
                 {
-                    GameManager.Instance.inKnifeAction = true;
+                    GameManager.Instance.canCutFinger = true;
                     GameManager.Instance.knife1used = true;
                     GameManager.Instance.numberOfKnifeCards++;
                     StartCoroutine(GameManager.Instance.WaitToCompareCards(2, 1));
@@ -56,6 +57,7 @@ public class Knife : MonoBehaviour
                 //print("checking knife 2");
                 if (AICardDrawSystem.Instance.selectedPosition2.GetChild(0).name.Contains("knife") && !GameManager.Instance.knife2used && GameManager.Instance.playerArmour == 0) 
                 {
+                    GameManager.Instance.canCutFinger = true;
                     GameManager.Instance.knife2used = true;
                     GameManager.Instance.numberOfKnifeCards++;
                     if (!GameManager.Instance.knife1used)

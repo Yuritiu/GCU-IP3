@@ -346,7 +346,22 @@ public class CardDrawSystem : MonoBehaviour
         {
             if (cardsInHand[i] != null && cardsInHand[i].name == "Discarded Card")
             {
+                RemoveScripts(cardsInHand[i].gameObject);
                 cardsInHand[i] = null;
+            }
+        }
+    }
+
+    void RemoveScripts(GameObject obj)
+    {
+        var components = obj.GetComponents<MonoBehaviour>();
+
+        //Destroy Each Script
+        foreach (var script in components)
+        {
+            if (script != null)
+            {
+                Destroy(script);
             }
         }
     }

@@ -25,6 +25,7 @@ public class Knife : MonoBehaviour
     
     IEnumerator PlayAiKnife()
     {
+        GameManager.Instance.aiHasKnife = true;
         GameManager.Instance.inKnifeAction = true;
         yield return new WaitForSeconds(0.5f);
 
@@ -71,6 +72,7 @@ public class Knife : MonoBehaviour
 
     IEnumerator PlayPlayerKnife()
     {
+        GameManager.Instance.playerHasKnife = true;
         yield return new WaitForSeconds(0.5f);
 
         //Check If Its The Tutorial First

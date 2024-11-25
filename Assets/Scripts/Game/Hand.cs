@@ -123,6 +123,8 @@ public class Hand : MonoBehaviour
         {
             GameManager.Instance.knife1used = false;
             GameManager.Instance.knife2used = false;
+            GameManager.Instance.aiHasKnife = false;
+            GameManager.Instance.playerHasKnife = false;
             GameManager.Instance.inKnifeAction = false;
             GameManager.Instance.canCutFinger= false;
             GameManager.Instance.numberOfKnifeCards = 0;

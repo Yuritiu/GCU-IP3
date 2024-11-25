@@ -443,8 +443,8 @@ public class GameManager : MonoBehaviour
 
     public void AiRoulette()
     {
-        ShootScript.instance1.AiShot = true;
         inGunAction = true;
+        ShootScript.instance1.AiShot = true;
         StartCoroutine(WaitForGun(PlayerGun));
     }
 
@@ -595,6 +595,7 @@ public class GameManager : MonoBehaviour
                     {
                         ReduceHealth(character, type);
                     }
+                    return;
                 }
                 else if (aiArmour > 0)
                 {
@@ -633,38 +634,32 @@ public class GameManager : MonoBehaviour
             {
                 if (aiHasGun && aiHasKnife)
                 {
+                    print("made it");
                     if (type == 1)
                     {
-                        inKnifeAction = false;
-                        ReduceHealth(character, type);
-                    }
-                }
-                else if (playerArmour > 0)
-                {
-                    if (!knife1used || !knife2used)
-                    {
-                        knife1used = false;
-                        knife2used = false;
-                        canCutFinger = false;
-                        inKnifeAction = false;
-                        playerArmour--;
-                    }
-                    else
-                    {
-                        numberOfKnifeCards--;
-                        knife2used = false;
-                        playerArmour--;
                         ReduceHealth(character, type);
                     }
                     return;
                 }
-                else if (type == 1)
-                {
-                    ReduceHealth(character, type);
-                }
                 else if (type == 3)
                 {
-                    FireGun(character);
+                    playerArmour--;
+                    return;
+                }
+                if (!knife1used || !knife2used)
+                {
+                    knife1used = false;
+                    knife2used = false;
+                    canCutFinger = false;
+                    inKnifeAction = false;
+                    playerArmour--;
+                }
+                else
+                {
+                    numberOfKnifeCards--;
+                    knife2used = false;
+                    playerArmour--;
+                    ReduceHealth(character, type);
                 }
             }
             else
@@ -675,8 +670,9 @@ public class GameManager : MonoBehaviour
                     knife2used = false;
                     canCutFinger = false;
                     inKnifeAction = false;
+                    playerArmour = 0;
                 }
-                if (playerArmour > 0)
+                else if (playerArmour > 0)
                 {
                     playerArmour--;
                     return;

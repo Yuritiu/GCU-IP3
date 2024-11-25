@@ -24,9 +24,8 @@ public class Gun : MonoBehaviour
 
     public void PlayCardForAI()
     {
-        //GameManager.Instance.aiHasGun = true;   
-        GameManager.Instance.AiRoulette();
         GameManager.Instance.aiHasGun = true;
+        GameManager.Instance.AiRoulette();
     }
 
     IEnumerator WaitToStart(int character, int type)

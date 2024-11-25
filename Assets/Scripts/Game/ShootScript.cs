@@ -89,7 +89,11 @@ public class ShootScript : MonoBehaviour
             else if (AiRandom <= GameManager.Instance.bullets)
             {
                 GameManager.Instance.CheckArmour(2, 3);
-                GameManager.Instance.bullets = 1;
+                GameManager.Instance.bullets--;
+                if (GameManager.Instance.bullets < 1)
+                {
+                    GameManager.Instance.bullets = 1;
+                }
             }
            
 
@@ -140,7 +144,11 @@ public class ShootScript : MonoBehaviour
             else if (PRandom <= GameManager.Instance.bullets)
             {
                 GameManager.Instance.CheckArmour(1, 3);
-                GameManager.Instance.bullets = 1;
+                GameManager.Instance.bullets--;
+                if(GameManager.Instance.bullets < 1)
+                {
+                    GameManager.Instance.bullets = 1;
+                }
             }
         
             GameManager.Instance.playerGunActive = false;

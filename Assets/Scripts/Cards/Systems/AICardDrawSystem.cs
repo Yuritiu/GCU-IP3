@@ -130,13 +130,16 @@ public class AICardDrawSystem : MonoBehaviour
         //index = 0; 
         //print(index);
 
-        if (cardsInHand[0].name.Contains("cigar") && cardsInHand[1].name.Contains("cigar") && cardsInHand[2].name.Contains("cigar") && cardsInHand[3].name.Contains("cigar"))
+        if (cardsInHand[0] != null && cardsInHand[1] != null && cardsInHand[2] != null && cardsInHand[3] != null)
         {
-            selectedCardCount++;
-            //Move To Selected Position 1
-            MoveCard1ToPosition(index, selectedPosition1, cardsInHand[index].transform);
-            selectedCard1Index = index;
-            return cardsInHand[index].GetComponentAtIndex(0);
+            if (cardsInHand[0].name.Contains("cigar") && cardsInHand[1].name.Contains("cigar") && cardsInHand[2].name.Contains("cigar") && cardsInHand[3].name.Contains("cigar"))
+            {
+                selectedCardCount++;
+                //Move To Selected Position 1
+                MoveCard1ToPosition(index, selectedPosition1, cardsInHand[index].transform);
+                selectedCard1Index = index;
+                return cardsInHand[index].GetComponentAtIndex(0);
+            }
         }
 
         if (cardsInHand[index] != null && (index != bannedCard) && (index != bannedCard2))

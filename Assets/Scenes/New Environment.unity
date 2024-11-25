@@ -1668,6 +1668,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: objects only
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: c02666dae0d27ee4bacd48a33933554e, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3743120776730873269, guid: c02666dae0d27ee4bacd48a33933554e, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0.039222606
@@ -4417,6 +4421,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: b77a89f70e249d4469f932c1d80e5098, type: 3}
       propertyPath: m_Name
       value: room only
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: b77a89f70e249d4469f932c1d80e5098, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -11363,7 +11371,6 @@ SceneRoots:
   - {fileID: 1138577842}
   - {fileID: 5077766068424596928}
   - {fileID: 599809044}
-  - {fileID: 1719225247}
   - {fileID: 2126444669}
   - {fileID: 867245999}
   - {fileID: 1641397898}
@@ -11372,5 +11379,6 @@ SceneRoots:
   - {fileID: 1685372748}
   - {fileID: 475225931}
   - {fileID: 104702539}
+  - {fileID: 1719225247}
   - {fileID: 705077963}
   - {fileID: 248289228}

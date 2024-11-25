@@ -16,6 +16,8 @@ public class Hand : MonoBehaviour
     private Vector3 knifePos;
     private Quaternion knifeRot;
 
+    [SerializeField] private GameObject actionUI;
+
     private void Start()
     {
         if (this.gameObject.tag == "Player")
@@ -85,6 +87,7 @@ public class Hand : MonoBehaviour
             GameManager.Instance.inKnifeAction = true;
             //move knife into finger
             Transform knifeGameObject = knife.gameObject.transform;
+            actionUI.SetActive(true);
             //move camera infront of hand
             GameManager.Instance.in2ndPos = false;
             GameManager.Instance.in3rdPos = true;
@@ -100,6 +103,7 @@ public class Hand : MonoBehaviour
     private void EndOfAction(int num)
     {
         knife.gameObject.transform.SetPositionAndRotation(knifePos,knifeRot);
+        actionUI.SetActive(false);
 
         GameManager.Instance.playerFingers--;
         CheckForSecondAction();

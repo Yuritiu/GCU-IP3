@@ -10,6 +10,7 @@ public class MainMenuManager : MonoBehaviour
     public Button startGameButton;
     public Button settingsButton;
     public Button quitGameButton;
+    public Button feedBackButton;
 
     [Header("Expanded Menu Buttons")]
     public Button playButton;
@@ -31,6 +32,7 @@ public class MainMenuManager : MonoBehaviour
         startGameButton.onClick.AddListener(StartGame);
         settingsButton.onClick.AddListener(OpenSettings);
         quitGameButton.onClick.AddListener(QuitGame);
+        feedBackButton.onClick.AddListener(OpenFeedbackLink);
 
         playButton.onClick.AddListener(PlayGame);
         closeButton.onClick.AddListener(CloseExpandedMenu);
@@ -62,6 +64,11 @@ public class MainMenuManager : MonoBehaviour
         Application.Quit();
     }
 
+    private void OpenFeedbackLink()
+    {
+        string feedbackURL = "https://www.google.co.uk/";
+        Application.OpenURL(feedbackURL);
+    }
 
     private void PlayGame()
     {

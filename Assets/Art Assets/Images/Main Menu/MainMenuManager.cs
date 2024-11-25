@@ -26,6 +26,9 @@ public class MainMenuManager : MonoBehaviour
     [Header("Toggle with F4")]
     public GameObject toggleDev;
 
+    [Header("FeedbackURL")]
+    public string feedbackURL = "https://forms.gle/4rPB2aM3a4HumPxD8";
+
     private void Start()
     {
         //Listeners for interactions
@@ -66,7 +69,6 @@ public class MainMenuManager : MonoBehaviour
 
     private void OpenFeedbackLink()
     {
-        string feedbackURL = "https://www.google.co.uk/";
         Application.OpenURL(feedbackURL);
     }
 

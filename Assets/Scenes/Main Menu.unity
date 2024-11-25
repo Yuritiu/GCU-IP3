@@ -12231,7 +12231,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: EASY
+  m_text: PLAY
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 796410a1da0e8184dbaea9b981e700be, type: 2}
   m_sharedMaterial: {fileID: 7026245715805933036, guid: 796410a1da0e8184dbaea9b981e700be, type: 2}
@@ -12996,7 +12996,7 @@ GameObject:
   - component: {fileID: 1371678364}
   - component: {fileID: 1371678361}
   m_Layer: 5
-  m_Name: Easy
+  m_Name: Play
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

@@ -34,6 +34,8 @@ public class GameManager : MonoBehaviour
     private bool wPressed;
     private bool sPressed;
     private bool pPressed;
+    
+
 
     [SerializeField] public float speed;
     [SerializeField] public Transform Target1;
@@ -44,6 +46,9 @@ public class GameManager : MonoBehaviour
     [SerializeField] public Transform Target6;
     [HideInInspector] public bool in2ndPos;
     [HideInInspector] public bool in3rdPos;
+
+
+    public bool cameraMovement; //used for turning off W S P when using Knife
 
 
     [Header("camera")]
@@ -778,21 +783,21 @@ public class GameManager : MonoBehaviour
             inGunAction = true;
         }
 
-        
+     
 
-        if (Input.GetKey("s") && wPressed == false)
+        if (Input.GetKey("s") && wPressed == false && cameraMovement == true)
         {
             sPressed = true;
             //print("s pressed");
         }
 
-        if (Input.GetKey("w") && sPressed == false)
+        if (Input.GetKey("w") && sPressed == false && cameraMovement == true)
         {
             wPressed = true;
             //print("w pressed");
         }
         
-        if (Input.GetKey("p") && wPressed == false && sPressed == false)
+        if (Input.GetKey("p") && wPressed == false && sPressed == false && cameraMovement == true)
         {
             pPressed = true;
             //print("p pressed");

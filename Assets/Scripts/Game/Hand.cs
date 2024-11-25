@@ -13,6 +13,7 @@ public class Hand : MonoBehaviour
     public Vector2 turn;
     public float sensitivity = .5f;
     public bool sideToHit = false;
+    
     private Vector3 knifePos;
     private Quaternion knifeRot;
 
@@ -91,6 +92,7 @@ public class Hand : MonoBehaviour
             //move camera infront of hand
             GameManager.Instance.in2ndPos = false;
             GameManager.Instance.in3rdPos = true;
+            GameManager.Instance.cameraMovement = false; //disables W S P Camera controls
             StartCoroutine(GameManager.Instance.CameraTransitionIEnum(GameManager.Instance.Target3));
             knifeGameObject.SetPositionAndRotation(fingers[GameManager.Instance.playerFingers].gameObject.transform.position, Quaternion.Euler(0, -150, 0));
         }
@@ -118,6 +120,7 @@ public class Hand : MonoBehaviour
         {
             StartOfAction();
             GameManager.Instance.numberOfKnifeCards = 0;
+            
         }
         else
         {
@@ -147,8 +150,11 @@ public class Hand : MonoBehaviour
         StartOfAction();
     }
 
+
+
     private void DisableCamera()
     {
+        GameManager.Instance.cameraMovement = true; //enables W S P Camera controls
         GameManager.Instance.in3rdPos = false;
         StartCoroutine(GameManager.Instance.CameraTransitionIEnum(GameManager.Instance.Target1));
     }

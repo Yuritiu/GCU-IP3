@@ -11,7 +11,6 @@ public class Gun : MonoBehaviour
     {
         GameManager.Instance.playerHasGun = true;
         
-        
         int rand = UnityEngine.Random.Range(0, 5);
         //\/Debuging\/
         //rand = 0;
@@ -21,10 +20,12 @@ public class Gun : MonoBehaviour
             //Shoots off your own finger
             GameManager.Instance.ReduceHealth(2, 3);
             GameManager.Instance.gunBackfire.gameObject.SetActive(true);
+        } 
+        else
+        {
+            GameManager.Instance.PlayerRoulette();
+            GameManager.Instance.inGunAction = true;
         }
-
-        GameManager.Instance.PlayerRoulette();
-        GameManager.Instance.inGunAction = true;
 
         //int randForBullet = UnityEngine.Random.Range(1, 7);
         //print("player " + randForBullet);

@@ -89,7 +89,8 @@ public class AICardDrawSystem : MonoBehaviour
                 case 3: card4 = true; break;
             }
         }
-
+        
+                
         //Debug.Log("Deck Count After Creating Hand: " + CardDeck.Instance.deck.Count);
     }
 
@@ -129,19 +130,29 @@ public class AICardDrawSystem : MonoBehaviour
         //index = 0; 
         //print(index);
 
-        if (cardsInHand[index] != null && (index != bannedCard) && (index != bannedCard2))
+        if (cardsInHand[0].name.Contains("cigar") && cardsInHand[1].name.Contains("cigar") && cardsInHand[2].name.Contains("cigar") && cardsInHand[3].name.Contains("cigar"))
         {
             selectedCardCount++;
+            //Move To Selected Position 1
+            MoveCard1ToPosition(index, selectedPosition1, cardsInHand[index].transform);
+            selectedCard1Index = index;
+            return cardsInHand[index].GetComponentAtIndex(0);
+        }
 
-            if (selectedCardCount == 1)
+        if (cardsInHand[index] != null && (index != bannedCard) && (index != bannedCard2))
+        {
+
+            if (selectedCardCount == 0 && !cardsInHand[index].name.Contains("cigar"))
             {
+                selectedCardCount++;
                 //Move To Selected Position 1
                 MoveCard1ToPosition(index, selectedPosition1, cardsInHand[index].transform);
                 selectedCard1Index = index;
                 return cardsInHand[index].GetComponentAtIndex(0);
             }
-            else if (selectedCardCount == 2 && index != selectedCard1Index)
+            else if (selectedCardCount == 1 && index != selectedCard1Index)
             {
+                selectedCardCount++;
                 //Move To Selected Position 2
                 MoveCard2ToPosition(index, selectedPosition2, cardsInHand[index].transform);
                 return cardsInHand[index].GetComponentAtIndex(1);

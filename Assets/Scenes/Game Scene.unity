@@ -5814,7 +5814,7 @@ PrefabInstance:
     - target: {fileID: 2229647336694770922, guid: 5f30ef53536cc8b4694232906fbc92d4, type: 3}
       propertyPath: Gun
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 2082520134}
     - target: {fileID: 2229647336694770922, guid: 5f30ef53536cc8b4694232906fbc92d4, type: 3}
       propertyPath: blur
       value: 
@@ -5957,7 +5957,7 @@ PrefabInstance:
       objectReference: {fileID: 694210906}
     - target: {fileID: 2981733723500107123, guid: 5f30ef53536cc8b4694232906fbc92d4, type: 3}
       propertyPath: knifeBloodlossAdd
-      value: 1
+      value: 0.05
       objectReference: {fileID: 0}
     - target: {fileID: 2981733723500107123, guid: 5f30ef53536cc8b4694232906fbc92d4, type: 3}
       propertyPath: shieldBloodlossReduce
@@ -9355,6 +9355,11 @@ GameObject:
 Transform:
   m_CorrespondingSourceObject: {fileID: 747330026808417893, guid: 21966fa850b76bc49aafea508c7ca3a0, type: 3}
   m_PrefabInstance: {fileID: 1685372748}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &2082520134 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6212194245458322113, guid: c02666dae0d27ee4bacd48a33933554e, type: 3}
+  m_PrefabInstance: {fileID: 1649983856}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &2126444669
 PrefabInstance:

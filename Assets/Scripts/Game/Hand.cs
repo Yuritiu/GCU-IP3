@@ -125,7 +125,7 @@ public class Hand : MonoBehaviour
             DisableCamera();
         }
     }
-
+    
     public void RemoveFinger(int num)
     {
         movedKnifeEnough = 0;

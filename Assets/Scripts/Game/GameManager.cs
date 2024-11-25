@@ -537,8 +537,8 @@ public class GameManager : MonoBehaviour
         //AI
         if (character == 1)
         {
-            aiHand.RemoveFinger(aiFingers);
             aiFingers--;
+            aiHand.RemoveFinger(aiFingers);
         }
         //Player
         else if (character == 2)
@@ -577,6 +577,8 @@ public class GameManager : MonoBehaviour
 
     public void CheckArmour(int character, int type)
     {
+        //print(playerArmour);
+
         //this ensures the armour stops the gun instead of the knife
         if (character == 1)
         {
@@ -628,12 +630,27 @@ public class GameManager : MonoBehaviour
                 {
                     if (type == 1)
                     {
+                        inKnifeAction = false;
                         ReduceHealth(character, type);
                     }
                 }
                 else if (playerArmour > 0)
                 {
-                    playerArmour--;
+                    if (!knife1used || !knife2used)
+                    {
+                        knife1used = false;
+                        knife2used = false;
+                        canCutFinger = false;
+                        inKnifeAction = false;
+                        playerArmour--;
+                    }
+                    else
+                    {
+                        numberOfKnifeCards--;
+                        knife2used = false;
+                        playerArmour--;
+                        ReduceHealth(character, type);
+                    }
                     return;
                 }
                 else if (type == 1)
@@ -647,6 +664,13 @@ public class GameManager : MonoBehaviour
             }
             else
             {
+                if (playerArmour == 2 && (knife1used && knife2used))
+                {
+                    knife1used = false;
+                    knife2used = false;
+                    canCutFinger = false;
+                    inKnifeAction = false;
+                }
                 if (playerArmour > 0)
                 {
                     playerArmour--;

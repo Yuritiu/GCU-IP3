@@ -44,7 +44,7 @@ public class Knife : MonoBehaviour
             if (AICardDrawSystem.Instance.selectedPosition1.childCount > 0)
             {
                 //print("checking knife 1");
-                if (AICardDrawSystem.Instance.selectedPosition1.GetChild(0).name.Contains("knife") && !GameManager.Instance.knife1used && GameManager.Instance.playerArmour == 0)
+                if (AICardDrawSystem.Instance.selectedPosition1.GetChild(0).name.Contains("knife") && !GameManager.Instance.knife1used)
                 {
                     GameManager.Instance.canCutFinger = true;
                     GameManager.Instance.knife1used = true;
@@ -55,7 +55,7 @@ public class Knife : MonoBehaviour
             if (AICardDrawSystem.Instance.selectedPosition2.childCount > 0)
             {
                 //print("checking knife 2");
-                if (AICardDrawSystem.Instance.selectedPosition2.GetChild(0).name.Contains("knife") && !GameManager.Instance.knife2used && GameManager.Instance.playerArmour == 0) 
+                if (AICardDrawSystem.Instance.selectedPosition2.GetChild(0).name.Contains("knife") && !GameManager.Instance.knife2used) 
                 {
                     GameManager.Instance.canCutFinger = true;
                     GameManager.Instance.knife2used = true;

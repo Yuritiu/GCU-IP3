@@ -83,7 +83,7 @@ public class ShootScript : MonoBehaviour
             if (rand == 0)
             {
                 //Shoots off your own finger
-                GameManager.Instance.ReduceHealth(2, 3);
+                GameManager.Instance.ReduceHealth(1, 3);
                 GameManager.Instance.gunBackfire.gameObject.SetActive(true);
             }
             else if (AiRandom <= GameManager.Instance.bullets)

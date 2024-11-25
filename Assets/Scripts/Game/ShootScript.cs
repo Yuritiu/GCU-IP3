@@ -57,25 +57,39 @@ public class ShootScript : MonoBehaviour
 
     private IEnumerator AiFire(GameObject gun)
     {
-        int randForBullet = UnityEngine.Random.Range(1, 7);
-
-        AiRandom = randForBullet;
-
-        //UnityEngine.Debug.Log("bullet " + GameManager.Instance.bullets);
-        //UnityEngine.Debug.Log("random " + AiRandom);
-
-        yield return new WaitForSeconds(1.5f);
-        firePressed = true;
-        gunAnim.Play("Airecoil");
-        if (AiRandom <= GameManager.Instance.bullets)
+        int rand = UnityEngine.Random.Range(0, 5);
+        //\/Debuging\/
+        //rand = 0;
+        //print(rand);
+        if (rand == 0)
         {
-            Flash.Play();
+            //Shoots off your own finger
+            GameManager.Instance.ReduceHealth(2, 3);
+            GameManager.Instance.gunBackfire.gameObject.SetActive(true);
         }
-        yield return new WaitForSeconds(delay);
-        if (AiRandom <= GameManager.Instance.bullets)
+        else
         {
-            GameManager.Instance.CheckArmour(2, 3);
-            GameManager.Instance.bullets = 1;
+
+            int randForBullet = UnityEngine.Random.Range(1, 7);
+
+            AiRandom = randForBullet;
+
+            //UnityEngine.Debug.Log("bullet " + GameManager.Instance.bullets);
+            //UnityEngine.Debug.Log("random " + AiRandom);
+
+            yield return new WaitForSeconds(1.5f);
+            firePressed = true;
+            gunAnim.Play("Airecoil");
+            if (AiRandom <= GameManager.Instance.bullets)
+            {
+                Flash.Play();
+            }
+            yield return new WaitForSeconds(delay);
+            if (AiRandom <= GameManager.Instance.bullets)
+            {
+                GameManager.Instance.CheckArmour(2, 3);
+                GameManager.Instance.bullets = 1;
+            }
         }
 
         GameManager.Instance.Gun.SetActive(true);
@@ -93,21 +107,34 @@ public class ShootScript : MonoBehaviour
 
     private IEnumerator Fire(GameObject gun)
     {
-        int randForBullet = UnityEngine.Random.Range(1, 7);
-
-        PRandom = randForBullet;
-
-        firePressed = true;
-        gunAnim.Play("recoil");
-        if (PRandom <= GameManager.Instance.bullets)
+        int rand = UnityEngine.Random.Range(0, 5);
+        //\/Debuging\/
+        //rand = 0;
+        //print(rand);
+        if (rand == 0)
         {
-            Flash.Play();
+            //Shoots off your own finger
+            GameManager.Instance.ReduceHealth(2, 3);
+            GameManager.Instance.gunBackfire.gameObject.SetActive(true);
         }
-        yield return new WaitForSeconds(delay);
-        if (PRandom <= GameManager.Instance.bullets)
+        else 
         {
-            GameManager.Instance.CheckArmour(1,3);
-            GameManager.Instance.bullets = 1;
+            int randForBullet = UnityEngine.Random.Range(1, 7);
+
+            PRandom = randForBullet;
+
+            firePressed = true;
+            gunAnim.Play("recoil");
+            if (PRandom <= GameManager.Instance.bullets)
+            {
+                Flash.Play();
+            }
+            yield return new WaitForSeconds(delay);
+            if (PRandom <= GameManager.Instance.bullets)
+            {
+                GameManager.Instance.CheckArmour(1,3);
+                GameManager.Instance.bullets = 1;
+            }
         }
 
         GameManager.Instance.playerGunActive = false;

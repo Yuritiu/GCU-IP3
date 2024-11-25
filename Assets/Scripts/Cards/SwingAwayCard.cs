@@ -9,10 +9,13 @@ public class SwingAwayCard : MonoBehaviour
     {
         //Skip AI Turn
         GameManager.Instance.aiSkippedTurns ++;
+    }
 
+    public void PlayCardForAI()
+    {
         int rand = Random.Range(0, 5);
         //\/Debuging\/
-        //rand = 0;
+        rand = 0;
         //print(rand);
         if (rand == 0)
         {
@@ -21,10 +24,11 @@ public class SwingAwayCard : MonoBehaviour
             CardDrawSystem.Instance.ShuffleHand();
             GameManager.Instance.batBackfire.gameObject.SetActive(true);
         }
-    }
-    public void PlayCardForAI()
-    {
-        //Skip Players Turn
-        GameManager.Instance.playerSkippedTurns++;
+
+        else
+        {
+            //Skip Players Turn
+            GameManager.Instance.playerSkippedTurns++;
+        }
     }
 }

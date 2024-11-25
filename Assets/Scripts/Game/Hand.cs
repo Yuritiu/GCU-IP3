@@ -120,7 +120,7 @@ public class Hand : MonoBehaviour
             GameManager.Instance.knife1used = false;
             GameManager.Instance.knife2used = false;
             GameManager.Instance.inKnifeAction = false;
-            GameManager.Instance.canCutFinger= false;
+            GameManager.Instance.canCutFinger = false;
             GameManager.Instance.numberOfKnifeCards = 0;
             DisableCamera();
         }

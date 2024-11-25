@@ -161,7 +161,7 @@ public class GameManager : MonoBehaviour
 
     public void NextTurn()
     {
-        print("NEXT TURN");
+        //print("NEXT TURN");
 
         if (!canPlay)
             return;

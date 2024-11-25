@@ -284,10 +284,10 @@ public class CardDrawSystem : MonoBehaviour
             // Updates what cards are banned
             switch (index)
             {
-                case 0: card1 = true; break;
-                case 1: card2 = true; break;
-                case 2: card3 = true; break;
-                case 3: card4 = true; break;
+                case 0: card1 = false; break;
+                case 1: card2 = false; break;
+                case 2: card3 = false; break;
+                case 3: card4 = false; break;
             }
         }
     }
@@ -645,7 +645,10 @@ public class CardDrawSystem : MonoBehaviour
         int rand = UnityEngine.Random.Range(0, cardsInCurrentHand);
 
         //print(rand);
-
+        //print(card1);
+        //print(card2);
+        //print(card3);
+        //print(card4);
         //checks what card to ban
         if(card1 == true)
         {

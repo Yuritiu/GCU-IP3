@@ -15,7 +15,7 @@ public class SwingAwayCard : MonoBehaviour
     {
         int rand = Random.Range(0, 5);
         //\/Debuging\/
-        rand = 0;
+        //rand = 0;
         //print(rand);
         if (rand == 0)
         {

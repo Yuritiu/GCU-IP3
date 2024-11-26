@@ -114,6 +114,7 @@ public class Hand : MonoBehaviour
 
     public void CheckForSecondAction()
     {
+        //print(GameManager.Instance.numberOfKnifeCards);
         GameManager.Instance.numberOfKnifeCards--;
         //print(GameManager.Instance.numberOfKnifeCards);
         if (GameManager.Instance.numberOfKnifeCards >= 1)

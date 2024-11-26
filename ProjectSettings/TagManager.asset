@@ -10,6 +10,8 @@ TagManager:
   - CardInfoText
   - Crosshair
   - Rulebook
+  - PlayerGun
+  - AiGun
   layers:
   - Default
   - TransparentFX

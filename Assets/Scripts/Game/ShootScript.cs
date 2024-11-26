@@ -15,6 +15,7 @@ public class ShootScript : MonoBehaviour
     public int AiRandom;
     public bool PlayerShot;
     public bool AiShot;
+    public string name;
     
 
     private void Start()
@@ -24,16 +25,16 @@ public class ShootScript : MonoBehaviour
 
     private void Awake()
     {
-        if (gameObject.name == "Ai Gun")
+        if (name == "Ai Gun")
         {
+            //print("instanceed1");
             instance1 = this;
         }
-
-        if(gameObject.name == "Player Gun")
+        else
         {
             instance2 = this;
         }
-            
+
     }
 
     private void OnEnable()
@@ -46,7 +47,7 @@ public class ShootScript : MonoBehaviour
     }
     private void Update()
     {
-        if (gameObject.name == "Player Gun" && Input.GetMouseButtonDown(0) && firePressed == false)
+        if (name == "Player Gun" && Input.GetMouseButtonDown(0) && firePressed == false)
         {
             gunAnim = GetComponent<Animator>();
             StartCoroutine(Fire(gameObject));
@@ -113,9 +114,10 @@ public class ShootScript : MonoBehaviour
 
     private IEnumerator Fire(GameObject gun)
     {
+        //print("before null check");
         if (this != null)
         {
-
+            //print("not null");
             int rand = UnityEngine.Random.Range(0, 5);
             //\/Debuging\/
             //rand = 0;
@@ -155,10 +157,10 @@ public class ShootScript : MonoBehaviour
             if (GameManager.Instance.has2Guns == false)
             {
                 GameManager.Instance.inGunAction = false;
+                PlayerShot = false;
             }
             gunAnim.Play("GunPause");
             firePressed = false;
-            PlayerShot = false;
         }
     }
 }

@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
+using System.Runtime.InteropServices.WindowsRuntime;
 using TMPro;
 using Unity.Burst.CompilerServices;
 using Unity.Services.Analytics;
@@ -452,12 +453,15 @@ public class GameManager : MonoBehaviour
 
     public void PlayerRoulette()
     {
+        //print("before null check");
+
         if (ShootScript.instance2 != null)
         {
+            //print("not null");
             timesToShoot++;
             ShootScript.instance2.PlayerShot = true;
             inGunAction = true;
-            StartCoroutine(WaitForGun(AIGun));
+            StartCoroutine(WaitForGun(PlayerGun));
         }
     }
 
@@ -467,12 +471,13 @@ public class GameManager : MonoBehaviour
         {
             inGunAction = true;
             ShootScript.instance1.AiShot = true;
-            StartCoroutine(WaitForGun(PlayerGun));
+            StartCoroutine(WaitForGun(AIGun));
         }
     }
 
     IEnumerator WaitForGun(GameObject gun)
     {
+        //print(gun.name);
         yield return new WaitForSeconds(1f);
         Gun.SetActive(false);
 
@@ -488,19 +493,19 @@ public class GameManager : MonoBehaviour
             PlayerRoulette();
         }
 
-        else if (gun.name == "Ai Gun" && !playerGunActive && !aiGunActive)
+        else if (gun.name == "Ai Gun" && !ShootScript.instance2.PlayerShot && !aiGunActive)
         {
             has2Guns = false;
             aiGunActive = true;
             gun.SetActive(true);
         }
 
-        else if (gun.name == "Ai Gun" && playerGunActive)
+        else if (gun.name == "Ai Gun" && ShootScript.instance2.PlayerShot)
         {
             AiRoulette();
         }
         
-        else if (gun.name == "Ai Gun" && !playerGunActive && aiGunActive)
+        else if (gun.name == "Ai Gun" && !ShootScript.instance2.PlayerShot && aiGunActive)
         {
             has2Guns = true;
             AiRoulette();
@@ -614,6 +619,7 @@ public class GameManager : MonoBehaviour
             {
                 if (playerHasGun && playerHasKnife)
                 {
+                    inGunAction = false;
                     if (type == 1)
                     {
                         ReduceHealth(character, type);
@@ -622,6 +628,7 @@ public class GameManager : MonoBehaviour
                 }
                 else if (aiArmour > 0)
                 {
+                    inGunAction = false;
                     aiArmour--;
                     return;
                 }
@@ -636,14 +643,17 @@ public class GameManager : MonoBehaviour
             }
             else
             {
-                if (aiArmour > 0)
+                if (aiArmour == 2)
                 {
+                    inGunAction = false;
+                    inKnifeAction = false;
                     aiArmour--;
                     return;
                 }
                 else if (type == 1)
                 {
                     ReduceHealth(character, type);
+                    return;
                 }
                 else if (type == 3)
                 {
@@ -657,7 +667,7 @@ public class GameManager : MonoBehaviour
             {
                 if (aiHasGun && aiHasKnife)
                 {
-                    print("made it");
+                    inGunAction = false;
                     if (type == 1)
                     {
                         ReduceHealth(character, type);
@@ -666,6 +676,7 @@ public class GameManager : MonoBehaviour
                 }
                 else if (type == 3)
                 {
+                    inGunAction = false;
                     playerArmour--;
                     return;
                 }
@@ -687,18 +698,13 @@ public class GameManager : MonoBehaviour
             }
             else
             {
-                if (playerArmour == 2 && (knife1used && knife2used))
+                if (playerArmour == 2)
                 {
                     knife1used = false;
                     knife2used = false;
                     canCutFinger = false;
                     inKnifeAction = false;
                     playerArmour = 0;
-                }
-                else if (playerArmour > 0)
-                {
-                    playerArmour--;
-                    return;
                 }
                 else if (type == 1)
                 {

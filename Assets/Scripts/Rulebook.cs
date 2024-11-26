@@ -55,13 +55,11 @@ public class Rulebook : MonoBehaviour
             {
                 if (!inHand)
                 {
-                    Debug.Log("Picked up the rulebook.");
                     StartCoroutine(MoveRulebook(originalPosition, targetPosition, originalRotation, targetRotation));
                     EnableObjects();
                 }
                 else
                 {
-                    Debug.Log("Returning the rulebook to its original position.");
                     StartCoroutine(MoveRulebook(targetPosition, originalPosition, targetRotation, originalRotation));
                     DisableObjects();
                 }
@@ -141,7 +139,6 @@ public class Rulebook : MonoBehaviour
             pages[currentPage].SetActive(false); 
             currentPage++; 
             pages[currentPage].SetActive(true); 
-            Debug.Log("Turned to page: " + (currentPage + 1));
         }
     }
 
@@ -152,7 +149,6 @@ public class Rulebook : MonoBehaviour
             pages[currentPage].SetActive(false);
             currentPage--; 
             pages[currentPage].SetActive(true); 
-            Debug.Log("Turned to page: " + (currentPage + 1));
         }
     }
 }

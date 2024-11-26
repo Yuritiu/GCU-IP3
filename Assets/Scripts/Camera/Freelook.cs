@@ -27,9 +27,6 @@ public class Freelook : MonoBehaviour
         //Hide The Cursor On Game Start
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
-
-        //TODO: ADD CUSTOM CURSOR
-        //Cursor.SetCursor()
     }
 
     void Update()

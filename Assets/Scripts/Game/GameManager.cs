@@ -448,9 +448,12 @@ public class GameManager : MonoBehaviour
 
     public void AiRoulette()
     {
-        inGunAction = true;
-        ShootScript.instance1.AiShot = true;
-        StartCoroutine(WaitForGun(PlayerGun));
+        if(ShootScript.instance1 != null)
+        {
+            inGunAction = true;
+            ShootScript.instance1.AiShot = true;
+            StartCoroutine(WaitForGun(PlayerGun));
+        }
     }
 
     IEnumerator WaitForGun(GameObject gun)
@@ -707,11 +710,10 @@ public class GameManager : MonoBehaviour
         }
     }
 
-
     public void PlayCigarCard(int player)
     {
         //Player Functions
-        if (player == 1)
+        if (player == 2)
         {
             if (cardsOnTable1 != null && cardsOnTable2 != null)
             {
@@ -732,7 +734,7 @@ public class GameManager : MonoBehaviour
                 }
             }
         }
-        else if (player == 2)
+        else if (player == 1)
         {
             if (cardsOnTable3 != null && cardsOnTable4 != null)
             {

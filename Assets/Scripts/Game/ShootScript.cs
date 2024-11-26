@@ -59,6 +59,7 @@ public class ShootScript : MonoBehaviour
     {
         if (this != null)
         {
+            AiShot = true;
 
             int rand = UnityEngine.Random.Range(0, 5);
             //\/Debuging\/
@@ -117,6 +118,8 @@ public class ShootScript : MonoBehaviour
         //print("before null check");
         if (this != null)
         {
+            PlayerShot = true;
+
             //print("not null");
             int rand = UnityEngine.Random.Range(0, 5);
             //\/Debuging\/

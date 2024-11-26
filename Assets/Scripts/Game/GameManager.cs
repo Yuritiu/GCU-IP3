@@ -454,30 +454,21 @@ public class GameManager : MonoBehaviour
 
     public void PlayerRoulette()
     {
-        //print("before null check");
-
-        if (ShootScript.instance2 != null)
-        {
-            //print("not null");
-            timesToShoot++;
-            ShootScript.instance2.PlayerShot = true;
-            inGunAction = true;
-            StartCoroutine(WaitForGun(PlayerGun));
-        }
+        timesToShoot++;
+        inGunAction = true;
+        StartCoroutine(WaitForGun(PlayerGun));
     }
 
     public void AiRoulette()
     {
-        if(ShootScript.instance1 != null)
-        {
-            inGunAction = true;
-            ShootScript.instance1.AiShot = true;
-            StartCoroutine(WaitForGun(AIGun));
-        }
+        inGunAction = true;
+        StartCoroutine(WaitForGun(AIGun));
     }
 
     IEnumerator WaitForGun(GameObject gun)
     {
+        //print("scooby snack");
+
         //print(gun.name);
         yield return new WaitForSeconds(1f);
         Gun.SetActive(false);
@@ -497,7 +488,6 @@ public class GameManager : MonoBehaviour
         }
         else if (gun.name == "Player Gun" && playerGunActive)
         {
-            print("scooby snack");
             has2Guns = true;
             PlayerRoulette();
         }

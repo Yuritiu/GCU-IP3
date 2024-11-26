@@ -717,7 +717,7 @@ public class GameManager : MonoBehaviour
     public void PlayCigarCard(int player)
     {
         //Player Functions
-        if (player == 2)
+        if (player == 1)
         {
             if (cardsOnTable1 != null && cardsOnTable2 != null)
             {
@@ -738,7 +738,7 @@ public class GameManager : MonoBehaviour
                 }
             }
         }
-        else if (player == 1)
+        else if (player == 2)
         {
             if (cardsOnTable3 != null && cardsOnTable4 != null)
             {

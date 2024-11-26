@@ -4,20 +4,19 @@ using UnityEngine;
 
 public class SwingAwayCard : MonoBehaviour
 {
-    //Called From GameManager
-    public void PlayCardForPlayer()
+    private GameManager gameManager;
+
+    void Start()
     {
-        //Skip AI Turn
-        GameManager.Instance.aiSkippedTurns ++;
+        gameManager = FindAnyObjectByType<GameManager>();
     }
 
     public void PlayCardForAI()
     {
-        int rand = Random.Range(0, 5);
-        //\/Debuging\/
-        //rand = 0;
-        //print(rand);
-        if (rand == 0)
+        float chance = gameManager.statusPercent;
+        float roll = UnityEngine.Random.Range(0f, 100f);
+
+        if (roll <= chance)
         {
             //shuffles cards and blurs them
             GameManager.Instance.blur.SetActive(true);

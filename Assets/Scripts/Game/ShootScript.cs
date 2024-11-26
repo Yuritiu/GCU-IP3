@@ -16,11 +16,14 @@ public class ShootScript : MonoBehaviour
     public bool PlayerShot;
     public bool AiShot;
     public string name;
-    
+
+    private GameManager gameManager;
+
 
     private void Start()
     {
         gunAnim = GetComponent<Animator>();
+        gameManager = FindAnyObjectByType<GameManager>();
     }
 
     private void Awake()
@@ -61,11 +64,6 @@ public class ShootScript : MonoBehaviour
         {
             AiShot = true;
 
-            int rand = UnityEngine.Random.Range(0, 5);
-            //\/Debuging\/
-            //rand = 0;
-            //print(rand);
-           
             int randForBullet = UnityEngine.Random.Range(1, 7);
 
             AiRandom = randForBullet;
@@ -81,7 +79,11 @@ public class ShootScript : MonoBehaviour
                 Flash.Play();
             }
             yield return new WaitForSeconds(delay);
-            if (rand == 0)
+
+            float chance = gameManager.statusPercent;
+            float roll = UnityEngine.Random.Range(0f, 100f);
+
+            if (roll <= chance)
             {
                 //Shoots off your own finger
                 GameManager.Instance.ReduceHealth(1, 3);
@@ -122,9 +124,6 @@ public class ShootScript : MonoBehaviour
 
             //print("not null");
             int rand = UnityEngine.Random.Range(0, 5);
-            //\/Debuging\/
-            //rand = 0;
-            //print(rand);
             
             int randForBullet = UnityEngine.Random.Range(1, 7);
 

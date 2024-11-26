@@ -1,22 +1,25 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public class CigarCard : MonoBehaviour
 {
-    //!- Coded By Charlie -!
+    private GameManager gameManager;
 
-    //Called From GameManager
+    void Start()
+    {
+        gameManager = FindAnyObjectByType<GameManager>();
+    }
     public void PlayCardForPlayer()
     {
         //Clone Players Second Card
         StartCoroutine(GameManager.Instance.WaitToCompareCards(1, 2));
 
-        int rand = Random.Range(0, 5);
-        //\/Debuging\/
-        //rand = 0;
-        //print(rand);
-        if (rand == 0)
+        float chance = gameManager.statusPercent;
+        float roll = UnityEngine.Random.Range(0f, 100f);
+
+        if (roll <= chance)
         {
             //skips players next turn
             GameManager.Instance.playerSkippedTurns++;
@@ -28,12 +31,11 @@ public class CigarCard : MonoBehaviour
     {
         //Clone AI's Second Card
         StartCoroutine(GameManager.Instance.WaitToCompareCards(2, 2));
-       
-        int rand = Random.Range(0, 5);
-        //\/Debuging\/
-        //rand = 0;
-        //print(rand);
-        if (rand == 0)
+
+        float chance = gameManager.statusPercent;
+        float roll = UnityEngine.Random.Range(0f, 100f);
+
+        if (roll <= chance)
         {
             //skips players next turn
             GameManager.Instance.aiSkippedTurns++;

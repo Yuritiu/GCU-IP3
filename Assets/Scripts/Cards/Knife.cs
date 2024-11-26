@@ -2,10 +2,18 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using System;
 
 public class Knife : MonoBehaviour
 {
-    //Called From GameManager
+
+    private GameManager gameManager;
+
+    void Start()
+    {
+        gameManager = FindAnyObjectByType<GameManager>();
+    }
+
     public void PlayCardForPlayer()
     {
         StartCoroutine(PlayPlayerKnife());
@@ -32,13 +40,12 @@ public class Knife : MonoBehaviour
         //Check If Its The Tutorial First
         if (!GameManager.Instance.isTutorial)
         {
-            int rand = Random.Range(0, 5);
-            //\/Debuging\/
-            //rand = 0;
-            //print(rand);
-            if (rand == 0)
+            float chance = gameManager.statusPercent;
+            float roll = UnityEngine.Random.Range(0f, 100f);
+
+            if (roll <= chance)
             {
-                //makes 1 card not usable for 1 turn
+                // akes 1 card not usable for 1 turn
                 AICardDrawSystem.Instance.StopOneCard();
             }
 
@@ -78,7 +85,7 @@ public class Knife : MonoBehaviour
         //Check If Its The Tutorial First
         if (!GameManager.Instance.isTutorial)
         {
-            int rand = Random.Range(0, 5);
+            int rand = UnityEngine.Random.Range(0, 5);
             //\/Debuging\/
             //rand = 0;
             //print(rand);

@@ -1,16 +1,23 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public class DoubleBullets : MonoBehaviour
 {
+    private GameManager gameManager;
+
+    void Start()
+    {
+        gameManager = FindAnyObjectByType<GameManager>();
+    }
+
     public void PlayCardForPlayer()
     {
-        int rand = Random.Range(0, 5);
-        //\/Debuging\/
-        //rand = 0;
-        //print(rand);
-        if (rand == 0)
+        float chance = gameManager.statusPercent;
+        float roll = UnityEngine.Random.Range(0f, 100f);
+
+        if (roll <= chance)
         {
             //loads blank (does nothing)
             GameManager.Instance.twoInChamberBackfire.gameObject.SetActive(true);
@@ -21,11 +28,10 @@ public class DoubleBullets : MonoBehaviour
 
     public void PlayCardForAI()
     {
-        int rand = Random.Range(0, 5);
-        //\/Debuging\/
-        //rand = 0;
-        //print(rand);
-        if (rand == 0)
+        float chance = gameManager.statusPercent;
+        float roll = UnityEngine.Random.Range(0f, 100f);
+
+        if (roll <= chance)
         {
             //loads blank (does nothing)
             return;

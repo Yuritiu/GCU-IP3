@@ -6576,6 +6576,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1863662005}
     - target: {fileID: 2229647336694770922, guid: 5f30ef53536cc8b4694232906fbc92d4, type: 3}
+      propertyPath: statusPercent
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 2229647336694770922, guid: 5f30ef53536cc8b4694232906fbc92d4, type: 3}
       propertyPath: armourBackfire
       value: 
       objectReference: {fileID: 1356642036}

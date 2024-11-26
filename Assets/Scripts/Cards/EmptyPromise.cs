@@ -1,17 +1,23 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public class EmptyPromise : MonoBehaviour
 {
+    private GameManager gameManager;
+
+    void Start()
+    {
+        gameManager = FindAnyObjectByType<GameManager>();
+    }
+
     public void PlayCardForPlayer()
     {
-        //Places Card But Does Nothing
-        int rand = Random.Range(0, 5);
-        //\/Debuging\/
-        //rand = 0;
-        //print(rand);
-        if (rand == 0)
+        float chance = gameManager.statusPercent;
+        float roll = UnityEngine.Random.Range(0f, 100f);
+
+        if (roll <= chance)
         {
             //draw 2 cards
             GameManager.Instance.playerDraw2Cards = true;
@@ -21,9 +27,10 @@ public class EmptyPromise : MonoBehaviour
     }
     public void PlayCardForAI()
     {
-        //Places AI's Card But Does Nothing
-        int rand = Random.Range(0, 5);
-        if (rand == 0)
+        float chance = gameManager.statusPercent;
+        float roll = UnityEngine.Random.Range(0f, 100f);
+
+        if (roll <= chance)
         {
             //draw 2 cards
             GameManager.Instance.aiDraw2Cards = true;

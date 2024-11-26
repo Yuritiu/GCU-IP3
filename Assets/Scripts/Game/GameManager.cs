@@ -60,6 +60,9 @@ public class GameManager : MonoBehaviour
     [HideInInspector] public int aiFingers;
     [HideInInspector] public int playerFingers;
 
+    [Header("Status Effect % Chance")]
+    [SerializeField] public float statusPercent = 20f;
+
     [Header("Gun")]
     [SerializeField] GameObject PlayerGun;
     [SerializeField] GameObject AIGun;
@@ -129,6 +132,8 @@ public class GameManager : MonoBehaviour
 
     [Header("Camera Movement Variables")]
     [HideInInspector] public bool isActionInProgress = false;
+
+
 
     [SerializeField] private AudioClip musictest;
 

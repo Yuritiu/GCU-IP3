@@ -302,7 +302,7 @@ public class GameManager : MonoBehaviour
             //And The Card's Hierarchy Mathches The 'Skip Next Turn' Card
             cardsOnTable1 = CardDrawSystem.Instance.selectedPosition1.GetChild(0).gameObject.GetComponentAtIndex(1);
 
-            cardsOnTable1.SendMessage("PlayCardForPlayer");      
+            cardsOnTable1.SendMessage("PlayCardForPlayer");
 
             CardDrawSystem.Instance.selectedCardCount--;
         }
@@ -320,17 +320,21 @@ public class GameManager : MonoBehaviour
         {
             //For This To Work, Please Make Sure Card's Logic Is Executed In A Public Function Called PlayCard
             //And The Card's Hierarchy Mathches The 'Skip Next Turn' Card
-            cardsOnTable3.SendMessage("PlayCardForAI");
-
-            AICardDrawSystem.Instance.selectedCardCount--;
+            if (!cardsOnTable3.gameObject.name.Contains("Discarded"))
+            {
+                cardsOnTable3.SendMessage("PlayCardForAI");
+                AICardDrawSystem.Instance.selectedCardCount--;
+            }
         }
         if (cardsOnTable4 != null)
         {
             //For This To Work, Please Make Sure Card's Logic Is Executed In A Public Function Called PlayCard
             //And The Card's Hierarchy Mathches The 'Skip Next Turn' Card
-            cardsOnTable4.SendMessage("PlayCardForAI");
-
-            AICardDrawSystem.Instance.selectedCardCount--;
+            if (!cardsOnTable4.gameObject.name.Contains("Discarded"))
+            {
+                cardsOnTable4.SendMessage("PlayCardForAI");
+                AICardDrawSystem.Instance.selectedCardCount--;
+            }
         }
 
         canMoveOn = true;
@@ -730,13 +734,13 @@ public class GameManager : MonoBehaviour
                 //Card To Be Cloned Is In Slot 2
                 if (cardObject1.name.Contains("cigar") && !cardObject2.name.Contains("cigar"))
                 {
-                    //Debug.Log("Called Function 1");
+                    Debug.Log("Called Function 1");
                     cardObject2.SendMessage("PlayCardForPlayer");
                 }
                 //Card To Be Cloned Is In Slot 1
                 if (cardObject2.name.Contains("cigar") && !cardObject1.name.Contains("cigar"))
                 {
-                    //Debug.Log("Called Function 2");
+                    Debug.Log("Called Function 2");
                     cardObject1.SendMessage("PlayCardForPlayer");
                 }
             }
@@ -752,14 +756,14 @@ public class GameManager : MonoBehaviour
                 //Card To Be Cloned Is In Slot 4
                 if (cardObject3.name.Contains("Cigar") && !cardObject4.name.Contains("Cigar"))
                 {
-                    //Debug.Log("Called Function 3");
+                    Debug.Log("Called Function 3");
                     aiClonedCard = cardObject4.GetComponentAtIndex(1);
                     aiClonedCard.SendMessage("PlayCardForAI");
                 }
                 //Card To Be Cloned Is In Slot 3
                 if (cardObject4.name.Contains("Cigar") && !cardObject3.name.Contains("Cigar"))
                 {
-                    //Debug.Log("Called Function 4");
+                    Debug.Log("Called Function 4");
                     aiClonedCard = cardObject3.GetComponentAtIndex(1);
                     aiClonedCard.SendMessage("PlayCardForAI");
                 }

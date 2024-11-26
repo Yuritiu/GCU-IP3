@@ -17,12 +17,17 @@ public class Gun : MonoBehaviour
     {
         GameManager.Instance.playerHasGun = true;
 
-       
         GameManager.Instance.PlayerRoulette();
         GameManager.Instance.inGunAction = true;
     }
 
     public void PlayCardForAI()
+    {
+        GameManager.Instance.aiHasGun = true;
+        GameManager.Instance.AiRoulette();
+    }
+
+    public void CloneGunCardForAI()
     {
         GameManager.Instance.aiHasGun = true;
         GameManager.Instance.AiRoulette();

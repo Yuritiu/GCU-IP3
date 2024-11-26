@@ -38,18 +38,17 @@ public class ShootScript : MonoBehaviour
 
     private void OnEnable()
     {
-        gunAnim = GetComponent<Animator>();
-
         if (gameObject.name == "Ai Gun")
         {
+            gunAnim = GetComponent<Animator>();
             StartCoroutine(AiFire(gameObject));
         }
     }
     private void Update()
     {
-        gunAnim = GetComponent<Animator>();
         if (gameObject.name == "Player Gun" && Input.GetMouseButtonDown(0) && firePressed == false)
         {
+            gunAnim = GetComponent<Animator>();
             StartCoroutine(Fire(gameObject));
         }
     }
@@ -95,7 +94,6 @@ public class ShootScript : MonoBehaviour
                     GameManager.Instance.bullets = 1;
                 }
             }
-           
 
             GameManager.Instance.Gun.SetActive(true);
             GameManager.Instance.aiGunActive = false;
@@ -112,7 +110,6 @@ public class ShootScript : MonoBehaviour
             AiShot = false;
         }
     }
-
 
     private IEnumerator Fire(GameObject gun)
     {

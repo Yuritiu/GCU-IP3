@@ -444,10 +444,13 @@ public class GameManager : MonoBehaviour
 
     public void PlayerRoulette()
     {
-        timesToShoot++;
-        ShootScript.instance2.PlayerShot = true;
-        inGunAction = true;
-        StartCoroutine(WaitForGun(AIGun));
+        if (ShootScript.instance2 != null)
+        {
+            timesToShoot++;
+            ShootScript.instance2.PlayerShot = true;
+            inGunAction = true;
+            StartCoroutine(WaitForGun(AIGun));
+        }
     }
 
     public void AiRoulette()

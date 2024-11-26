@@ -496,6 +496,7 @@ public class GameManager : MonoBehaviour
         }
         else if (gun.name == "Player Gun" && playerGunActive)
         {
+            print("scooby snack");
             has2Guns = true;
             PlayerRoulette();
         }

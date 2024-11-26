@@ -70,6 +70,11 @@ public class CardDrawSystem : MonoBehaviour
     [HideInInspector] public bool canPlay = true;
     [HideInInspector] CardSelection cardSelection;
 
+    private IntroTutorial introTutorial;
+    private bool stepCompleted2 = false;
+    private bool stepCompleted3 = false;
+    private bool stepCompleted4 = false;
+
     private void Awake()
     {
         Instance = this;
@@ -96,6 +101,7 @@ public class CardDrawSystem : MonoBehaviour
         }
 
         StartGame();
+        introTutorial = FindObjectOfType<IntroTutorial>();
     }
 
     void Update()
@@ -165,6 +171,12 @@ public class CardDrawSystem : MonoBehaviour
                         //Check If It's The Players Turn And Atleast 1 Card Is Selected
                         canPlay = false;
                         GameManager.Instance.PlayHand();
+
+                        if (introTutorial != null && !stepCompleted4)
+                        {
+                            introTutorial.CompleteStep(4);
+                            stepCompleted4 = true;
+                        }
                     }
                 }
             }
@@ -289,6 +301,12 @@ public class CardDrawSystem : MonoBehaviour
                 case 2: card3 = false; break;
                 case 3: card4 = false; break;
             }
+
+            if (introTutorial != null && !stepCompleted2)
+            {
+                introTutorial.CompleteStep(2);
+                stepCompleted2 = true;
+            }
         }
     }
 
@@ -309,6 +327,12 @@ public class CardDrawSystem : MonoBehaviour
             case 1: card2 = true; break;
             case 2: card3 = true; break;
             case 3: card4 = true; break;
+        }
+
+        if (introTutorial != null && !stepCompleted3)
+        {
+            introTutorial.CompleteStep(3);
+            stepCompleted3 = true;
         }
     }
 

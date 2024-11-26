@@ -22,6 +22,9 @@ public class Rulebook : MonoBehaviour
     public List<GameObject> objectsToEnable;
     public List<GameObject> objectsToDisable;
 
+    private IntroTutorial introTutorial;
+    private bool stepCompleted = false;
+
     void Start()
     {
         originalPosition = transform.position;
@@ -36,12 +39,15 @@ public class Rulebook : MonoBehaviour
         {
             obj.SetActive(false);
         }
+
+        introTutorial = FindObjectOfType<IntroTutorial>();
     }
 
     void Update()
     {
         if (Input.GetMouseButtonDown(0) && !isMoving)
         {
+
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             RaycastHit hit;
 
@@ -58,6 +64,12 @@ public class Rulebook : MonoBehaviour
                     Debug.Log("Returning the rulebook to its original position.");
                     StartCoroutine(MoveRulebook(targetPosition, originalPosition, targetRotation, originalRotation));
                     DisableObjects();
+                }
+
+                if (introTutorial != null && !stepCompleted)
+                {
+                    introTutorial.CompleteStep(1);
+                    stepCompleted = true;
                 }
             }
         }

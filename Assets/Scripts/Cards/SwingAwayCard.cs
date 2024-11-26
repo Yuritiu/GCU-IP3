@@ -28,7 +28,9 @@ public class SwingAwayCard : MonoBehaviour
         else
         {
             //Skip Players Turn
+            GameManager.Instance.playerSkippedTurnsText.enabled = true;
             GameManager.Instance.playerSkippedTurns++;
+            GameManager.Instance.playerSkippedTurnsText.text = "Skipped Players Turn";
         }
     }
 }

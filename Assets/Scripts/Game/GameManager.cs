@@ -73,6 +73,7 @@ public class GameManager : MonoBehaviour
     [Header("Skip Turn Variables")]
     [HideInInspector] public int aiSkippedTurns = 0;
     [HideInInspector] public int playerSkippedTurns = 0;
+    [SerializeField] public TextMeshProUGUI playerSkippedTurnsText;
 
     [Header("check what weapons plays have")]
     [HideInInspector] public bool aiHasGun = false;
@@ -136,6 +137,7 @@ public class GameManager : MonoBehaviour
     {
         Time.timeScale = 1f;
         originalCameraPosition.transform.position = MainCamera.transform.position;
+        playerSkippedTurnsText.enabled = false;
         //SFXManager.instance.PlayMusicClip(musictest, transform, 1f);
 
         await UnityServices.InitializeAsync();
@@ -252,6 +254,8 @@ public class GameManager : MonoBehaviour
             }
             else
             {
+                playerSkippedTurnsText.text = "";
+                playerSkippedTurnsText.enabled = false;
                 TutorialCardDraw.Instance.isPlayersTurn = true;
 
                 //Debug

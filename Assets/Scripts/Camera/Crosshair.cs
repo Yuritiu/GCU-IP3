@@ -50,7 +50,7 @@ public class Crosshair : MonoBehaviour
         //Raycast To Mouse Position
         if (Physics.Raycast(ray, out hit))
         {
-            if ((hit.transform.CompareTag("Opponent") && GameManager.Instance.canPlay) || (hit.transform.CompareTag("Card") && GameManager.Instance.canPlay))
+            if ((hit.transform.CompareTag("Opponent") && GameManager.Instance.canPlay) || (hit.transform.CompareTag("Card") && GameManager.Instance.canPlay) || hit.transform.CompareTag("Rulebook") && GameManager.Instance.canPlay)
             {
                 //Enables Inner Crosshair When Hovering
                 HoverScale(true);

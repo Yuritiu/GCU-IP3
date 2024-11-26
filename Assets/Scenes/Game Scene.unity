@@ -6654,6 +6654,10 @@ PrefabInstance:
       propertyPath: twoInChamberBackfire
       value: 
       objectReference: {fileID: 104509135}
+    - target: {fileID: 2229647336694770922, guid: 5f30ef53536cc8b4694232906fbc92d4, type: 3}
+      propertyPath: originalCameraPosition
+      value: 
+      objectReference: {fileID: 565869790}
     - target: {fileID: 2981733723500107123, guid: 5f30ef53536cc8b4694232906fbc92d4, type: 3}
       propertyPath: ge
       value: 

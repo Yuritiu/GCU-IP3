@@ -481,6 +481,13 @@ public class GameManager : MonoBehaviour
         yield return new WaitForSeconds(1f);
         Gun.SetActive(false);
 
+        bool PlayerShot = false;
+
+        if(ShootScript.instance2 != null)
+        {
+            PlayerShot = ShootScript.instance2.PlayerShot;
+        }
+        
         if (gun.name == "Player Gun" && !playerGunActive)
         {
             has2Guns = false;
@@ -493,19 +500,19 @@ public class GameManager : MonoBehaviour
             PlayerRoulette();
         }
 
-        else if (gun.name == "Ai Gun" && !ShootScript.instance2.PlayerShot && !aiGunActive)
+        else if (gun.name == "Ai Gun" && !PlayerShot && !aiGunActive)
         {
             has2Guns = false;
             aiGunActive = true;
             gun.SetActive(true);
         }
 
-        else if (gun.name == "Ai Gun" && ShootScript.instance2.PlayerShot)
+        else if (gun.name == "Ai Gun" && PlayerShot)
         {
             AiRoulette();
         }
         
-        else if (gun.name == "Ai Gun" && !ShootScript.instance2.PlayerShot && aiGunActive)
+        else if (gun.name == "Ai Gun" && !PlayerShot && aiGunActive)
         {
             has2Guns = true;
             AiRoulette();

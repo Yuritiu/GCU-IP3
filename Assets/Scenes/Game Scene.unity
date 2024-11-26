@@ -6557,7 +6557,7 @@ PrefabInstance:
     - target: {fileID: 2229647336694770922, guid: 5f30ef53536cc8b4694232906fbc92d4, type: 3}
       propertyPath: AIGun
       value: 
-      objectReference: {fileID: 2126444670}
+      objectReference: {fileID: 268935119}
     - target: {fileID: 2229647336694770922, guid: 5f30ef53536cc8b4694232906fbc92d4, type: 3}
       propertyPath: aiHand
       value: 
@@ -6597,7 +6597,7 @@ PrefabInstance:
     - target: {fileID: 2229647336694770922, guid: 5f30ef53536cc8b4694232906fbc92d4, type: 3}
       propertyPath: PlayerGun
       value: 
-      objectReference: {fileID: 268935119}
+      objectReference: {fileID: 2126444670}
     - target: {fileID: 2229647336694770922, guid: 5f30ef53536cc8b4694232906fbc92d4, type: 3}
       propertyPath: WinScreen
       value: 

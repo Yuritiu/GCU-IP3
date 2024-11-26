@@ -252,11 +252,12 @@ public class GameManager : MonoBehaviour
 
                 //Debug
                 CardDrawSystem.Instance.debugCurrentTurnText.text = ("Play Time");
+
+                playerSkippedTurnsText.text = "";
+                playerSkippedTurnsText.enabled = false;
             }
             else
             {
-                playerSkippedTurnsText.text = "";
-                playerSkippedTurnsText.enabled = false;
                 TutorialCardDraw.Instance.isPlayersTurn = true;
 
                 //Debug
@@ -792,12 +793,6 @@ public class GameManager : MonoBehaviour
     private void Update()
     {
         //print(playerFingers);
-
-        if(Input.GetKeyDown(KeyCode.Space))
-        {
-            EndGameLose();
-            EndGameWin();
-        }
 
         if (showddown == true && ShootScript.instance1.AiShot == false && ShootScript.instance2.PlayerShot == false)
         {

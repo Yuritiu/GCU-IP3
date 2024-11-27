@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class CardDeck : MonoBehaviour
@@ -25,10 +26,19 @@ public class CardDeck : MonoBehaviour
     [SerializeField] float cardStackOffset = 0.002f;
     [SerializeField] float currentDeckStackHeight;
 
+    [Header("Card Count Display")]
+    private TextMeshProUGUI cardCount;
+    [SerializeField] Camera playerCamera;
+
     private List<GameObject> visualDeck = new List<GameObject>();
 
     private bool reshuffling;
 
+    private void Start()
+    {
+        cardCount = GameObject.Find("CardCount").GetComponent<TextMeshProUGUI>();
+        UpdateCardCount();
+    }
     void Awake()
     {
         Instance = this;
@@ -42,12 +52,19 @@ public class CardDeck : MonoBehaviour
         InitializeDeck();
     }
 
+
     void Update()
     {
         if (deck.Count == 0 && !reshuffling)
         {
             reshuffling = true;
             GameManager.Instance.Showdown();
+        }
+
+        if (cardCount != null && playerCamera != null)
+        {
+            cardCount.transform.LookAt(playerCamera.transform);
+            cardCount.transform.Rotate(0, 180, 0);
         }
     }
 
@@ -79,11 +96,13 @@ public class CardDeck : MonoBehaviour
                     currentDeckStackHeight += cardStackOffset;
 
                     deck.Add(card.cardPrefab);
+                    UpdateCardCount();
                 }
             }
         }
 
         ShuffleDeck();
+        UpdateCardCount();
         //Debug.Log("Deck Created With " + deck.Count + " Cards.");
     }
 
@@ -127,6 +146,7 @@ public class CardDeck : MonoBehaviour
         //Remove The Drawn Card From The Deck
         deck.RemoveAt(0);
         RemoveCards(1);
+        UpdateCardCount();
 
         return card;
     }
@@ -145,6 +165,14 @@ public class CardDeck : MonoBehaviour
 
             //Remove The Destroyed Card From The List Of Visual Cards
             visualDeck.RemoveAt(visualDeck.Count - 1);
+        }
+    }
+
+    void UpdateCardCount()
+    {
+        if (cardCount != null)
+        {
+            cardCount.text = visualDeck.Count.ToString();
         }
     }
 }

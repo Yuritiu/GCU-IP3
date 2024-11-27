@@ -21,6 +21,9 @@ public class SettingsMenuManager : MonoBehaviour
     public Button videoButton;
     public Button audioButton;
 
+    [Header("Save Data References")]
+    public VideoSettingsManager videoSettingsManager;
+
     void Start()
     {
         gameButton.onClick.AddListener(() => ShowSubMenu(gameSubMenu));
@@ -36,6 +39,7 @@ public class SettingsMenuManager : MonoBehaviour
             if (settingsMenuParent.activeSelf)
             {
                 ToggleSettingsMenu();
+                videoSettingsManager.SaveSettings();
             }
         }
     }

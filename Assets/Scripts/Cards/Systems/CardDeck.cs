@@ -36,8 +36,17 @@ public class CardDeck : MonoBehaviour
 
     private void Start()
     {
-        cardCount = GameObject.Find("CardCount").GetComponent<TextMeshProUGUI>();
-        UpdateCardCount();
+        GameObject cardCountObject = GameObject.Find("CardCount");
+
+        if (cardCountObject != null)
+        {
+            cardCount = cardCountObject.GetComponent<TextMeshProUGUI>();
+            UpdateCardCount();
+        }
+        else
+        {
+            Debug.LogWarning("CardCount Display Not Found");
+        }
     }
     void Awake()
     {

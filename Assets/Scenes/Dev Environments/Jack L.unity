@@ -4680,7 +4680,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   initialCameraPosition: {fileID: 1489419469}
   targetCameraPosition: {fileID: 575952158}
-  transitionSpeed: 5
+  transitionSpeed: 4
   mouseSensitivity: 2
   transitionMinX: 90
   transitionMaxX: 90

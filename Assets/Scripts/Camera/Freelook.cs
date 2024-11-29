@@ -68,4 +68,37 @@ public class Freelook : MonoBehaviour
         
         transform.localRotation = Quaternion.Euler(currentXRotation, currentYRotation, 0f);
     }
+
+    public void SetXRotationSmooth(float targetXRotation, float smoothSpeed)
+    {
+        StopAllCoroutines();
+        StartCoroutine(SmoothXRotation(targetXRotation, smoothSpeed));
+    }
+
+
+    private IEnumerator SmoothXRotation(float targetXRotation, float smoothSpeed)
+    {
+        while (Mathf.Abs(currentXRotation - targetXRotation) > 0.01f)
+        {
+            currentXRotation = Mathf.Lerp(currentXRotation, targetXRotation, Time.deltaTime * smoothSpeed);
+            transform.localRotation = Quaternion.Euler(currentXRotation, currentYRotation, 0f);
+            yield return null;
+        }
+        currentXRotation = targetXRotation;
+        transform.localRotation = Quaternion.Euler(currentXRotation, currentYRotation, 0f);
+    }
+
+    public void SetXRotation(float xRotation, bool smooth = false, float smoothSpeed = .5f)
+    {
+        if (smooth)
+        {
+            SetXRotationSmooth(xRotation, smoothSpeed);
+        }
+        else
+        {
+            currentXRotation = xRotation;
+            transform.localRotation = Quaternion.Euler(currentXRotation, currentYRotation, 0f);
+        }
+    }
+
 }

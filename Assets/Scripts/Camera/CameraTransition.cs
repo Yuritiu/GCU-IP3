@@ -71,6 +71,7 @@ public class CameraTransition : MonoBehaviour
 
         if (freeLookScript != null)
         {
+            freeLookScript.SetXRotationSmooth(90f, transitionSpeed);
             freeLookScript.minX = transitionMinX;
             freeLookScript.maxX = transitionMaxX;
             freeLookScript.minY = transitionMinY;
@@ -85,14 +86,17 @@ public class CameraTransition : MonoBehaviour
         targetRotation = initialCameraPosition.rotation;
         initialMousePosition = Input.mousePosition;
 
+        // Smoothly set Freelook's X rotation
         if (freeLookScript != null)
         {
+            freeLookScript.SetXRotationSmooth(-20f, transitionSpeed);
             freeLookScript.minX = originalMinX;
             freeLookScript.maxX = originalMaxX;
             freeLookScript.minY = originalMinY;
             freeLookScript.maxY = originalMaxY;
         }
     }
+
 
 
     public void TriggerCameraTransition()

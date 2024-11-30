@@ -12,6 +12,9 @@ TagManager:
   - Rulebook
   - PlayerGun
   - AiGun
+  - Bat
+  - SwingStartPosition
+  - SwingTargetPosition
   layers:
   - Default
   - TransparentFX

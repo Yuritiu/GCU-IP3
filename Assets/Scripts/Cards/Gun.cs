@@ -7,29 +7,37 @@ public class Gun : MonoBehaviour
 {
     public void PlayCardForPlayer()
     {
+        GameManager.Instance.inGunAction = true;
+
         GameManager.Instance.playerHasGun = true;
 
         GameManager.Instance.PlayerRoulette();
-        GameManager.Instance.inGunAction = true;
     }
 
     public void CloneGunCardForPlayer()
     {
+        GameManager.Instance.inGunAction = true;
+
         GameManager.Instance.playerHasGun = true;
 
         GameManager.Instance.PlayerRoulette();
-        GameManager.Instance.inGunAction = true;
     }
 
     public void PlayCardForAI()
     {
+        GameManager.Instance.inGunAction = true;
+
         GameManager.Instance.aiHasGun = true;
+
         GameManager.Instance.AiRoulette();
     }
 
     public void CloneGunCardForAI()
     {
+        GameManager.Instance.inGunAction = true;
+
         GameManager.Instance.aiHasGun = true;
+
         GameManager.Instance.AiRoulette();
     }
 

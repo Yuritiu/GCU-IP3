@@ -4,7 +4,7 @@ using System.Collections;
 public class Freelook : MonoBehaviour
 {
     [Header("Sensitivity Variables")]
-    [SerializeField] float mouseSensitivity = 135f;
+    [SerializeField] public float mouseSensitivity = 135f;
     [SerializeField] float mouseSmoothing = 0.1f;
 
     [Header("Clamp Vertical Variables")]
@@ -22,6 +22,7 @@ public class Freelook : MonoBehaviour
 
     [HideInInspector] public bool canLook = true;
     [HideInInspector] public bool reset;
+
     void Start()
     {
         //Hide The Cursor On Game Start
@@ -31,26 +32,34 @@ public class Freelook : MonoBehaviour
 
     void Update()
     {
-        if(GameManager.Instance.in2ndPos == true)
+        if (GameManager.Instance.inBatAction)
+        {
+            currentXRotation = 0;
+            currentYRotation = 0;
+            xRotation = 0;
+            yRotation = 0;
+            canLook = false;
+        }
+        else if (GameManager.Instance.in2ndPos == true)
         {
             canLook = false;
             xRotation = GameManager.Instance.Target5.position.x;
             yRotation = GameManager.Instance.Target5.position.y;
         }
-        if(GameManager.Instance.in3rdPos == true)
+        else if (GameManager.Instance.in3rdPos == true)
         {
             canLook = false;
             xRotation = GameManager.Instance.Target6.position.x;
             yRotation = GameManager.Instance.Target6.position.y;
         }
-        if(GameManager.Instance.in2ndPos == false && GameManager.Instance.in3rdPos == false)
+        else if (GameManager.Instance.in2ndPos == false && GameManager.Instance.in3rdPos == false && !GameManager.Instance.inBatAction)
         {
             canLook = true;
         }
 
         if (!canLook || SettingsMenu.Instance.settingsMenuOpen)
             return;
-        
+
         float mouseX = Input.GetAxis("Mouse X") * mouseSensitivity * Time.deltaTime;
         float mouseY = Input.GetAxis("Mouse Y") * mouseSensitivity * Time.deltaTime;
 
@@ -65,7 +74,7 @@ public class Freelook : MonoBehaviour
         //Apply Mouse Smoothing To The Camera To Stop Jittering
         currentXRotation = Mathf.Lerp(currentXRotation, xRotation, mouseSmoothing * Time.deltaTime);
         currentYRotation = Mathf.Lerp(currentYRotation, yRotation, mouseSmoothing * Time.deltaTime);
-        
+
         transform.localRotation = Quaternion.Euler(currentXRotation, currentYRotation, 0f);
     }
 
@@ -100,5 +109,4 @@ public class Freelook : MonoBehaviour
             transform.localRotation = Quaternion.Euler(currentXRotation, currentYRotation, 0f);
         }
     }
-
 }

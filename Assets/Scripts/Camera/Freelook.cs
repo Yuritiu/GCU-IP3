@@ -4,7 +4,7 @@ using System.Collections;
 public class Freelook : MonoBehaviour
 {
     [Header("Sensitivity Variables")]
-    [SerializeField] float mouseSensitivity = 135f;
+    [SerializeField] public float mouseSensitivity = 135f;
     [SerializeField] float mouseSmoothing = 0.1f;
 
     [Header("Clamp Vertical Variables")]
@@ -22,6 +22,7 @@ public class Freelook : MonoBehaviour
 
     [HideInInspector] public bool canLook = true;
     [HideInInspector] public bool reset;
+
     void Start()
     {
         //Hide The Cursor On Game Start
@@ -31,19 +32,27 @@ public class Freelook : MonoBehaviour
 
     void Update()
     {
-        if(GameManager.Instance.in2ndPos == true)
+        if (GameManager.Instance.inBatAction)
+        {
+            currentXRotation = 0;
+            currentYRotation = 0;
+            xRotation = 0;
+            yRotation = 0;
+            canLook = false;
+        }
+        else if (GameManager.Instance.in2ndPos == true)
         {
             canLook = false;
             xRotation = GameManager.Instance.Target5.position.x;
             yRotation = GameManager.Instance.Target5.position.y;
         }
-        if(GameManager.Instance.in3rdPos == true)
+        else if (GameManager.Instance.in3rdPos == true)
         {
             canLook = false;
             xRotation = GameManager.Instance.Target6.position.x;
             yRotation = GameManager.Instance.Target6.position.y;
         }
-        if(GameManager.Instance.in2ndPos == false && GameManager.Instance.in3rdPos == false)
+        else if (GameManager.Instance.in2ndPos == false && GameManager.Instance.in3rdPos == false && !GameManager.Instance.inBatAction)
         {
             canLook = true;
         }

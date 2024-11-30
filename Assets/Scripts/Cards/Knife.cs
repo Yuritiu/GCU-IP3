@@ -6,7 +6,6 @@ using System;
 
 public class Knife : MonoBehaviour
 {
-
     private GameManager gameManager;
 
     void Start()
@@ -16,10 +15,12 @@ public class Knife : MonoBehaviour
 
     public void PlayCardForPlayer()
     {
+        GameManager.Instance.inKnifeAction = true;
         StartCoroutine(PlayPlayerKnife());
     }
     public void PlayCardForAI()
     {
+        GameManager.Instance.inKnifeAction = true;
         StartCoroutine(PlayAiKnife());
     }
     
@@ -34,7 +35,6 @@ public class Knife : MonoBehaviour
     IEnumerator PlayAiKnife()
     {
         GameManager.Instance.aiHasKnife = true;
-        GameManager.Instance.inKnifeAction = true;
         yield return new WaitForSeconds(0.5f);
 
         //Check If Its The Tutorial First
@@ -103,13 +103,18 @@ public class Knife : MonoBehaviour
                 Component card2 = CardDrawSystem.Instance.selectedPosition2.GetChild(0);
                 //Damage opponent 
                 //takes 1 finger away
-                if (card1.gameObject.name.Contains("Knife") && card2.gameObject.name.Contains("Knife"))
+                if (card1.gameObject.name.Contains("knife") && card2.gameObject.name.Contains("knife"))
                 {
                     if (card2.gameObject == this.gameObject)
                     {
                         StartCoroutine(WaitToStart(1, 1));
                         yield return null;
                     }
+                }
+                else if(card1.gameObject.name.Contains("knife") || card2.gameObject.name.Contains("knife"))
+                {
+                    //Avoids Softlock When inKnifeAction Is Still True
+                    GameManager.Instance.inKnifeAction = false;
                 }
             }
             StartCoroutine(GameManager.Instance.WaitToCompareCards(1, 1));

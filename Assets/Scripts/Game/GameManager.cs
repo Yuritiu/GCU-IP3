@@ -122,13 +122,20 @@ public class GameManager : MonoBehaviour
     [Header("Action")]
     private bool canMoveOn;
     [HideInInspector] public bool inKnifeAction = false;
+    [HideInInspector] public bool inKnifePlayerAction = false;
     [HideInInspector] public bool canCutFinger = false;
     [HideInInspector] public bool inGunAction = false;
+    [HideInInspector] public bool inGunPlayerAction = false;
+    [HideInInspector] public bool inBatAction = false;
     [HideInInspector] public bool has2Guns = false;
     [HideInInspector] public int numberOfKnifeCards = 0;
     
     [HideInInspector] public bool knife1used = false;
     [HideInInspector] public bool knife2used = false;
+
+    [HideInInspector] public bool bat1Used = false;
+    [HideInInspector] public bool bat2Used = false;
+    [HideInInspector] public bool canUseBat = false;
 
     [Header("Camera Movement Variables")]
     [HideInInspector] public bool isActionInProgress = false;
@@ -454,6 +461,7 @@ public class GameManager : MonoBehaviour
         IsReadyToCompare = false;
         CardDrawSystem.Instance.canPlay = true;
         canPlay = true;
+
         NextTurn();
     }
 
@@ -544,6 +552,7 @@ public class GameManager : MonoBehaviour
 
         IsReadyToCompare = false;
         CardDrawSystem.Instance.canPlay = true;
+
         NextTurn();
     }
 
@@ -971,13 +980,20 @@ public class GameManager : MonoBehaviour
 
         if (canMoveOn)
         {
+            Debug.Log("Can move on");
             if (!inKnifeAction)
             {
+                Debug.Log("No knife in action");
                 if (!inGunAction)
                 {
-                    isActionInProgress = false;
-                    canMoveOn = false;
-                    return true;
+                    Debug.Log("No gun in action");
+                    if (!inBatAction)
+                    {
+                        Debug.Log("ALL ACTIONS DONE");
+                        isActionInProgress = false;
+                        canMoveOn = false;
+                        return true;
+                    }
                 }
             }
         }

@@ -54,7 +54,6 @@ public class SwingAwayCard : MonoBehaviour
 
     public void PlayCardForPlayer()
     {
-        Debug.Log("PLAY PLAYER CARD");
         //Check To Only Swing Bat Once Even If 2 Bat's Played
         if (gameManager.inBatAction)
         {
@@ -117,7 +116,7 @@ public class SwingAwayCard : MonoBehaviour
                 return;
 
             //False = IsAI
-            Debug.Log("Called AI SWING");
+            //Debug.Log("Called AI SWING");
             StartSwing(false);
         }
 
@@ -142,7 +141,7 @@ public class SwingAwayCard : MonoBehaviour
             gameManager.calledAIBatSwing = true;
             aiCoroutineCalled = true;
 
-            Debug.Log("STARTED AI COROUTINE");
+            //Debug.Log("STARTED AI COROUTINE");
             StartCoroutine(DelayAIBatStart());
         }
     }
@@ -282,7 +281,7 @@ public class SwingAwayCard : MonoBehaviour
                     playerBatsUsed = true;
 
                     gameManager.playerBatCount = 0;
-                    Debug.Log(gameManager.playerBatCount + " : Player Bats Left");
+                    //Debug.Log(gameManager.playerBatCount + " : Player Bats Left");
                 }
 
                 if (!isPlayer && !reducedAIBatCount)
@@ -292,7 +291,7 @@ public class SwingAwayCard : MonoBehaviour
                     aiBatsUsed = true;
 
                     gameManager.aiBatCount = 0;
-                    Debug.Log(gameManager.aiBatCount + " : AI Bats Left");
+                    //Debug.Log(gameManager.aiBatCount + " : AI Bats Left");
                 }
 
                 FinishSwing();

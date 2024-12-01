@@ -1074,16 +1074,16 @@ public class GameManager : MonoBehaviour
 
         if (canMoveOn)
         {
-            Debug.Log("Can move on");
+            //Debug.Log("Can move on");
             if (!inKnifeAction)
             {
-                Debug.Log("No knife in action");
+                //Debug.Log("No knife in action");
                 if (!inGunAction)
                 {
-                    Debug.Log("No gun in action");
+                    //Debug.Log("No gun in action");
                     if (!inBatAction && !inAIBatAction)
                     {
-                        Debug.Log("ALL ACTIONS DONE");
+                        //Debug.Log("ALL ACTIONS DONE");
                         isActionInProgress = false;
                         canMoveOn = false;
                         return true;

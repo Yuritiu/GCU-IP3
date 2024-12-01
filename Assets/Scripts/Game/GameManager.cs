@@ -36,8 +36,6 @@ public class GameManager : MonoBehaviour
     private bool sPressed;
     private bool pPressed;
 
-
-
     [SerializeField] public float speed;
     [SerializeField] public Transform Target1;
     [SerializeField] public Transform Target2;
@@ -45,8 +43,12 @@ public class GameManager : MonoBehaviour
     [SerializeField] public Transform Target4;
     [SerializeField] public Transform Target5;
     [SerializeField] public Transform Target6;
+    [SerializeField] public Transform Target7;
+    [SerializeField] public Transform Target8;
     [HideInInspector] public bool in2ndPos;
     [HideInInspector] public bool in3rdPos;
+    [HideInInspector] public bool in4thPos;
+    [HideInInspector] public bool in5thPos;
 
 
     public bool cameraMovement; //used for turning off W S P when using Knife
@@ -127,20 +129,26 @@ public class GameManager : MonoBehaviour
     [HideInInspector] public bool inGunAction = false;
     [HideInInspector] public bool inGunPlayerAction = false;
     [HideInInspector] public bool inBatAction = false;
+    [HideInInspector] public bool inAIBatAction = false;
     [HideInInspector] public bool has2Guns = false;
     [HideInInspector] public int numberOfKnifeCards = 0;
 
     [HideInInspector] public bool knife1used = false;
     [HideInInspector] public bool knife2used = false;
 
+    [Header("Bat References")]
     [HideInInspector] public bool bat1Used = false;
     [HideInInspector] public bool bat2Used = false;
-    [HideInInspector] public bool canUseBat = false;
+    [HideInInspector] public int playerBatCount = 0;
+    [HideInInspector] public int aiBatCount = 0;
+    [HideInInspector] public bool increaseCard1BatCalled = false;
+    [HideInInspector] public bool increaseCard2BatCalled = false;
+    [HideInInspector] public bool increaseCard3BatCalled = false;
+    [HideInInspector] public bool increaseCard4BatCalled = false;
+    [HideInInspector] public bool calledAIBatSwing = false;
 
     [Header("Camera Movement Variables")]
     [HideInInspector] public bool isActionInProgress = false;
-
-
 
     [SerializeField] private AudioClip musictest;
 
@@ -168,6 +176,7 @@ public class GameManager : MonoBehaviour
         sPressed = false;
         in2ndPos = false;
         in3rdPos = false;
+        in4thPos = false;
 
         isTutorial = false;
         canPlay = true;
@@ -320,6 +329,15 @@ public class GameManager : MonoBehaviour
             //And The Card's Hierarchy Mathches The 'Skip Next Turn' Card
             cardsOnTable1 = CardDrawSystem.Instance.selectedPosition1.GetChild(0).gameObject.GetComponentAtIndex(1);
 
+            if(cardsOnTable1 != null)
+            {
+                if (cardsOnTable1.name.Contains("bat") && !increaseCard1BatCalled)
+                {
+                    increaseCard1BatCalled = true;
+                    playerBatCount++;
+                }
+            }
+
             cardsOnTable1.SendMessage("PlayCardForPlayer");
 
             CardDrawSystem.Instance.selectedCardCount--;
@@ -329,6 +347,15 @@ public class GameManager : MonoBehaviour
             //For This To Work, Please Make Sure Card's Logic Is Executed In A Public Function Called PlayCard
             //And The Card's Hierarchy Mathches The 'Skip Next Turn' Card
             cardsOnTable2 = CardDrawSystem.Instance.selectedPosition2.GetChild(0).gameObject.GetComponentAtIndex(1);
+
+            if (cardsOnTable2 != null)
+            {
+                if (cardsOnTable2.name.Contains("bat") && !increaseCard2BatCalled)
+                {
+                    increaseCard2BatCalled = true;
+                    playerBatCount++;
+                }
+            }
 
             cardsOnTable2.SendMessage("PlayCardForPlayer");
 
@@ -340,6 +367,15 @@ public class GameManager : MonoBehaviour
             //And The Card's Hierarchy Mathches The 'Skip Next Turn' Card
             if (!cardsOnTable3.gameObject.name.Contains("Discarded"))
             {
+                if (cardsOnTable3 != null)
+                {
+                    if (cardsOnTable3.name.Contains("bat") && !increaseCard3BatCalled)
+                    {
+                        increaseCard3BatCalled = true;
+                        aiBatCount++;
+                    }
+                }
+
                 cardsOnTable3.SendMessage("PlayCardForAI");
                 AICardDrawSystem.Instance.selectedCardCount--;
             }
@@ -350,6 +386,15 @@ public class GameManager : MonoBehaviour
             //And The Card's Hierarchy Mathches The 'Skip Next Turn' Card
             if (!cardsOnTable4.gameObject.name.Contains("Discarded"))
             {
+                if (cardsOnTable4 != null)
+                {
+                    if (cardsOnTable4.name.Contains("bat") && !increaseCard4BatCalled)
+                    {
+                        increaseCard4BatCalled = true;
+                        aiBatCount++;
+                    }
+                }
+
                 cardsOnTable4.SendMessage("PlayCardForAI");
                 AICardDrawSystem.Instance.selectedCardCount--;
             }
@@ -445,7 +490,7 @@ public class GameManager : MonoBehaviour
         yield return new WaitForSeconds(3f);
         in2ndPos = false;
 
-        if (!in3rdPos)
+        if (!in3rdPos || !in4thPos)
         {
             StartCoroutine(CameraTransitionIEnum(Target1));
         }
@@ -843,6 +888,17 @@ public class GameManager : MonoBehaviour
             StartCoroutine(HandleCameraTransition(Target3));
         }
 
+        //Transition To Bat Camera
+        if (in4thPos && !isActionInProgress)
+        {
+            isActionInProgress = true;
+            in2ndPos = false;
+            in3rdPos = false;
+            in4thPos = true;
+
+            StartCoroutine(HandleCameraTransition(Target7));
+        }
+
         if (allActionsDone() == true)
         {
             StartCoroutine(WaitSoCardsCanReveal());
@@ -870,7 +926,7 @@ public class GameManager : MonoBehaviour
         cigarBackfire.gameObject.SetActive(false);
     }
 
-    IEnumerator HandleCameraTransition(Transform target)
+    public IEnumerator HandleCameraTransition(Transform target)
     {
         yield return CameraTransitionIEnum(target);
     }
@@ -881,7 +937,7 @@ public class GameManager : MonoBehaviour
         Vector3 startingpos = MainCamera.transform.position;
 
         // Transition when not in 2nd or 3rd positions
-        while (t < 1.0f && !in2ndPos && !in3rdPos)
+        while (t < 1.0f && !in2ndPos && !in3rdPos && !in4thPos)
         {
             t += Time.deltaTime * (Time.timeScale * speed);
             MainCamera.transform.position = Vector3.Lerp(startingpos, Target.position, t);
@@ -927,6 +983,44 @@ public class GameManager : MonoBehaviour
         {
             isActionInProgress = true;
             MainCamera.transform.rotation = Quaternion.Slerp(MainCamera.transform.rotation, Quaternion.LookRotation(Target6.position - MainCamera.transform.position), speed * Time.deltaTime);
+
+            yield return null;
+        }
+
+        //Transition to 4th position
+        while (in4thPos && t < 1.0f)
+        {
+            t += Time.deltaTime * (Time.timeScale * speed);
+            MainCamera.transform.position = Vector3.Lerp(startingpos, Target.position, t);
+            MainCamera.transform.rotation = Quaternion.Slerp(MainCamera.transform.rotation, Quaternion.LookRotation(Target7.position - MainCamera.transform.position), speed * Time.deltaTime);
+
+            yield return null;
+        }
+
+        //Maintain 4th position rotation
+        while (in4thPos)
+        {
+            isActionInProgress = true;
+            MainCamera.transform.rotation = Quaternion.Slerp(MainCamera.transform.rotation, Quaternion.LookRotation(Target7.position - MainCamera.transform.position), speed * Time.deltaTime);
+
+            yield return null;
+        }
+
+        //Transition to 5th position
+        while (in5thPos && t < 1.0f)
+        {
+            t += Time.deltaTime * (Time.timeScale * speed);
+            MainCamera.transform.position = Vector3.Lerp(startingpos, Target.position, t);
+            MainCamera.transform.rotation = Quaternion.Slerp(MainCamera.transform.rotation, Quaternion.LookRotation(Target8.position - MainCamera.transform.position), speed * Time.deltaTime);
+
+            yield return null;
+        }
+
+        //Maintain 5th position rotation
+        while (in5thPos)
+        {
+            isActionInProgress = true;
+            MainCamera.transform.rotation = Quaternion.Slerp(MainCamera.transform.rotation, Quaternion.LookRotation(Target8.position - MainCamera.transform.position), speed * Time.deltaTime);
 
             yield return null;
         }
@@ -987,7 +1081,7 @@ public class GameManager : MonoBehaviour
                 if (!inGunAction)
                 {
                     Debug.Log("No gun in action");
-                    if (!inBatAction)
+                    if (!inBatAction && !inAIBatAction)
                     {
                         Debug.Log("ALL ACTIONS DONE");
                         isActionInProgress = false;

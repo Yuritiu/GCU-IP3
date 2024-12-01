@@ -32,13 +32,11 @@ public class Freelook : MonoBehaviour
 
     void Update()
     {
-        if (GameManager.Instance.inBatAction)
+        if (GameManager.Instance.in4thPos == true)
         {
-            currentXRotation = 0;
-            currentYRotation = 0;
-            xRotation = 0;
-            yRotation = 0;
             canLook = false;
+            //xRotation = GameManager.Instance.Target7.position.x;
+            //yRotation = GameManager.Instance.Target7.position.y;
         }
         else if (GameManager.Instance.in2ndPos == true)
         {
@@ -52,7 +50,7 @@ public class Freelook : MonoBehaviour
             xRotation = GameManager.Instance.Target6.position.x;
             yRotation = GameManager.Instance.Target6.position.y;
         }
-        else if (GameManager.Instance.in2ndPos == false && GameManager.Instance.in3rdPos == false && !GameManager.Instance.inBatAction)
+        else if (GameManager.Instance.in2ndPos == false && GameManager.Instance.in3rdPos == false && !GameManager.Instance.in4thPos)
         {
             canLook = true;
         }

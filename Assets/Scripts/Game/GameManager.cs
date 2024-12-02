@@ -900,6 +900,18 @@ public class GameManager : MonoBehaviour
             StartCoroutine(HandleCameraTransition(Target7));
         }
 
+        //Transition To Bat Camera
+        if (in5thPos && !isActionInProgress)
+        {
+            isActionInProgress = true;
+            in2ndPos = false;
+            in3rdPos = false;
+            in4thPos = false;
+            in5thPos = true;
+
+            StartCoroutine(HandleCameraTransition(Target7));
+        }
+
         if (allActionsDone() == true)
         {
             StartCoroutine(WaitSoCardsCanReveal());

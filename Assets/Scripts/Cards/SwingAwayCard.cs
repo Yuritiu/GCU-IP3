@@ -140,7 +140,7 @@ public class SwingAwayCard : MonoBehaviour
             StartCoroutine(DelayBatStart());
         }
 
-        if(!aiCoroutineCalled && !isPlayer && gameManager.playerBatCount == 0 && !gameManager.calledAIBatSwing)
+        if (!aiCoroutineCalled && !isPlayer && gameManager.playerBatCount == 0 && !gameManager.calledAIBatSwing)
         {
             aiCoroutineCalled = true;
             gameManager.calledAIBatSwing = true;
@@ -154,7 +154,7 @@ public class SwingAwayCard : MonoBehaviour
     {
         yield return new WaitForSeconds(3f);
 
-        freelook.canLook = false;
+        //freelook.canLook = false;
 
         //Get All References
         bat = GameObject.FindGameObjectWithTag("Bat").GetComponent<Transform>();
@@ -211,7 +211,7 @@ public class SwingAwayCard : MonoBehaviour
             Quaternion swingRotation = Quaternion.AngleAxis(swingAngle, Vector3.up);
             bat.rotation = initialBatSwingRotation * swingRotation;
         }
-        else if(!isLerping && canUseBat && !isPlayer)
+        else if (!isLerping && canUseBat && !isPlayer)
         {
             GameManager.Instance.in4thPos = true;
 
@@ -232,14 +232,22 @@ public class SwingAwayCard : MonoBehaviour
         {
             clickToSwingText.text = "";
 
-            if (playerCoroutineCalled)
-            {
-                //Player Hitting AI Small Shake
-                cameraShake.TriggerShake(0.02f, 0.06f, 0.1f);
-                Debug.Log("Player Smacked AI");
-            }
+            GameManager.Instance.in4thPos = false;
 
-            Debug.Log("121212");
+            freelook.canLook = true;
+
+            ThwackSFX.Instance.PlayThwackSFX();
+
+            //Player Hitting AI Small Shake
+            cameraShake.TriggerShake(0.08f, 0.1f, 0.15f);
+
+            Debug.Log("Player Smacked AI");
+
+            //if (playerCoroutineCalled)
+            //{
+            //    Debug.Log("Player Smacked AI");
+            //}
+
             canUseBat = false;
             isLerping = true;
         }
@@ -247,8 +255,7 @@ public class SwingAwayCard : MonoBehaviour
         if (!isPlayer && !aiSwingCoroutineCalled)
         {
             aiSwingCoroutineCalled = true;
-            cameraShake.TriggerShake(0.04f, 0.12f, 0.2f);
-            Debug.Log("AI Smacked Player");
+
             StartCoroutine(AIBatSwingDelay());
         }
 
@@ -268,10 +275,19 @@ public class SwingAwayCard : MonoBehaviour
 
             if (Vector3.Distance(bat.position, targetPos) < 0.01f && Quaternion.Angle(bat.rotation, targetRot) < 1f)
             {
+                if (isPlayer)
+                {
+                    gameManager.in4thPos = false;
+                    gameManager.in5thPos = false;
+
+                    freelook.currentXRotation = 0;
+                    freelook.currentYRotation = 0;
+
+                    freelook.canLook = true;
+                }
+
                 isLerping = false;
                 isReturning = true;
-
-                //shakeCameraCalled = false;
             }
         }
 
@@ -297,6 +313,7 @@ public class SwingAwayCard : MonoBehaviour
                     playerBatsUsed = true;
 
                     gameManager.playerBatCount = 0;
+
                     //Debug.Log(gameManager.playerBatCount + " : Player Bats Left");
                 }
 
@@ -320,11 +337,8 @@ public class SwingAwayCard : MonoBehaviour
         reducedPlayerBatCount = false;
         reducedAIBatCount = false;
 
-        if(gameManager.playerBatCount <= 0 && gameManager.aiBatCount <= 0)
+        if (gameManager.playerBatCount <= 0 && gameManager.aiBatCount <= 0)
         {
-            //Reset Camera -> Bats Finished
-            gameManager.in4thPos = false;
-
             //Reset Bat Variables
             gameManager.inBatAction = false;
             gameManager.inAIBatAction = false;
@@ -335,6 +349,17 @@ public class SwingAwayCard : MonoBehaviour
             gameManager.increaseCard2BatCalled = false;
             gameManager.increaseCard3BatCalled = false;
             gameManager.increaseCard4BatCalled = false;
+
+            Debug.Log("CALLED 2");
+
+            //Reset Camera -> Bats Finished
+            gameManager.in4thPos = false;
+            gameManager.in5thPos = false;
+
+            freelook.currentXRotation = 0;
+            freelook.currentYRotation = 0;
+
+            freelook.canLook = true;
         }
 
         //Lock Mouse
@@ -384,7 +409,8 @@ public class SwingAwayCard : MonoBehaviour
     {
         yield return new WaitForSeconds(3f);
 
-        freelook.canLook = false;
+        GameManager.Instance.isActionInProgress = false;
+        GameManager.Instance.in5thPos = true;
 
         //Get All References
         bat = GameObject.FindGameObjectWithTag("Bat").GetComponent<Transform>();
@@ -423,7 +449,17 @@ public class SwingAwayCard : MonoBehaviour
 
     IEnumerator AIBatSwingDelay()
     {
-        yield return new WaitForSeconds(Random.Range(3,6));
+        //Set Camera To Focus Opponent
+
+        yield return new WaitForSeconds(Random.Range(3, 6));
+
+        //GameManager.Instance.in4thPos = false;
+        //GameManager.Instance.in5thPos = false;
+
+        ThwackSFX.Instance.PlayThwackSFX();
+
+        cameraShake.TriggerShake(0.03f, 0.03f, 0.1f);
+
         canUseBat = false;
         isLerping = true;
     }

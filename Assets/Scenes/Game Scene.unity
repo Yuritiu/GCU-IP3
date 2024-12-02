@@ -2885,6 +2885,7 @@ GameObject:
   - component: {fileID: 565869793}
   - component: {fileID: 565869792}
   - component: {fileID: 565869791}
+  - component: {fileID: 565869796}
   - component: {fileID: 565869795}
   m_Layer: 0
   m_Name: Main Camera
@@ -3036,6 +3037,46 @@ MonoBehaviour:
     m_MipBias: 0
     m_VarianceClampScale: 0.9
     m_ContrastAdaptiveSharpening: 0
+--- !u!114 &565869796
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 565869790}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 59c8bc6f40ef706468f10fc73a02be0e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  shakeDuration: 0.5
+  shakeStrength: 0.05
+  shakeFrequency: 1
+  shakeAnimCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  testKey: 1
 --- !u!1001 &571995214
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -6985,6 +7026,22 @@ PrefabInstance:
     - target: {fileID: 2409309957475621730, guid: 53390e4871252394a8dc72d72b3ec764, type: 3}
       propertyPath: m_Name
       value: Opponent
+      objectReference: {fileID: 0}
+    - target: {fileID: 7545599852674377076, guid: 53390e4871252394a8dc72d72b3ec764, type: 3}
+      propertyPath: m_Size.x
+      value: 0.37459612
+      objectReference: {fileID: 0}
+    - target: {fileID: 7545599852674377076, guid: 53390e4871252394a8dc72d72b3ec764, type: 3}
+      propertyPath: m_Size.y
+      value: 1.1836178
+      objectReference: {fileID: 0}
+    - target: {fileID: 7545599852674377076, guid: 53390e4871252394a8dc72d72b3ec764, type: 3}
+      propertyPath: m_Center.x
+      value: 0.050809465
+      objectReference: {fileID: 0}
+    - target: {fileID: 7545599852674377076, guid: 53390e4871252394a8dc72d72b3ec764, type: 3}
+      propertyPath: m_Center.y
+      value: -0.09180778
       objectReference: {fileID: 0}
     - target: {fileID: 8147466164279691285, guid: 53390e4871252394a8dc72d72b3ec764, type: 3}
       propertyPath: m_LocalScale.x
@@ -11471,7 +11528,7 @@ MonoBehaviour:
   - cardPrefab: {fileID: 1833519795021809735, guid: 13468f5a105746847b27d9d5496777f7, type: 3}
     quantity: 9
   - cardPrefab: {fileID: 1833519795021809735, guid: 6a81a850bda80cc4ab8201a24f31b0d3, type: 3}
-    quantity: 9
+    quantity: 90
   - cardPrefab: {fileID: 1833519795021809735, guid: bf314c8f96af77148b7c787435c1c55e, type: 3}
     quantity: 5
   - cardPrefab: {fileID: 1833519795021809735, guid: 80493192768bbe24a98044b5fa79e23d, type: 3}
@@ -27382,6 +27439,7 @@ GameObject:
   - component: {fileID: 133785254798081254}
   - component: {fileID: 2988155218297183136}
   - component: {fileID: 1435659528743782782}
+  - component: {fileID: 2988155218297183137}
   m_Layer: 0
   m_Name: SeatBackCushion019
   m_TagString: Untagged
@@ -33595,6 +33653,7 @@ GameObject:
   - component: {fileID: 63122766094185523}
   - component: {fileID: 1577944152720562592}
   - component: {fileID: 1468831855239088492}
+  - component: {fileID: 1732356172376993254}
   m_Layer: 0
   m_Name: Baseball Bat
   m_TagString: Untagged
@@ -33602,6 +33661,27 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!65 &1732356172376993254
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1732356172376993253}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.06436323, y: 0.06338541, z: 0.8399999}
+  m_Center: {x: 0, y: -0.0000000018626451, z: 0.42000005}
 --- !u!4 &1732758632843660044
 Transform:
   m_ObjectHideFlags: 0
@@ -48883,6 +48963,27 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1274270340131755852}
   m_Mesh: {fileID: 2020217351202922097, guid: c02666dae0d27ee4bacd48a33933554e, type: 3}
+--- !u!65 &2988155218297183137
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1274270340131755852}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.44572002, y: 0.47554636, z: 0.0869362}
+  m_Center: {x: -9.261488e-10, y: 0.000000059077486, z: 0.03537699}
 --- !u!23 &2988196273396261355
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -80848,6 +80949,7 @@ GameObject:
   - component: {fileID: 4612173709688824165}
   - component: {fileID: 5485060242691373646}
   - component: {fileID: 2932988073034683006}
+  - component: {fileID: 5562068089500193289}
   m_Layer: 0
   m_Name: SeatLeftArmRest019
   m_TagString: Untagged
@@ -80855,6 +80957,27 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!65 &5562068089500193289
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5562068089500193288}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.060000215, y: 0.07000002, z: 0.4425191}
+  m_Center: {x: 0.0000000056627414, y: 0.0000002971667, z: 0.22125985}
 --- !u!1 &5563715762963487139
 GameObject:
   m_ObjectHideFlags: 0
@@ -83133,6 +83256,7 @@ GameObject:
   - component: {fileID: 4803484667166610422}
   - component: {fileID: 8316115346254583249}
   - component: {fileID: 8739827074309096516}
+  - component: {fileID: 8739827074309096517}
   m_Layer: 0
   m_Name: SeatCushion019
   m_TagString: Untagged
@@ -121729,6 +121853,27 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!65 &8739827074309096517
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5755735121885389772}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.45999998, y: 0.50999993, z: 0.07192925}
+  m_Center: {x: 2.5554396e-16, y: 1.3627885e-16, z: 0.035964627}
 --- !u!23 &8744066022774361863
 MeshRenderer:
   m_ObjectHideFlags: 0

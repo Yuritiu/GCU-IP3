@@ -9,6 +9,7 @@ public class SwingAwayCard : MonoBehaviour
 
     GameManager gameManager;
     Freelook freelook;
+    CameraShake cameraShake = null;
 
     [Header("References")]
     Transform bat;
@@ -133,6 +134,7 @@ public class SwingAwayCard : MonoBehaviour
         if (!playerCoroutineCalled && isPlayer && !aiCoroutineCalled)
         {
             playerCoroutineCalled = true;
+            //cameraShake = Camera.main.GetComponent<CameraShake>();
             StartCoroutine(DelayBatStart());
         }
 
@@ -252,8 +254,17 @@ public class SwingAwayCard : MonoBehaviour
             bat.position = Vector3.Lerp(bat.position, targetPos, moveSpeed * Time.deltaTime);
             bat.rotation = Quaternion.Lerp(bat.rotation, targetRot, moveSpeed * Time.deltaTime);
 
+            //if (Vector3.Distance(bat.position, targetPos) < 2f && Quaternion.Angle(bat.rotation, targetRot) < 10f)
+            //{
+            //    //Trigger Camera Shake On Bat Hitting
+            //    cameraShake.TriggerShake(0.07f, 0.02f, 0.1f);
+            //}
+
             if (Vector3.Distance(bat.position, targetPos) < 0.01f && Quaternion.Angle(bat.rotation, targetRot) < 1f)
             {
+                //Trigger Camera Shake On Bat Hitting
+                //cameraShake.TriggerShake(0.07f, 0.02f, 0.1f);
+
                 isLerping = false;
                 isReturning = true;
             }

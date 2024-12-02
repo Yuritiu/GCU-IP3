@@ -35,17 +35,17 @@ public class CameraShake : MonoBehaviour
         }
         else
         {
-            originalPosition = transform.localPosition;
+            transform.localPosition = originalPosition;
         }
 
         //Test when F is pressed
-        if(testKey)
-        {
-            if (Input.GetKeyDown(KeyCode.F))
-            {
-                TriggerShake();
-            }
-        }
+        //if(testKey)
+        //{
+        //    if (Input.GetKeyDown(KeyCode.F))
+        //    {
+        //        TriggerShake();
+        //    }
+        //}
 
         //-- EXAMPLE -- HOW TO REFERENCE IN OTHER OBJECTS BELOW
         //START(): CameraShake cameraShake = Camera.main.GetComponent<CameraShake>();
@@ -58,6 +58,5 @@ public class CameraShake : MonoBehaviour
         initialShakeDuration = shakeTimer;
         shakeStrength = (strength > 0) ? strength : shakeStrength;
         shakeFrequency = (frequency > 0) ? frequency : shakeFrequency;
-        originalPosition = transform.localPosition;
     }
 }

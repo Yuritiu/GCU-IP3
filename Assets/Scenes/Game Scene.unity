@@ -11473,7 +11473,7 @@ MonoBehaviour:
   - cardPrefab: {fileID: 1833519795021809735, guid: 13468f5a105746847b27d9d5496777f7, type: 3}
     quantity: 9
   - cardPrefab: {fileID: 1833519795021809735, guid: 6a81a850bda80cc4ab8201a24f31b0d3, type: 3}
-    quantity: 90
+    quantity: 9
   - cardPrefab: {fileID: 1833519795021809735, guid: bf314c8f96af77148b7c787435c1c55e, type: 3}
     quantity: 5
   - cardPrefab: {fileID: 1833519795021809735, guid: 80493192768bbe24a98044b5fa79e23d, type: 3}

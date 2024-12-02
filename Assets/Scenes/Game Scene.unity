@@ -2884,7 +2884,6 @@ GameObject:
   - component: {fileID: 565869794}
   - component: {fileID: 565869793}
   - component: {fileID: 565869792}
-  - component: {fileID: 565869797}
   - component: {fileID: 565869791}
   - component: {fileID: 565869796}
   - component: {fileID: 565869795}
@@ -3079,27 +3078,6 @@ MonoBehaviour:
     m_RotationOrder: 4
   testKey: 1
   shouldShake: 0
---- !u!114 &565869797
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 565869790}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 54ad821d765d0164c916be0dc8d75540, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  initialCameraPosition: {fileID: 0}
-  targetCameraPosition: {fileID: 0}
-  transitionSpeed: 5
-  mouseSensitivity: 2
-  transitionMinX: 85
-  transitionMaxX: 95
-  transitionMinY: 0
-  transitionMaxY: 0
-  pauseDuration: 2
 --- !u!1001 &571995214
 PrefabInstance:
   m_ObjectHideFlags: 0

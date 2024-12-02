@@ -17,6 +17,8 @@ public class CameraShake : MonoBehaviour
     private float initialShakeDuration;
     private Vector3 originalPosition;
 
+    public bool shouldShake = false;
+
     void Start()
     {
         originalPosition = transform.localPosition;
@@ -32,10 +34,6 @@ public class CameraShake : MonoBehaviour
 
             transform.localPosition = originalPosition + Random.insideUnitSphere * currentStrength;
             shakeTimer -= Time.deltaTime * shakeFrequency;
-        }
-        else
-        {
-            transform.localPosition = originalPosition;
         }
 
         //Test when F is pressed

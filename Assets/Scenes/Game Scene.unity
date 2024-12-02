@@ -3050,15 +3050,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 59c8bc6f40ef706468f10fc73a02be0e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  shakeDuration: 0.5
-  shakeStrength: 0.05
-  shakeFrequency: 1
+  shakeDuration: 0.02
+  shakeStrength: 0.06
+  shakeFrequency: 0.1
   shakeAnimCurve:
     serializedVersion: 2
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 1
+      value: 0.09127045
       inSlope: 0
       outSlope: 0
       tangentMode: 0
@@ -11495,7 +11495,7 @@ MonoBehaviour:
   - cardPrefab: {fileID: 1833519795021809735, guid: 13468f5a105746847b27d9d5496777f7, type: 3}
     quantity: 9
   - cardPrefab: {fileID: 1833519795021809735, guid: 6a81a850bda80cc4ab8201a24f31b0d3, type: 3}
-    quantity: 9
+    quantity: 90
   - cardPrefab: {fileID: 1833519795021809735, guid: bf314c8f96af77148b7c787435c1c55e, type: 3}
     quantity: 5
   - cardPrefab: {fileID: 1833519795021809735, guid: 80493192768bbe24a98044b5fa79e23d, type: 3}

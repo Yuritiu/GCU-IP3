@@ -37,18 +37,18 @@ public class CameraShake : MonoBehaviour
         }
 
         //Test when F is pressed
-        //if(testKey)
-        //{
-        //    if (Input.GetKeyDown(KeyCode.F))
-        //    {
-        //        TriggerShake();
-        //    }
-        //}
+        if (testKey)
+        {
+            if (Input.GetKeyDown(KeyCode.F))
+            {
+                TriggerShake();
+            }
+        }
 
         //-- EXAMPLE -- HOW TO REFERENCE IN OTHER OBJECTS BELOW
         //START(): CameraShake cameraShake = Camera.main.GetComponent<CameraShake>();
         //ANYWHERE(): cameraShake.TriggerShake(1.0f, 1.2f, 1.5f);
-}
+    }
 
     public void TriggerShake(float duration = -1, float strength = -1, float frequency = -1)
     {

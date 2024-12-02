@@ -232,8 +232,14 @@ public class SwingAwayCard : MonoBehaviour
         {
             clickToSwingText.text = "";
 
-            cameraShake.TriggerShake(0.003f, 0.001f, 0.003f);
+            if (playerCoroutineCalled)
+            {
+                //Player Hitting AI Small Shake
+                cameraShake.TriggerShake(0.02f, 0.06f, 0.1f);
+                Debug.Log("Player Smacked AI");
+            }
 
+            Debug.Log("121212");
             canUseBat = false;
             isLerping = true;
         }
@@ -241,6 +247,8 @@ public class SwingAwayCard : MonoBehaviour
         if (!isPlayer && !aiSwingCoroutineCalled)
         {
             aiSwingCoroutineCalled = true;
+            cameraShake.TriggerShake(0.04f, 0.12f, 0.2f);
+            Debug.Log("AI Smacked Player");
             StartCoroutine(AIBatSwingDelay());
         }
 

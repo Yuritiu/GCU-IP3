@@ -3663,7 +3663,19 @@ MonoBehaviour:
   m_Value: 100
   m_OnValueChanged:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 2002179830}
+        m_TargetAssemblyTypeName: MixerManager, Assembly-CSharp
+        m_MethodName: MusicVolume
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &443807546
 GameObject:
   m_ObjectHideFlags: 0
@@ -3873,7 +3885,19 @@ MonoBehaviour:
   m_Value: 100
   m_OnValueChanged:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 2002179830}
+        m_TargetAssemblyTypeName: MixerManager, Assembly-CSharp
+        m_MethodName: MaxVolume
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 1
 --- !u!1 &452773963
 GameObject:
   m_ObjectHideFlags: 0
@@ -12169,6 +12193,67 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1290186968}
   m_CullTransparentMesh: 1
+--- !u!1001 &1310641198
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 699152315652308776, guid: 0021b7efc53c5484fbe99272c98ba447, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 639
+      objectReference: {fileID: 0}
+    - target: {fileID: 699152315652308776, guid: 0021b7efc53c5484fbe99272c98ba447, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 359.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 699152315652308776, guid: 0021b7efc53c5484fbe99272c98ba447, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 699152315652308776, guid: 0021b7efc53c5484fbe99272c98ba447, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 699152315652308776, guid: 0021b7efc53c5484fbe99272c98ba447, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 699152315652308776, guid: 0021b7efc53c5484fbe99272c98ba447, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 699152315652308776, guid: 0021b7efc53c5484fbe99272c98ba447, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 699152315652308776, guid: 0021b7efc53c5484fbe99272c98ba447, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 699152315652308776, guid: 0021b7efc53c5484fbe99272c98ba447, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 699152315652308776, guid: 0021b7efc53c5484fbe99272c98ba447, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 899742023238716202, guid: 0021b7efc53c5484fbe99272c98ba447, type: 3}
+      propertyPath: m_audioClip
+      value: 
+      objectReference: {fileID: 8300000, guid: bbbfb198b2de05f40955ef1cb02b2715, type: 3}
+    - target: {fileID: 2239107766251489343, guid: 0021b7efc53c5484fbe99272c98ba447, type: 3}
+      propertyPath: m_Name
+      value: ---Audio Managers---
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 0021b7efc53c5484fbe99272c98ba447, type: 3}
 --- !u!1 &1310986644
 GameObject:
   m_ObjectHideFlags: 0
@@ -12603,7 +12688,19 @@ MonoBehaviour:
   m_Value: 100
   m_OnValueChanged:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 2002179830}
+        m_TargetAssemblyTypeName: MixerManager, Assembly-CSharp
+        m_MethodName: SFXVolume
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &1371678359
 GameObject:
   m_ObjectHideFlags: 0
@@ -18169,6 +18266,17 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2000772997}
   m_CullTransparentMesh: 1
+--- !u!114 &2002179830 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8787215367126301714, guid: 0021b7efc53c5484fbe99272c98ba447, type: 3}
+  m_PrefabInstance: {fileID: 1310641198}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a1ac7aaf63697b5489527de06466e5e3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2038379141
 GameObject:
   m_ObjectHideFlags: 0
@@ -19970,3 +20078,4 @@ SceneRoots:
   - {fileID: 2096201347}
   - {fileID: 933301275}
   - {fileID: 1488200620}
+  - {fileID: 1310641198}

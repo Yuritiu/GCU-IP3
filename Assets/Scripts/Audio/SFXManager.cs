@@ -10,7 +10,7 @@ public class SFXManager : MonoBehaviour
     [SerializeField] private AudioSource SFXLoopObject;
     [SerializeField] private AudioSource MusicObject;
 
-    [HideInInspector] public bool clipEnded = false;
+    
 
     private void Awake()
     {
@@ -61,13 +61,36 @@ public class SFXManager : MonoBehaviour
         
     }
 
-    
-   
+    public void PlayRandomMusicClip(AudioClip[] audioClip, Transform spawnTransform, float volume)
+    {
+        //assign a random index
+        int rand = Random.Range(0, audioClip.Length);
+
+        //spawn in gameObject
+        AudioSource audioSource = Instantiate(MusicObject, spawnTransform.position, Quaternion.identity);
+
+        //assign the audioClip
+        audioSource.clip = audioClip[rand];
+
+        //assign volume
+        audioSource.volume = volume;
+
+        //play sound
+        audioSource.Play();
+
+        //get length of sound FX clip
+        float clipLength = audioSource.clip.length;
+
+        
+    }
+
+
+
     // To add an audio 
     //[SerializeField] private AudioClip Name;
 
     //SFXManager.instance.PlaySFXClip(SFX clip here , transform, 1f)
-    
+
     //SFXManager.instance.PlayMusicClip(Music clip here , transform, 1f)
 
     //if you want to end a music clip 

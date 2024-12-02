@@ -150,7 +150,7 @@ public class GameManager : MonoBehaviour
     [Header("Camera Movement Variables")]
     [HideInInspector] public bool isActionInProgress = false;
 
-    [SerializeField] private AudioClip musictest;
+    [SerializeField] private AudioClip AIScream;
 
     public int timesToShoot = 0;
 
@@ -159,7 +159,7 @@ public class GameManager : MonoBehaviour
         Time.timeScale = 1f;
         originalCameraPosition.transform.position = MainCamera.transform.position;
         playerSkippedTurnsText.enabled = false;
-        //SFXManager.instance.PlayMusicClip(musictest, transform, 1f);
+        
 
         await UnityServices.InitializeAsync();
         AnalyticsService.Instance.StartDataCollection();
@@ -630,6 +630,7 @@ public class GameManager : MonoBehaviour
         {
             aiFingers--;
             aiHand.RemoveFinger(aiFingers);
+            SFXManager.instance.PlaySFXClip(AIScream, transform, 1f);
         }
         //Player
         else if (character == 2)

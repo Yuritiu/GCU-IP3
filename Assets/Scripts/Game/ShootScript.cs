@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System;
+using UnityEditor.Networking.PlayerConnection;
 
 public class ShootScript : MonoBehaviour
 {
@@ -16,14 +17,18 @@ public class ShootScript : MonoBehaviour
     public bool PlayerShot;
     public bool AiShot;
     public string name;
+    
 
     private GameManager gameManager;
+    [SerializeField] private AudioClip Gunload;
+    [SerializeField] private AudioClip Gunfire;
 
 
     private void Start()
     {
         gunAnim = GetComponent<Animator>();
         gameManager = FindAnyObjectByType<GameManager>();
+        
     }
 
     private void Awake()
@@ -32,10 +37,12 @@ public class ShootScript : MonoBehaviour
         {
             //print("instanceed1");
             instance1 = this;
+            SFXManager.instance.PlaySFXClip(Gunload, transform, 1f);
         }
         else
         {
             instance2 = this;
+            SFXManager.instance.PlaySFXClip(Gunload, transform, 1f);
         }
 
     }
@@ -46,6 +53,7 @@ public class ShootScript : MonoBehaviour
         {
             gunAnim = GetComponent<Animator>();
             StartCoroutine(AiFire(gameObject));
+            
         }
     }
     private void Update()
@@ -54,7 +62,11 @@ public class ShootScript : MonoBehaviour
         {
             gunAnim = GetComponent<Animator>();
             StartCoroutine(Fire(gameObject));
+            
         }
+
+
+        
     }
 
 
@@ -77,6 +89,7 @@ public class ShootScript : MonoBehaviour
             if (AiRandom <= GameManager.Instance.bullets)
             {
                 Flash.Play();
+                SFXManager.instance.PlaySFXClip(Gunfire, transform, 1f);
             }
             yield return new WaitForSeconds(delay);
 
@@ -134,6 +147,7 @@ public class ShootScript : MonoBehaviour
             if (PRandom <= GameManager.Instance.bullets)
             {
                 Flash.Play();
+                SFXManager.instance.PlaySFXClip(Gunfire, transform, 1f);
             }
             yield return new WaitForSeconds(delay);
             if (rand == 0)

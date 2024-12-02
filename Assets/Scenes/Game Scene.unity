@@ -2648,6 +2648,18 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 899742023238716202, guid: 0021b7efc53c5484fbe99272c98ba447, type: 3}
+      propertyPath: MaxDistance
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 899742023238716202, guid: 0021b7efc53c5484fbe99272c98ba447, type: 3}
+      propertyPath: rolloffMode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 899742023238716202, guid: 0021b7efc53c5484fbe99272c98ba447, type: 3}
+      propertyPath: panLevelCustomCurve.m_Curve.Array.data[0].value
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1783096910778841799, guid: 0021b7efc53c5484fbe99272c98ba447, type: 3}
       propertyPath: Loop
       value: 1
@@ -3294,6 +3306,14 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: 5279446a990aee84d915fc5dfacc087d, type: 2}
+    - target: {fileID: 1148584488116116778, guid: 51b7432981d42044aab0051738de45d3, type: 3}
+      propertyPath: AIScream
+      value: 
+      objectReference: {fileID: 8300000, guid: 005685d7cc9548e4aaf3470c859b2539, type: 3}
+    - target: {fileID: 1148584488116116778, guid: 51b7432981d42044aab0051738de45d3, type: 3}
+      propertyPath: PlayerScream
+      value: 
+      objectReference: {fileID: 8300000, guid: 2bd7221c768dc8b43ada75153a0e25d4, type: 3}
     - target: {fileID: 2265565417969549567, guid: 51b7432981d42044aab0051738de45d3, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
@@ -4348,6 +4368,14 @@ PrefabInstance:
       propertyPath: speed
       value: 0.2
       objectReference: {fileID: 0}
+    - target: {fileID: 5128300180416186954, guid: 24c94e7929bad4b408a3c87aac8caa73, type: 3}
+      propertyPath: Gunfire
+      value: 
+      objectReference: {fileID: 8300000, guid: 5be1ad6537b14ef44a407af663848975, type: 3}
+    - target: {fileID: 5128300180416186954, guid: 24c94e7929bad4b408a3c87aac8caa73, type: 3}
+      propertyPath: Gunload
+      value: 
+      objectReference: {fileID: 8300000, guid: 3a9f8fec831663b458aa8d831b2df9ab, type: 3}
     - target: {fileID: 5128300180416186954, guid: 24c94e7929bad4b408a3c87aac8caa73, type: 3}
       propertyPath: Target1
       value: 
@@ -7108,6 +7136,10 @@ PrefabInstance:
       propertyPath: Target8
       value: 
       objectReference: {fileID: 775907884}
+    - target: {fileID: 2229647336694770922, guid: 5f30ef53536cc8b4694232906fbc92d4, type: 3}
+      propertyPath: AIScream
+      value: 
+      objectReference: {fileID: 8300000, guid: 005685d7cc9548e4aaf3470c859b2539, type: 3}
     - target: {fileID: 2229647336694770922, guid: 5f30ef53536cc8b4694232906fbc92d4, type: 3}
       propertyPath: Backfire
       value: 
@@ -11546,6 +11578,14 @@ PrefabInstance:
       propertyPath: speed
       value: 0.2
       objectReference: {fileID: 0}
+    - target: {fileID: 5128300180416186954, guid: 24c94e7929bad4b408a3c87aac8caa73, type: 3}
+      propertyPath: Gunfire
+      value: 
+      objectReference: {fileID: 8300000, guid: 5be1ad6537b14ef44a407af663848975, type: 3}
+    - target: {fileID: 5128300180416186954, guid: 24c94e7929bad4b408a3c87aac8caa73, type: 3}
+      propertyPath: Gunload
+      value: 
+      objectReference: {fileID: 8300000, guid: 3a9f8fec831663b458aa8d831b2df9ab, type: 3}
     - target: {fileID: 5128300180416186954, guid: 24c94e7929bad4b408a3c87aac8caa73, type: 3}
       propertyPath: Target1
       value: 
@@ -40426,6 +40466,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 678204196609742699}
+  - component: {fileID: 2303866172564895466}
   m_Layer: 0
   m_Name: Gramophone
   m_TagString: Untagged
@@ -40433,6 +40474,22 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!114 &2303866172564895466
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2303866172564895465}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 85ee43eb24d52fc4c90e8ae7223f3b27, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  MusicClips:
+  - {fileID: 8300000, guid: 69768d17f13bdd04aa8999e2472d5aeb, type: 3}
+  - {fileID: 8300000, guid: 63609a1737fd72a40b34d255372b9b9f, type: 3}
+  - {fileID: 8300000, guid: a110924fccc9627408a26b23eff9c2e4, type: 3}
 --- !u!23 &2311148814662210355
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -74736,6 +74793,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 2064874318}
     - target: {fileID: 1148584488116116778, guid: 51b7432981d42044aab0051738de45d3, type: 3}
+      propertyPath: AIScream
+      value: 
+      objectReference: {fileID: 8300000, guid: 005685d7cc9548e4aaf3470c859b2539, type: 3}
+    - target: {fileID: 1148584488116116778, guid: 51b7432981d42044aab0051738de45d3, type: 3}
       propertyPath: actionUI
       value: 
       objectReference: {fileID: 1779098250}
@@ -74743,6 +74804,10 @@ PrefabInstance:
       propertyPath: knifePos
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 1148584488116116778, guid: 51b7432981d42044aab0051738de45d3, type: 3}
+      propertyPath: PlayerScream
+      value: 
+      objectReference: {fileID: 8300000, guid: 2bd7221c768dc8b43ada75153a0e25d4, type: 3}
     - target: {fileID: 1579051938548258989, guid: 51b7432981d42044aab0051738de45d3, type: 3}
       propertyPath: m_Name
       value: Finger3

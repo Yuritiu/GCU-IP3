@@ -18,15 +18,19 @@ public class IntroTutorial : MonoBehaviour
     private CanvasGroup canvasGroup;
     private int completedSteps = 0;
 
+    private GameManager gameManager;
+
     void Start()
     {
-        canvasGroup = GetComponent<CanvasGroup>();
-        if (canvasGroup == null) canvasGroup = gameObject.AddComponent<CanvasGroup>();
-    }
+        gameManager = FindFirstObjectByType<GameManager>();
 
-    void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.F)) CompleteStep(completedSteps + 1);
+        if (gameManager.firstStepsTutorial == false)
+        {
+            canvasGroup = GetComponent<CanvasGroup>();
+            if (canvasGroup == null) canvasGroup = gameObject.AddComponent<CanvasGroup>();
+        }
+        else
+            return;
     }
 
     public void CompleteStep(int stepNumber)
@@ -75,6 +79,7 @@ public class IntroTutorial : MonoBehaviour
         }
 
         canvasGroup.alpha = 0f;
+        gameManager.firstStepsTutorial = true;
         Destroy(gameObject);
     }
 }

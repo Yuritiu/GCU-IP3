@@ -37,24 +37,5 @@ public class CardSelection : MonoBehaviour
         //!-MUST SET CardInfoImage & CardInfoText IN THE UI CANVAS TAGS TO THE TAGS DEFINED IN THE REFERENCES ABOVE-!
         var cardImage = GameObject.FindGameObjectWithTag(cardInfoImageTag).GetComponent<Image>();
         var cardText = GameObject.FindGameObjectWithTag(cardInfoTextTag).GetComponent<TextMeshProUGUI>();
-
-        if(SettingsMenu.Instance.assistsEnabled)
-        {         
-            if (hovering)
-            {
-                //Set Info Image And Text
-                if(cardInfoImage != null)
-                {
-                    cardImage.color = cardInfoImage.color;
-                    cardText.text = cardInfoText;
-                }
-            }
-            else
-            {
-                //Reset Info Image And Text
-                cardImage.color = new Color32(0,0,0,0);
-                cardText.text = null;
-            }
-        }
     }
 }

@@ -19,6 +19,9 @@ public class Hand : MonoBehaviour
 
     [SerializeField] private GameObject actionUI;
 
+    [SerializeField] private AudioClip PlayerScream;
+    
+
     private void Start()
     {
         if (this.gameObject.tag == "Player")
@@ -30,7 +33,7 @@ public class Hand : MonoBehaviour
 
     private void Update()
     {
-
+       
         if (GameManager.Instance.inGunAction)
         {
             return;
@@ -49,6 +52,7 @@ public class Hand : MonoBehaviour
                 if (knife.transform.localRotation.z <= 0.15 && knife.transform.localRotation.z >= -0.2)
                 {
                     knife.transform.localRotation = Quaternion.Euler(0, 0, -turn.x);
+                    
                 }
                 if(knife.transform.localRotation.z > 0.1)
                 {
@@ -75,6 +79,7 @@ public class Hand : MonoBehaviour
                 {
                     //print("Remove Finger");
                     EndOfAction(GameManager.Instance.playerFingers);
+                    SFXManager.instance.PlaySFXClip(PlayerScream, transform, 1f);
                 }
             }
         }

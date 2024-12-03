@@ -99,6 +99,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f91e5ebd9fd6fe448943f87d6ee1e4fd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  PlayerCough: {fileID: 8300000, guid: fd55016f1cdb1fb41b72a26059d6b6d9, type: 3}
+  AICough: {fileID: 8300000, guid: 8e30e2f789f9f9344a7e7b3341b378d1, type: 3}
 --- !u!114 &1320790179904903671
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -115,6 +117,7 @@ MonoBehaviour:
   cardInfoTextTag: CardInfoText
   cardInfoImage: {fileID: 0}
   cardInfoText: Cigar Card
+  canSelect: 1
 --- !u!65 &4034627942797440614
 BoxCollider:
   m_ObjectHideFlags: 0

@@ -1,13 +1,16 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class SettingsMenuManager : MonoBehaviour
 {
     [Header("Menus")]
     public GameObject mainMenuParent;
     public GameObject settingsMenuParent;
+
+    [Header("Pause Manager")]
+    public PauseMenu pauseMenu;
 
     [Header("Sub Menus")]
     public GameObject gameSubMenu;
@@ -23,9 +26,16 @@ public class SettingsMenuManager : MonoBehaviour
 
     [Header("Save Data References")]
     public VideoSettingsManager videoSettingsManager;
+    public AudioSettingsManager audioSettingsManager;
+    public ControlsSettingsManager controlsSettingsManager;
+
+    private string mainMenuSceneName = "Main Menu";
+    private string gameSceneName = "Game Scene";
 
     void Start()
     {
+        ShowSubMenu(gameSubMenu);
+
         gameButton.onClick.AddListener(() => ShowSubMenu(gameSubMenu));
         controlsButton.onClick.AddListener(() => ShowSubMenu(controlsSubMenu));
         videoButton.onClick.AddListener(() => ShowSubMenu(videoSubMenu));
@@ -36,18 +46,39 @@ public class SettingsMenuManager : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            if (settingsMenuParent.activeSelf)
+            string currentScene = SceneManager.GetActiveScene().name;
+
+            if (currentScene == mainMenuSceneName && settingsMenuParent.activeSelf)
             {
-                ToggleSettingsMenu();
+                ToggleSettingsMenuFromMainMenu();
                 videoSettingsManager.SaveSettings();
+                audioSettingsManager.SaveAudioSettings();
+                controlsSettingsManager.SaveSettings();
+            }
+            else if (currentScene == mainMenuSceneName && !settingsMenuParent.activeSelf)
+            {
+                ToggleSettingsMenuFromMainMenu();
+            }
+            else if (currentScene == gameSceneName && settingsMenuParent.activeSelf)
+            {
+                CloseSettingsAndOpenPauseMenu();
             }
         }
     }
 
-    void ToggleSettingsMenu()
+    void ToggleSettingsMenuFromMainMenu()
+    {
+        settingsMenuParent.SetActive(!settingsMenuParent.activeSelf);
+        mainMenuParent.SetActive(!settingsMenuParent.activeSelf);
+    }
+
+    void CloseSettingsAndOpenPauseMenu()
     {
         settingsMenuParent.SetActive(false);
-        mainMenuParent.SetActive(true);
+        if (pauseMenu != null)
+        {
+            pauseMenu.ShowPauseMenu();
+        }
     }
 
     void ShowSubMenu(GameObject subMenuToShow)

@@ -17,6 +17,8 @@ public class CameraShake : MonoBehaviour
     private float initialShakeDuration;
     private Vector3 originalPosition;
 
+    public bool shouldShake = false;
+
     void Start()
     {
         originalPosition = transform.localPosition;
@@ -33,24 +35,20 @@ public class CameraShake : MonoBehaviour
             transform.localPosition = originalPosition + Random.insideUnitSphere * currentStrength;
             shakeTimer -= Time.deltaTime * shakeFrequency;
         }
-        else
-        {
-            originalPosition = transform.localPosition;
-        }
 
         //Test when F is pressed
-        if(testKey)
-        {
-            if (Input.GetKeyDown(KeyCode.F))
-            {
-                TriggerShake();
-            }
-        }
+        //if (testKey)
+        //{
+        //    if (Input.GetKeyDown(KeyCode.F))
+        //    {
+        //        TriggerShake();
+        //    }
+        //}
 
         //-- EXAMPLE -- HOW TO REFERENCE IN OTHER OBJECTS BELOW
         //START(): CameraShake cameraShake = Camera.main.GetComponent<CameraShake>();
         //ANYWHERE(): cameraShake.TriggerShake(1.0f, 1.2f, 1.5f);
-}
+    }
 
     public void TriggerShake(float duration = -1, float strength = -1, float frequency = -1)
     {
@@ -58,6 +56,5 @@ public class CameraShake : MonoBehaviour
         initialShakeDuration = shakeTimer;
         shakeStrength = (strength > 0) ? strength : shakeStrength;
         shakeFrequency = (frequency > 0) ? frequency : shakeFrequency;
-        originalPosition = transform.localPosition;
     }
 }

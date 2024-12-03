@@ -5,8 +5,10 @@ using System;
 
 public class CigarCard : MonoBehaviour
 {
-    private GameManager gameManager;
 
+    private GameManager gameManager;
+    [SerializeField] private AudioClip PlayerCough;
+    [SerializeField] private AudioClip AICough;
     void Start()
     {
         gameManager = FindAnyObjectByType<GameManager>();
@@ -24,6 +26,8 @@ public class CigarCard : MonoBehaviour
             //skips players next turn
             GameManager.Instance.playerSkippedTurns++;
             GameManager.Instance.cigarBackfire.gameObject.SetActive(true);
+            SFXManager.instance.PlaySFXClip(PlayerCough, transform, 1f);
+
         }
 
     }
@@ -37,8 +41,9 @@ public class CigarCard : MonoBehaviour
 
         if (roll <= chance)
         {
-            //skips players next turn
+            //skips Ais next turn
             GameManager.Instance.aiSkippedTurns++;
+            SFXManager.instance.PlaySFXClip(AICough, transform, 1f);
         }
     }
 }

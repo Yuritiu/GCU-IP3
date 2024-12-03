@@ -36,12 +36,12 @@ public class ShootScript : MonoBehaviour
         {
             //print("instanceed1");
             instance1 = this;
-            SFXManager.instance.PlaySFXClip(Gunload, transform, 0.3f);
+            SFXManager.instance.PlaySFXClip(Gunload, transform, 0.15f);
         }
         else
         {
             instance2 = this;
-            SFXManager.instance.PlaySFXClip(Gunload, transform, 0.3f);
+            SFXManager.instance.PlaySFXClip(Gunload, transform, 0.15f);
         }
 
     }

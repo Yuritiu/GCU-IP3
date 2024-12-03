@@ -46,6 +46,7 @@ public class SwingAwayCard : MonoBehaviour
     float lerpSpeed = 10f;
     bool reducedPlayerBatCount = false;
     bool reducedAIBatCount = false;
+    bool inFreezeCam = false;
 
     bool playerBatsUsed = false;
     bool aiBatsUsed = false;
@@ -91,6 +92,12 @@ public class SwingAwayCard : MonoBehaviour
         if (gameManager.playerBatCount <= 0 && gameManager.aiBatCount <= 0)
             return;
 
+        if (inFreezeCam)
+        {
+            freelook.currentXRotation = 0;
+            freelook.currentYRotation = 0;
+            freelook.canLook = false;
+        }
         //TODO:
         //ADD PLAYER HEAD ON TABLE AFTER FOR X SKIPPED TURNS, FADE BLACK WHILE FALLING AND PLAY THWACK SFX
         //ADD EXTRA SKIP CHANCE WITH TEXT SAYING, BASED ON CLICKED POSITION, ADD VISUALIZER BAR FOR CURRENT SWING AMOUNT
@@ -353,13 +360,6 @@ public class SwingAwayCard : MonoBehaviour
             gameManager.increaseCard3BatCalled = false;
             gameManager.increaseCard4BatCalled = false;
 
-            //Reset Camera -> Bats Finished
-            gameManager.in4thPos = false;
-            gameManager.in5thPos = false;
-
-            freelook.currentXRotation = 0;
-            freelook.currentYRotation = 0;
-
             freelook.canLook = true;
         }
 
@@ -461,16 +461,23 @@ public class SwingAwayCard : MonoBehaviour
     {
         //Set Camera To Focus Opponent
 
+        inFreezeCam = true;
+
         yield return new WaitForSeconds(Random.Range(3, 6));
 
-        //GameManager.Instance.in4thPos = false;
-        //GameManager.Instance.in5thPos = false;
+        camera.transform.rotation = Quaternion.Euler(0,0,0);
+        GameManager.Instance.in4thPos = false;
+        GameManager.Instance.in5thPos = false;
 
         ThwackSFX.Instance.PlayThwackSFX();
 
-        cameraShake.TriggerShake(0.03f, 0.03f, 0.1f);
+        cameraShake.TriggerShake(0.075f, 0.5f, 0.2f);
 
         canUseBat = false;
         isLerping = true;
+
+        yield return new WaitForSeconds(0.5f);
+
+        inFreezeCam = false;
     }
 }

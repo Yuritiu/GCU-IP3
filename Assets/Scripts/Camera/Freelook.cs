@@ -6,7 +6,7 @@ public class Freelook : MonoBehaviour
     public static Freelook Instance;
 
     [Header("Sensitivity Variables")]
-    [SerializeField] public float mouseSensitivity = 135f;
+    [SerializeField] public float mouseSensitivity = 350f;
     [SerializeField] float mouseSmoothing = 0.1f;
 
     [Header("Clamp Vertical Variables")]

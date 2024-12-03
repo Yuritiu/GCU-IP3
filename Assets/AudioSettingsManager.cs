@@ -22,7 +22,7 @@ public class AudioSettingsManager : MonoBehaviour
 
     void Start()
     {
-        LoadAudioSettings();
+        LoadSettings();
         masterVolumeSlider.onValueChanged.AddListener(UpdateMasterVolume);
         masterVolumeToggle.onValueChanged.AddListener(ToggleMasterVolume);
 
@@ -79,7 +79,7 @@ public class AudioSettingsManager : MonoBehaviour
         PlayerPrefs.Save();
     }
 
-    public void LoadAudioSettings()
+    public void LoadSettings()
     {
         float masterVolume = PlayerPrefs.GetFloat("MasterVolume", 100);
         masterVolumeSlider.value = masterVolume;

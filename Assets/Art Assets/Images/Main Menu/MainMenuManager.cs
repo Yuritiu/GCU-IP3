@@ -32,11 +32,14 @@ public class MainMenuManager : MonoBehaviour
     [Header("Settings Manager References")]
     public VideoSettingsManager videoSettingsManager;
     public AudioSettingsManager audioSettingsManager;
+    public ControlsSettingsManager controlsSettingsManager;
 
     private void Start()
     {
+
         videoSettingsManager.LoadSettings();
-        audioSettingsManager.LoadAudioSettings();
+        controlsSettingsManager.LoadSettings();
+        audioSettingsManager.LoadSettings();
         //Listeners for interactions
         startGameButton.onClick.AddListener(StartGame);
         settingsButton.onClick.AddListener(OpenSettings);

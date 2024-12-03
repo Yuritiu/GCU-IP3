@@ -632,7 +632,7 @@ public class GameManager : MonoBehaviour
         {
             aiFingers--;
             aiHand.RemoveFinger(aiFingers);
-            SFXManager.instance.PlaySFXClip(AIScream, transform, 1f);
+            SFXManager.instance.PlaySFXClip(AIScream, transform, 0.2f);
         }
         //Player
         else if (character == 2)

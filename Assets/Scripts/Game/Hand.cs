@@ -79,7 +79,7 @@ public class Hand : MonoBehaviour
                 {
                     //print("Remove Finger");
                     EndOfAction(GameManager.Instance.playerFingers);
-                    SFXManager.instance.PlaySFXClip(PlayerScream, transform, 1f);
+                    SFXManager.instance.PlaySFXClip(PlayerScream, transform, 0.2f);
                 }
             }
         }

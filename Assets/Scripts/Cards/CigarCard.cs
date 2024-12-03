@@ -26,7 +26,7 @@ public class CigarCard : MonoBehaviour
             //skips players next turn
             GameManager.Instance.playerSkippedTurns++;
             GameManager.Instance.cigarBackfire.gameObject.SetActive(true);
-            SFXManager.instance.PlaySFXClip(PlayerCough, transform, 1f);
+            SFXManager.instance.PlaySFXClip(PlayerCough, transform, 0.2f);
 
         }
 
@@ -43,7 +43,7 @@ public class CigarCard : MonoBehaviour
         {
             //skips Ais next turn
             GameManager.Instance.aiSkippedTurns++;
-            SFXManager.instance.PlaySFXClip(AICough, transform, 1f);
+            SFXManager.instance.PlaySFXClip(AICough, transform, 0.2f);
         }
     }
 }

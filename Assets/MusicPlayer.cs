@@ -9,7 +9,7 @@ public class MusicPlayer : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        SFXManager.instance.PlayRandomMusicClip(MusicClips, transform, 1f);
+        SFXManager.instance.PlayRandomMusicClip(MusicClips, transform, 0.1f);
     }
 
     // Update is called once per frame

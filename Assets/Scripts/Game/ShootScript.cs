@@ -36,12 +36,12 @@ public class ShootScript : MonoBehaviour
         {
             //print("instanceed1");
             instance1 = this;
-            SFXManager.instance.PlaySFXClip(Gunload, transform, 1f);
+            SFXManager.instance.PlaySFXClip(Gunload, transform, 0.3f);
         }
         else
         {
             instance2 = this;
-            SFXManager.instance.PlaySFXClip(Gunload, transform, 1f);
+            SFXManager.instance.PlaySFXClip(Gunload, transform, 0.3f);
         }
 
     }
@@ -89,7 +89,7 @@ public class ShootScript : MonoBehaviour
             if (AiRandom <= GameManager.Instance.bullets)
             {
                 Flash.Play();
-                SFXManager.instance.PlaySFXClip(Gunfire, transform, 1f);
+                SFXManager.instance.PlaySFXClip(Gunfire, transform, 0.3f);
             }
             yield return new WaitForSeconds(delay);
 
@@ -147,7 +147,7 @@ public class ShootScript : MonoBehaviour
             if (PRandom <= GameManager.Instance.bullets)
             {
                 Flash.Play();
-                SFXManager.instance.PlaySFXClip(Gunfire, transform, 1f);
+                SFXManager.instance.PlaySFXClip(Gunfire, transform, 0.3f);
             }
             yield return new WaitForSeconds(delay);
             if (rand == 0)

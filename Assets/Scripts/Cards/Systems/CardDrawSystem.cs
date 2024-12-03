@@ -106,19 +106,6 @@ public class CardDrawSystem : MonoBehaviour
 
     void Update()
     {
-        //Ensure That Nothing Can Be Interacted With When The Settings Menu Is Open
-        if (SettingsMenu.Instance.settingsMenuOpen)
-        {
-            //Check If Null, Else Null Reference Errors Will Not Stop
-            if (cardSelection != null)
-            {
-                //Stop The Hovering Card Function Or Else It Gets Stuck On Screen When The Settings Menu Closes
-                cardSelection.CardHovered(false);
-            }
-
-            return;
-        }
-        
         if (isPlayersTurn)
         {
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);

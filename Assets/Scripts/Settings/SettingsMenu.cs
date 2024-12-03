@@ -72,6 +72,7 @@ public class SettingsMenu : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Escape) && !settingsMenuOpen)
         {
             Time.timeScale = 0f;
+
             settingsCanvas.SetActive(true);
             settingsMenuOpen = true;
             Cursor.visible = true;

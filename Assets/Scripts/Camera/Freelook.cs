@@ -55,7 +55,7 @@ public class Freelook : MonoBehaviour
             canLook = true;
         }
 
-        if (!canLook || SettingsMenu.Instance.settingsMenuOpen)
+        if (!canLook)
             return;
 
         float mouseX = Input.GetAxis("Mouse X") * mouseSensitivity * Time.deltaTime;

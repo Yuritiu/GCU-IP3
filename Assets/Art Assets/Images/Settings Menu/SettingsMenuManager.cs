@@ -1,13 +1,16 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class SettingsMenuManager : MonoBehaviour
 {
     [Header("Menus")]
     public GameObject mainMenuParent;
     public GameObject settingsMenuParent;
+
+    [Header("Pause Manager")]
+    public PauseMenu pauseMenu; // Reference to the PauseMenu script
 
     [Header("Sub Menus")]
     public GameObject gameSubMenu;
@@ -24,8 +27,15 @@ public class SettingsMenuManager : MonoBehaviour
     [Header("Save Data References")]
     public VideoSettingsManager videoSettingsManager;
 
+    private string mainMenuSceneName = "Main Menu";
+    private string gameSceneName = "Game Scene";
+
     void Start()
     {
+        // Initialize first submenu to be active
+        ShowSubMenu(gameSubMenu);
+
+        // Add listeners to buttons
         gameButton.onClick.AddListener(() => ShowSubMenu(gameSubMenu));
         controlsButton.onClick.AddListener(() => ShowSubMenu(controlsSubMenu));
         videoButton.onClick.AddListener(() => ShowSubMenu(videoSubMenu));
@@ -36,18 +46,37 @@ public class SettingsMenuManager : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            if (settingsMenuParent.activeSelf)
+            string currentScene = SceneManager.GetActiveScene().name;
+
+            if (currentScene == mainMenuSceneName && settingsMenuParent.activeSelf)
             {
-                ToggleSettingsMenu();
+                ToggleSettingsMenuFromMainMenu();
                 videoSettingsManager.SaveSettings();
+            }
+            else if (currentScene == mainMenuSceneName && !settingsMenuParent.activeSelf)
+            {
+                ToggleSettingsMenuFromMainMenu();
+            }
+            else if (currentScene == gameSceneName && settingsMenuParent.activeSelf)
+            {
+                CloseSettingsAndOpenPauseMenu();
             }
         }
     }
 
-    void ToggleSettingsMenu()
+    void ToggleSettingsMenuFromMainMenu()
+    {
+        settingsMenuParent.SetActive(!settingsMenuParent.activeSelf);
+        mainMenuParent.SetActive(!settingsMenuParent.activeSelf);
+    }
+
+    void CloseSettingsAndOpenPauseMenu()
     {
         settingsMenuParent.SetActive(false);
-        mainMenuParent.SetActive(true);
+        if (pauseMenu != null)
+        {
+            pauseMenu.ShowPauseMenu(); // Call a method to show the pause menu
+        }
     }
 
     void ShowSubMenu(GameObject subMenuToShow)

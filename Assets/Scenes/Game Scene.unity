@@ -6980,6 +6980,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cbe6fca8dc3f1ef4784a3fa8b6a36064, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  animator: {fileID: 1368347140}
+  rootBone: {fileID: 1061897515}
+  ragdoll: 0
 --- !u!1 &570854447
 GameObject:
   m_ObjectHideFlags: 0
@@ -14786,6 +14789,11 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.0034990502, y: 0.0042165974, z: 0.0024826955}
   m_Center: {x: 0.000022242984, y: 0.004163023, z: 0.000742772}
+--- !u!4 &1061897515 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 5392390209365313541, guid: 3eda67498c248c14f86a32121030e134, type: 3}
+  m_PrefabInstance: {fileID: 336367335}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1062007228
 GameObject:
   m_ObjectHideFlags: 0

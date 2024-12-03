@@ -57,6 +57,7 @@ public class ShootScript : MonoBehaviour
     }
     private void Update()
     {
+        //Debug.Log("Hey We Got Here!");
         if (gunName == "Player Gun" && Input.GetMouseButtonDown(0) && firePressed == false)
         {
             gunAnim = GetComponent<Animator>();

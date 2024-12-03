@@ -86,7 +86,7 @@ public class BloodlossSystem : MonoBehaviour
         }
 
         //Play Heartbeat SFX
-        if(fillAmount <= 0.5f && !heartbeatStartCalled)
+        if(fillAmount <= 0.75f && !heartbeatStartCalled)
         {
             heartbeatStartCalled = true;
             
@@ -94,7 +94,7 @@ public class BloodlossSystem : MonoBehaviour
             
         }
 
-        if(fillAmount <= 0.25f && !heartbeatfastStartCalled)
+        if(fillAmount <= 0.5f && !heartbeatfastStartCalled)
         {
             heartbeatfastStartCalled = true;
 

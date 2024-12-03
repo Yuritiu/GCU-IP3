@@ -896,6 +896,7 @@ public class GameManager : MonoBehaviour
             in2ndPos = false;
             in3rdPos = false;
             in4thPos = true;
+            in5thPos = false;
 
             StartCoroutine(HandleCameraTransition(Target7));
         }
@@ -950,7 +951,7 @@ public class GameManager : MonoBehaviour
         Vector3 startingpos = MainCamera.transform.position;
 
         // Transition when not in 2nd or 3rd positions
-        while (t < 1.0f && !in2ndPos && !in3rdPos && !in4thPos)
+        while (t < 1.0f && !in2ndPos && !in3rdPos && !in4thPos && !in5thPos)
         {
             t += Time.deltaTime * (Time.timeScale * speed);
             MainCamera.transform.position = Vector3.Lerp(startingpos, Target.position, t);

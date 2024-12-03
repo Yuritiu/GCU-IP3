@@ -17,6 +17,7 @@ TagManager:
   - SwingTargetPosition
   - AISwingStartPosition
   - AISwingTargetPosition
+  - OpponentHead
   layers:
   - Default
   - TransparentFX
@@ -27,8 +28,8 @@ TagManager:
   - Card
   - IgnoreOpponent
   - Opponent
-  - 
-  - 
+  - OpponentHead
+  - Bat
   - 
   - 
   - 

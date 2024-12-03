@@ -10,6 +10,7 @@ public class SwingAwayCard : MonoBehaviour
     GameManager gameManager;
     Freelook freelook;
     CameraShake cameraShake;
+    Transform camera;
 
     [Header("References")]
     Transform bat;
@@ -39,6 +40,8 @@ public class SwingAwayCard : MonoBehaviour
     bool isLerping = false;
     bool isReturning = false;
     bool canUseBat = false;
+    bool canSwingBat = false;
+    bool canSwingBatCoroutineCalled = false;
     bool isLerpingToStartPosition = false;
     float lerpSpeed = 10f;
     bool reducedPlayerBatCount = false;
@@ -53,6 +56,7 @@ public class SwingAwayCard : MonoBehaviour
         freelook = FindAnyObjectByType<Freelook>();
 
         cameraShake = Camera.main.GetComponent<CameraShake>();
+        camera = Camera.main.GetComponent<Transform>();
     }
 
     public void PlayCardForPlayer()
@@ -96,7 +100,11 @@ public class SwingAwayCard : MonoBehaviour
         if (!isSwinging && (playCardForPlayerCalled && !playCardForAiCalled) && !gameManager.inKnifeAction && !gameManager.inGunAction)
         {
             if (playerBatsUsed)
+            {
+                clickToSwingText = bat.GetComponentInChildren<TextMeshProUGUI>();
+                clickToSwingText.text = "";
                 return;
+            }
 
             //True = IsPlayer
             StartSwing(true);
@@ -154,8 +162,6 @@ public class SwingAwayCard : MonoBehaviour
     {
         yield return new WaitForSeconds(3f);
 
-        //freelook.canLook = false;
-
         //Get All References
         bat = GameObject.FindGameObjectWithTag("Bat").GetComponent<Transform>();
         swingStartPosition = GameObject.FindGameObjectWithTag("SwingStartPosition").GetComponent<Transform>();
@@ -198,8 +204,6 @@ public class SwingAwayCard : MonoBehaviour
         {
             GameManager.Instance.in4thPos = true;
 
-            clickToSwingText.text = "< CLICK TO SWING >";
-
             //Oscillate The Bat From Left To Right Based On Time
             swingProgress += Time.deltaTime * swingSpeedMultiplier;
 
@@ -227,26 +231,28 @@ public class SwingAwayCard : MonoBehaviour
             bat.rotation = initialBatSwingRotation * swingRotation;
         }
 
-        //Check For Click
-        if (Input.GetMouseButtonDown(0) && !isLerping && !isReturning && canUseBat && isPlayer)
+        if(canUseBat && isPlayer && !canSwingBatCoroutineCalled)
         {
+            canSwingBatCoroutineCalled = true;
+            StartCoroutine(BatSwingDelay());
+        }
+
+        //Check For Click
+        if (Input.GetMouseButtonDown(0) && !isLerping && !isReturning && canUseBat && isPlayer && canSwingBat)
+        {
+            canSwingBat = false;
+
             clickToSwingText.text = "";
 
             GameManager.Instance.in4thPos = false;
 
-            freelook.canLook = true;
+            //Freeze Player Camera
+            Freelook.Instance.inBatSwing = true;
 
             ThwackSFX.Instance.PlayThwackSFX();
 
             //Player Hitting AI Small Shake
             cameraShake.TriggerShake(0.08f, 0.1f, 0.15f);
-
-            Debug.Log("Player Smacked AI");
-
-            //if (playerCoroutineCalled)
-            //{
-            //    Debug.Log("Player Smacked AI");
-            //}
 
             canUseBat = false;
             isLerping = true;
@@ -277,13 +283,13 @@ public class SwingAwayCard : MonoBehaviour
             {
                 if (isPlayer)
                 {
-                    gameManager.in4thPos = false;
-                    gameManager.in5thPos = false;
+                    //gameManager.in4thPos = false;
+                    //gameManager.in5thPos = false;
 
-                    freelook.currentXRotation = 0;
-                    freelook.currentYRotation = 0;
+                    //freelook.currentXRotation = 0;
+                    //freelook.currentYRotation = 0;
 
-                    freelook.canLook = true;
+                    //freelook.canLook = false;
                 }
 
                 isLerping = false;
@@ -313,8 +319,6 @@ public class SwingAwayCard : MonoBehaviour
                     playerBatsUsed = true;
 
                     gameManager.playerBatCount = 0;
-
-                    //Debug.Log(gameManager.playerBatCount + " : Player Bats Left");
                 }
 
                 if (!isPlayer && !reducedAIBatCount)
@@ -324,7 +328,6 @@ public class SwingAwayCard : MonoBehaviour
                     aiBatsUsed = true;
 
                     gameManager.aiBatCount = 0;
-                    //Debug.Log(gameManager.aiBatCount + " : AI Bats Left");
                 }
 
                 FinishSwing();
@@ -349,8 +352,6 @@ public class SwingAwayCard : MonoBehaviour
             gameManager.increaseCard2BatCalled = false;
             gameManager.increaseCard3BatCalled = false;
             gameManager.increaseCard4BatCalled = false;
-
-            Debug.Log("CALLED 2");
 
             //Reset Camera -> Bats Finished
             gameManager.in4thPos = false;
@@ -405,23 +406,32 @@ public class SwingAwayCard : MonoBehaviour
         }
     }
 
+    IEnumerator BatSwingDelay()
+    {
+        yield return new WaitForSeconds(2);
+
+        clickToSwingText.text = "< CLICK TO SWING >";
+        canSwingBat = true;
+        canSwingBatCoroutineCalled = false;
+    }
+
     IEnumerator DelayAIBatStart()
     {
         yield return new WaitForSeconds(3f);
 
         GameManager.Instance.isActionInProgress = false;
-        GameManager.Instance.in5thPos = true;
+        //GameManager.Instance.in5thPos = true;
 
         //Get All References
         bat = GameObject.FindGameObjectWithTag("Bat").GetComponent<Transform>();
         swingStartPosition = GameObject.FindGameObjectWithTag("AISwingStartPosition").GetComponent<Transform>();
         swingTargetPosition = GameObject.FindGameObjectWithTag("AISwingTargetPosition").GetComponent<Transform>();
-        //clickToSwingText = bat.GetComponentInChildren<TextMeshProUGUI>();
+        clickToSwingText = bat.GetComponentInChildren<TextMeshProUGUI>();
 
         //Set All References
         initialPosition = bat.transform.position;
         initialRotation = bat.rotation;
-        //clickToSwingText.text = "";
+        clickToSwingText.text = "";
         initialBatSwingRotation = swingStartPosition.rotation;
         currentSwingRotation = initialBatSwingRotation.eulerAngles;
 

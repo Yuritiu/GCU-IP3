@@ -33,7 +33,7 @@ public class ControlsSettingsManager : MonoBehaviour
         sensitivityValueText.text = sensitivitySlider.value.ToString("F0");
     }
 
-    private void SaveSettings()
+    public void SaveSettings()
     {
         PlayerPrefs.SetFloat(MouseSensitivityKey, freelookScript.mouseSensitivity);
         PlayerPrefs.Save();

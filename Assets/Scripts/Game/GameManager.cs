@@ -152,6 +152,8 @@ public class GameManager : MonoBehaviour
 
     [SerializeField] private AudioClip AIScream;
 
+    public bool firstStepsTutorial = false;
+
     public int timesToShoot = 0;
 
     async void Start()

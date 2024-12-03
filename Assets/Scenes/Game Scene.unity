@@ -1103,6 +1103,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mainMenuParent: {fileID: 0}
   settingsMenuParent: {fileID: 645247904}
+  pauseMenu: {fileID: 0}
   gameSubMenu: {fileID: 1190919908}
   controlsSubMenu: {fileID: 724128912}
   videoSubMenu: {fileID: 383628995}
@@ -1112,6 +1113,7 @@ MonoBehaviour:
   videoButton: {fileID: 1540061705}
   audioButton: {fileID: 1857695193}
   videoSettingsManager: {fileID: 1754836685}
+  audioSettingsManager: {fileID: 362101097}
 --- !u!4 &69881763
 Transform:
   m_ObjectHideFlags: 0
@@ -4538,6 +4540,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 362101096}
+  - component: {fileID: 362101097}
   m_Layer: 0
   m_Name: --- Audio ---
   m_TagString: Untagged
@@ -4564,6 +4567,25 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 455.1}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &362101097
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 362101095}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7bea4b0bff636de46816a5655cf79627, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mixerManager: {fileID: 19702936}
+  masterVolumeSlider: {fileID: 1315172878}
+  masterVolumeToggle: {fileID: 1747810477}
+  musicVolumeSlider: {fileID: 1168565741}
+  musicVolumeToggle: {fileID: 1490243768}
+  sfxVolumeSlider: {fileID: 1092606819}
+  sfxVolumeToggle: {fileID: 1286875591}
 --- !u!4 &370644027 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6408206952235630704, guid: 36ddc15661c4d0f45825f0bde505b2ed, type: 3}
@@ -7043,15 +7065,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0, g: 0, b: 0, a: 0.69803923}
+  m_Color: {r: 0, g: 0, b: 0, a: 0.9490196}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 0}
-  m_Type: 0
+  m_Sprite: {fileID: 10907, guid: 0000000000000000f000000000000000, type: 0}
+  m_Type: 1
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
@@ -7869,7 +7891,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8503167003712162613, guid: 15e81af6a95cd7d46bcfa965d49e2119, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -2.1400146
+      value: -2.1401367
       objectReference: {fileID: 0}
     - target: {fileID: 8510265994846967730, guid: 15e81af6a95cd7d46bcfa965d49e2119, type: 3}
       propertyPath: m_LocalPosition.z

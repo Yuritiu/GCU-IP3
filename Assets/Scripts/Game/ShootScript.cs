@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System;
-using UnityEditor.Networking.PlayerConnection;
 
 public class ShootScript : MonoBehaviour
 {
@@ -16,7 +15,7 @@ public class ShootScript : MonoBehaviour
     public int AiRandom;
     public bool PlayerShot;
     public bool AiShot;
-    public string name;
+    public string gunName;
     
 
     private GameManager gameManager;
@@ -33,7 +32,7 @@ public class ShootScript : MonoBehaviour
 
     private void Awake()
     {
-        if (name == "Ai Gun")
+        if (gunName == "Ai Gun")
         {
             //print("instanceed1");
             instance1 = this;
@@ -58,7 +57,7 @@ public class ShootScript : MonoBehaviour
     }
     private void Update()
     {
-        if (name == "Player Gun" && Input.GetMouseButtonDown(0) && firePressed == false)
+        if (gunName == "Player Gun" && Input.GetMouseButtonDown(0) && firePressed == false)
         {
             gunAnim = GetComponent<Animator>();
             StartCoroutine(Fire(gameObject));

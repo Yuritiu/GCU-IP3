@@ -7,19 +7,34 @@ public class MixerManager : MonoBehaviour
 {
     [SerializeField] private AudioMixer audioMixer;
 
-    public void MusicVolume(float level)
+    [Range(1, 100)][SerializeField] private int musicVolume = 100;
+    [Range(1, 100)][SerializeField] private int sfxVolume = 100;
+    [Range(1, 100)][SerializeField] private int masterVolume = 100;
+
+    private void OnValidate()
     {
-        audioMixer.SetFloat("musicVolume", Mathf.Log10(level) * 20f);
+        if (audioMixer == null) return;
+
+        audioMixer.SetFloat("musicVolume", Mathf.Log10(musicVolume / 100f) * 20f);
+        audioMixer.SetFloat("sfxVolume", Mathf.Log10(sfxVolume / 100f) * 20f);
+        audioMixer.SetFloat("masterVolume", Mathf.Log10(masterVolume / 100f) * 20f);
     }
 
-    public void SFXVolume(float level)
+    public void MusicVolume(int level)
     {
-        audioMixer.SetFloat("sfxVolume", Mathf.Log10(level) * 20f);
+        musicVolume = Mathf.Clamp(level, 1, 100);
+        audioMixer.SetFloat("musicVolume", Mathf.Log10(level / 100f) * 20f);
     }
 
-    public void MaxVolume(float level)
+    public void SFXVolume(int level)
     {
-        audioMixer.SetFloat("masterVolume", Mathf.Log10(level) * 20f);
+        sfxVolume = Mathf.Clamp(level, 1, 100);
+        audioMixer.SetFloat("sfxVolume", Mathf.Log10(level / 100f) * 20f);
+    }
 
+    public void MaxVolume(int level)
+    {
+        masterVolume = Mathf.Clamp(level, 1, 100);
+        audioMixer.SetFloat("masterVolume", Mathf.Log10(level / 100f) * 20f);
     }
 }

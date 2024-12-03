@@ -10,8 +10,6 @@ public class SFXManager : MonoBehaviour
     [SerializeField] private AudioSource SFXLoopObject;
     [SerializeField] private AudioSource MusicObject;
 
-    
-
     private void Awake()
     {
         if (instance == null)

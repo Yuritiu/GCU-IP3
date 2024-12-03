@@ -127,7 +127,7 @@ public class VideoSettingsManager : MonoBehaviour
     }
 
     // Load settings from PlayerPrefs
-    void LoadSettings()
+    public void LoadSettings()
     {
         resolutionSetting.currentIndex = PlayerPrefs.GetInt("ResolutionIndex", 2);
         refreshRateSetting.currentIndex = PlayerPrefs.GetInt("RefreshRateIndex", 1);

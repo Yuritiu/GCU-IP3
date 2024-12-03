@@ -10,7 +10,7 @@ public class SettingsMenuManager : MonoBehaviour
     public GameObject settingsMenuParent;
 
     [Header("Pause Manager")]
-    public PauseMenu pauseMenu; // Reference to the PauseMenu script
+    public PauseMenu pauseMenu;
 
     [Header("Sub Menus")]
     public GameObject gameSubMenu;
@@ -26,16 +26,15 @@ public class SettingsMenuManager : MonoBehaviour
 
     [Header("Save Data References")]
     public VideoSettingsManager videoSettingsManager;
+    public AudioSettingsManager audioSettingsManager;
 
     private string mainMenuSceneName = "Main Menu";
     private string gameSceneName = "Game Scene";
 
     void Start()
     {
-        // Initialize first submenu to be active
         ShowSubMenu(gameSubMenu);
 
-        // Add listeners to buttons
         gameButton.onClick.AddListener(() => ShowSubMenu(gameSubMenu));
         controlsButton.onClick.AddListener(() => ShowSubMenu(controlsSubMenu));
         videoButton.onClick.AddListener(() => ShowSubMenu(videoSubMenu));
@@ -52,6 +51,7 @@ public class SettingsMenuManager : MonoBehaviour
             {
                 ToggleSettingsMenuFromMainMenu();
                 videoSettingsManager.SaveSettings();
+                audioSettingsManager.SaveAudioSettings();
             }
             else if (currentScene == mainMenuSceneName && !settingsMenuParent.activeSelf)
             {
@@ -75,7 +75,7 @@ public class SettingsMenuManager : MonoBehaviour
         settingsMenuParent.SetActive(false);
         if (pauseMenu != null)
         {
-            pauseMenu.ShowPauseMenu(); // Call a method to show the pause menu
+            pauseMenu.ShowPauseMenu();
         }
     }
 

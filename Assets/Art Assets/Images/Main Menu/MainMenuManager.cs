@@ -29,8 +29,14 @@ public class MainMenuManager : MonoBehaviour
     [Header("FeedbackURL")]
     public string feedbackURL = "https://forms.gle/4rPB2aM3a4HumPxD8";
 
+    [Header("Settings Manager References")]
+    public VideoSettingsManager videoSettingsManager;
+    public AudioSettingsManager audioSettingsManager;
+
     private void Start()
     {
+        videoSettingsManager.LoadSettings();
+        audioSettingsManager.LoadAudioSettings();
         //Listeners for interactions
         startGameButton.onClick.AddListener(StartGame);
         settingsButton.onClick.AddListener(OpenSettings);

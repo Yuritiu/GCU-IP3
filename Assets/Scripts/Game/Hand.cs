@@ -20,7 +20,8 @@ public class Hand : MonoBehaviour
     [SerializeField] private GameObject actionUI;
 
     [SerializeField] private AudioClip PlayerScream;
-    
+    [SerializeField] private AudioClip Cutting;
+
 
     private void Start()
     {
@@ -53,6 +54,7 @@ public class Hand : MonoBehaviour
                 {
                     knife.transform.localRotation = Quaternion.Euler(0, 0, -turn.x);
                     
+
                 }
                 if(knife.transform.localRotation.z > 0.1)
                 {
@@ -60,6 +62,7 @@ public class Hand : MonoBehaviour
                     {
                         movedKnifeEnough++;
                         sideToHit = false;
+                        SFXManager.instance.PlaySFXClip(Cutting, transform, 0.2f);
                     }
                     knife.transform.localRotation = Quaternion.Euler(0, 0, 8f);
                 }

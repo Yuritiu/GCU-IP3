@@ -52,6 +52,8 @@ public class SwingAwayCard : MonoBehaviour
     bool playerBatsUsed = false;
     bool aiBatsUsed = false;
 
+    bool blurCalled = false;
+
     void Start()
     {
         gameManager = FindAnyObjectByType<GameManager>();
@@ -381,14 +383,25 @@ public class SwingAwayCard : MonoBehaviour
     public void PlayCardForAI()
     {
         float chance = gameManager.statusPercent;
-        float roll = UnityEngine.Random.Range(0f, 100f);
+        float roll = Random.Range(0f, 100f);
 
         if (roll <= chance)
         {
-            // Shuffle cards and blur them
-            GameManager.Instance.blur.SetActive(true);
-            CardDrawSystem.Instance.ShuffleHand();
-            GameManager.Instance.batBackfire.gameObject.SetActive(true);
+            blurCalled = true;
+
+            //Check To Only Swing Bat Once Even If 2 Bat's Played
+            if (gameManager.inBatAction && gameManager.playerBatCount == 0)
+            {
+                gameManager.inAIBatAction = true;
+
+                playCardForAiCalled = false;
+            }
+            else
+            {
+                gameManager.inAIBatAction = true;
+
+                playCardForAiCalled = true;
+            }
         }
         else
         {
@@ -477,6 +490,14 @@ public class SwingAwayCard : MonoBehaviour
         GameManager.Instance.in4thPos = false;
         GameManager.Instance.in5thPos = false;
 
+        if (blurCalled)
+        {
+            //Shuffle cards and blur them
+            GameManager.Instance.blur.SetActive(true);
+            CardDrawSystem.Instance.ShuffleHand();
+            GameManager.Instance.batBackfire.gameObject.SetActive(true);
+        }
+
         ThwackSFX.Instance.PlayThwackSFX();
 
         cameraShake.TriggerShake(0.075f, 0.5f, 0.2f);
@@ -486,6 +507,7 @@ public class SwingAwayCard : MonoBehaviour
 
         yield return new WaitForSeconds(0.5f);
 
+        blurCalled = false;
         inFreezeCam = false;
     }
 }

@@ -81,7 +81,7 @@ public class AudioSettingsManager : MonoBehaviour
 
     public void LoadSettings()
     {
-        float masterVolume = PlayerPrefs.GetFloat("MasterVolume", 100);
+        float masterVolume = PlayerPrefs.GetFloat("MasterVolume", 10);
         masterVolumeSlider.value = masterVolume;
         mixerManager.MaxVolume(Mathf.RoundToInt(masterVolume));
 

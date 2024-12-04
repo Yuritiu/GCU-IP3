@@ -62,6 +62,9 @@ public class SettingsMenuManager : MonoBehaviour
             else if (currentScene == gameSceneName && settingsMenuParent.activeSelf)
             {
                 CloseSettingsAndOpenPauseMenu();
+                videoSettingsManager.SaveSettings();
+                audioSettingsManager.SaveAudioSettings();
+                //controlsSettingsManager.SaveSettings();
             }
         }
     }

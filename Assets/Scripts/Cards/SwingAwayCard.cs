@@ -16,6 +16,7 @@ public class SwingAwayCard : MonoBehaviour
     Transform bat;
     Transform swingStartPosition;
     Transform swingTargetPosition;
+    TrailRenderer trailRenderer;
     TextMeshProUGUI clickToSwingText;
 
     [Header("Swing Settings")]
@@ -58,6 +59,9 @@ public class SwingAwayCard : MonoBehaviour
 
         cameraShake = Camera.main.GetComponent<CameraShake>();
         camera = Camera.main.GetComponent<Transform>();
+
+        trailRenderer = FindObjectOfType<BatRagdoll>().GetComponentInChildren<TrailRenderer>();
+        trailRenderer.enabled = false;
     }
 
     public void PlayCardForPlayer()
@@ -251,6 +255,8 @@ public class SwingAwayCard : MonoBehaviour
 
             clickToSwingText.text = "";
 
+            trailRenderer.enabled = true;
+
             GameManager.Instance.in4thPos = false;
 
             //Freeze Player Camera
@@ -307,6 +313,8 @@ public class SwingAwayCard : MonoBehaviour
         //Lerp Back To The Side Of Table
         if (isReturning)
         {
+            trailRenderer.enabled = false;
+
             if (gameManager.aiBatCount <= 0 && gameManager.playerBatCount <= 0)
             {
                 GameManager.Instance.in4thPos = false;

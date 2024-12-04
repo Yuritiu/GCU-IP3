@@ -12,10 +12,9 @@ public class SFXManager : MonoBehaviour
 
     private void Awake()
     {
-        if (instance == null)
-        {
-            instance = this;
-        }
+        
+        instance = this;
+        
     }
 
     public void PlaySFXClip(AudioClip audioClip, Transform spawnTransform, float volume)

@@ -530,7 +530,7 @@ public class GameManager : MonoBehaviour
         //print("scooby snack");
 
         //print(gun.name);
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(3f);
         Gun.SetActive(false);
 
         bool PlayerShot = false;
@@ -552,19 +552,19 @@ public class GameManager : MonoBehaviour
             PlayerRoulette();
         }
 
-        else if (gun.name == "Ai Gun" && !PlayerShot && !aiGunActive)
+        else if (gun.name == "Ai Gun" && !playerGunActive && !aiGunActive)
         {
             has2Guns = false;
             aiGunActive = true;
             gun.SetActive(true);
         }
 
-        else if (gun.name == "Ai Gun" && PlayerShot)
+        else if (gun.name == "Ai Gun" && playerGunActive == true)
         {
             AiRoulette();
         }
 
-        else if (gun.name == "Ai Gun" && !PlayerShot && aiGunActive)
+        else if (gun.name == "Ai Gun" && !playerGunActive && aiGunActive)
         {
             has2Guns = true;
             AiRoulette();

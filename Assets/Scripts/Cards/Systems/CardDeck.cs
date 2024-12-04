@@ -64,9 +64,9 @@ public class CardDeck : MonoBehaviour
 
     void Update()
     {
-        if (deck.Count == 0 && !reshuffling)
+        if (deck.Count == 0 && !GameManager.Instance.showddown)
         {
-            reshuffling = true;
+            
             GameManager.Instance.Showdown();
         }
 

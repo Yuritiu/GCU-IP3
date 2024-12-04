@@ -5299,7 +5299,11 @@ MonoBehaviour:
   AiRandom: 0
   PlayerShot: 0
   AiShot: 0
-  name: Player Gun
+  gunName: 
+  Hammer: {fileID: 7690979728438396362}
+  textUnderGun: {fileID: 3973064453176785697}
+  Gunload: {fileID: 0}
+  Gunfire: {fileID: 0}
 --- !u!95 &6364199873939054069
 Animator:
   serializedVersion: 5
@@ -5446,6 +5450,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 22510a3545540fe48a122f396a736dd9, type: 3}
+--- !u!1 &7690979728438396362 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: -7539680413617234126, guid: 22510a3545540fe48a122f396a736dd9, type: 3}
+  m_PrefabInstance: {fileID: 9072068022076889848}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &8821650833456217363 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 22510a3545540fe48a122f396a736dd9, type: 3}

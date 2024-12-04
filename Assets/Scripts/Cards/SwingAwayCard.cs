@@ -416,7 +416,7 @@ public class SwingAwayCard : MonoBehaviour
 
     IEnumerator BatSwingDelay()
     {
-        yield return new WaitForSeconds(2);
+        yield return new WaitForSeconds(1.5f);
 
         clickToSwingText.text = "< CLICK TO SWING >";
         canSwingBat = true;

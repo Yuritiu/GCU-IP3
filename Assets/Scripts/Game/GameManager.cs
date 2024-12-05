@@ -669,41 +669,41 @@ public class GameManager : MonoBehaviour
 
     public void CheckFingers()
     {
-        if (playerFingers == 0)
-        {
-            if (Hand.Instance.bloodParticleSystem5 != null)
-            {
-                Hand.Instance.bloodParticleSystem5.Play();
-            }
-        }
-        else if (playerFingers == 1)
-        {
-            if (Hand.Instance.bloodParticleSystem4 != null)
-            {
-                Hand.Instance.bloodParticleSystem4.Play();
-            }
-        }
-        else if (playerFingers == 2)
-        {
-            if (Hand.Instance.bloodParticleSystem3 != null)
-            {
-                Hand.Instance.bloodParticleSystem3.Play();
-            }
-        }
-        else if (playerFingers == 3)
-        {
-            if (Hand.Instance.bloodParticleSystem2 != null)
-            {
-                Hand.Instance.bloodParticleSystem2.Play();
-            }
-        }
-        else if (playerFingers == 4)
-        {
-            if(Hand.Instance.bloodParticleSystem1 != null)
-            {
-                Hand.Instance.bloodParticleSystem1.Play();
-            }
-        }
+        //if (playerFingers == 0)
+        //{
+        //    if (Hand.Instance.bloodParticleSystem5 != null)
+        //    {
+        //        Hand.Instance.bloodParticleSystem5.Play();
+        //    }
+        //}
+        //else if (playerFingers == 1)
+        //{
+        //    if (Hand.Instance.bloodParticleSystem4 != null)
+        //    {
+        //        Hand.Instance.bloodParticleSystem4.Play();
+        //    }
+        //}
+        //else if (playerFingers == 2)
+        //{
+        //    if (Hand.Instance.bloodParticleSystem3 != null)
+        //    {
+        //        Hand.Instance.bloodParticleSystem3.Play();
+        //    }
+        //}
+        //else if (playerFingers == 3)
+        //{
+        //    if (Hand.Instance.bloodParticleSystem2 != null)
+        //    {
+        //        Hand.Instance.bloodParticleSystem2.Play();
+        //    }
+        //}
+        //else if (playerFingers == 4)
+        //{
+        //    if(Hand.Instance.bloodParticleSystem1 != null)
+        //    {
+        //        Hand.Instance.bloodParticleSystem1.Play();
+        //    }
+        //}
 
         if (aiFingers <= 0 && !isTutorial)
         {

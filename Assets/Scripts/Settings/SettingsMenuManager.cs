@@ -67,6 +67,7 @@ public class SettingsMenuManager : MonoBehaviour
                 audioSettingsManager.SaveAudioSettings();
                 controlsSettingsManager.SaveSettings();
                 gameSettingsManager.SaveSettings();
+                CloseSettingsAndOpenPauseMenu();
             }
         }
     }

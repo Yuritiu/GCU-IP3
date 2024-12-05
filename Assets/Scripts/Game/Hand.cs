@@ -21,7 +21,7 @@ public class Hand : MonoBehaviour
     [SerializeField] private GameObject actionUI;
 
     [SerializeField] private AudioClip PlayerScream;
-    [SerializeField] private AudioClip Cutting;
+    [SerializeField] private AudioClip[] Cutting;
 
 
     private void Start()
@@ -68,7 +68,7 @@ public class Hand : MonoBehaviour
                         StartCoroutine(WaitToCut());
                         movedKnifeEnough++;
                         sideToHit = false;
-                        SFXManager.instance.PlaySFXClip(Cutting, transform, 0.2f);
+                        SFXManager.instance.PlayRandomSFXClip(Cutting, transform, 0.2f);
                     }
                     turn.x = 18;
                 }
@@ -82,7 +82,7 @@ public class Hand : MonoBehaviour
                         StartCoroutine(WaitToCut());
                         movedKnifeEnough++;
                         sideToHit = true;
-                        SFXManager.instance.PlaySFXClip(Cutting, transform, 0.2f);
+                        SFXManager.instance.PlayRandomSFXClip(Cutting, transform, 0.2f);
                     }
                     turn.x = -13;
                 }

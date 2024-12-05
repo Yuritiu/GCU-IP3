@@ -23,9 +23,21 @@ public class Hand : MonoBehaviour
     [SerializeField] private AudioClip PlayerScream;
     [SerializeField] private AudioClip[] Cutting;
 
+    [Header("References")]
+    [SerializeField] ParticleSystem bloodParticleSystem1;
+    [SerializeField] ParticleSystem bloodParticleSystem2;
+    [SerializeField] ParticleSystem bloodParticleSystem3;
+    [SerializeField] ParticleSystem bloodParticleSystem4;
+    [SerializeField] ParticleSystem bloodParticleSystem5;
 
     private void Start()
     {
+        bloodParticleSystem1.Stop();
+        bloodParticleSystem2.Stop();
+        bloodParticleSystem3.Stop();
+        bloodParticleSystem4.Stop();
+        bloodParticleSystem5.Stop();
+
         if (this.gameObject.tag == "Player")
         {
             knifePos = knife.gameObject.transform.position;
@@ -35,7 +47,6 @@ public class Hand : MonoBehaviour
 
     private void Update()
     {
-       
         if (GameManager.Instance.inGunAction)
         {
             return;
@@ -159,6 +170,27 @@ public class Hand : MonoBehaviour
         movedKnifeEnough = 0;
         Destroy(fingers[num]);
         fingers.Remove(fingers[num]);
+
+        if(num == 1)
+        {
+            bloodParticleSystem1.Play();
+        }
+        else if(num == 2)
+        {
+            bloodParticleSystem2.Play();
+        }
+        else if(num == 3)
+        {
+            bloodParticleSystem3.Play();
+        }
+        else if (num == 4)
+        {
+            bloodParticleSystem4.Play();
+        }
+        else if (num == 5)
+        {
+            bloodParticleSystem5.Play();
+        }
         GameManager.Instance.CheckFingers();
     }
 

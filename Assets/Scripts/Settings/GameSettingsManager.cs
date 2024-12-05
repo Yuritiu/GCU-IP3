@@ -114,7 +114,7 @@ public class GameSettingsManager : MonoBehaviour
     // Load settings from PlayerPrefs
     public void LoadSettings()
     {
-        assistsSetting.currentIndex = PlayerPrefs.GetInt("AssistsIndex", 1);
+        assistsSetting.currentIndex = PlayerPrefs.GetInt("AssistsIndex", 0);
 
         if (assistsSetting.currentIndex == 0)
         {

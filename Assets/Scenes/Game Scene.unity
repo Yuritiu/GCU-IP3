@@ -9010,6 +9010,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cbe6fca8dc3f1ef4784a3fa8b6a36064, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  animator: {fileID: 0}
+  rootBone: {fileID: 0}
+  ragdoll: 0
 --- !u!4 &566393991 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 3eda67498c248c14f86a32121030e134, type: 3}
@@ -9243,6 +9246,22 @@ PrefabInstance:
       propertyPath: PlayerScream
       value: 
       objectReference: {fileID: 8300000, guid: 2bd7221c768dc8b43ada75153a0e25d4, type: 3}
+    - target: {fileID: 1148584488116116778, guid: 51b7432981d42044aab0051738de45d3, type: 3}
+      propertyPath: Cutting.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 1148584488116116778, guid: 51b7432981d42044aab0051738de45d3, type: 3}
+      propertyPath: Cutting.Array.data[0]
+      value: 
+      objectReference: {fileID: 8300000, guid: 17a012fb6920e8c49a34e67d5cdc789c, type: 3}
+    - target: {fileID: 1148584488116116778, guid: 51b7432981d42044aab0051738de45d3, type: 3}
+      propertyPath: Cutting.Array.data[1]
+      value: 
+      objectReference: {fileID: 8300000, guid: 825084563607aa84cb15f02a0b7352b2, type: 3}
+    - target: {fileID: 1148584488116116778, guid: 51b7432981d42044aab0051738de45d3, type: 3}
+      propertyPath: Cutting.Array.data[2]
+      value: 
+      objectReference: {fileID: 8300000, guid: 923ac9b33142c814abbc5eee3896689e, type: 3}
     - target: {fileID: 2265565417969549567, guid: 51b7432981d42044aab0051738de45d3, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
@@ -83634,6 +83653,22 @@ PrefabInstance:
       propertyPath: PlayerScream
       value: 
       objectReference: {fileID: 8300000, guid: 2bd7221c768dc8b43ada75153a0e25d4, type: 3}
+    - target: {fileID: 1148584488116116778, guid: 51b7432981d42044aab0051738de45d3, type: 3}
+      propertyPath: Cutting.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 1148584488116116778, guid: 51b7432981d42044aab0051738de45d3, type: 3}
+      propertyPath: Cutting.Array.data[0]
+      value: 
+      objectReference: {fileID: 8300000, guid: 17a012fb6920e8c49a34e67d5cdc789c, type: 3}
+    - target: {fileID: 1148584488116116778, guid: 51b7432981d42044aab0051738de45d3, type: 3}
+      propertyPath: Cutting.Array.data[1]
+      value: 
+      objectReference: {fileID: 8300000, guid: 825084563607aa84cb15f02a0b7352b2, type: 3}
+    - target: {fileID: 1148584488116116778, guid: 51b7432981d42044aab0051738de45d3, type: 3}
+      propertyPath: Cutting.Array.data[2]
+      value: 
+      objectReference: {fileID: 8300000, guid: 923ac9b33142c814abbc5eee3896689e, type: 3}
     - target: {fileID: 1579051938548258989, guid: 51b7432981d42044aab0051738de45d3, type: 3}
       propertyPath: m_Name
       value: Finger3

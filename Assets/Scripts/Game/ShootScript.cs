@@ -70,17 +70,17 @@ public class ShootScript : MonoBehaviour
     private void Update()
     {
         //Debug.Log("Hey We Got Here!");
-        if (gunName == "Player Gun" && Input.GetMouseButtonDown(0) && firePressed == false && currentRotation <= 0 && !reducedPlayerGunCount)
+        if (gunName == "Player Gun" && Input.GetMouseButtonDown(0) && firePressed == false && currentRotation <= 0) //&& !reducedPlayerGunCount)
         {
             gunAnim = GetComponent<Animator>();
             StartCoroutine(Fire(gameObject));
             Hammer.transform.Rotate(38f, 0, 0);
             currentRotation = 38;
 
-            reducedPlayerGunCount = true;
+            //reducedPlayerGunCount = true;
             gameManager.inGunAction = false;
 
-            gameManager.playerGunCount = 0;
+            //gameManager.playerGunCount = 0;
         }
 
         if (gunName == "Player Gun" && Input.GetMouseButton(1) && currentRotation > 0)

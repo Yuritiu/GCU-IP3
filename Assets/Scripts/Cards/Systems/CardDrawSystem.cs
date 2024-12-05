@@ -75,6 +75,8 @@ public class CardDrawSystem : MonoBehaviour
     private bool stepCompleted3 = false;
     private bool stepCompleted4 = false;
 
+    private PauseMenu pauseMenu;
+
     private void Awake()
     {
         Instance = this;
@@ -102,11 +104,15 @@ public class CardDrawSystem : MonoBehaviour
 
         StartGame();
         introTutorial = FindObjectOfType<IntroTutorial>();
+        pauseMenu = FindFirstObjectByType<PauseMenu>();
     }
 
     void Update()
     {
-        if (isPlayersTurn)
+        if (pauseMenu.isPaused)
+            return;
+
+            if (isPlayersTurn)
         {
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             RaycastHit hit;

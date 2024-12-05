@@ -36,7 +36,6 @@ public class MainMenuManager : MonoBehaviour
 
     private void Start()
     {
-
         videoSettingsManager.LoadSettings();
         controlsSettingsManager.LoadSettings();
         audioSettingsManager.LoadSettings();

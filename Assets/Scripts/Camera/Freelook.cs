@@ -29,6 +29,8 @@ public class Freelook : MonoBehaviour
     [HideInInspector] public bool reset;
     [HideInInspector] public bool inBatSwing = false;
 
+    private PauseMenu pauseMenu;
+
     void Awake()
     {
         Instance = this;
@@ -39,6 +41,8 @@ public class Freelook : MonoBehaviour
         //Hide The Cursor On Game Start
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
+
+        pauseMenu = FindFirstObjectByType<PauseMenu>();
     }
 
     void Update()
@@ -66,7 +70,7 @@ public class Freelook : MonoBehaviour
             canLook = true;
         }
 
-        if (!canLook)
+        if (!canLook || pauseMenu.isPaused)
             return;
 
         mouseX = Input.GetAxis("Mouse X") * mouseSensitivity * Time.deltaTime;

@@ -32,6 +32,13 @@ public class Hand : MonoBehaviour
 
     private void Start()
     {
+        //THIS IS REALLY BAD!!
+        bloodParticleSystem1 = GameObject.FindGameObjectWithTag("BloodParticles1").GetComponent<ParticleSystem>();
+        bloodParticleSystem2 = GameObject.FindGameObjectWithTag("BloodParticles2").GetComponent<ParticleSystem>();
+        bloodParticleSystem3 = GameObject.FindGameObjectWithTag("BloodParticles3").GetComponent<ParticleSystem>();
+        bloodParticleSystem4 = GameObject.FindGameObjectWithTag("BloodParticles4").GetComponent<ParticleSystem>();
+        bloodParticleSystem5 = GameObject.FindGameObjectWithTag("BloodParticles5").GetComponent<ParticleSystem>();
+
         bloodParticleSystem1.Stop();
         bloodParticleSystem2.Stop();
         bloodParticleSystem3.Stop();

@@ -37,6 +37,7 @@ public class GameSettingsManager : MonoBehaviour
     void Start()
     {
         LoadSettings();
+        TooltipManager.Instance.ToggleTooltips(assistsOn);
         InitializeSetting(assistsSetting, ApplyAssists);
     }
 
@@ -45,6 +46,8 @@ public class GameSettingsManager : MonoBehaviour
         setting.valueText.text = setting.options[setting.currentIndex];
         setting.buttonRight.onClick.AddListener(() => ChangeSetting(setting, 1, applyAction));
         setting.buttonLeft.onClick.AddListener(() => ChangeSetting(setting, -1, applyAction));
+
+        Debug.Log("Assists: " + setting.valueText.text);
     }
 
     void ChangeSetting(Setting setting, int direction, System.Action applyAction)

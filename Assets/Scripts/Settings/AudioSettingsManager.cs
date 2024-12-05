@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.UI;
+using static UnityEngine.Rendering.DebugUI;
 
 public class AudioSettingsManager : MonoBehaviour
 {
@@ -31,6 +32,15 @@ public class AudioSettingsManager : MonoBehaviour
 
         sfxVolumeSlider.onValueChanged.AddListener(UpdateSFXVolume);
         sfxVolumeToggle.onValueChanged.AddListener(ToggleSFXVolume);
+
+        var masterSFXValue = PlayerPrefs.GetFloat("MasterVolume");
+        mixerManager.MaxVolume(Mathf.Clamp(Mathf.RoundToInt(masterSFXValue), minVolume, maxVolume));
+
+        var musicValue = PlayerPrefs.GetFloat("MusicVolume");
+        mixerManager.MusicVolume(Mathf.Clamp(Mathf.RoundToInt(musicValue), minVolume, maxVolume));
+
+        var sfxValue = PlayerPrefs.GetFloat("SFXVolume");
+        mixerManager.MusicVolume(Mathf.Clamp(Mathf.RoundToInt(sfxValue), minVolume, maxVolume));
     }
 
     private void UpdateMasterVolume(float value)

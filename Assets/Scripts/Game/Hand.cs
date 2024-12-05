@@ -210,8 +210,15 @@ public class Hand : MonoBehaviour
 
     private void DisableCamera()
     {
-        GameManager.Instance.cameraMovement = true; //enables W S P Camera controls
+        StartCoroutine(DisableCameraWithDelay());
+    }
+
+    private IEnumerator DisableCameraWithDelay()
+    {
+        yield return new WaitForSeconds(1f);
+        GameManager.Instance.cameraMovement = true;
         GameManager.Instance.in3rdPos = false;
         StartCoroutine(GameManager.Instance.CameraTransitionIEnum(GameManager.Instance.Target1));
     }
+
 }

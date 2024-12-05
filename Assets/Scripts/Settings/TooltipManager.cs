@@ -6,6 +6,7 @@ using UnityEngine;
 public class TooltipManager : MonoBehaviour
 {
     public static TooltipManager Instance;
+    public GameSettingsManager gameSettingsManager;
 
     [Header("References")]
     [SerializeField] public TextMeshProUGUI clickToPlayHandText;

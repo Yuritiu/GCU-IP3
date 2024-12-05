@@ -28,6 +28,7 @@ public class SettingsMenuManager : MonoBehaviour
     public VideoSettingsManager videoSettingsManager;
     public AudioSettingsManager audioSettingsManager;
     public ControlsSettingsManager controlsSettingsManager;
+    public GameSettingsManager gameSettingsManager;
 
     private string mainMenuSceneName = "Main Menu";
     private string gameSceneName = "Game Scene";
@@ -54,6 +55,7 @@ public class SettingsMenuManager : MonoBehaviour
                 videoSettingsManager.SaveSettings();
                 audioSettingsManager.SaveAudioSettings();
                 controlsSettingsManager.SaveSettings();
+                gameSettingsManager.SaveSettings();
             }
             else if (currentScene == mainMenuSceneName && !settingsMenuParent.activeSelf)
             {

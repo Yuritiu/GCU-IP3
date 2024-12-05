@@ -16,6 +16,7 @@ public class CigarCard : MonoBehaviour
     public void PlayCardForPlayer()
     {
         //Clone Players Second Card
+        //GameManager.Instance.PlayCigarCard(1);
         StartCoroutine(GameManager.Instance.WaitToCompareCards(1, 2));
 
         float chance = gameManager.statusPercent;
@@ -34,6 +35,7 @@ public class CigarCard : MonoBehaviour
     public void PlayCardForAI()
     {
         //Clone AI's Second Card
+        //GameManager.Instance.PlayCigarCard(2);
         StartCoroutine(GameManager.Instance.WaitToCompareCards(2, 2));
 
         float chance = gameManager.statusPercent;

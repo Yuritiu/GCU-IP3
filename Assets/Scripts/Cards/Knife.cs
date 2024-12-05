@@ -15,12 +15,12 @@ public class Knife : MonoBehaviour
 
     public void PlayCardForPlayer()
     {
-        GameManager.Instance.inKnifeAction = true;
+        GameManager.Instance.inKnifeActionPlayerPlayed = true;
         StartCoroutine(PlayPlayerKnife());
     }
     public void PlayCardForAI()
     {
-        GameManager.Instance.inKnifeAction = true;
+        GameManager.Instance.inKnifeActionAiPlayed = true;
         StartCoroutine(PlayAiKnife());
     }
 
@@ -52,9 +52,8 @@ public class Knife : MonoBehaviour
             if (AICardDrawSystem.Instance.selectedPosition1.childCount > 0)
             {
                 //print("checking knife 1");
-                if (AICardDrawSystem.Instance.selectedPosition1.GetChild(0).name.Contains("knife") && !GameManager.Instance.knife1used)
+                if ((AICardDrawSystem.Instance.selectedPosition1.GetChild(0).name.Contains("knife") || AICardDrawSystem.Instance.selectedPosition1.GetChild(0).name.Contains("cigar")) && !GameManager.Instance.knife1used)
                 {
-                    GameManager.Instance.canCutFinger = true;
                     GameManager.Instance.knife1used = true;
                     GameManager.Instance.numberOfKnifeCards++;
                     StartCoroutine(GameManager.Instance.WaitToCompareCards(2, 1));
@@ -63,9 +62,8 @@ public class Knife : MonoBehaviour
             if (AICardDrawSystem.Instance.selectedPosition2.childCount > 0)
             {
                 //print("checking knife 2");
-                if (AICardDrawSystem.Instance.selectedPosition2.GetChild(0).name.Contains("knife") && !GameManager.Instance.knife2used)
+                if ((AICardDrawSystem.Instance.selectedPosition2.GetChild(0).name.Contains("knife") || AICardDrawSystem.Instance.selectedPosition2.GetChild(0).name.Contains("cigar")) && !GameManager.Instance.knife2used)
                 {
-                    GameManager.Instance.canCutFinger = true;
                     GameManager.Instance.knife2used = true;
                     GameManager.Instance.numberOfKnifeCards++;
                     if (!GameManager.Instance.knife1used)
@@ -103,21 +101,36 @@ public class Knife : MonoBehaviour
                 Component card2 = CardDrawSystem.Instance.selectedPosition2.GetChild(0);
                 //Damage opponent 
                 //takes 1 finger away
-                if (card1.gameObject.name.Contains("knife") && card2.gameObject.name.Contains("knife"))
+                if ((card1.gameObject.name.Contains("knife") || card1.gameObject.name.Contains("cigar")) && (card2.gameObject.name.Contains("knife") || card2.gameObject.name.Contains("cigar")))
                 {
                     if (card2.gameObject == this.gameObject)
                     {
                         StartCoroutine(WaitToStart(1, 1));
                         yield return null;
                     }
+                    else
+                    {
+                        //print(1);
+                        StartCoroutine(GameManager.Instance.WaitToCompareCards(1, 1));
+                    }
                 }
-                else if (card1.gameObject.name.Contains("knife") || card2.gameObject.name.Contains("knife"))
+                else
                 {
-                    //Avoids Softlock When inKnifeAction Is Still True
-                    GameManager.Instance.inKnifeAction = false;
+                    //print(2);
+                    StartCoroutine(GameManager.Instance.WaitToCompareCards(1, 1));
                 }
+                
+                //else if (card1.gameObject.name.Contains("knife") || card2.gameObject.name.Contains("knife"))
+                //{
+                //    //Avoids Softlock When inKnifeAction Is Still True
+                //    GameManager.Instance.inKnifeAiAction = false;
+                //}
             }
-            StartCoroutine(GameManager.Instance.WaitToCompareCards(1, 1));
+            else
+            {
+                //print(3);
+                StartCoroutine(GameManager.Instance.WaitToCompareCards(1, 1));
+            }        
         }
         else
         {

@@ -123,8 +123,8 @@ public class GameManager : MonoBehaviour
 
     [Header("Action")]
     private bool canMoveOn;
-    [HideInInspector] public bool inKnifeAction = false;
-    [HideInInspector] public bool inKnifePlayerAction = false;
+    [HideInInspector] public bool inKnifeActionAiPlayed = false;
+    [HideInInspector] public bool inKnifeActionPlayerPlayed = false;
     [HideInInspector] public bool canCutFinger = false;
     [HideInInspector] public bool inGunAction = false;
     [HideInInspector] public bool inGunPlayerAction = false;
@@ -331,7 +331,7 @@ public class GameManager : MonoBehaviour
             //And The Card's Hierarchy Mathches The 'Skip Next Turn' Card
             cardsOnTable1 = CardDrawSystem.Instance.selectedPosition1.GetChild(0).gameObject.GetComponentAtIndex(1);
 
-            if(cardsOnTable1 != null)
+            if (cardsOnTable1 != null)
             {
                 if (cardsOnTable1.name.Contains("bat") && !increaseCard1BatCalled)
                 {
@@ -492,7 +492,7 @@ public class GameManager : MonoBehaviour
         yield return new WaitForSeconds(3f);
         in2ndPos = false;
 
-        if (!in3rdPos || !in4thPos)
+        if (!in3rdPos && !in4thPos)
         {
             StartCoroutine(CameraTransitionIEnum(Target1));
         }
@@ -609,7 +609,6 @@ public class GameManager : MonoBehaviour
         yield return new WaitForSeconds(1f);
 
         // type meaning // 1 is knife // 2 is cigar // 3 in gun//
-
         if (type == 1 || type == 3)
         {
             if (type == 1)
@@ -630,6 +629,7 @@ public class GameManager : MonoBehaviour
         //AI
         if (character == 1)
         {
+            inKnifeActionPlayerPlayed = false;
             aiFingers--;
             aiHand.RemoveFinger(aiFingers);
             SFXManager.instance.PlaySFXClip(AIScream, transform, 0.2f);
@@ -671,7 +671,7 @@ public class GameManager : MonoBehaviour
 
     public void CheckArmour(int character, int type)
     {
-        //print(playerArmour);
+        //print("character - " + character + "ai armour" + aiArmour);
 
         //this ensures the armour stops the gun instead of the knife
         if (character == 1)
@@ -680,6 +680,7 @@ public class GameManager : MonoBehaviour
             {
                 if (playerHasGun && playerHasKnife)
                 {
+                    playerHasKnife = false;
                     inGunAction = false;
                     if (type == 1)
                     {
@@ -687,19 +688,12 @@ public class GameManager : MonoBehaviour
                     }
                     return;
                 }
-                else if (aiArmour > 0)
+                else
                 {
-                    inGunAction = false;
                     aiArmour--;
-                    return;
-                }
-                else if (type == 1)
-                {
-                    ReduceHealth(character, type);
-                }
-                else if (type == 3)
-                {
-                    FireGun(character);
+                    inKnifeActionPlayerPlayed = false;
+                    playerHasKnife = false;
+                    inGunAction = false;
                 }
             }
             else
@@ -707,7 +701,7 @@ public class GameManager : MonoBehaviour
                 if (aiArmour == 2)
                 {
                     inGunAction = false;
-                    inKnifeAction = false;
+                    inKnifeActionPlayerPlayed = false;
                     aiArmour--;
                     return;
                 }
@@ -746,7 +740,7 @@ public class GameManager : MonoBehaviour
                     knife1used = false;
                     knife2used = false;
                     canCutFinger = false;
-                    inKnifeAction = false;
+                    inKnifeActionAiPlayed = false;
                     playerArmour--;
                 }
                 else
@@ -764,7 +758,7 @@ public class GameManager : MonoBehaviour
                     knife1used = false;
                     knife2used = false;
                     canCutFinger = false;
-                    inKnifeAction = false;
+                    inKnifeActionAiPlayed = false;
                     playerArmour = 0;
                 }
                 else if (type == 1)
@@ -805,13 +799,13 @@ public class GameManager : MonoBehaviour
                 //Card To Be Cloned Is In Slot 2
                 if (cardObject1.name.Contains("cigar") && !cardObject2.name.Contains("cigar"))
                 {
-                    Debug.Log("Called Function 1");
+                    //Debug.Log("Called Function 1");
                     cardObject2.SendMessage("PlayCardForPlayer");
                 }
                 //Card To Be Cloned Is In Slot 1
                 if (cardObject2.name.Contains("cigar") && !cardObject1.name.Contains("cigar"))
                 {
-                    Debug.Log("Called Function 2");
+                    //Debug.Log("Called Function 2");
                     cardObject1.SendMessage("PlayCardForPlayer");
                 }
             }
@@ -823,18 +817,17 @@ public class GameManager : MonoBehaviour
                 var cardObject3 = cardsOnTable3.gameObject;
                 var cardObject4 = cardsOnTable4.gameObject;
                 Component aiClonedCard = null;
-
                 //Card To Be Cloned Is In Slot 4
-                if (cardObject3.name.Contains("Cigar") && !cardObject4.name.Contains("Cigar"))
+                if (cardObject3.name.Contains("cigar") && !cardObject4.name.Contains("cigar"))
                 {
-                    Debug.Log("Called Function 3");
+                    //Debug.Log("Called Function 3");
                     aiClonedCard = cardObject4.GetComponentAtIndex(1);
                     aiClonedCard.SendMessage("PlayCardForAI");
                 }
                 //Card To Be Cloned Is In Slot 3
-                if (cardObject4.name.Contains("Cigar") && !cardObject3.name.Contains("Cigar"))
+                if (cardObject4.name.Contains("cigar") && !cardObject3.name.Contains("cigar"))
                 {
-                    Debug.Log("Called Function 4");
+                    //Debug.Log("Called Function 4");
                     aiClonedCard = cardObject3.GetComponentAtIndex(1);
                     aiClonedCard.SendMessage("PlayCardForAI");
                 }
@@ -1084,14 +1077,15 @@ public class GameManager : MonoBehaviour
 
     private bool allActionsDone()
     {
-        //print(inKnifeAction);
+        //print(inKnifeActionAiPlayed);
+        //print(inKnifeActionPlayerPlayed);
         //print(inGunAction);
         //print(canMoveOn);
 
         if (canMoveOn)
         {
             //Debug.Log("Can move on");
-            if (!inKnifeAction)
+            if (!inKnifeActionAiPlayed && !inKnifeActionPlayerPlayed)
             {
                 //Debug.Log("No knife in action");
                 if (!inGunAction)

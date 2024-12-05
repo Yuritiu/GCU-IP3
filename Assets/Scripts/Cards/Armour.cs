@@ -26,8 +26,6 @@ public class Armour : MonoBehaviour
         }
         else
         {
-            // Damage opponent 
-            // Takes 1 finger away 
             GameManager.Instance.playerArmour++;
         }
 
@@ -35,8 +33,6 @@ public class Armour : MonoBehaviour
            
     public void PlayCardForAI()
     {
-        //Damage opponent 
-        //takes 1 finger away 
         GameManager.Instance.aiArmour++;
     }
 }

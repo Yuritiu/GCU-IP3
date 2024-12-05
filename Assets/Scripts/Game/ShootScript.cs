@@ -113,6 +113,8 @@ public class ShootScript : MonoBehaviour
 
         AiRandom = randForBullet;
 
+        //AiRandom = 8;
+        
         //UnityEngine.Debug.Log("bullet " + GameManager.Instance.bullets);
         //UnityEngine.Debug.Log("random " + AiRandom);
 
@@ -176,7 +178,10 @@ public class ShootScript : MonoBehaviour
         int randForBullet = UnityEngine.Random.Range(1, 7);
 
         PRandom = randForBullet;
-
+        
+        //rand = 1;
+        //PRandom = 1;
+        
         firePressed = true;
         gunAnim.Play("recoil");
         if (PRandom <= GameManager.Instance.bullets)

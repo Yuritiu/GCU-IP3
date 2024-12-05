@@ -110,7 +110,7 @@ public class SwingAwayCard : MonoBehaviour
         //FEEL: ADD SFX, RAGDOLL ENEMY, BLOOD OUT MOUTH
 
         //Start The Swing If The Card Is Played And No Other Actions Are Happening
-        if (!isSwinging && (playCardForPlayerCalled && !playCardForAiCalled) && !gameManager.inKnifeAction && !gameManager.inGunAction)
+        if (!isSwinging && (playCardForPlayerCalled && !playCardForAiCalled) && !gameManager.inKnifeActionAiPlayed && !gameManager.inGunAction)
         {
             if (playerBatsUsed)
             {
@@ -134,7 +134,7 @@ public class SwingAwayCard : MonoBehaviour
             HandleSwing(true);
         }
 
-        if (!isSwinging && (playCardForAiCalled && !playCardForPlayerCalled) && !gameManager.inKnifeAction && !gameManager.inGunAction)
+        if (!isSwinging && (playCardForAiCalled && !playCardForPlayerCalled) && !gameManager.inKnifeActionAiPlayed && !gameManager.inGunAction)
         {
             if (aiBatsUsed)
                 return;

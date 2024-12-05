@@ -18,6 +18,7 @@ TagManager:
   - AISwingStartPosition
   - AISwingTargetPosition
   - OpponentHead
+  - RootBone
   layers:
   - Default
   - TransparentFX

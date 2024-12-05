@@ -7,8 +7,8 @@ public class RagdollToggle : MonoBehaviour
     public static RagdollToggle Instance;
 
     [Header("References")]
-    [SerializeField] Animator animator;
-    [SerializeField] Transform rootBone;
+    Animator animator;
+    Transform rootBone;
 
     [SerializeField] public bool ragdoll = false;
     bool calledCoroutine = false;
@@ -21,6 +21,8 @@ public class RagdollToggle : MonoBehaviour
     {
         Instance = this;
 
+        animator = GetComponentInChildren<Animator>();
+        rootBone = GameObject.FindGameObjectWithTag("RootBone").GetComponent<Transform>();
         rbs = rootBone.GetComponentsInChildren<Rigidbody>();
         joints = rootBone.GetComponentsInChildren<CharacterJoint>();
         colliders = rootBone.GetComponentsInChildren<Collider>();

@@ -7,6 +7,8 @@ using static UnityEngine.GraphicsBuffer;
 
 public class Hand : MonoBehaviour
 {
+    public static Hand Instance;
+
     [SerializeField] List<GameObject> fingers;
     [SerializeField] GameObject knife;
     private int movedKnifeEnough = 0;
@@ -24,11 +26,16 @@ public class Hand : MonoBehaviour
     [SerializeField] private AudioClip[] Cutting;
 
     [Header("References")]
-    [SerializeField] ParticleSystem bloodParticleSystem1;
-    [SerializeField] ParticleSystem bloodParticleSystem2;
-    [SerializeField] ParticleSystem bloodParticleSystem3;
-    [SerializeField] ParticleSystem bloodParticleSystem4;
-    [SerializeField] ParticleSystem bloodParticleSystem5;
+    [SerializeField] public ParticleSystem bloodParticleSystem1;
+    [SerializeField] public ParticleSystem bloodParticleSystem2;
+    [SerializeField] public ParticleSystem bloodParticleSystem3;
+    [SerializeField] public ParticleSystem bloodParticleSystem4;
+    [SerializeField] public ParticleSystem bloodParticleSystem5;
+
+    private void Awake()
+    {
+        Instance = this;
+    }
 
     private void Start()
     {
@@ -178,26 +185,6 @@ public class Hand : MonoBehaviour
         Destroy(fingers[num]);
         fingers.Remove(fingers[num]);
 
-        if(num == 1)
-        {
-            bloodParticleSystem1.Play();
-        }
-        else if(num == 2)
-        {
-            bloodParticleSystem2.Play();
-        }
-        else if(num == 3)
-        {
-            bloodParticleSystem3.Play();
-        }
-        else if (num == 4)
-        {
-            bloodParticleSystem4.Play();
-        }
-        else if (num == 5)
-        {
-            bloodParticleSystem5.Play();
-        }
         GameManager.Instance.CheckFingers();
     }
 

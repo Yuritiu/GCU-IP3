@@ -23,20 +23,19 @@ public class ShootScript : MonoBehaviour
     float currentRotation;
     bool clampActivated;
     public TextMeshProUGUI textUnderGun;
-    
-    
+
+    bool isPlayer;
+    bool reducedPlayerGunCount = false;
 
     private GameManager gameManager;
     [SerializeField] private AudioClip Gunload;
     [SerializeField] private AudioClip Gunfire;
 
-
     private void Start()
     {
         gunAnim = GetComponent<Animator>();
         gameManager = FindAnyObjectByType<GameManager>();
-        currentRotation = startingRotation;
-        
+        currentRotation = startingRotation;  
     }
 
     private void Awake()
@@ -46,15 +45,16 @@ public class ShootScript : MonoBehaviour
             //print("instanceed1");
             instance1 = this;
             //SFXManager.instance.PlaySFXClip(Gunload, transform, 0.15f);
+            isPlayer = false;
         }
         if(gameObject.name == "Player Gun")
         {
             instance2 = this;
+            isPlayer = true;
             //SFXManager.instance.PlaySFXClip(Gunload, transform, 0.15f);
             clampActivated = true;
             
         }
-
     }
 
     private void OnEnable()
@@ -66,15 +66,21 @@ public class ShootScript : MonoBehaviour
             
         }
     }
+
     private void Update()
     {
         //Debug.Log("Hey We Got Here!");
-        if (gunName == "Player Gun" && Input.GetMouseButtonDown(0) && firePressed == false && currentRotation <= 0)
+        if (gunName == "Player Gun" && Input.GetMouseButtonDown(0) && firePressed == false && currentRotation <= 0 && !reducedPlayerGunCount)
         {
             gunAnim = GetComponent<Animator>();
             StartCoroutine(Fire(gameObject));
             Hammer.transform.Rotate(38f, 0, 0);
             currentRotation = 38;
+
+            reducedPlayerGunCount = true;
+            gameManager.inGunAction = false;
+
+            gameManager.playerGunCount = 0;
         }
 
         if (gunName == "Player Gun" && Input.GetMouseButton(1) && currentRotation > 0)
@@ -100,13 +106,10 @@ public class ShootScript : MonoBehaviour
         {
             textUnderGun.text = "CLICK LMB";
         }
-        
     }
-
 
     private IEnumerator AiFire(GameObject gun)
     {
-       
         AiShot = true;
 
         int randForBullet = UnityEngine.Random.Range(1, 7);
@@ -151,6 +154,10 @@ public class ShootScript : MonoBehaviour
         GameManager.Instance.aiGunActive = false;
         gun.SetActive(false);
 
+        gameManager.inGunAction = false;
+
+        gameManager.aiGunCount = 0;
+
         //if other card is gun then wait
         if (GameManager.Instance.has2Guns == false)
         {
@@ -167,8 +174,6 @@ public class ShootScript : MonoBehaviour
     {
         //print("before null check");
         
-
-
         
         PlayerShot = true;
 
@@ -225,5 +230,4 @@ public class ShootScript : MonoBehaviour
         gunAnim.Play("GunPause");
         firePressed = false;
     }
-    
 }

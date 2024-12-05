@@ -104,10 +104,6 @@ public class SwingAwayCard : MonoBehaviour
             freelook.currentYRotation = 0;
             freelook.canLook = false;
         }
-        //TODO:
-        //ADD PLAYER HEAD ON TABLE AFTER FOR X SKIPPED TURNS, FADE BLACK WHILE FALLING AND PLAY THWACK SFX
-        //ADD EXTRA SKIP CHANCE WITH TEXT SAYING, BASED ON CLICKED POSITION, ADD VISUALIZER BAR FOR CURRENT SWING AMOUNT
-        //FEEL: ADD SFX, RAGDOLL ENEMY, BLOOD OUT MOUTH
 
         //Start The Swing If The Card Is Played And No Other Actions Are Happening
         if (!isSwinging && (playCardForPlayerCalled && !playCardForAiCalled) && !gameManager.inKnifeActionAiPlayed && !gameManager.inGunAction)
@@ -134,7 +130,7 @@ public class SwingAwayCard : MonoBehaviour
             HandleSwing(true);
         }
 
-        if (!isSwinging && (playCardForAiCalled && !playCardForPlayerCalled) && !gameManager.inKnifeActionAiPlayed && !gameManager.inGunAction)
+        if (!isSwinging && (playCardForAiCalled && !playCardForPlayerCalled) && !gameManager.inKnifeActionAiPlayed && !gameManager.inGunAction && gameManager.playerGunCount <= 0)
         {
             if (aiBatsUsed)
                 return;
@@ -154,14 +150,14 @@ public class SwingAwayCard : MonoBehaviour
 
     void StartSwing(bool isPlayer)
     {
-        if (!playerCoroutineCalled && isPlayer && !aiCoroutineCalled)
+        if (!playerCoroutineCalled && isPlayer && !aiCoroutineCalled && gameManager.aiGunCount <= 0)
         {
             playerCoroutineCalled = true;
 
             StartCoroutine(DelayBatStart());
         }
 
-        if (!aiCoroutineCalled && !isPlayer && gameManager.playerBatCount == 0 && !gameManager.calledAIBatSwing)
+        if (!aiCoroutineCalled && !isPlayer && gameManager.playerBatCount == 0 && !gameManager.calledAIBatSwing && gameManager.playerGunCount <= 0)
         {
             aiCoroutineCalled = true;
             gameManager.calledAIBatSwing = true;
@@ -251,7 +247,7 @@ public class SwingAwayCard : MonoBehaviour
         }
 
         //Check For Click
-        if (Input.GetMouseButtonDown(0) && !isLerping && !isReturning && canUseBat && isPlayer && canSwingBat)
+        if (Input.GetMouseButtonDown(0) && !isLerping && !isReturning && canUseBat && isPlayer && canSwingBat && gameManager.aiGunCount <= 0)
         {
             canSwingBat = false;
 
@@ -369,6 +365,8 @@ public class SwingAwayCard : MonoBehaviour
             gameManager.increaseCard2BatCalled = false;
             gameManager.increaseCard3BatCalled = false;
             gameManager.increaseCard4BatCalled = false;
+            gameManager.increaseCard3GunCalled = false;
+            gameManager.increaseCard4GunCalled = false;
 
             freelook.canLook = true;
         }

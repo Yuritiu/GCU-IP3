@@ -141,10 +141,14 @@ public class GameManager : MonoBehaviour
     [HideInInspector] public bool bat2Used = false;
     [HideInInspector] public int playerBatCount = 0;
     [HideInInspector] public int aiBatCount = 0;
+    [HideInInspector] public int playerGunCount = 0;
+    [HideInInspector] public int aiGunCount = 0;
     [HideInInspector] public bool increaseCard1BatCalled = false;
     [HideInInspector] public bool increaseCard2BatCalled = false;
     [HideInInspector] public bool increaseCard3BatCalled = false;
     [HideInInspector] public bool increaseCard4BatCalled = false;
+    [HideInInspector] public bool increaseCard3GunCalled = false;
+    [HideInInspector] public bool increaseCard4GunCalled = false;
     [HideInInspector] public bool calledAIBatSwing = false;
 
     [Header("Camera Movement Variables")]
@@ -371,6 +375,11 @@ public class GameManager : MonoBehaviour
             {
                 if (cardsOnTable3 != null)
                 {
+                    if (cardsOnTable3.name.Contains("gun") && !increaseCard3GunCalled)
+                    {
+                        increaseCard3GunCalled = true;
+                        aiGunCount++;
+                    }
                     if (cardsOnTable3.name.Contains("bat") && !increaseCard3BatCalled)
                     {
                         increaseCard3BatCalled = true;
@@ -381,6 +390,8 @@ public class GameManager : MonoBehaviour
                 cardsOnTable3.SendMessage("PlayCardForAI");
                 AICardDrawSystem.Instance.selectedCardCount--;
             }
+
+
         }
         if (cardsOnTable4 != null)
         {
@@ -390,6 +401,11 @@ public class GameManager : MonoBehaviour
             {
                 if (cardsOnTable4 != null)
                 {
+                    if (cardsOnTable4.name.Contains("gun") && !increaseCard4GunCalled)
+                    {
+                        increaseCard4GunCalled = true;
+                        aiGunCount++;
+                    }
                     if (cardsOnTable4.name.Contains("bat") && !increaseCard4BatCalled)
                     {
                         increaseCard4BatCalled = true;
@@ -403,7 +419,6 @@ public class GameManager : MonoBehaviour
         }
 
         canMoveOn = true;
-
 
         CardDrawSystem.Instance.isPlayersTurn = false;
         StartCoroutine(MoveCamera());
@@ -854,35 +869,35 @@ public class GameManager : MonoBehaviour
             inGunAction = true;
         }
 
-        //Input for "s" key
-        if (Input.GetKey("s") && !isActionInProgress)
-        {
-            isActionInProgress = true;
-            in2ndPos = false;
-            in3rdPos = false;
+        ////Input for "s" key
+        //if (Input.GetKey("s") && !isActionInProgress)
+        //{
+        //    isActionInProgress = true;
+        //    in2ndPos = false;
+        //    in3rdPos = false;
 
-            StartCoroutine(HandleCameraTransition(Target1));
-        }
+        //    StartCoroutine(HandleCameraTransition(Target1));
+        //}
 
-        //Input for "w" key
-        if (Input.GetKey("w") && !isActionInProgress)
-        {
-            isActionInProgress = true;
-            in2ndPos = true;
-            in3rdPos = false;
+        ////Input for "w" key
+        //if (Input.GetKey("w") && !isActionInProgress)
+        //{
+        //    isActionInProgress = true;
+        //    in2ndPos = true;
+        //    in3rdPos = false;
 
-            StartCoroutine(HandleCameraTransition(Target2));
-        }
+        //    StartCoroutine(HandleCameraTransition(Target2));
+        //}
 
-        //Input for "p" key
-        if (Input.GetKey("p") && !isActionInProgress)
-        {
-            isActionInProgress = true;
-            in2ndPos = false;
-            in3rdPos = true;
+        ////Input for "p" key
+        //if (Input.GetKey("p") && !isActionInProgress)
+        //{
+        //    isActionInProgress = true;
+        //    in2ndPos = false;
+        //    in3rdPos = true;
 
-            StartCoroutine(HandleCameraTransition(Target3));
-        }
+        //    StartCoroutine(HandleCameraTransition(Target3));
+        //}
 
         //Transition To Bat Camera
         if (in4thPos && !isActionInProgress)

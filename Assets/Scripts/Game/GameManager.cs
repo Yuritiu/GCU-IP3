@@ -671,23 +671,38 @@ public class GameManager : MonoBehaviour
     {
         if (playerFingers == 0)
         {
-            Hand.Instance.bloodParticleSystem5.Play();
+            if (Hand.Instance.bloodParticleSystem5 != null)
+            {
+                Hand.Instance.bloodParticleSystem5.Play();
+            }
         }
         else if (playerFingers == 1)
         {
-            Hand.Instance.bloodParticleSystem4.Play();
+            if (Hand.Instance.bloodParticleSystem4 != null)
+            {
+                Hand.Instance.bloodParticleSystem4.Play();
+            }
         }
         else if (playerFingers == 2)
         {
-            Hand.Instance.bloodParticleSystem3.Play();
+            if (Hand.Instance.bloodParticleSystem3 != null)
+            {
+                Hand.Instance.bloodParticleSystem3.Play();
+            }
         }
         else if (playerFingers == 3)
         {
-            Hand.Instance.bloodParticleSystem2.Play();
+            if (Hand.Instance.bloodParticleSystem2 != null)
+            {
+                Hand.Instance.bloodParticleSystem2.Play();
+            }
         }
         else if (playerFingers == 4)
         {
-            Hand.Instance.bloodParticleSystem1.Play();
+            if(Hand.Instance.bloodParticleSystem1 != null)
+            {
+                Hand.Instance.bloodParticleSystem1.Play();
+            }
         }
 
         if (aiFingers <= 0 && !isTutorial)

@@ -10,14 +10,12 @@ public class CardSelection : MonoBehaviour
 
     [HideInInspector] public bool canSelect = true;
 
+    private static CardSelection currentlyHoveredCard;
+
     void Start()
     {
         if (cardInfoText != null)
             cardInfoText.gameObject.SetActive(false);
-    }
-
-    public void CardSelected()
-    {
     }
 
     public void CardHovered(bool hovering)
@@ -25,7 +23,20 @@ public class CardSelection : MonoBehaviour
         if (CardDrawSystem.Instance.cardMoving || cardInfoText == null)
             return;
 
+        if (hovering)
+        {
+            if (currentlyHoveredCard != null && currentlyHoveredCard != this)
+            {
+                currentlyHoveredCard.cardInfoText.gameObject.SetActive(false);
+                currentlyHoveredCard = null;
+            }
+            currentlyHoveredCard = this;
+        }
+        else
+        {
+            if (currentlyHoveredCard == this)
+                currentlyHoveredCard = null;
+        }
         cardInfoText.gameObject.SetActive(hovering);
     }
 }
-

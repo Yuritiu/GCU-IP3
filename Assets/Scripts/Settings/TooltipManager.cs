@@ -11,7 +11,7 @@ public class TooltipManager : MonoBehaviour
     [Header("References")]
     [SerializeField] public TextMeshProUGUI clickToPlayHandText;
 
-    bool assistsOn;
+    public bool assistsOn;
 
     void Awake()
     {
@@ -22,11 +22,11 @@ public class TooltipManager : MonoBehaviour
     {
         if (!GameManager.Instance.canPlay && clickToPlayHandText.enabled)
         {
-            clickToPlayHandText.enabled = false;
+            clickToPlayHandText.gameObject.SetActive(false);
         }
         else if(GameManager.Instance.canPlay && assistsOn && !clickToPlayHandText.enabled)
         {
-            clickToPlayHandText.enabled = true;
+            clickToPlayHandText.gameObject.SetActive(true);
         }
     }
 

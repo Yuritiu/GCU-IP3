@@ -10,12 +10,16 @@ public class CardSelection : MonoBehaviour
 
     [HideInInspector] public bool canSelect = true;
 
+    public GameSettingsManager gamesSettingsManager;
+
     private static CardSelection currentlyHoveredCard;
 
     void Start()
     {
         if (cardInfoText != null)
             cardInfoText.gameObject.SetActive(false);
+
+        gamesSettingsManager = FindFirstObjectByType<GameSettingsManager>();
     }
 
     public void CardHovered(bool hovering)
@@ -37,6 +41,14 @@ public class CardSelection : MonoBehaviour
             if (currentlyHoveredCard == this)
                 currentlyHoveredCard = null;
         }
-        cardInfoText.gameObject.SetActive(hovering);
+
+        if(gamesSettingsManager.assistsOn == true)
+        {
+            cardInfoText.gameObject.SetActive(hovering);
+        } 
+        else
+        {
+            cardInfoText.gameObject.SetActive(false);
+        }
     }
 }

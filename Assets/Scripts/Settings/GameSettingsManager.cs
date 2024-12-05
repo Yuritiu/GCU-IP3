@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class GameSettingsManager : MonoBehaviour
@@ -28,6 +29,14 @@ public class GameSettingsManager : MonoBehaviour
 
     [Header("Game Values")]
     public bool assistsOn;
+
+
+    [Header("References")]
+    [SerializeField] public TextMeshProUGUI clickToPlayHandText;
+    [SerializeField] public GameObject tutorialCanvas;
+
+    private string mainMenuSceneName = "Main Menu";
+    private string gameSceneName = "Game Scene";
 
     void Awake()
     {
@@ -60,10 +69,37 @@ public class GameSettingsManager : MonoBehaviour
         {
             case 0: //Yes
                 assistsOn = true;
+                TooltipObjectToggle();
                 break;
             case 1: //No
                 assistsOn = false;
+                TooltipObjectToggle();
                 break;
+        }
+    }
+
+    public void TooltipObjectToggle()
+    {
+        string currentScene = SceneManager.GetActiveScene().name;
+
+        if(currentScene == gameSceneName)
+        {
+            if(assistsOn == true)
+            {
+                clickToPlayHandText.gameObject.SetActive(true);
+                tutorialCanvas.gameObject.SetActive(true);
+            }
+
+            if (assistsOn == false)
+            {
+                clickToPlayHandText.gameObject.SetActive(false);
+                tutorialCanvas.gameObject.SetActive(false);
+            }
+        }
+
+        if (currentScene == mainMenuSceneName)
+        {
+            //
         }
     }
 

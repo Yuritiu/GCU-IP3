@@ -224,6 +224,7 @@ public class GameManager : MonoBehaviour
         //Move Played Cards To Discard Pile
         CardDrawSystem.Instance.FindCardsOnTable();
         StartCoroutine(CardDrawSystem.Instance.LerpCardsToDiscardDeck(0.5f));
+        CardSelection.ClearAllHovers();
 
         //Debug.Log("Next Turn");
 
@@ -320,6 +321,8 @@ public class GameManager : MonoBehaviour
 
     public void ShowCards()
     {
+        CardSelection.ClearAllHovers();
+
         if (aiSkippedTurns > 0)
         {
             aiSkippedTurns--;

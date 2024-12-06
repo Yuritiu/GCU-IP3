@@ -266,6 +266,7 @@ public class CardDrawSystem : MonoBehaviour
 
     void SelectCard(int index)
     {
+        CardSelection.ClearAllHovers();
         //Check If It's The Players Turn First
         if (isPlayersTurn)
         {
@@ -305,6 +306,7 @@ public class CardDrawSystem : MonoBehaviour
 
     void DeselectCard(int index)
     {
+        CardSelection.ClearAllHovers();
         //Reset The Parent To Null
         cardsInHand[index].transform.SetParent(null);
 

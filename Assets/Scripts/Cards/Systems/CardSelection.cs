@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
@@ -27,6 +25,12 @@ public class CardSelection : MonoBehaviour
         if (CardDrawSystem.Instance.cardMoving || cardInfoText == null)
             return;
 
+        float cardZPosition = transform.position.z;
+        if (cardZPosition > 0)
+        {
+            hovering = false;
+        }
+
         if (hovering)
         {
             if (currentlyHoveredCard != null && currentlyHoveredCard != this)
@@ -42,13 +46,27 @@ public class CardSelection : MonoBehaviour
                 currentlyHoveredCard = null;
         }
 
-        if(gamesSettingsManager.assistsOn == true)
+        if (gameObject.name == "Discarded Card")
+        {
+            hovering = false;
+        }
+
+        if (gamesSettingsManager.assistsOn == true)
         {
             cardInfoText.gameObject.SetActive(hovering);
-        } 
+        }
         else
         {
             cardInfoText.gameObject.SetActive(false);
+        }
+    }
+
+    public static void ClearAllHovers()
+    {
+        if (currentlyHoveredCard != null)
+        {
+            currentlyHoveredCard.cardInfoText.gameObject.SetActive(false);
+            currentlyHoveredCard = null;
         }
     }
 }

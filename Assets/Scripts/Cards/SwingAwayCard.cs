@@ -65,7 +65,7 @@ public class SwingAwayCard : MonoBehaviour
         cameraShake = Camera.main.GetComponent<CameraShake>();
         camera = Camera.main.GetComponent<Transform>();
 
-        trailRenderer = FindObjectOfType<BatRagdoll>().GetComponentInChildren<TrailRenderer>();
+        trailRenderer = FindObjectOfType<ThwackSFX>().GetComponent<TrailRenderer>();
         trailRenderer.enabled = false;
     }
 
@@ -256,7 +256,10 @@ public class SwingAwayCard : MonoBehaviour
 
             clickToSwingText.text = "";
 
-            trailRenderer.enabled = true;
+            if(trailRenderer != null)
+            {
+                trailRenderer.enabled = true;
+            }
 
             GameManager.Instance.in4thPos = false;
 

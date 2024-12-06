@@ -5,11 +5,14 @@ using System;
 
 public class Armour : MonoBehaviour
 {
+    [Header("Private References")]
     private GameManager gameManager;
+    private StatusDropdown statusDropdown;
 
     void Start()
     {
         gameManager = FindAnyObjectByType<GameManager>();
+        statusDropdown = FindAnyObjectByType<StatusDropdown>();
     }
 
     public void PlayCardForPlayer()
@@ -21,8 +24,10 @@ public class Armour : MonoBehaviour
         {
             // Slow bloodloss
             BloodlossSystem.Instance.bloodlossTime -= BloodlossSystem.Instance.shieldBloodlossReduce;
-            GameManager.Instance.armourBackfire.gameObject.SetActive(true);
             GameManager.Instance.playerArmour++;
+
+            //GameManager.Instance.armourBackfire.gameObject.SetActive(true);
+            statusDropdown.DisplayStatusEffect(0, 3);
         }
         else
         {

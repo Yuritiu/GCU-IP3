@@ -6,11 +6,14 @@ using System;
 
 public class Knife : MonoBehaviour
 {
+    [Header("Private References")]
     private GameManager gameManager;
+    private StatusDropdown statusDropdown;
 
     void Start()
     {
         gameManager = FindAnyObjectByType<GameManager>();
+        statusDropdown = FindAnyObjectByType<StatusDropdown>();
     }
 
     public void PlayCardForPlayer()
@@ -47,6 +50,7 @@ public class Knife : MonoBehaviour
             {
                 // akes 1 card not usable for 1 turn
                 AICardDrawSystem.Instance.StopOneCard();
+                statusDropdown.DisplayStatusEffect(1, 0);
             }
 
             if (AICardDrawSystem.Instance.selectedPosition1.childCount > 0)
@@ -83,15 +87,14 @@ public class Knife : MonoBehaviour
         //Check If Its The Tutorial First
         if (!GameManager.Instance.isTutorial)
         {
-            int rand = UnityEngine.Random.Range(0, 5);
-            //\/Debuging\/
-            //rand = 0;
-            //print(rand);
-            if (rand == 0)
+            float chance = gameManager.statusPercent;
+            float roll = UnityEngine.Random.Range(0f, 100f);
+
+            if (roll <= chance)
             {
                 //makes 1 card not usable for 1 turn
                 CardDrawSystem.Instance.StopOneCard();
-                GameManager.Instance.knifeBackfire.gameObject.SetActive(true);
+                statusDropdown.DisplayStatusEffect(0, 0);
             }
 
             if (CardDrawSystem.Instance.selectedPosition1.childCount > 0 && CardDrawSystem.Instance.selectedPosition2.childCount > 0)

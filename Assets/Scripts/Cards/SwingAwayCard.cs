@@ -6,6 +6,8 @@ using UnityEngine;
 public class SwingAwayCard : MonoBehaviour
 {
     //!- Coded By Charlie -!
+    [Header("Private References")]
+    private StatusDropdown statusDropdown;
 
     GameManager gameManager;
     Freelook freelook;
@@ -57,6 +59,7 @@ public class SwingAwayCard : MonoBehaviour
     void Start()
     {
         gameManager = FindAnyObjectByType<GameManager>();
+        statusDropdown = FindAnyObjectByType<StatusDropdown>();
         freelook = FindAnyObjectByType<Freelook>();
 
         cameraShake = Camera.main.GetComponent<CameraShake>();
@@ -386,7 +389,7 @@ public class SwingAwayCard : MonoBehaviour
         if (roll <= chance)
         {
             blurCalled = true;
-
+            statusDropdown.DisplayStatusEffect(0, 5);
             //Check To Only Swing Bat Once Even If 2 Bat's Played
             if (gameManager.inBatAction && gameManager.playerBatCount == 0)
             {
@@ -493,7 +496,7 @@ public class SwingAwayCard : MonoBehaviour
             //Shuffle cards and blur them
             GameManager.Instance.blur.SetActive(true);
             CardDrawSystem.Instance.ShuffleHand();
-            GameManager.Instance.batBackfire.gameObject.SetActive(true);
+            statusDropdown.DisplayStatusEffect(1, 5);
         }
 
         ThwackSFX.Instance.PlayThwackSFX();

@@ -7,6 +7,9 @@ using TMPro;
 
 public class ShootScript : MonoBehaviour
 {
+
+    private StatusDropdown statusDropdown;
+
     public static ShootScript instance1;
     public static ShootScript instance2;
     public float delay;
@@ -35,6 +38,7 @@ public class ShootScript : MonoBehaviour
     {
         gunAnim = GetComponent<Animator>();
         gameManager = FindAnyObjectByType<GameManager>();
+        statusDropdown = FindAnyObjectByType<StatusDropdown>();
         currentRotation = startingRotation;  
     }
 
@@ -138,7 +142,7 @@ public class ShootScript : MonoBehaviour
         {
             //Shoots off your own finger
             GameManager.Instance.ReduceHealth(1, 3);
-            GameManager.Instance.gunBackfire.gameObject.SetActive(true);
+            statusDropdown.DisplayStatusEffect(1, 1);
         }
         else if (AiRandom <= GameManager.Instance.bullets)
         {
@@ -199,7 +203,7 @@ public class ShootScript : MonoBehaviour
         {
                 //Shoots off your own finger
             GameManager.Instance.ReduceHealth(2, 3);
-            GameManager.Instance.gunBackfire.gameObject.SetActive(true);
+            statusDropdown.DisplayStatusEffect(0, 1);
         }
         else if (PRandom <= GameManager.Instance.bullets)
         {

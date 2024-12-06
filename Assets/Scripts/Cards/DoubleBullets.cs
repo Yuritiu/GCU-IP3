@@ -5,11 +5,14 @@ using System;
 
 public class DoubleBullets : MonoBehaviour
 {
+    [Header("Private References")]
     private GameManager gameManager;
+    private StatusDropdown statusDropdown;
 
     void Start()
     {
         gameManager = FindAnyObjectByType<GameManager>();
+        statusDropdown = FindAnyObjectByType<StatusDropdown>();
     }
 
     public void PlayCardForPlayer()
@@ -20,7 +23,7 @@ public class DoubleBullets : MonoBehaviour
         if (roll <= chance)
         {
             //loads blank (does nothing)
-            GameManager.Instance.twoInChamberBackfire.gameObject.SetActive(true);
+            statusDropdown.DisplayStatusEffect(0, 2);
             return;
         }
         GameManager.Instance.addBullet();
@@ -34,6 +37,7 @@ public class DoubleBullets : MonoBehaviour
         if (roll <= chance)
         {
             //loads blank (does nothing)
+            statusDropdown.DisplayStatusEffect(1, 2);
             return;
         }
         GameManager.Instance.addBullet();

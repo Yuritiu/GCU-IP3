@@ -1,30 +1,43 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class StatusSender : MonoBehaviour
 {
     private StatusDropdown statusDropdown;
 
-    void Start()
+    private readonly (int playerIndex, int effectIndex)[] testCases = new (int, int)[]
+    {
+        (0, 0),
+        (1, 1),
+        (0, 2),
+        (1, 3),
+        (0, 4),
+        (1, 5),
+        (0, 6)
+    };
+
+    private void Start()
     {
         statusDropdown = FindObjectOfType<StatusDropdown>();
         if (statusDropdown == null)
         {
             Debug.LogWarning("Status Dropdown Not Found");
         }
+        else
+        {
+            StartCoroutine(SendTestCases());
+        }
     }
 
-    void Update()
+    private IEnumerator SendTestCases()
     {
-        if (statusDropdown == null) return;
-
-        for (int i = 1; i <= 7; i++)
+        foreach (var (playerIndex, effectIndex) in testCases)
         {
-            if (Input.GetKeyDown(i.ToString()))
+            if (statusDropdown != null)
             {
-                statusDropdown.DisplayStatusEffect(i - 1);
+                statusDropdown.DisplayStatusEffect(playerIndex, effectIndex);
             }
+            yield return new WaitForSeconds(5.0f);
         }
     }
 }

@@ -96,7 +96,6 @@ public class GameManager : MonoBehaviour
     public GameObject twoInChamberBackfire;
     public GameObject cigarBackfire;
 
-
     [Header("Draw 2 cards")]
     [HideInInspector] public bool aiDraw2Cards = false;
     [HideInInspector] public bool playerDraw2Cards = false;
@@ -165,7 +164,6 @@ public class GameManager : MonoBehaviour
         Time.timeScale = 1f;
         originalCameraPosition.transform.position = MainCamera.transform.position;
         playerSkippedTurnsText.enabled = false;
-        
 
         await UnityServices.InitializeAsync();
         AnalyticsService.Instance.StartDataCollection();

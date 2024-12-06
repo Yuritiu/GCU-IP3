@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
@@ -9,8 +10,13 @@ public class StatusDropdown : MonoBehaviour
     [SerializeField] private string[] description = new string[7];
     [SerializeField] private Color[] statusColour = new Color[7];
 
+    [Header("Player Status Data")]
+    [SerializeField] private string[] playerStatusNames = new string[2];
+    [SerializeField] private Color[] playerStatusColours = new Color[2];
+
     [Header("UI References")]
     [SerializeField] private GameObject parentObject;
+    [SerializeField] private TextMeshProUGUI playerText;
     [SerializeField] private TextMeshProUGUI titleText;
     [SerializeField] private TextMeshProUGUI descriptionText;
 
@@ -21,17 +27,42 @@ public class StatusDropdown : MonoBehaviour
     [SerializeField] private Vector2 endPos = new Vector2(0, Screen.height - 200);
     [SerializeField] private float additionalPauseTime = 2.0f;
 
-    //Display status effect
-    public void DisplayStatusEffect(int index)
+    private Queue<(int playerIndex, int effectIndex)> effectQueue = new Queue<(int, int)>();
+    private bool isProcessing = false;
+
+    public void DisplayStatusEffect(int playerIndex, int effectIndex)
     {
-        if (index < 0 || index >= status.Length) return;
-        titleText.text = status[index];
-        titleText.color = statusColour[index];
-        descriptionText.color = Color.white;
-        StartCoroutine(MoveObjectAndTypewriterEffect(index));
+        if (playerIndex < 0 || playerIndex >= playerStatusNames.Length) return;
+        if (effectIndex < 0 || effectIndex >= status.Length) return;
+
+        effectQueue.Enqueue((playerIndex, effectIndex));
+        if (!isProcessing)
+        {
+            StartCoroutine(ProcessQueue());
+        }
     }
 
-    //Move object and show description
+    private IEnumerator ProcessQueue()
+    {
+        isProcessing = true;
+
+        while (effectQueue.Count > 0)
+        {
+            var (playerIndex, effectIndex) = effectQueue.Dequeue();
+
+            playerText.text = playerStatusNames[playerIndex];
+            playerText.color = playerStatusColours[playerIndex];
+
+            titleText.text = status[effectIndex];
+            titleText.color = statusColour[effectIndex];
+            descriptionText.color = Color.white;
+
+            yield return StartCoroutine(MoveObjectAndTypewriterEffect(effectIndex));
+        }
+
+        isProcessing = false;
+    }
+
     private IEnumerator MoveObjectAndTypewriterEffect(int index)
     {
         RectTransform parentRect = parentObject.GetComponent<RectTransform>();
@@ -45,16 +76,15 @@ public class StatusDropdown : MonoBehaviour
             yield return null;
         }
 
-        StartCoroutine(TypewriterEffect(description[index]));
+        yield return StartCoroutine(TypewriterEffect(description[index]));
         float pauseDuration = description[index].Length * typewriterSpeed + additionalPauseTime;
         yield return new WaitForSeconds(pauseDuration);
-        StartCoroutine(ReverseTypewriterEffect());
+        yield return StartCoroutine(ReverseTypewriterEffect());
         yield return new WaitForSeconds(description[index].Length * typewriterSpeed);
         yield return new WaitForSeconds(0.5f);
-        StartCoroutine(MoveOffScreenAndReset());
+        yield return StartCoroutine(MoveOffScreenAndReset());
     }
 
-    //Typewriter effect
     private IEnumerator TypewriterEffect(string fullText)
     {
         descriptionText.text = "";
@@ -65,7 +95,6 @@ public class StatusDropdown : MonoBehaviour
         }
     }
 
-    //Reverse typewriter effect
     private IEnumerator ReverseTypewriterEffect()
     {
         string currentText = descriptionText.text;
@@ -80,7 +109,6 @@ public class StatusDropdown : MonoBehaviour
         descriptionText.text = "";
     }
 
-    //Move object off screen and reset
     private IEnumerator MoveOffScreenAndReset()
     {
         RectTransform parentRect = parentObject.GetComponent<RectTransform>();

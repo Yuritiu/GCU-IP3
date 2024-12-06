@@ -5,13 +5,16 @@ using System;
 
 public class CigarCard : MonoBehaviour
 {
-
+    [Header("Private References")]
     private GameManager gameManager;
+    private StatusDropdown statusDropdown;
+
     [SerializeField] private AudioClip PlayerCough;
     [SerializeField] private AudioClip AICough;
     void Start()
     {
         gameManager = FindAnyObjectByType<GameManager>();
+        statusDropdown = FindAnyObjectByType<StatusDropdown>();
     }
     public void PlayCardForPlayer()
     {
@@ -26,9 +29,10 @@ public class CigarCard : MonoBehaviour
         {
             //skips players next turn
             GameManager.Instance.playerSkippedTurns++;
-            GameManager.Instance.cigarBackfire.gameObject.SetActive(true);
             SFXManager.instance.PlaySFXClip(PlayerCough, transform, 0.2f);
 
+            //GameManager.Instance.cigarBackfire.gameObject.SetActive(true);
+            statusDropdown.DisplayStatusEffect(0, 4);
         }
 
     }
@@ -46,6 +50,8 @@ public class CigarCard : MonoBehaviour
             //skips Ais next turn
             GameManager.Instance.aiSkippedTurns++;
             SFXManager.instance.PlaySFXClip(AICough, transform, 0.2f);
+
+            statusDropdown.DisplayStatusEffect(1, 4);
         }
     }
 }

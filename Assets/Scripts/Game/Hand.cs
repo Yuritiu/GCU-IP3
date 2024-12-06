@@ -138,7 +138,7 @@ public class Hand : MonoBehaviour
             GameManager.Instance.in3rdPos = true;
             GameManager.Instance.cameraMovement = false; //disables W S P Camera controls
             StartCoroutine(GameManager.Instance.CameraTransitionIEnum(GameManager.Instance.Target3));
-            knifeGameObject.SetPositionAndRotation(fingers[GameManager.Instance.playerFingers].gameObject.transform.position, Quaternion.Euler(0, -150, 0));
+            knifeGameObject.SetPositionAndRotation(fingers[GameManager.Instance.playerFingers].gameObject.transform.position, Quaternion.Euler(0, 0, 0));
             GameManager.Instance.canCutFinger = true;
         }
         else

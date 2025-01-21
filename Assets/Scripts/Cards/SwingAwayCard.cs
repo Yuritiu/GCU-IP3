@@ -6,6 +6,8 @@ using UnityEngine;
 public class SwingAwayCard : MonoBehaviour
 {
     //!- Coded By Charlie -!
+    [Header("Private References")]
+    private StatusDropdown statusDropdown;
 
     GameManager gameManager;
     Freelook freelook;
@@ -16,6 +18,7 @@ public class SwingAwayCard : MonoBehaviour
     Transform bat;
     Transform swingStartPosition;
     Transform swingTargetPosition;
+    TrailRenderer trailRenderer;
     TextMeshProUGUI clickToSwingText;
 
     [Header("Swing Settings")]
@@ -46,17 +49,24 @@ public class SwingAwayCard : MonoBehaviour
     float lerpSpeed = 10f;
     bool reducedPlayerBatCount = false;
     bool reducedAIBatCount = false;
+    bool inFreezeCam = false;
 
     bool playerBatsUsed = false;
     bool aiBatsUsed = false;
 
+    bool blurCalled = false;
+
     void Start()
     {
         gameManager = FindAnyObjectByType<GameManager>();
+        statusDropdown = FindAnyObjectByType<StatusDropdown>();
         freelook = FindAnyObjectByType<Freelook>();
 
         cameraShake = Camera.main.GetComponent<CameraShake>();
         camera = Camera.main.GetComponent<Transform>();
+
+        trailRenderer = FindObjectOfType<ThwackSFX>().GetComponent<TrailRenderer>();
+        trailRenderer.enabled = false;
     }
 
     public void PlayCardForPlayer()
@@ -91,13 +101,15 @@ public class SwingAwayCard : MonoBehaviour
         if (gameManager.playerBatCount <= 0 && gameManager.aiBatCount <= 0)
             return;
 
-        //TODO:
-        //ADD PLAYER HEAD ON TABLE AFTER FOR X SKIPPED TURNS, FADE BLACK WHILE FALLING AND PLAY THWACK SFX
-        //ADD EXTRA SKIP CHANCE WITH TEXT SAYING, BASED ON CLICKED POSITION, ADD VISUALIZER BAR FOR CURRENT SWING AMOUNT
-        //FEEL: ADD SFX, RAGDOLL ENEMY, BLOOD OUT MOUTH
+        if (inFreezeCam)
+        {
+            freelook.currentXRotation = 0;
+            freelook.currentYRotation = 0;
+            freelook.canLook = false;
+        }
 
         //Start The Swing If The Card Is Played And No Other Actions Are Happening
-        if (!isSwinging && (playCardForPlayerCalled && !playCardForAiCalled) && !gameManager.inKnifeAction && !gameManager.inGunAction)
+        if (!isSwinging && (playCardForPlayerCalled && !playCardForAiCalled) && !gameManager.inKnifeActionAiPlayed && !gameManager.inGunAction)
         {
             if (playerBatsUsed)
             {
@@ -121,7 +133,7 @@ public class SwingAwayCard : MonoBehaviour
             HandleSwing(true);
         }
 
-        if (!isSwinging && (playCardForAiCalled && !playCardForPlayerCalled) && !gameManager.inKnifeAction && !gameManager.inGunAction)
+        if (!isSwinging && (playCardForAiCalled && !playCardForPlayerCalled) && !gameManager.inKnifeActionAiPlayed && !gameManager.inGunAction && gameManager.playerGunCount <= 0)
         {
             if (aiBatsUsed)
                 return;
@@ -141,14 +153,14 @@ public class SwingAwayCard : MonoBehaviour
 
     void StartSwing(bool isPlayer)
     {
-        if (!playerCoroutineCalled && isPlayer && !aiCoroutineCalled)
+        if (!playerCoroutineCalled && isPlayer && !aiCoroutineCalled && gameManager.aiGunCount <= 0)
         {
             playerCoroutineCalled = true;
 
             StartCoroutine(DelayBatStart());
         }
 
-        if (!aiCoroutineCalled && !isPlayer && gameManager.playerBatCount == 0 && !gameManager.calledAIBatSwing)
+        if (!aiCoroutineCalled && !isPlayer && gameManager.playerBatCount == 0 && !gameManager.calledAIBatSwing && gameManager.playerGunCount <= 0)
         {
             aiCoroutineCalled = true;
             gameManager.calledAIBatSwing = true;
@@ -238,11 +250,16 @@ public class SwingAwayCard : MonoBehaviour
         }
 
         //Check For Click
-        if (Input.GetMouseButtonDown(0) && !isLerping && !isReturning && canUseBat && isPlayer && canSwingBat)
+        if (Input.GetMouseButtonDown(0) && !isLerping && !isReturning && canUseBat && isPlayer && canSwingBat && gameManager.aiGunCount <= 0)
         {
             canSwingBat = false;
 
             clickToSwingText.text = "";
+
+            if(trailRenderer != null)
+            {
+                trailRenderer.enabled = true;
+            }
 
             GameManager.Instance.in4thPos = false;
 
@@ -300,6 +317,8 @@ public class SwingAwayCard : MonoBehaviour
         //Lerp Back To The Side Of Table
         if (isReturning)
         {
+            trailRenderer.enabled = false;
+
             if (gameManager.aiBatCount <= 0 && gameManager.playerBatCount <= 0)
             {
                 GameManager.Instance.in4thPos = false;
@@ -352,13 +371,8 @@ public class SwingAwayCard : MonoBehaviour
             gameManager.increaseCard2BatCalled = false;
             gameManager.increaseCard3BatCalled = false;
             gameManager.increaseCard4BatCalled = false;
-
-            //Reset Camera -> Bats Finished
-            gameManager.in4thPos = false;
-            gameManager.in5thPos = false;
-
-            freelook.currentXRotation = 0;
-            freelook.currentYRotation = 0;
+            gameManager.increaseCard3GunCalled = false;
+            gameManager.increaseCard4GunCalled = false;
 
             freelook.canLook = true;
         }
@@ -373,14 +387,25 @@ public class SwingAwayCard : MonoBehaviour
     public void PlayCardForAI()
     {
         float chance = gameManager.statusPercent;
-        float roll = UnityEngine.Random.Range(0f, 100f);
+        float roll = Random.Range(0f, 100f);
 
         if (roll <= chance)
         {
-            // Shuffle cards and blur them
-            GameManager.Instance.blur.SetActive(true);
-            CardDrawSystem.Instance.ShuffleHand();
-            GameManager.Instance.batBackfire.gameObject.SetActive(true);
+            blurCalled = true;
+            statusDropdown.DisplayStatusEffect(0, 5);
+            //Check To Only Swing Bat Once Even If 2 Bat's Played
+            if (gameManager.inBatAction && gameManager.playerBatCount == 0)
+            {
+                gameManager.inAIBatAction = true;
+
+                playCardForAiCalled = false;
+            }
+            else
+            {
+                gameManager.inAIBatAction = true;
+
+                playCardForAiCalled = true;
+            }
         }
         else
         {
@@ -408,7 +433,7 @@ public class SwingAwayCard : MonoBehaviour
 
     IEnumerator BatSwingDelay()
     {
-        yield return new WaitForSeconds(2);
+        yield return new WaitForSeconds(1.5f);
 
         clickToSwingText.text = "< CLICK TO SWING >";
         canSwingBat = true;
@@ -461,16 +486,32 @@ public class SwingAwayCard : MonoBehaviour
     {
         //Set Camera To Focus Opponent
 
+        inFreezeCam = true;
+
         yield return new WaitForSeconds(Random.Range(3, 6));
 
-        //GameManager.Instance.in4thPos = false;
-        //GameManager.Instance.in5thPos = false;
+        camera.transform.rotation = Quaternion.Euler(0,0,0);
+        GameManager.Instance.in4thPos = false;
+        GameManager.Instance.in5thPos = false;
+
+        if (blurCalled)
+        {
+            //Shuffle cards and blur them
+            GameManager.Instance.blur.SetActive(true);
+            CardDrawSystem.Instance.ShuffleHand();
+            statusDropdown.DisplayStatusEffect(1, 5);
+        }
 
         ThwackSFX.Instance.PlayThwackSFX();
 
-        cameraShake.TriggerShake(0.03f, 0.03f, 0.1f);
+        cameraShake.TriggerShake(0.075f, 0.5f, 0.2f);
 
         canUseBat = false;
         isLerping = true;
+
+        yield return new WaitForSeconds(0.5f);
+
+        blurCalled = false;
+        inFreezeCam = false;
     }
 }

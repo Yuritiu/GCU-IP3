@@ -1,41 +1,72 @@
-using System.Collections;
-using System.Collections.Generic;
 using TMPro;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class CardSelection : MonoBehaviour
 {
-    //!-Coded By Charlie-!
-
-    [Header("References")]
-    [SerializeField] string cardInfoImageTag = "CardInfoImage";
-    [SerializeField] string cardInfoTextTag = "CardInfoText";
-
     [Header("Info Variables")]
-    [SerializeField] Image cardInfoImage = null;
-    [SerializeField] string cardInfoText = "*Insert Card Information*";
+    [SerializeField] private TextMeshProUGUI cardInfoText;
 
     [HideInInspector] public bool canSelect = true;
 
+    public GameSettingsManager gamesSettingsManager;
+
+    private static CardSelection currentlyHoveredCard;
+
     void Start()
     {
+        if (cardInfoText != null)
+            cardInfoText.gameObject.SetActive(false);
 
-    }
-
-    public void CardSelected()
-    {
-    
+        gamesSettingsManager = FindFirstObjectByType<GameSettingsManager>();
     }
 
     public void CardHovered(bool hovering)
     {
-        if (CardDrawSystem.Instance.cardMoving)
+        if (CardDrawSystem.Instance.cardMoving || cardInfoText == null)
             return;
 
-        //!-MUST SET CardInfoImage & CardInfoText IN THE UI CANVAS TAGS TO THE TAGS DEFINED IN THE REFERENCES ABOVE-!
-        var cardImage = GameObject.FindGameObjectWithTag(cardInfoImageTag).GetComponent<Image>();
-        var cardText = GameObject.FindGameObjectWithTag(cardInfoTextTag).GetComponent<TextMeshProUGUI>();
+        float cardZPosition = transform.position.z;
+        if (cardZPosition > 0)
+        {
+            hovering = false;
+        }
+
+        if (hovering)
+        {
+            if (currentlyHoveredCard != null && currentlyHoveredCard != this)
+            {
+                currentlyHoveredCard.cardInfoText.gameObject.SetActive(false);
+                currentlyHoveredCard = null;
+            }
+            currentlyHoveredCard = this;
+        }
+        else
+        {
+            if (currentlyHoveredCard == this)
+                currentlyHoveredCard = null;
+        }
+
+        if (gameObject.name == "Discarded Card")
+        {
+            hovering = false;
+        }
+
+        if (gamesSettingsManager.assistsOn == true)
+        {
+            cardInfoText.gameObject.SetActive(hovering);
+        }
+        else
+        {
+            cardInfoText.gameObject.SetActive(false);
+        }
+    }
+
+    public static void ClearAllHovers()
+    {
+        if (currentlyHoveredCard != null)
+        {
+            currentlyHoveredCard.cardInfoText.gameObject.SetActive(false);
+            currentlyHoveredCard = null;
+        }
     }
 }

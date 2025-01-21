@@ -35,8 +35,6 @@ public class GameManager : MonoBehaviour
     private bool wPressed;
     private bool sPressed;
     private bool pPressed;
-    
-
 
     [SerializeField] public float speed;
     [SerializeField] public Transform Target1;
@@ -45,8 +43,12 @@ public class GameManager : MonoBehaviour
     [SerializeField] public Transform Target4;
     [SerializeField] public Transform Target5;
     [SerializeField] public Transform Target6;
+    [SerializeField] public Transform Target7;
+    [SerializeField] public Transform Target8;
     [HideInInspector] public bool in2ndPos;
     [HideInInspector] public bool in3rdPos;
+    [HideInInspector] public bool in4thPos;
+    [HideInInspector] public bool in5thPos;
 
 
     public bool cameraMovement; //used for turning off W S P when using Knife
@@ -94,7 +96,6 @@ public class GameManager : MonoBehaviour
     public GameObject twoInChamberBackfire;
     public GameObject cigarBackfire;
 
-
     [Header("Draw 2 cards")]
     [HideInInspector] public bool aiDraw2Cards = false;
     [HideInInspector] public bool playerDraw2Cards = false;
@@ -121,28 +122,40 @@ public class GameManager : MonoBehaviour
 
     [Header("Action")]
     private bool canMoveOn;
-    [HideInInspector] public bool inKnifeAction = false;
-    [HideInInspector] public bool inKnifePlayerAction = false;
+    [HideInInspector] public bool inKnifeActionAiPlayed = false;
+    [HideInInspector] public bool inKnifeActionPlayerPlayed = false;
     [HideInInspector] public bool canCutFinger = false;
     [HideInInspector] public bool inGunAction = false;
     [HideInInspector] public bool inGunPlayerAction = false;
     [HideInInspector] public bool inBatAction = false;
+    [HideInInspector] public bool inAIBatAction = false;
     [HideInInspector] public bool has2Guns = false;
     [HideInInspector] public int numberOfKnifeCards = 0;
-    
+
     [HideInInspector] public bool knife1used = false;
     [HideInInspector] public bool knife2used = false;
 
+    [Header("Bat References")]
     [HideInInspector] public bool bat1Used = false;
     [HideInInspector] public bool bat2Used = false;
-    [HideInInspector] public bool canUseBat = false;
+    [HideInInspector] public int playerBatCount = 0;
+    [HideInInspector] public int aiBatCount = 0;
+    [HideInInspector] public int playerGunCount = 0;
+    [HideInInspector] public int aiGunCount = 0;
+    [HideInInspector] public bool increaseCard1BatCalled = false;
+    [HideInInspector] public bool increaseCard2BatCalled = false;
+    [HideInInspector] public bool increaseCard3BatCalled = false;
+    [HideInInspector] public bool increaseCard4BatCalled = false;
+    [HideInInspector] public bool increaseCard3GunCalled = false;
+    [HideInInspector] public bool increaseCard4GunCalled = false;
+    [HideInInspector] public bool calledAIBatSwing = false;
 
     [Header("Camera Movement Variables")]
     [HideInInspector] public bool isActionInProgress = false;
 
+    [SerializeField] private AudioClip AIScream;
 
-
-    [SerializeField] private AudioClip musictest;
+    public bool firstStepsTutorial = false;
 
     public int timesToShoot = 0;
 
@@ -151,7 +164,6 @@ public class GameManager : MonoBehaviour
         Time.timeScale = 1f;
         originalCameraPosition.transform.position = MainCamera.transform.position;
         playerSkippedTurnsText.enabled = false;
-        //SFXManager.instance.PlayMusicClip(musictest, transform, 1f);
 
         await UnityServices.InitializeAsync();
         AnalyticsService.Instance.StartDataCollection();
@@ -168,6 +180,7 @@ public class GameManager : MonoBehaviour
         sPressed = false;
         in2ndPos = false;
         in3rdPos = false;
+        in4thPos = false;
 
         isTutorial = false;
         canPlay = true;
@@ -211,6 +224,7 @@ public class GameManager : MonoBehaviour
         //Move Played Cards To Discard Pile
         CardDrawSystem.Instance.FindCardsOnTable();
         StartCoroutine(CardDrawSystem.Instance.LerpCardsToDiscardDeck(0.5f));
+        CardSelection.ClearAllHovers();
 
         //Debug.Log("Next Turn");
 
@@ -307,6 +321,8 @@ public class GameManager : MonoBehaviour
 
     public void ShowCards()
     {
+        CardSelection.ClearAllHovers();
+
         if (aiSkippedTurns > 0)
         {
             aiSkippedTurns--;
@@ -320,6 +336,15 @@ public class GameManager : MonoBehaviour
             //And The Card's Hierarchy Mathches The 'Skip Next Turn' Card
             cardsOnTable1 = CardDrawSystem.Instance.selectedPosition1.GetChild(0).gameObject.GetComponentAtIndex(1);
 
+            if (cardsOnTable1 != null)
+            {
+                if (cardsOnTable1.name.Contains("bat") && !increaseCard1BatCalled)
+                {
+                    increaseCard1BatCalled = true;
+                    playerBatCount++;
+                }
+            }
+
             cardsOnTable1.SendMessage("PlayCardForPlayer");
 
             CardDrawSystem.Instance.selectedCardCount--;
@@ -329,6 +354,15 @@ public class GameManager : MonoBehaviour
             //For This To Work, Please Make Sure Card's Logic Is Executed In A Public Function Called PlayCard
             //And The Card's Hierarchy Mathches The 'Skip Next Turn' Card
             cardsOnTable2 = CardDrawSystem.Instance.selectedPosition2.GetChild(0).gameObject.GetComponentAtIndex(1);
+
+            if (cardsOnTable2 != null)
+            {
+                if (cardsOnTable2.name.Contains("bat") && !increaseCard2BatCalled)
+                {
+                    increaseCard2BatCalled = true;
+                    playerBatCount++;
+                }
+            }
 
             cardsOnTable2.SendMessage("PlayCardForPlayer");
 
@@ -340,9 +374,25 @@ public class GameManager : MonoBehaviour
             //And The Card's Hierarchy Mathches The 'Skip Next Turn' Card
             if (!cardsOnTable3.gameObject.name.Contains("Discarded"))
             {
+                if (cardsOnTable3 != null)
+                {
+                    if (cardsOnTable3.name.Contains("gun") && !increaseCard3GunCalled)
+                    {
+                        increaseCard3GunCalled = true;
+                        aiGunCount++;
+                    }
+                    if (cardsOnTable3.name.Contains("bat") && !increaseCard3BatCalled)
+                    {
+                        increaseCard3BatCalled = true;
+                        aiBatCount++;
+                    }
+                }
+
                 cardsOnTable3.SendMessage("PlayCardForAI");
                 AICardDrawSystem.Instance.selectedCardCount--;
             }
+
+
         }
         if (cardsOnTable4 != null)
         {
@@ -350,13 +400,26 @@ public class GameManager : MonoBehaviour
             //And The Card's Hierarchy Mathches The 'Skip Next Turn' Card
             if (!cardsOnTable4.gameObject.name.Contains("Discarded"))
             {
+                if (cardsOnTable4 != null)
+                {
+                    if (cardsOnTable4.name.Contains("gun") && !increaseCard4GunCalled)
+                    {
+                        increaseCard4GunCalled = true;
+                        aiGunCount++;
+                    }
+                    if (cardsOnTable4.name.Contains("bat") && !increaseCard4BatCalled)
+                    {
+                        increaseCard4BatCalled = true;
+                        aiBatCount++;
+                    }
+                }
+
                 cardsOnTable4.SendMessage("PlayCardForAI");
                 AICardDrawSystem.Instance.selectedCardCount--;
             }
         }
 
         canMoveOn = true;
-
 
         CardDrawSystem.Instance.isPlayersTurn = false;
         StartCoroutine(MoveCamera());
@@ -445,7 +508,7 @@ public class GameManager : MonoBehaviour
         yield return new WaitForSeconds(3f);
         in2ndPos = false;
 
-        if (!in3rdPos)
+        if (!in3rdPos && !in4thPos)
         {
             StartCoroutine(CameraTransitionIEnum(Target1));
         }
@@ -483,16 +546,16 @@ public class GameManager : MonoBehaviour
         //print("scooby snack");
 
         //print(gun.name);
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(3f);
         Gun.SetActive(false);
 
         bool PlayerShot = false;
 
-        if(ShootScript.instance2 != null)
+        if (ShootScript.instance2 != null)
         {
             PlayerShot = ShootScript.instance2.PlayerShot;
         }
-        
+
         if (gun.name == "Player Gun" && !playerGunActive)
         {
             has2Guns = false;
@@ -505,19 +568,19 @@ public class GameManager : MonoBehaviour
             PlayerRoulette();
         }
 
-        else if (gun.name == "Ai Gun" && !PlayerShot && !aiGunActive)
+        else if (gun.name == "Ai Gun" && !playerGunActive && !aiGunActive)
         {
             has2Guns = false;
             aiGunActive = true;
             gun.SetActive(true);
         }
 
-        else if (gun.name == "Ai Gun" && PlayerShot)
+        else if (gun.name == "Ai Gun" && playerGunActive == true)
         {
             AiRoulette();
         }
-        
-        else if (gun.name == "Ai Gun" && !PlayerShot && aiGunActive)
+
+        else if (gun.name == "Ai Gun" && !playerGunActive && aiGunActive)
         {
             has2Guns = true;
             AiRoulette();
@@ -562,10 +625,9 @@ public class GameManager : MonoBehaviour
         yield return new WaitForSeconds(1f);
 
         // type meaning // 1 is knife // 2 is cigar // 3 in gun//
-
         if (type == 1 || type == 3)
         {
-            if(type == 1)
+            if (type == 1)
             {
                 CheckArmour(character, type);
             }
@@ -583,8 +645,10 @@ public class GameManager : MonoBehaviour
         //AI
         if (character == 1)
         {
+            inKnifeActionPlayerPlayed = false;
             aiFingers--;
             aiHand.RemoveFinger(aiFingers);
+            SFXManager.instance.PlaySFXClip(AIScream, transform, 0.2f);
         }
         //Player
         else if (character == 2)
@@ -606,6 +670,41 @@ public class GameManager : MonoBehaviour
 
     public void CheckFingers()
     {
+        //if (playerFingers == 0)
+        //{
+        //    if (Hand.Instance.bloodParticleSystem5 != null)
+        //    {
+        //        Hand.Instance.bloodParticleSystem5.Play();
+        //    }
+        //}
+        //else if (playerFingers == 1)
+        //{
+        //    if (Hand.Instance.bloodParticleSystem4 != null)
+        //    {
+        //        Hand.Instance.bloodParticleSystem4.Play();
+        //    }
+        //}
+        //else if (playerFingers == 2)
+        //{
+        //    if (Hand.Instance.bloodParticleSystem3 != null)
+        //    {
+        //        Hand.Instance.bloodParticleSystem3.Play();
+        //    }
+        //}
+        //else if (playerFingers == 3)
+        //{
+        //    if (Hand.Instance.bloodParticleSystem2 != null)
+        //    {
+        //        Hand.Instance.bloodParticleSystem2.Play();
+        //    }
+        //}
+        //else if (playerFingers == 4)
+        //{
+        //    if(Hand.Instance.bloodParticleSystem1 != null)
+        //    {
+        //        Hand.Instance.bloodParticleSystem1.Play();
+        //    }
+        //}
 
         if (aiFingers <= 0 && !isTutorial)
         {
@@ -623,7 +722,7 @@ public class GameManager : MonoBehaviour
 
     public void CheckArmour(int character, int type)
     {
-        //print(playerArmour);
+        //print("character - " + character + "ai armour" + aiArmour);
 
         //this ensures the armour stops the gun instead of the knife
         if (character == 1)
@@ -632,6 +731,7 @@ public class GameManager : MonoBehaviour
             {
                 if (playerHasGun && playerHasKnife)
                 {
+                    playerHasKnife = false;
                     inGunAction = false;
                     if (type == 1)
                     {
@@ -639,19 +739,12 @@ public class GameManager : MonoBehaviour
                     }
                     return;
                 }
-                else if (aiArmour > 0)
+                else
                 {
-                    inGunAction = false;
                     aiArmour--;
-                    return;
-                }
-                else if (type == 1)
-                {
-                    ReduceHealth(character, type);
-                }
-                else if (type == 3)
-                {
-                    FireGun(character);
+                    inKnifeActionPlayerPlayed = false;
+                    playerHasKnife = false;
+                    inGunAction = false;
                 }
             }
             else
@@ -659,7 +752,7 @@ public class GameManager : MonoBehaviour
                 if (aiArmour == 2)
                 {
                     inGunAction = false;
-                    inKnifeAction = false;
+                    inKnifeActionPlayerPlayed = false;
                     aiArmour--;
                     return;
                 }
@@ -698,7 +791,7 @@ public class GameManager : MonoBehaviour
                     knife1used = false;
                     knife2used = false;
                     canCutFinger = false;
-                    inKnifeAction = false;
+                    inKnifeActionAiPlayed = false;
                     playerArmour--;
                 }
                 else
@@ -716,7 +809,7 @@ public class GameManager : MonoBehaviour
                     knife1used = false;
                     knife2used = false;
                     canCutFinger = false;
-                    inKnifeAction = false;
+                    inKnifeActionAiPlayed = false;
                     playerArmour = 0;
                 }
                 else if (type == 1)
@@ -757,13 +850,13 @@ public class GameManager : MonoBehaviour
                 //Card To Be Cloned Is In Slot 2
                 if (cardObject1.name.Contains("cigar") && !cardObject2.name.Contains("cigar"))
                 {
-                    Debug.Log("Called Function 1");
+                    //Debug.Log("Called Function 1");
                     cardObject2.SendMessage("PlayCardForPlayer");
                 }
                 //Card To Be Cloned Is In Slot 1
                 if (cardObject2.name.Contains("cigar") && !cardObject1.name.Contains("cigar"))
                 {
-                    Debug.Log("Called Function 2");
+                    //Debug.Log("Called Function 2");
                     cardObject1.SendMessage("PlayCardForPlayer");
                 }
             }
@@ -775,18 +868,17 @@ public class GameManager : MonoBehaviour
                 var cardObject3 = cardsOnTable3.gameObject;
                 var cardObject4 = cardsOnTable4.gameObject;
                 Component aiClonedCard = null;
-
                 //Card To Be Cloned Is In Slot 4
-                if (cardObject3.name.Contains("Cigar") && !cardObject4.name.Contains("Cigar"))
+                if (cardObject3.name.Contains("cigar") && !cardObject4.name.Contains("cigar"))
                 {
-                    Debug.Log("Called Function 3");
+                    //Debug.Log("Called Function 3");
                     aiClonedCard = cardObject4.GetComponentAtIndex(1);
                     aiClonedCard.SendMessage("PlayCardForAI");
                 }
                 //Card To Be Cloned Is In Slot 3
-                if (cardObject4.name.Contains("Cigar") && !cardObject3.name.Contains("Cigar"))
+                if (cardObject4.name.Contains("cigar") && !cardObject3.name.Contains("cigar"))
                 {
-                    Debug.Log("Called Function 4");
+                    //Debug.Log("Called Function 4");
                     aiClonedCard = cardObject3.GetComponentAtIndex(1);
                     aiClonedCard.SendMessage("PlayCardForAI");
                 }
@@ -808,39 +900,63 @@ public class GameManager : MonoBehaviour
             inGunAction = true;
         }
 
-        if(AIGun.activeInHierarchy == true)
+        if (AIGun.activeInHierarchy == true)
         {
             inGunAction = true;
         }
 
-        //Input for "s" key
-        if (Input.GetKey("s") && !isActionInProgress)
+        ////Input for "s" key
+        //if (Input.GetKey("s") && !isActionInProgress)
+        //{
+        //    isActionInProgress = true;
+        //    in2ndPos = false;
+        //    in3rdPos = false;
+
+        //    StartCoroutine(HandleCameraTransition(Target1));
+        //}
+
+        ////Input for "w" key
+        //if (Input.GetKey("w") && !isActionInProgress)
+        //{
+        //    isActionInProgress = true;
+        //    in2ndPos = true;
+        //    in3rdPos = false;
+
+        //    StartCoroutine(HandleCameraTransition(Target2));
+        //}
+
+        ////Input for "p" key
+        //if (Input.GetKey("p") && !isActionInProgress)
+        //{
+        //    isActionInProgress = true;
+        //    in2ndPos = false;
+        //    in3rdPos = true;
+
+        //    StartCoroutine(HandleCameraTransition(Target3));
+        //}
+
+        //Transition To Bat Camera
+        if (in4thPos && !isActionInProgress)
         {
             isActionInProgress = true;
             in2ndPos = false;
             in3rdPos = false;
+            in4thPos = true;
+            in5thPos = false;
 
-            StartCoroutine(HandleCameraTransition(Target1));
+            StartCoroutine(HandleCameraTransition(Target7));
         }
 
-        //Input for "w" key
-        if (Input.GetKey("w") && !isActionInProgress)
-        {
-            isActionInProgress = true;
-            in2ndPos = true;
-            in3rdPos = false;
-
-            StartCoroutine(HandleCameraTransition(Target2));
-        }
-
-        //Input for "p" key
-        if (Input.GetKey("p") && !isActionInProgress)
+        //Transition To Bat Camera
+        if (in5thPos && !isActionInProgress)
         {
             isActionInProgress = true;
             in2ndPos = false;
-            in3rdPos = true;
+            in3rdPos = false;
+            in4thPos = false;
+            in5thPos = true;
 
-            StartCoroutine(HandleCameraTransition(Target3));
+            StartCoroutine(HandleCameraTransition(Target7));
         }
 
         if (allActionsDone() == true)
@@ -870,7 +986,7 @@ public class GameManager : MonoBehaviour
         cigarBackfire.gameObject.SetActive(false);
     }
 
-    IEnumerator HandleCameraTransition(Transform target)
+    public IEnumerator HandleCameraTransition(Transform target)
     {
         yield return CameraTransitionIEnum(target);
     }
@@ -881,13 +997,13 @@ public class GameManager : MonoBehaviour
         Vector3 startingpos = MainCamera.transform.position;
 
         // Transition when not in 2nd or 3rd positions
-        while (t < 1.0f && !in2ndPos && !in3rdPos)
+        while (t < 1.0f && !in2ndPos && !in3rdPos && !in4thPos && !in5thPos)
         {
             t += Time.deltaTime * (Time.timeScale * speed);
             MainCamera.transform.position = Vector3.Lerp(startingpos, Target.position, t);
 
             if (t >= 1.0f)
-            isActionInProgress = false;
+                isActionInProgress = false;
             yield return null;
         }
 
@@ -927,6 +1043,44 @@ public class GameManager : MonoBehaviour
         {
             isActionInProgress = true;
             MainCamera.transform.rotation = Quaternion.Slerp(MainCamera.transform.rotation, Quaternion.LookRotation(Target6.position - MainCamera.transform.position), speed * Time.deltaTime);
+
+            yield return null;
+        }
+
+        //Transition to 4th position
+        while (in4thPos && t < 1.0f)
+        {
+            t += Time.deltaTime * (Time.timeScale * speed);
+            MainCamera.transform.position = Vector3.Lerp(startingpos, Target.position, t);
+            MainCamera.transform.rotation = Quaternion.Slerp(MainCamera.transform.rotation, Quaternion.LookRotation(Target7.position - MainCamera.transform.position), speed * Time.deltaTime);
+
+            yield return null;
+        }
+
+        //Maintain 4th position rotation
+        while (in4thPos)
+        {
+            isActionInProgress = true;
+            MainCamera.transform.rotation = Quaternion.Slerp(MainCamera.transform.rotation, Quaternion.LookRotation(Target7.position - MainCamera.transform.position), speed * Time.deltaTime);
+
+            yield return null;
+        }
+
+        //Transition to 5th position
+        while (in5thPos && t < 1.0f)
+        {
+            t += Time.deltaTime * (Time.timeScale * speed);
+            MainCamera.transform.position = Vector3.Lerp(startingpos, Target.position, t);
+            MainCamera.transform.rotation = Quaternion.Slerp(MainCamera.transform.rotation, Quaternion.LookRotation(Target8.position - MainCamera.transform.position), speed * Time.deltaTime);
+
+            yield return null;
+        }
+
+        //Maintain 5th position rotation
+        while (in5thPos)
+        {
+            isActionInProgress = true;
+            MainCamera.transform.rotation = Quaternion.Slerp(MainCamera.transform.rotation, Quaternion.LookRotation(Target8.position - MainCamera.transform.position), speed * Time.deltaTime);
 
             yield return null;
         }
@@ -971,25 +1125,26 @@ public class GameManager : MonoBehaviour
         var activeScene = SceneManager.GetActiveScene().name;
         SceneManager.LoadScene(activeScene);
     }
-    
+
     private bool allActionsDone()
     {
-        //print(inKnifeAction);
+        //print(inKnifeActionAiPlayed);
+        //print(inKnifeActionPlayerPlayed);
         //print(inGunAction);
         //print(canMoveOn);
 
         if (canMoveOn)
         {
-            Debug.Log("Can move on");
-            if (!inKnifeAction)
+            //Debug.Log("Can move on");
+            if (!inKnifeActionAiPlayed && !inKnifeActionPlayerPlayed)
             {
-                Debug.Log("No knife in action");
+                //Debug.Log("No knife in action");
                 if (!inGunAction)
                 {
-                    Debug.Log("No gun in action");
-                    if (!inBatAction)
+                    //Debug.Log("No gun in action");
+                    if (!inBatAction && !inAIBatAction)
                     {
-                        Debug.Log("ALL ACTIONS DONE");
+                        //Debug.Log("ALL ACTIONS DONE");
                         isActionInProgress = false;
                         canMoveOn = false;
                         return true;

@@ -5,9 +5,16 @@ using UnityEngine;
 public class BatRagdoll : MonoBehaviour
 {
     public static BatRagdoll Instance;
-   
+
+    [SerializeField] ParticleSystem bloodParticles;
+
     bool triggeredRagdoll = false;
     bool coroutineCalled = false;
+
+    void Awake()
+    {
+        bloodParticles.Stop();
+    }
 
     void OnTriggerEnter(Collider other)
     {
@@ -15,7 +22,9 @@ public class BatRagdoll : MonoBehaviour
         {
             triggeredRagdoll = true;
 
-            if(!coroutineCalled)
+            bloodParticles.Play();
+
+            if (!coroutineCalled)
             {
                 //Unfreeze The Players Camera After Swinging Bat & After Small Delay
                 StartCoroutine(UnfreezeCameraDelay());

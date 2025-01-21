@@ -18,6 +18,12 @@ TagManager:
   - AISwingStartPosition
   - AISwingTargetPosition
   - OpponentHead
+  - RootBone
+  - BloodParticles1
+  - BloodParticles2
+  - BloodParticles3
+  - BloodParticles4
+  - BloodParticles5
   layers:
   - Default
   - TransparentFX

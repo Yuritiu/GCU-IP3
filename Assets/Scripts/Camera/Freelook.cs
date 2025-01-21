@@ -3,8 +3,10 @@ using System.Collections;
 
 public class Freelook : MonoBehaviour
 {
+    public static Freelook Instance;
+
     [Header("Sensitivity Variables")]
-    [SerializeField] public float mouseSensitivity = 135f;
+    [SerializeField] public float mouseSensitivity = 350f;
     [SerializeField] float mouseSmoothing = 0.1f;
 
     [Header("Clamp Vertical Variables")]
@@ -20,25 +22,36 @@ public class Freelook : MonoBehaviour
     public float yRotation = 0f;
     public float currentYRotation = 0f;
 
+    [HideInInspector] public float mouseY;
+    [HideInInspector] public float mouseX;
+
     [HideInInspector] public bool canLook = true;
     [HideInInspector] public bool reset;
+    [HideInInspector] public bool inBatSwing = false;
+
+    private PauseMenu pauseMenu;
+
+    void Awake()
+    {
+        Instance = this;
+    }
 
     void Start()
     {
         //Hide The Cursor On Game Start
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
+
+        pauseMenu = FindFirstObjectByType<PauseMenu>();
     }
 
     void Update()
     {
-        if (GameManager.Instance.inBatAction)
+        if (GameManager.Instance.in4thPos == true)
         {
-            currentXRotation = 0;
-            currentYRotation = 0;
-            xRotation = 0;
-            yRotation = 0;
             canLook = false;
+            xRotation = GameManager.Instance.Target7.position.x;
+            yRotation = GameManager.Instance.Target7.position.y;
         }
         else if (GameManager.Instance.in2ndPos == true)
         {
@@ -52,16 +65,16 @@ public class Freelook : MonoBehaviour
             xRotation = GameManager.Instance.Target6.position.x;
             yRotation = GameManager.Instance.Target6.position.y;
         }
-        else if (GameManager.Instance.in2ndPos == false && GameManager.Instance.in3rdPos == false && !GameManager.Instance.inBatAction)
+        else if (GameManager.Instance.in2ndPos == false && GameManager.Instance.in3rdPos == false && !GameManager.Instance.in4thPos && !GameManager.Instance.in5thPos && !inBatSwing)
         {
             canLook = true;
         }
 
-        if (!canLook || SettingsMenu.Instance.settingsMenuOpen)
+        if (!canLook || pauseMenu.isPaused)
             return;
-        
-        float mouseX = Input.GetAxis("Mouse X") * mouseSensitivity * Time.deltaTime;
-        float mouseY = Input.GetAxis("Mouse Y") * mouseSensitivity * Time.deltaTime;
+
+        mouseX = Input.GetAxis("Mouse X") * mouseSensitivity * Time.deltaTime;
+        mouseY = Input.GetAxis("Mouse Y") * mouseSensitivity * Time.deltaTime;
 
         //Adjust X (Vertical) Rotation And Clamp
         xRotation -= mouseY;
@@ -74,7 +87,7 @@ public class Freelook : MonoBehaviour
         //Apply Mouse Smoothing To The Camera To Stop Jittering
         currentXRotation = Mathf.Lerp(currentXRotation, xRotation, mouseSmoothing * Time.deltaTime);
         currentYRotation = Mathf.Lerp(currentYRotation, yRotation, mouseSmoothing * Time.deltaTime);
-        
+
         transform.localRotation = Quaternion.Euler(currentXRotation, currentYRotation, 0f);
     }
 
@@ -109,5 +122,4 @@ public class Freelook : MonoBehaviour
             transform.localRotation = Quaternion.Euler(currentXRotation, currentYRotation, 0f);
         }
     }
-
 }

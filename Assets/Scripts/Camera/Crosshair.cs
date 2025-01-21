@@ -8,34 +8,53 @@ public class Crosshair : MonoBehaviour
     //!- Coded By Charlie -!
 
     [Header("References")]
-    public RectTransform crosshairInner;
-    public RectTransform crosshairOuter;
+    [SerializeField] RectTransform crosshairInner;
+    [SerializeField] RectTransform crosshairOuter;
 
     [Header("Variables")]
-    public float hoverScale = 1.25f;
-    public float tweenDuration = 1f;
+    [SerializeField] float hoverScale = 1.25f;
+    [SerializeField]  float tweenDuration = 0.25f;
 
-    private Vector3 originalOuterScale;
-    private Vector3 targetScale;
-    private float scaleTimer;
-    private bool isHovering;
+    Vector3 originalOuterScale;
+    Vector3 targetScale;
+    float scaleTimer;
+    bool isHovering;
 
     void Start()
     {
-        if (crosshairInner != null)
+        if (crosshairOuter != null)
         {
-            originalOuterScale = crosshairOuter.localScale;
+            originalOuterScale = new Vector3(1,1,1);
             targetScale = originalOuterScale;
         }
     }
 
     void Update()
     {
-        if (isHovering)
+        RaycastHit hit;
+        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+
+        //Raycast To Mouse Position
+        if (Physics.Raycast(ray, out hit))
         {
-            scaleTimer += Time.deltaTime / tweenDuration;
-            crosshairOuter.localScale = Vector3.Lerp(crosshairOuter.localScale, targetScale, scaleTimer);
+            if ((hit.transform.CompareTag("Opponent") && GameManager.Instance.canPlay) ||
+                (hit.transform.CompareTag("Card") && GameManager.Instance.canPlay) ||
+                (hit.transform.CompareTag("Rulebook") && GameManager.Instance.canPlay))
+            {
+                HoverScale(true);
+            }
+            else
+            {
+                HoverScale(false);
+            }
         }
+        else
+        {
+            HoverScale(false);
+        }
+
+        scaleTimer += Time.deltaTime / tweenDuration;
+        crosshairOuter.localScale = Vector3.Lerp(crosshairOuter.localScale, targetScale, scaleTimer);
 
         if (!GameManager.Instance.canPlay)
         {
@@ -43,39 +62,20 @@ public class Crosshair : MonoBehaviour
             HoverScale(false);
             return;
         }
-
-        RaycastHit hit;
-        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-
-        //Raycast To Mouse Position
-        if (Physics.Raycast(ray, out hit))
-        {
-            if ((hit.transform.CompareTag("Opponent") && GameManager.Instance.canPlay) || (hit.transform.CompareTag("Card") && GameManager.Instance.canPlay) || hit.transform.CompareTag("Rulebook") && GameManager.Instance.canPlay)
-            {
-                //Enables Inner Crosshair When Hovering
-                HoverScale(true);
-            }
-            else
-            {
-                //Disables Inner Crosshair When Not Hovering
-                HoverScale(false);
-            }
-        }
     }
 
     public void HoverScale(bool hovering)
     {
         isHovering = hovering;
 
-        if(isHovering)
+        if (isHovering)
         {
             targetScale = originalOuterScale * hoverScale;
         }
         else
         {
-            crosshairOuter.localScale = originalOuterScale;
+            targetScale = originalOuterScale;
         }
-        //targetScale = isHovering ? originalInnerScale * hoverScale : originalInnerScale;
         scaleTimer = 0;
     }
 }

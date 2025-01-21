@@ -6,24 +6,27 @@ using System;
 
 public class Knife : MonoBehaviour
 {
+    [Header("Private References")]
     private GameManager gameManager;
+    private StatusDropdown statusDropdown;
 
     void Start()
     {
         gameManager = FindAnyObjectByType<GameManager>();
+        statusDropdown = FindAnyObjectByType<StatusDropdown>();
     }
 
     public void PlayCardForPlayer()
     {
-        GameManager.Instance.inKnifeAction = true;
+        GameManager.Instance.inKnifeActionPlayerPlayed = true;
         StartCoroutine(PlayPlayerKnife());
     }
     public void PlayCardForAI()
     {
-        GameManager.Instance.inKnifeAction = true;
+        GameManager.Instance.inKnifeActionAiPlayed = true;
         StartCoroutine(PlayAiKnife());
     }
-    
+
     //ADDS a delay to the second knife to give time for the first knife to work first
     IEnumerator WaitToStart(int character, int type)
     {
@@ -31,7 +34,7 @@ public class Knife : MonoBehaviour
         yield return new WaitForSeconds(1f);
         StartCoroutine(GameManager.Instance.WaitToCompareCards(character, type));
     }
-    
+
     IEnumerator PlayAiKnife()
     {
         GameManager.Instance.aiHasKnife = true;
@@ -47,14 +50,14 @@ public class Knife : MonoBehaviour
             {
                 // akes 1 card not usable for 1 turn
                 AICardDrawSystem.Instance.StopOneCard();
+                statusDropdown.DisplayStatusEffect(1, 0);
             }
 
             if (AICardDrawSystem.Instance.selectedPosition1.childCount > 0)
             {
                 //print("checking knife 1");
-                if (AICardDrawSystem.Instance.selectedPosition1.GetChild(0).name.Contains("knife") && !GameManager.Instance.knife1used)
+                if ((AICardDrawSystem.Instance.selectedPosition1.GetChild(0).name.Contains("knife") || AICardDrawSystem.Instance.selectedPosition1.GetChild(0).name.Contains("cigar")) && !GameManager.Instance.knife1used)
                 {
-                    GameManager.Instance.canCutFinger = true;
                     GameManager.Instance.knife1used = true;
                     GameManager.Instance.numberOfKnifeCards++;
                     StartCoroutine(GameManager.Instance.WaitToCompareCards(2, 1));
@@ -63,9 +66,8 @@ public class Knife : MonoBehaviour
             if (AICardDrawSystem.Instance.selectedPosition2.childCount > 0)
             {
                 //print("checking knife 2");
-                if (AICardDrawSystem.Instance.selectedPosition2.GetChild(0).name.Contains("knife") && !GameManager.Instance.knife2used) 
+                if ((AICardDrawSystem.Instance.selectedPosition2.GetChild(0).name.Contains("knife") || AICardDrawSystem.Instance.selectedPosition2.GetChild(0).name.Contains("cigar")) && !GameManager.Instance.knife2used)
                 {
-                    GameManager.Instance.canCutFinger = true;
                     GameManager.Instance.knife2used = true;
                     GameManager.Instance.numberOfKnifeCards++;
                     if (!GameManager.Instance.knife1used)
@@ -85,15 +87,14 @@ public class Knife : MonoBehaviour
         //Check If Its The Tutorial First
         if (!GameManager.Instance.isTutorial)
         {
-            int rand = UnityEngine.Random.Range(0, 5);
-            //\/Debuging\/
-            //rand = 0;
-            //print(rand);
-            if (rand == 0)
+            float chance = gameManager.statusPercent;
+            float roll = UnityEngine.Random.Range(0f, 100f);
+
+            if (roll <= chance)
             {
                 //makes 1 card not usable for 1 turn
                 CardDrawSystem.Instance.StopOneCard();
-                GameManager.Instance.knifeBackfire.gameObject.SetActive(true);
+                statusDropdown.DisplayStatusEffect(0, 0);
             }
 
             if (CardDrawSystem.Instance.selectedPosition1.childCount > 0 && CardDrawSystem.Instance.selectedPosition2.childCount > 0)
@@ -103,21 +104,36 @@ public class Knife : MonoBehaviour
                 Component card2 = CardDrawSystem.Instance.selectedPosition2.GetChild(0);
                 //Damage opponent 
                 //takes 1 finger away
-                if (card1.gameObject.name.Contains("knife") && card2.gameObject.name.Contains("knife"))
+                if ((card1.gameObject.name.Contains("knife") || card1.gameObject.name.Contains("cigar")) && (card2.gameObject.name.Contains("knife") || card2.gameObject.name.Contains("cigar")))
                 {
                     if (card2.gameObject == this.gameObject)
                     {
                         StartCoroutine(WaitToStart(1, 1));
                         yield return null;
                     }
+                    else
+                    {
+                        //print(1);
+                        StartCoroutine(GameManager.Instance.WaitToCompareCards(1, 1));
+                    }
                 }
-                else if(card1.gameObject.name.Contains("knife") || card2.gameObject.name.Contains("knife"))
+                else
                 {
-                    //Avoids Softlock When inKnifeAction Is Still True
-                    GameManager.Instance.inKnifeAction = false;
+                    //print(2);
+                    StartCoroutine(GameManager.Instance.WaitToCompareCards(1, 1));
                 }
+                
+                //else if (card1.gameObject.name.Contains("knife") || card2.gameObject.name.Contains("knife"))
+                //{
+                //    //Avoids Softlock When inKnifeAction Is Still True
+                //    GameManager.Instance.inKnifeAiAction = false;
+                //}
             }
-            StartCoroutine(GameManager.Instance.WaitToCompareCards(1, 1));
+            else
+            {
+                //print(3);
+                StartCoroutine(GameManager.Instance.WaitToCompareCards(1, 1));
+            }        
         }
         else
         {

@@ -25,7 +25,7 @@ public class CameraShake : MonoBehaviour
         initialShakeDuration = shakeDuration;
     }
 
-    void Update()
+    void FixedUpdate()
     {
         if (shakeTimer > 0)
         {

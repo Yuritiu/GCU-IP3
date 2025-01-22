@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System;
+using TMPro;
 
 public class CigarCard : MonoBehaviour
 {
@@ -27,6 +28,10 @@ public class CigarCard : MonoBehaviour
 
         if (roll <= chance)
         {
+            //Display BACKFIRE! Text
+            TextMeshProUGUI backfireText = GetComponentInChildren<TextMeshProUGUI>();
+            backfireText.enabled = true;
+
             //skips players next turn
             GameManager.Instance.playerSkippedTurns++;
             SFXManager.instance.PlaySFXClip(PlayerCough, transform, 0.2f);
@@ -47,6 +52,10 @@ public class CigarCard : MonoBehaviour
 
         if (roll <= chance)
         {
+            //Display BACKFIRE! Text
+            TextMeshProUGUI backfireText = GetComponentInChildren<TextMeshProUGUI>();
+            backfireText.enabled = true;
+
             //skips Ais next turn
             GameManager.Instance.aiSkippedTurns++;
             SFXManager.instance.PlaySFXClip(AICough, transform, 0.2f);

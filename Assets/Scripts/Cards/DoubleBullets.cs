@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System;
+using TMPro;
 
 public class DoubleBullets : MonoBehaviour
 {
@@ -22,6 +23,10 @@ public class DoubleBullets : MonoBehaviour
 
         if (roll <= chance)
         {
+            //Display BACKFIRE! Text
+            TextMeshProUGUI backfireText = GetComponentInChildren<TextMeshProUGUI>();
+            backfireText.enabled = true;
+
             //loads blank (does nothing)
             statusDropdown.DisplayStatusEffect(0, 2);
             return;
@@ -36,6 +41,10 @@ public class DoubleBullets : MonoBehaviour
 
         if (roll <= chance)
         {
+            //Display BACKFIRE! Text
+            TextMeshProUGUI backfireText = GetComponentInChildren<TextMeshProUGUI>();
+            backfireText.enabled = true;
+
             //loads blank (does nothing)
             statusDropdown.DisplayStatusEffect(1, 2);
             return;

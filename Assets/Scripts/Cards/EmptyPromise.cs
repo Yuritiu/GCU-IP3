@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System;
+using TMPro;
 
 public class EmptyPromise : MonoBehaviour
 {
@@ -22,6 +23,10 @@ public class EmptyPromise : MonoBehaviour
 
         if (roll <= chance)
         {
+            //Display BACKFIRE! Text
+            TextMeshProUGUI backfireText = GetComponentInChildren<TextMeshProUGUI>();
+            backfireText.enabled = true;
+
             //draw 2 cards
             GameManager.Instance.playerDraw2Cards = true;
 
@@ -37,6 +42,10 @@ public class EmptyPromise : MonoBehaviour
 
         if (roll <= chance)
         {
+            //Display BACKFIRE! Text
+            TextMeshProUGUI backfireText = GetComponentInChildren<TextMeshProUGUI>();
+            backfireText.enabled = true;
+
             //draw 2 cards
             GameManager.Instance.aiDraw2Cards = true;
             statusDropdown.DisplayStatusEffect(1, 6);

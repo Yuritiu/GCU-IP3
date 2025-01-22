@@ -1090,12 +1090,12 @@ public class GameManager : MonoBehaviour
     {
         print("You Win");
 
-        Unity.Services.Analytics.CustomEvent timesWon = new Unity.Services.Analytics.CustomEvent("TimesWon")
-        {
-            { "timesWon", 1 }
-        };
+        //Unity.Services.Analytics.CustomEvent timesWon = new Unity.Services.Analytics.CustomEvent("TimesWon")
+        //{
+        //    { "timesWon", 1 }
+        //};
 
-        Debug.Log("Analytic Recorded: " + "Times Won");
+        //Debug.Log("Analytic Recorded: " + "Times Won");
 
         WinScreen.SetActive(true);
         Cursor.visible = true;
@@ -1107,12 +1107,12 @@ public class GameManager : MonoBehaviour
     {
         print("You Lose");
 
-        Unity.Services.Analytics.CustomEvent timesDied = new Unity.Services.Analytics.CustomEvent("TimesDied")
-        {
-            { "timesDied", 1 }
-        };
+        //Unity.Services.Analytics.CustomEvent timesDied = new Unity.Services.Analytics.CustomEvent("TimesDied")
+        //{
+        //    { "timesDied", 1 }
+        //};
 
-        Debug.Log("Analytic Recorded: " + "Times Died");
+        //Debug.Log("Analytic Recorded: " + "Times Died");
 
         LoseScreen.SetActive(true);
         Cursor.visible = true;

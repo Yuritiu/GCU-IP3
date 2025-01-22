@@ -344,6 +344,8 @@ public class CardDrawSystem : MonoBehaviour
                 //Clear Parent
                 card.transform.parent = null;
                 card.name = "Discarded Card";
+                Destroy(card.GetComponentInChildren<Canvas>().gameObject);
+
                 if(card.GetComponent <CardSelection>() != null && card.GetComponent<BoxCollider>() != null)
                 {
                     Destroy(card.GetComponent<CardSelection>());

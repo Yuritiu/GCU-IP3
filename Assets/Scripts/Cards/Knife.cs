@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 using System;
+using TMPro;
 
 public class Knife : MonoBehaviour
 {
@@ -48,7 +49,11 @@ public class Knife : MonoBehaviour
 
             if (roll <= chance)
             {
-                // akes 1 card not usable for 1 turn
+                //Display BACKFIRE! Text
+                TextMeshProUGUI backfireText = GetComponentInChildren<TextMeshProUGUI>();
+                backfireText.enabled = true;
+
+                //makes 1 card not usable for 1 turn
                 AICardDrawSystem.Instance.StopOneCard();
                 statusDropdown.DisplayStatusEffect(1, 0);
             }
@@ -92,6 +97,10 @@ public class Knife : MonoBehaviour
 
             if (roll <= chance)
             {
+                //Display BACKFIRE! Text
+                TextMeshProUGUI backfireText = GetComponentInChildren<TextMeshProUGUI>();
+                backfireText.enabled = true;
+
                 //makes 1 card not usable for 1 turn
                 CardDrawSystem.Instance.StopOneCard();
                 statusDropdown.DisplayStatusEffect(0, 0);

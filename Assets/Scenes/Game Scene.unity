@@ -14860,11 +14860,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4692473387684775934, guid: 15e81af6a95cd7d46bcfa965d49e2119, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 28
+      value: 14
       objectReference: {fileID: 0}
     - target: {fileID: 4692473387684775934, guid: 15e81af6a95cd7d46bcfa965d49e2119, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 28
+      value: 14
       objectReference: {fileID: 0}
     - target: {fileID: 5008776331807775082, guid: 15e81af6a95cd7d46bcfa965d49e2119, type: 3}
       propertyPath: hoverScale
@@ -15040,11 +15040,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8809419158707588135, guid: 15e81af6a95cd7d46bcfa965d49e2119, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 14
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 8809419158707588135, guid: 15e81af6a95cd7d46bcfa965d49e2119, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 14
+      value: 7
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -15848,6 +15848,23 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   smooth: 8
   swayMultiplier: 2
+--- !u!1 &749798959 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3915920376543808648, guid: 5f30ef53536cc8b4694232906fbc92d4, type: 3}
+  m_PrefabInstance: {fileID: 1146023760}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &749798963
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 749798959}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0b3b53aee9e3184083426bfd09a0049, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &757715747
 GameObject:
   m_ObjectHideFlags: 0
@@ -19233,7 +19250,10 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 3915920376543808648, guid: 5f30ef53536cc8b4694232906fbc92d4, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 749798963}
   m_SourcePrefab: {fileID: 100100000, guid: 5f30ef53536cc8b4694232906fbc92d4, type: 3}
 --- !u!1 &1157553952
 GameObject:
@@ -39559,7 +39579,7 @@ MonoBehaviour:
   - cardPrefab: {fileID: 1833519795021809735, guid: 645c191d862b60e4e91a4ee05387a552, type: 3}
     quantity: 9
   - cardPrefab: {fileID: 1833519795021809735, guid: 13468f5a105746847b27d9d5496777f7, type: 3}
-    quantity: 9
+    quantity: 90
   - cardPrefab: {fileID: 1833519795021809735, guid: 6a81a850bda80cc4ab8201a24f31b0d3, type: 3}
     quantity: 9
   - cardPrefab: {fileID: 1833519795021809735, guid: bf314c8f96af77148b7c787435c1c55e, type: 3}

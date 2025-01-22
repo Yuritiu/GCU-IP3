@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System;
+using TMPro;
 
 public class Armour : MonoBehaviour
 {
@@ -22,6 +23,10 @@ public class Armour : MonoBehaviour
 
         if (roll <= chance)
         {
+            //Display BACKFIRE! Text
+            TextMeshProUGUI backfireText = GetComponentInChildren<TextMeshProUGUI>();
+            backfireText.enabled = true;
+
             // Slow bloodloss
             BloodlossSystem.Instance.bloodlossTime -= BloodlossSystem.Instance.shieldBloodlossReduce;
             GameManager.Instance.playerArmour++;
@@ -38,6 +43,10 @@ public class Armour : MonoBehaviour
            
     public void PlayCardForAI()
     {
+        //Display BACKFIRE! Text
+        TextMeshProUGUI backfireText = GetComponentInChildren<TextMeshProUGUI>();
+        backfireText.enabled = true;
+
         GameManager.Instance.aiArmour++;
     }
 }

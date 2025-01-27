@@ -9,6 +9,7 @@ public class MainMenuManager : MonoBehaviour
     [Header("Main Menu Buttons")]
     public Button startGameButton;
     public Button settingsButton;
+    public Button statsButton;
     public Button quitGameButton;
     public Button feedBackButton;
 
@@ -22,6 +23,7 @@ public class MainMenuManager : MonoBehaviour
     [Header("Menus")]
     public GameObject mainMenuParent;
     public GameObject settingsMenuParent;
+    public GameObject statsMenuParent;
 
     [Header("Toggle with F4")]
     public GameObject toggleDev;
@@ -42,6 +44,7 @@ public class MainMenuManager : MonoBehaviour
         //Listeners for interactions
         startGameButton.onClick.AddListener(StartGame);
         settingsButton.onClick.AddListener(OpenSettings);
+        statsButton.onClick.AddListener(OpenStats);
         quitGameButton.onClick.AddListener(QuitGame);
         feedBackButton.onClick.AddListener(OpenFeedbackLink);
 
@@ -68,6 +71,13 @@ public class MainMenuManager : MonoBehaviour
         Debug.Log("Settings menu");
         mainMenuParent.SetActive(false);
         settingsMenuParent.SetActive(true);
+    }
+
+    private void OpenStats()
+    {
+        Debug.Log("Stats menu");
+        mainMenuParent.SetActive(false);
+        statsMenuParent.SetActive(true);
     }
 
     private void QuitGame()

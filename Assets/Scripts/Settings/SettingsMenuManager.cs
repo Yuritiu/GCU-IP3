@@ -8,6 +8,7 @@ public class SettingsMenuManager : MonoBehaviour
     [Header("Menus")]
     public GameObject mainMenuParent;
     public GameObject settingsMenuParent;
+    public GameObject statsMenuParent;
 
     [Header("Pause Manager")]
     public PauseMenu pauseMenu;
@@ -57,9 +58,13 @@ public class SettingsMenuManager : MonoBehaviour
                 controlsSettingsManager.SaveSettings();
                 gameSettingsManager.SaveSettings();
             }
-            else if (currentScene == mainMenuSceneName && !settingsMenuParent.activeSelf)
+            else if (currentScene == mainMenuSceneName && !settingsMenuParent.activeSelf && !statsMenuParent.activeSelf)
             {
                 ToggleSettingsMenuFromMainMenu();
+            }
+            else if (currentScene == mainMenuSceneName && !settingsMenuParent.activeSelf && statsMenuParent.activeSelf)
+            {
+                CloseStatsAndOpenMenu();
             }
             else if (currentScene == gameSceneName && settingsMenuParent.activeSelf)
             {
@@ -85,6 +90,12 @@ public class SettingsMenuManager : MonoBehaviour
         {
             pauseMenu.ShowPauseMenu();
         }
+    }
+
+    void CloseStatsAndOpenMenu()
+    {
+        mainMenuParent.SetActive(true);
+        statsMenuParent.SetActive(false);
     }
 
     void ShowSubMenu(GameObject subMenuToShow)

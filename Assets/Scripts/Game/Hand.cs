@@ -84,36 +84,36 @@ public class Hand : MonoBehaviour
                     }
                 }
 
-                if(turn.x > 18)
+                if(turn.x > 7)
                 {
                     //print("too big");
                     if (sideToHit)
                     {
-                        waitingToCut = true;
-                        StartCoroutine(WaitToCut());
+                        //waitingToCut = true;
+                        //StartCoroutine(WaitToCut());
                         movedKnifeEnough++;
                         sideToHit = false;
                         SFXManager.instance.PlayRandomSFXClip(Cutting, transform, 0.2f);
                     }
-                    turn.x = 18;
+                    turn.x = 7;
                 }
-                if (turn.x < -13)
+                if (turn.x < -5)
                 {
                     //print("too small");
                     if (!sideToHit)
                     {
                         //print(movedKnifeEnough);
-                        waitingToCut = true;
-                        StartCoroutine(WaitToCut());
+                        //waitingToCut = true;
+                        //StartCoroutine(WaitToCut());
                         movedKnifeEnough++;
                         sideToHit = true;
                         SFXManager.instance.PlayRandomSFXClip(Cutting, transform, 0.2f);
                     }
-                    turn.x = -13;
+                    turn.x = -5;
                 }
 
                 //after knife has moved back and forward several times remove it from the hand
-                if (movedKnifeEnough > 3)
+                if (movedKnifeEnough > 9)
                 {
                     //print("Remove Finger");
                     EndOfAction(GameManager.Instance.playerFingers);

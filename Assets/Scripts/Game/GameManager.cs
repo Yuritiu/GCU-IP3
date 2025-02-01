@@ -159,6 +159,8 @@ public class GameManager : MonoBehaviour
 
     public int timesToShoot = 0;
 
+    public bool gameEnded = false;
+
     async void Start()
     {
         Time.timeScale = 1f;
@@ -1096,7 +1098,7 @@ public class GameManager : MonoBehaviour
         //};
 
         //Debug.Log("Analytic Recorded: " + "Times Won");
-
+        gameEnded = true;
         WinScreen.SetActive(true);
         Cursor.visible = true;
         Cursor.lockState = CursorLockMode.Confined;
@@ -1113,7 +1115,7 @@ public class GameManager : MonoBehaviour
         //};
 
         //Debug.Log("Analytic Recorded: " + "Times Died");
-
+        gameEnded = true;
         LoseScreen.SetActive(true);
         Cursor.visible = true;
         Cursor.lockState = CursorLockMode.Confined;

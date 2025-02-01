@@ -16,11 +16,14 @@ public class PauseMenu : MonoBehaviour
 
     public bool isPaused = false;
 
+    public GameManager gameManager;
     private void Start()
     {
         resumeButton.onClick.AddListener(ResumeGame);
         settingsButton.onClick.AddListener(OpenSettingsMenu);
         quitButton.onClick.AddListener(QuitToMainMenu);
+
+        gameManager = FindAnyObjectByType<GameManager>();
 
         pauseCanvas.SetActive(false);
         settingsMenu.SetActive(false);
@@ -43,21 +46,30 @@ public class PauseMenu : MonoBehaviour
 
     private void PauseGame()
     {
-        isPaused = true;
-        Time.timeScale = 0f;
-        Cursor.visible = true;
-        Cursor.lockState = CursorLockMode.None;
-        pauseCanvas.SetActive(true);
+        //Editted by Kyle McN (1/2/25, 15:10)
+        //If the game has eneded the player won't be able to pause anymore (Fixing bug that resumed the game)
+        if (!gameManager.gameEnded)
+        {
+            isPaused = true;
+            Time.timeScale = 0f;
+            Cursor.visible = true;
+            Cursor.lockState = CursorLockMode.None;
+            pauseCanvas.SetActive(true);
+        }
     }
 
 
     private void ResumeGame()
     {
-        isPaused = false;
-        Time.timeScale = 1f;
-        pauseCanvas.SetActive(false);
-        Cursor.visible = false;
-        Cursor.lockState = CursorLockMode.Locked;
+        //Editted by Kyle McN (1/2/25, 15:10)
+        if (!gameManager.gameEnded)
+        {
+            isPaused = false;
+            Time.timeScale = 1f;
+            pauseCanvas.SetActive(false);
+            Cursor.visible = false;
+            Cursor.lockState = CursorLockMode.Locked;
+        }
     }
 
     private void OpenSettingsMenu()

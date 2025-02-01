@@ -17782,6 +17782,7 @@ MonoBehaviour:
   pauseCanvas: {fileID: 1648486048}
   settingsMenu: {fileID: 1304636264}
   isPaused: 0
+  gameManager: {fileID: 0}
 --- !u!1 &966738214
 GameObject:
   m_ObjectHideFlags: 0
@@ -26717,7 +26718,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!23 &1576286835
 MeshRenderer:
   m_ObjectHideFlags: 0

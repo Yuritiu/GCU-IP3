@@ -46,7 +46,6 @@ public class PauseMenu : MonoBehaviour
 
     private void PauseGame()
     {
-        //Editted by Kyle McN (1/2/25, 15:10)
         //If the game has eneded the player won't be able to pause anymore (Fixing bug that resumed the game)
         if (!gameManager.gameEnded)
         {
@@ -61,7 +60,6 @@ public class PauseMenu : MonoBehaviour
 
     private void ResumeGame()
     {
-        //Editted by Kyle McN (1/2/25, 15:10)
         if (!gameManager.gameEnded)
         {
             isPaused = false;

@@ -12,7 +12,7 @@ public class Crosshair : MonoBehaviour
     [SerializeField] RectTransform crosshairOuter;
 
     [Header("Variables")]
-    [SerializeField] float hoverScale = 1.25f;
+    [SerializeField] float hoverScale = 1.50f;
     [SerializeField]  float tweenDuration = 0.25f;
 
     Vector3 originalOuterScale;
@@ -24,7 +24,7 @@ public class Crosshair : MonoBehaviour
     {
         if (crosshairOuter != null)
         {
-            originalOuterScale = new Vector3(1,1,1);
+            originalOuterScale = new Vector3(2,2,2);
             targetScale = originalOuterScale;
         }
     }

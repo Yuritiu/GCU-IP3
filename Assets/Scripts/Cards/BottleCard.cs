@@ -19,7 +19,7 @@ public class BottleCard : MonoBehaviour
     [HideInInspector] Component cardsOnTable1;
     [HideInInspector] Component cardsOnTable2;
 
-    bool waitForPlayersThrow;
+    public bool waitForPlayersThrow;
     bool checkedPlayersCards = false;
 
     void Awake()
@@ -32,17 +32,7 @@ public class BottleCard : MonoBehaviour
 
     void Update()
     {
-        cardsOnTable1 = CardDrawSystem.Instance.selectedPosition1.GetChild(0).gameObject.GetComponentAtIndex(1);
-        cardsOnTable2 = CardDrawSystem.Instance.selectedPosition2.GetChild(0).gameObject.GetComponentAtIndex(1);
 
-        if (cardsOnTable1.name.Contains("bottle") || cardsOnTable2.name.Contains("bottle"))
-        {
-            waitForPlayersThrow = true;
-        }
-        else
-        {
-            waitForPlayersThrow = false;
-        }
     }
 
     public void PlayCardForPlayer()
@@ -62,7 +52,7 @@ public class BottleCard : MonoBehaviour
         {
             gameManager.inBottleAction = true;
 
-            StartCoroutine(DelayBottleThrow(5, aiTarget));
+            StartCoroutine(DelayBottleThrow(5, aiTarget, true));
 
             gameManager.playerSkipCount++;
 
@@ -83,65 +73,46 @@ public class BottleCard : MonoBehaviour
         {
             //blurCalled = true;
             //statusDropdown.DisplayStatusEffect(0, 5);
-            //Check To Only Swing Bat Once Even If 2 Bat's Played
-            if (gameManager.inBottleAction && gameManager.playerSkipCount == 0)
-            {
-                gameManager.inAIBottleAction = true;
+            //Check To Only Swing Bat Once Even If 2 Bat's Played    
+        }
 
-                playCardForAiCalled = false;
-            }
-            else
-            {
-                gameManager.inAIBottleAction = true;
+        if (gameManager.inBottleAction && gameManager.playerSkipCount == 0)
+        {
+            gameManager.inAIBottleAction = true;
+            playCardForAiCalled = false;
 
-                playCardForAiCalled = true;
-
-                if (waitForPlayersThrow)
-                {
-                    Debug.Log("PLAYER PLAYED SKIP, WAITING");
-                    StartCoroutine(DelayBottleThrow(10, playerTarget));
-                }
-                else
-                {
-                    Debug.Log("PLAYER DID NOT PLAY SKIP");
-                    StartCoroutine(DelayBottleThrow(5, playerTarget));
-                }
-            }
+            //Skip PLAYER Turn
+            GameManager.Instance.playerSkippedTurns++;
         }
         else
         {
-            if (gameManager.inBottleAction && gameManager.playerSkipCount == 0)
-            {
-                gameManager.inAIBottleAction = true;
+            gameManager.inAIBottleAction = true;
+            playCardForAiCalled = true;
 
-                playCardForAiCalled = false;
+            //Skip PLAYER Turn
+            GameManager.Instance.playerSkippedTurns++;
+
+            if (waitForPlayersThrow)
+            {
+                Debug.Log("PLAYER PLAYED SKIP, WAITING");
+                StartCoroutine(DelayBottleThrow(10, playerTarget, false));
             }
             else
             {
-                gameManager.inAIBottleAction = true;
-
-                playCardForAiCalled = true;
-
-                if (waitForPlayersThrow)
-                {
-                    Debug.Log("PLAYER PLAYED SKIP, WAITING");
-                    StartCoroutine(DelayBottleThrow(10, playerTarget));
-                }
-                else
-                {
-                    Debug.Log("PLAYER DID NOT PLAY SKIP");
-                    StartCoroutine(DelayBottleThrow(5, playerTarget));
-                }
+                Debug.Log("PLAYER DID NOT PLAY SKIP");
+                StartCoroutine(DelayBottleThrow(5, playerTarget, false));
             }
         }
     }
 
     public void PlayDelayCardForAI()
     {
-        StartCoroutine(WaitToCheckPlayerCards());
+        //StartCoroutine(WaitToCheckPlayerCards());
+        waitForPlayersThrow = true;
+        PlayCardForAI();
     }
 
-    IEnumerator DelayBottleThrow(float timeToDelay, Transform target)
+    IEnumerator DelayBottleThrow(float timeToDelay, Transform target, bool player)
     {
         yield return new WaitForSeconds(timeToDelay);
         //Throw Bottle At AI
@@ -172,17 +143,20 @@ public class BottleCard : MonoBehaviour
         //Set Bottle's Velocity For A Deterministic Trajectory
         rb.velocity = initialVelocity;
 
-        //if (!waitForPlayersThrow)
-        //{
-        //    gameManager.FinishBottleTurn();
-        //}
+        //IF AI AND PLAYER HAVE PLAYED A BOTTLE THROW WAIT 5 SECONDS FOR THROWS TO FINISH
+        if ((gameManager.increaseCard1SkipCalled || gameManager.increaseCard2SkipCalled) && (gameManager.increaseCard3SkipCalled || gameManager.increaseCard4SkipCalled))
+        {
+            StartCoroutine(WaitForAIThrow());
+        }
+        else
+        {
+            gameManager.FinishBottleTurn();
+        }
     }
 
-    IEnumerator WaitToCheckPlayerCards()
+    IEnumerator WaitForAIThrow()
     {
-        yield return new WaitForSeconds (0.1f);
-        checkedPlayersCards = true;
-
-        PlayCardForAI();
+        yield return new WaitForSeconds(5f);
+        gameManager.FinishBottleTurn();
     }
 }

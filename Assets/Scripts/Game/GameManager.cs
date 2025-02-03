@@ -211,6 +211,8 @@ public class GameManager : MonoBehaviour
     public void NextTurn()
     {
         //print("NEXT TURN");
+        Debug.Log("AI SKIPPED TURNS: " + aiSkippedTurns);
+        Debug.Log("PLAYER SKIPPED TURNS: " + playerSkippedTurns);
 
         timesToShoot = 0;
 
@@ -425,7 +427,14 @@ public class GameManager : MonoBehaviour
                         Debug.Log("BOTTLE IN CARD 4");
                         aiSkipCount++;
 
-                        cardsOnTable4.SendMessage("PlayDelayCardForAI");
+                        if(increaseCard1SkipCalled || increaseCard2SkipCalled)
+                        {
+                            cardsOnTable4.SendMessage("PlayDelayCardForAI");
+                        }
+                        else
+                        {
+                            cardsOnTable4.SendMessage("PlayCardForAI");
+                        }
                     }
                     else
                     {
@@ -1151,6 +1160,10 @@ public class GameManager : MonoBehaviour
             //Called Here Because Multiple Bottle Cards Will Have Multiple Scripts
             inBottleAction = false;
             inAIBottleAction = false;
+            increaseCard1SkipCalled = false;
+            increaseCard2SkipCalled = false;
+            increaseCard3SkipCalled = false;
+            increaseCard4SkipCalled = false;
             Debug.Log("CALLED FINISH BOTTLE TURN");
         }
     }

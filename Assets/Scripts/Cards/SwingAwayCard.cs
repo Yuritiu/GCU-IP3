@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class SwingAwayCard : MonoBehaviour
@@ -55,6 +56,8 @@ public class SwingAwayCard : MonoBehaviour
     bool aiBatsUsed = false;
 
     bool blurCalled = false;
+
+    bool stopCoroutineCalled = false;
 
     void Start()
     {
@@ -252,6 +255,9 @@ public class SwingAwayCard : MonoBehaviour
         //Check For Click
         if (Input.GetMouseButtonDown(0) && !isLerping && !isReturning && canUseBat && isPlayer && canSwingBat && gameManager.aiGunCount <= 0)
         {
+            stopCoroutineCalled = true;
+            StopCoroutine(BatSwingDelay());
+
             canSwingBat = false;
 
             clickToSwingText.text = "";
@@ -273,6 +279,8 @@ public class SwingAwayCard : MonoBehaviour
 
             canUseBat = false;
             isLerping = true;
+
+            stopCoroutineCalled = false;
         }
 
         if (!isPlayer && !aiSwingCoroutineCalled)
@@ -361,6 +369,9 @@ public class SwingAwayCard : MonoBehaviour
 
         if (gameManager.playerBatCount <= 0 && gameManager.aiBatCount <= 0)
         {
+            clickToSwingText.text = "";
+            clickToSwingText.enabled = false;
+
             //Reset Bat Variables
             gameManager.inBatAction = false;
             gameManager.inAIBatAction = false;
@@ -435,9 +446,15 @@ public class SwingAwayCard : MonoBehaviour
     {
         yield return new WaitForSeconds(1.5f);
 
-        clickToSwingText.text = "< CLICK TO SWING >";
-        canSwingBat = true;
-        canSwingBatCoroutineCalled = false;
+        if (!stopCoroutineCalled)
+        {
+            Debug.Log("CALLED IMPORTANT");
+            clickToSwingText.enabled = true;
+            clickToSwingText.text = "< CLICK TO SWING >";
+
+            canSwingBat = true;
+            canSwingBatCoroutineCalled = false;
+        }
     }
 
     IEnumerator DelayAIBatStart()

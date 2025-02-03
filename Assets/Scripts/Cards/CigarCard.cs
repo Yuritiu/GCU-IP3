@@ -12,11 +12,13 @@ public class CigarCard : MonoBehaviour
 
     [SerializeField] private AudioClip PlayerCough;
     [SerializeField] private AudioClip AICough;
+
     void Start()
     {
         gameManager = FindAnyObjectByType<GameManager>();
         statusDropdown = FindAnyObjectByType<StatusDropdown>();
     }
+
     public void PlayCardForPlayer()
     {
         //Clone Players Second Card

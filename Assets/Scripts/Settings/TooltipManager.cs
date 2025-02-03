@@ -16,6 +16,16 @@ public class TooltipManager : MonoBehaviour
     void Awake()
     {
         Instance = this;
+
+        float assistsEnabled = PlayerPrefs.GetFloat("TipsEnabled");
+        if (assistsEnabled == 1)
+        {
+            assistsOn = true;
+        }
+        else
+        {
+            assistsOn = false;
+        }
     }
 
     void FixedUpdate()
@@ -35,11 +45,13 @@ public class TooltipManager : MonoBehaviour
         if(toggle)
         {
             clickToPlayHandText.enabled = true;
+            PlayerPrefs.SetFloat("TipsEnabled", 1);
             assistsOn = true;
         }
         else
         {
             clickToPlayHandText.enabled = false;
+            PlayerPrefs.SetFloat("TipsEnabled", 0);
             assistsOn = false;
         }
     }

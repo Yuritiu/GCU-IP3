@@ -78,7 +78,7 @@ public class SwingAwayCard : MonoBehaviour
         if (gameManager.inBatAction)
         {
             gameManager.inBatAction = true;
-            gameManager.playerBatCount++;
+            gameManager.playerSkipCount++;
 
             // Skip AI Turn
             GameManager.Instance.aiSkippedTurns++;
@@ -89,7 +89,7 @@ public class SwingAwayCard : MonoBehaviour
         {
             gameManager.inBatAction = true;
 
-            gameManager.playerBatCount++;
+            gameManager.playerSkipCount++;
 
             // Skip AI Turn
             GameManager.Instance.aiSkippedTurns++;
@@ -101,7 +101,7 @@ public class SwingAwayCard : MonoBehaviour
 
     void Update()
     {
-        if (gameManager.playerBatCount <= 0 && gameManager.aiBatCount <= 0)
+        if (gameManager.playerSkipCount <= 0 && gameManager.aiSkipCount <= 0)
             return;
 
         if (inFreezeCam)
@@ -163,7 +163,7 @@ public class SwingAwayCard : MonoBehaviour
             StartCoroutine(DelayBatStart());
         }
 
-        if (!aiCoroutineCalled && !isPlayer && gameManager.playerBatCount == 0 && !gameManager.calledAIBatSwing && gameManager.playerGunCount <= 0)
+        if (!aiCoroutineCalled && !isPlayer && gameManager.playerSkipCount == 0 && !gameManager.calledAIBatSwing && gameManager.playerGunCount <= 0)
         {
             aiCoroutineCalled = true;
             gameManager.calledAIBatSwing = true;
@@ -327,7 +327,7 @@ public class SwingAwayCard : MonoBehaviour
         {
             trailRenderer.enabled = false;
 
-            if (gameManager.aiBatCount <= 0 && gameManager.playerBatCount <= 0)
+            if (gameManager.aiSkipCount <= 0 && gameManager.playerSkipCount <= 0)
             {
                 GameManager.Instance.in4thPos = false;
             }
@@ -345,7 +345,7 @@ public class SwingAwayCard : MonoBehaviour
                     gameManager.inBatAction = false;
                     playerBatsUsed = true;
 
-                    gameManager.playerBatCount = 0;
+                    gameManager.playerSkipCount = 0;
                 }
 
                 if (!isPlayer && !reducedAIBatCount)
@@ -354,7 +354,7 @@ public class SwingAwayCard : MonoBehaviour
                     gameManager.inAIBatAction = false;
                     aiBatsUsed = true;
 
-                    gameManager.aiBatCount = 0;
+                    gameManager.aiSkipCount = 0;
                 }
 
                 FinishSwing();
@@ -367,7 +367,7 @@ public class SwingAwayCard : MonoBehaviour
         reducedPlayerBatCount = false;
         reducedAIBatCount = false;
 
-        if (gameManager.playerBatCount <= 0 && gameManager.aiBatCount <= 0)
+        if (gameManager.playerSkipCount <= 0 && gameManager.aiSkipCount <= 0)
         {
             clickToSwingText.text = "";
             clickToSwingText.enabled = false;
@@ -378,10 +378,10 @@ public class SwingAwayCard : MonoBehaviour
             gameManager.calledAIBatSwing = false;
 
             //Reset Card Values
-            gameManager.increaseCard1BatCalled = false;
-            gameManager.increaseCard2BatCalled = false;
-            gameManager.increaseCard3BatCalled = false;
-            gameManager.increaseCard4BatCalled = false;
+            gameManager.increaseCard1SkipCalled = false;
+            gameManager.increaseCard2SkipCalled = false;
+            gameManager.increaseCard3SkipCalled = false;
+            gameManager.increaseCard4SkipCalled = false;
             gameManager.increaseCard3GunCalled = false;
             gameManager.increaseCard4GunCalled = false;
 
@@ -405,7 +405,7 @@ public class SwingAwayCard : MonoBehaviour
             blurCalled = true;
             statusDropdown.DisplayStatusEffect(0, 5);
             //Check To Only Swing Bat Once Even If 2 Bat's Played
-            if (gameManager.inBatAction && gameManager.playerBatCount == 0)
+            if (gameManager.inBatAction && gameManager.playerSkipCount == 0)
             {
                 gameManager.inAIBatAction = true;
 
@@ -421,7 +421,7 @@ public class SwingAwayCard : MonoBehaviour
         else
         {
             //Check To Only Swing Bat Once Even If 2 Bat's Played
-            if (gameManager.inBatAction && gameManager.playerBatCount == 0)
+            if (gameManager.inBatAction && gameManager.playerSkipCount == 0)
             {
                 gameManager.inAIBatAction = true;
 
@@ -444,11 +444,11 @@ public class SwingAwayCard : MonoBehaviour
 
     IEnumerator BatSwingDelay()
     {
+        //TODO: MAKE THIS CD SHORTER?? LIKE 0.5f?
         yield return new WaitForSeconds(1.5f);
 
         if (!stopCoroutineCalled)
         {
-            Debug.Log("CALLED IMPORTANT");
             clickToSwingText.enabled = true;
             clickToSwingText.text = "< CLICK TO SWING >";
 

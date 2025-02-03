@@ -128,6 +128,8 @@ public class GameManager : MonoBehaviour
     [HideInInspector] public bool inGunAction = false;
     [HideInInspector] public bool inGunPlayerAction = false;
     [HideInInspector] public bool inBatAction = false;
+    [HideInInspector] public bool inBottleAction = false;
+    [HideInInspector] public bool inAIBottleAction = false;
     [HideInInspector] public bool inAIBatAction = false;
     [HideInInspector] public bool has2Guns = false;
     [HideInInspector] public int numberOfKnifeCards = 0;
@@ -138,14 +140,14 @@ public class GameManager : MonoBehaviour
     [Header("Bat References")]
     [HideInInspector] public bool bat1Used = false;
     [HideInInspector] public bool bat2Used = false;
-    [HideInInspector] public int playerBatCount = 0;
-    [HideInInspector] public int aiBatCount = 0;
+    [HideInInspector] public int playerSkipCount = 0;
+    [HideInInspector] public int aiSkipCount = 0;
     [HideInInspector] public int playerGunCount = 0;
     [HideInInspector] public int aiGunCount = 0;
-    [HideInInspector] public bool increaseCard1BatCalled = false;
-    [HideInInspector] public bool increaseCard2BatCalled = false;
-    [HideInInspector] public bool increaseCard3BatCalled = false;
-    [HideInInspector] public bool increaseCard4BatCalled = false;
+    [HideInInspector] public bool increaseCard1SkipCalled = false;
+    [HideInInspector] public bool increaseCard2SkipCalled = false;
+    [HideInInspector] public bool increaseCard3SkipCalled = false;
+    [HideInInspector] public bool increaseCard4SkipCalled = false;
     [HideInInspector] public bool increaseCard3GunCalled = false;
     [HideInInspector] public bool increaseCard4GunCalled = false;
     [HideInInspector] public bool calledAIBatSwing = false;
@@ -340,10 +342,11 @@ public class GameManager : MonoBehaviour
 
             if (cardsOnTable1 != null)
             {
-                if (cardsOnTable1.name.Contains("bat") && !increaseCard1BatCalled)
+                if (cardsOnTable1.name.Contains("bottle") && !increaseCard1SkipCalled)
                 {
-                    increaseCard1BatCalled = true;
-                    playerBatCount++;
+                    increaseCard1SkipCalled = true;
+                    Debug.Log("BOTTLE IN CARD 1");
+                    playerSkipCount++;
                 }
             }
 
@@ -359,10 +362,11 @@ public class GameManager : MonoBehaviour
 
             if (cardsOnTable2 != null)
             {
-                if (cardsOnTable2.name.Contains("bat") && !increaseCard2BatCalled)
+                if (cardsOnTable2.name.Contains("bottle") && !increaseCard2SkipCalled)
                 {
-                    increaseCard2BatCalled = true;
-                    playerBatCount++;
+                    increaseCard2SkipCalled = true;
+                    Debug.Log("BOTTLE IN CARD 2");
+                    playerSkipCount++;
                 }
             }
 
@@ -383,14 +387,20 @@ public class GameManager : MonoBehaviour
                         increaseCard3GunCalled = true;
                         aiGunCount++;
                     }
-                    if (cardsOnTable3.name.Contains("bat") && !increaseCard3BatCalled)
+                    if (cardsOnTable3.name.Contains("bottle") && !increaseCard3SkipCalled)
                     {
-                        increaseCard3BatCalled = true;
-                        aiBatCount++;
+                        increaseCard3SkipCalled = true;
+                        Debug.Log("BOTTLE IN CARD 3");
+                        aiSkipCount++;
+
+                        cardsOnTable3.SendMessage("PlayDelayCardForAI");
+                    }
+                    else
+                    {
+                        cardsOnTable3.SendMessage("PlayCardForAI");
                     }
                 }
 
-                cardsOnTable3.SendMessage("PlayCardForAI");
                 AICardDrawSystem.Instance.selectedCardCount--;
             }
 
@@ -409,14 +419,20 @@ public class GameManager : MonoBehaviour
                         increaseCard4GunCalled = true;
                         aiGunCount++;
                     }
-                    if (cardsOnTable4.name.Contains("bat") && !increaseCard4BatCalled)
+                    if (cardsOnTable4.name.Contains("bottle") && !increaseCard4SkipCalled)
                     {
-                        increaseCard4BatCalled = true;
-                        aiBatCount++;
+                        increaseCard4SkipCalled = true;
+                        Debug.Log("BOTTLE IN CARD 4");
+                        aiSkipCount++;
+
+                        cardsOnTable4.SendMessage("PlayDelayCardForAI");
+                    }
+                    else
+                    {
+                        cardsOnTable4.SendMessage("PlayCardForAI");
                     }
                 }
 
-                cardsOnTable4.SendMessage("PlayCardForAI");
                 AICardDrawSystem.Instance.selectedCardCount--;
             }
         }
@@ -1128,6 +1144,17 @@ public class GameManager : MonoBehaviour
         SceneManager.LoadScene(activeScene);
     }
 
+    public void FinishBottleTurn()
+    {
+        if(inBottleAction || inAIBottleAction)
+        {
+            //Called Here Because Multiple Bottle Cards Will Have Multiple Scripts
+            inBottleAction = false;
+            inAIBottleAction = false;
+            Debug.Log("CALLED FINISH BOTTLE TURN");
+        }
+    }
+
     private bool allActionsDone()
     {
         //print(inKnifeActionAiPlayed);
@@ -1144,9 +1171,9 @@ public class GameManager : MonoBehaviour
                 if (!inGunAction)
                 {
                     //Debug.Log("No gun in action");
-                    if (!inBatAction && !inAIBatAction)
+                    if (!inBottleAction && !inAIBottleAction)
                     {
-                        //Debug.Log("ALL ACTIONS DONE");
+                        Debug.Log("ALL ACTIONS DONE");
                         isActionInProgress = false;
                         canMoveOn = false;
                         return true;

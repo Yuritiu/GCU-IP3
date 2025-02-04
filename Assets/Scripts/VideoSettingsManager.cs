@@ -123,8 +123,6 @@ public class VideoSettingsManager : MonoBehaviour
         //Get Selected Resolution From The List
         Resolution selectedResolution = availableResolutions[resolutionSetting.currentIndex];
 
-        Debug.Log("RESOLUTION: " + selectedResolution + " Refresh Rate: " + selectedResolution.refreshRate);
-
         //Apply Resolution Along With It's Refresh Rate
         //Fullscreen
         if (fullscreen == 0)

@@ -165,12 +165,12 @@ public class BottleCard : MonoBehaviour
 
                 if (waitForPlayersThrow)
                 {
-                    Debug.Log("PLAYER PLAYED SKIP, WAITING");
+                    //Debug.Log("PLAYER PLAYED SKIP, WAITING");
                     StartCoroutine(DelayBottleThrow(10, playerTarget, false));
                 }
                 else
                 {
-                    Debug.Log("PLAYER DID NOT PLAY SKIP");
+                    //Debug.Log("PLAYER DID NOT PLAY SKIP");
                     StartCoroutine(DelayBottleThrow(5, playerTarget, false));
                 }
 

@@ -335,12 +335,9 @@ public class GameManager : MonoBehaviour
             aiSkippedTurns--;
         }
 
-        Debug.Log("WAITING FOR PLAY CARDS");
-
         //DELAY FOR CARDS TO HAVE TIME TO BE PLACED ON TABLE TO BE COMPARED AGAINST PROPERLY (particularly for bottle cards)
         await DelayCardsActionsBeingCalledForChecksToHappen();
 
-        Debug.Log("WAITING FOR PLAY CARDS");
         //IMPORTANT Make Sure The Cards Logic Is Executed Before This Is Called!
         //Could Maybe Add The Destroy To The Card GameObject
         if (CardDrawSystem.Instance.selectedPosition1.childCount > 0 && playerSkippedTurns == 0)

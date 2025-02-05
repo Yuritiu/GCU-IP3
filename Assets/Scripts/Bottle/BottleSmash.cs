@@ -4,12 +4,20 @@ using UnityEngine;
 
 public class BottleSmash : MonoBehaviour
 {
-    AudioSource audioSource;
-    AudioClip[] audioClips;
-    string playerAudioSourceName = "Player Bottle Smash Audio Source";
-    string opponentAudioSourceName = "Opponent Bottle Smash Audio Source";
+    [Header("Smash Audio Variables")]
+    GameObject smashAudioObject;
+    AudioSource smashAudioSource;
+    AudioClip[] smashAudioClips;
+    string playerSmashAudioSourceName = "Player Bottle Smash Audio Source";
+    string opponentSmashAudioSourceName = "Opponent Bottle Smash Audio Source";
 
-    GameObject audioObject;
+    [Header("Scream Audio Variables")]
+    GameObject screamAudioObject;
+    AudioSource screamAudioSource;
+    AudioClip[] playerScreamAudioClips;
+    AudioClip[] opponentScreamAudioClips;
+    string playerScreamAudioSourceName = "Player Scream Smash Audio Source";
+    string opponentScreamAudioSourceName = "Opponent Scream Smash Audio Source";
 
     bool calledDestroy = false;
 
@@ -36,7 +44,7 @@ public class BottleSmash : MonoBehaviour
         //Play Smash SFX
         RetrieveAudioSource(isPlayer);
         LoadAudioClips();
-        PlayRandomClip();
+        PlayRandomClip(isPlayer);
 
         if(!isPlayer)
         {
@@ -54,41 +62,86 @@ public class BottleSmash : MonoBehaviour
     {
         if(isPlayer)
         {
-            audioObject = GameObject.Find(playerAudioSourceName);
+            smashAudioObject = GameObject.Find(playerSmashAudioSourceName);
+            screamAudioObject = GameObject.Find(playerScreamAudioSourceName);
         }
         else
         {
-            audioObject = GameObject.Find(opponentAudioSourceName);
+            smashAudioObject = GameObject.Find(opponentSmashAudioSourceName);
+            screamAudioObject = GameObject.Find(opponentScreamAudioSourceName);
         }
 
-        audioSource = audioObject.GetComponent<AudioSource>();
+        smashAudioSource = smashAudioObject.GetComponent<AudioSource>();
+        screamAudioSource = screamAudioObject.GetComponent<AudioSource>();
     }
-
 
     void LoadAudioClips()
     {
         //Retrieve All Audio Clips In Bottle SFX Folder
-        audioClips = Resources.LoadAll<AudioClip>("SFX/Bottle");
-        //TODO: LOAD IN SCREAM CLIP TO PLAY IF HITS AI ASWELL
-        if (audioClips.Length == 0)
+        smashAudioClips = Resources.LoadAll<AudioClip>("SFX/Bottle");
+        playerScreamAudioClips = Resources.LoadAll<AudioClip>("SFX/Hit Screams/Player");
+        opponentScreamAudioClips = Resources.LoadAll<AudioClip>("SFX/Hit Screams/Opponent");
+
+        if (smashAudioClips.Length == 0)
         {
             Debug.LogWarning("No Audio Clips Found In Resources/SFX/Bottle Folder");
         }
+
+        if (playerScreamAudioClips.Length == 0)
+        {
+            Debug.LogWarning("No Audio Clips Found In Resources/SFX/Hit Screams/Player Folder");
+        }
+
+        if (playerScreamAudioClips.Length == 0)
+        {
+            Debug.LogWarning("No Audio Clips Found In Resources/SFX/Hit Screams/Opponent Folder");
+        }
     }
 
-    public void PlayRandomClip()
+    public void PlayRandomClip(bool isPlayer)
     {
-        if (audioSource != null && audioClips.Length > 0)
+        if (smashAudioSource != null && smashAudioClips.Length > 0)
         {
-            AudioClip chosenClip = audioClips[Random.Range(0, audioClips.Length)];
-            audioSource.clip = chosenClip;
+            AudioClip chosenClip = smashAudioClips[Random.Range(0, smashAudioClips.Length)];
+            smashAudioSource.clip = chosenClip;
             //Set Random Pitch
-            audioSource.pitch = Random.Range(0.98f, 1.02f);
-            audioSource.Play();
+            smashAudioSource.pitch = Random.Range(0.98f, 1.02f);
+            smashAudioSource.Play();
         }
         else
         {
-            Debug.LogWarning("Bottle AudioSource Not Set/ No Audio Clips Available");
+            Debug.LogWarning("Bottle Smash AudioSource Not Set/ No Audio Clips Available");
+        }
+
+        if (isPlayer)
+        {
+            if (screamAudioSource != null && playerScreamAudioClips.Length > 0)
+            {
+                AudioClip chosenClip = playerScreamAudioClips[Random.Range(0, playerScreamAudioClips.Length)];
+                screamAudioSource.clip = chosenClip;
+                //Set Random Pitch
+                screamAudioSource.pitch = Random.Range(0.98f, 1.02f);
+                screamAudioSource.Play();
+            }
+            else
+            {
+                Debug.LogWarning("Bottle Player Scream AudioSource Not Set/ No Audio Clips Available");
+            }
+        }
+        else
+        {
+            if (screamAudioSource != null && opponentScreamAudioClips.Length > 0)
+            {
+                AudioClip chosenClip = opponentScreamAudioClips[Random.Range(0, opponentScreamAudioClips.Length)];
+                screamAudioSource.clip = chosenClip;
+                //Set Random Pitch
+                screamAudioSource.pitch = Random.Range(0.98f, 1.02f);
+                screamAudioSource.Play();
+            }
+            else
+            {
+                Debug.LogWarning("Bottle Opponent Scream AudioSource Not Set/ No Audio Clips Available");
+            }
         }
     }
 }

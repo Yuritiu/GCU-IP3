@@ -1,61 +1,61 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+//using System.Collections;
+//using System.Collections.Generic;
+//using UnityEngine;
 
-public class BatRagdoll : MonoBehaviour
-{
-    public static BatRagdoll Instance;
+//public class BatRagdoll : MonoBehaviour
+//{
+//    public static BatRagdoll Instance;
 
-    [SerializeField] ParticleSystem bloodParticles;
+//    [SerializeField] ParticleSystem bloodParticles;
 
-    bool triggeredRagdoll = false;
-    bool coroutineCalled = false;
+//    bool triggeredRagdoll = false;
+//    bool coroutineCalled = false;
 
-    void Awake()
-    {
-        bloodParticles.Stop();
-    }
+//    void Awake()
+//    {
+//        bloodParticles.Stop();
+//    }
 
-    void OnTriggerEnter(Collider other)
-    {
-        if (other.gameObject.CompareTag("OpponentHead") && !triggeredRagdoll)
-        {
-            triggeredRagdoll = true;
+//    void OnTriggerEnter(Collider other)
+//    {
+//        if (other.gameObject.CompareTag("OpponentHead") && !triggeredRagdoll)
+//        {
+//            triggeredRagdoll = true;
 
-            bloodParticles.Play();
+//            bloodParticles.Play();
 
-            if (!coroutineCalled)
-            {
-                //Unfreeze The Players Camera After Swinging Bat & After Small Delay
-                StartCoroutine(UnfreezeCameraDelay());
-            }
+//            if (!coroutineCalled)
+//            {
+//                //Unfreeze The Players Camera After Swinging Bat & After Small Delay
+//                StartCoroutine(UnfreezeCameraDelay());
+//            }
 
-            //Enable The Ragdoll
-            RagdollToggle.Instance.ragdoll = true;
-        }
-    }
+//            //Enable The Ragdoll
+//            RagdollToggle.Instance.ragdoll = true;
+//        }
+//    }
 
-    void OnTriggerExit(Collider other)
-    {
-        triggeredRagdoll = false;
-    }
+//    void OnTriggerExit(Collider other)
+//    {
+//        triggeredRagdoll = false;
+//    }
 
-    IEnumerator UnfreezeCameraDelay()
-    {
-        coroutineCalled = true;
+//    IEnumerator UnfreezeCameraDelay()
+//    {
+//        coroutineCalled = true;
 
-        Freelook.Instance.mouseX = 0;
-        Freelook.Instance.mouseY = 0;
+//        Freelook.Instance.mouseX = 0;
+//        Freelook.Instance.mouseY = 0;
 
-        Freelook.Instance.xRotation = 0;
-        Freelook.Instance.yRotation = 0;
-        Freelook.Instance.currentXRotation = 0;
-        Freelook.Instance.currentYRotation = 0;
+//        Freelook.Instance.xRotation = 0;
+//        Freelook.Instance.yRotation = 0;
+//        Freelook.Instance.currentXRotation = 0;
+//        Freelook.Instance.currentYRotation = 0;
 
-        yield return new WaitForSeconds(1);
+//        yield return new WaitForSeconds(1);
         
-        Freelook.Instance.inBatSwing = false;
+//        Freelook.Instance.inBatSwing = false;
 
-        coroutineCalled = false;
-    }
-}
+//        coroutineCalled = false;
+//    }
+//}

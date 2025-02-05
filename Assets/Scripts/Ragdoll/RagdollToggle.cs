@@ -7,10 +7,12 @@ public class RagdollToggle : MonoBehaviour
     public static RagdollToggle Instance;
 
     [Header("References")]
+    [SerializeField] ParticleSystem bloodParticles;
     Animator animator;
     Transform rootBone;
 
     [SerializeField] public bool ragdoll = false;
+    bool enableBloodParticles = false;
     bool calledCoroutine = false;
 
     Rigidbody[] rbs;
@@ -20,6 +22,8 @@ public class RagdollToggle : MonoBehaviour
     void Awake()
     {
         Instance = this;
+
+        bloodParticles.Stop();
 
         animator = GetComponentInChildren<Animator>();
         rootBone = GameObject.FindGameObjectWithTag("RootBone").GetComponent<Transform>();
@@ -46,6 +50,7 @@ public class RagdollToggle : MonoBehaviour
         else
         {
             EnableRagdoll(false);
+            bloodParticles.Stop();
         }
 
         //Reset Ragdoll When It's Turn To Play Again
@@ -90,6 +95,12 @@ public class RagdollToggle : MonoBehaviour
                 //rb.velocity = Vector3.zero;
             }
         }
+
+        if (!enableBloodParticles)
+        {
+            enableBloodParticles = true;
+            bloodParticles.Play();
+        }
     }
 
     IEnumerator DisableAIRagdollToPlayTurn()
@@ -98,5 +109,6 @@ public class RagdollToggle : MonoBehaviour
 
         ragdoll = false;
         calledCoroutine = false;
+        enableBloodParticles = false;
     }
 }

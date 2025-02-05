@@ -32,11 +32,6 @@ public class BottleCard : MonoBehaviour
         bottleSpawnPoint = GameObject.Find("BOTTLE POSITION BARTENDER").transform;
     }
 
-    void Update()
-    {
-
-    }
-
     public void PlayCardForPlayer()
     {
         StartCoroutine(WaitForActionsAndPlayBottle(true));
@@ -118,7 +113,7 @@ public class BottleCard : MonoBehaviour
         {
             Debug.Log("Knife/Gun card detected! Waiting for its action to start...");
 
-            //Wait A Short Time To Allow The Action To Start
+            //Wait A Short Time To Allow Any Knife/Gun Action To Start
             yield return new WaitForSeconds(3f);
         }
 
@@ -137,11 +132,11 @@ public class BottleCard : MonoBehaviour
             if (gameManager.inBottleAction)
             {
                 //gameManager.inBottleAction = false;
-                gameManager.playerSkipCount++;
 
                 StartCoroutine(DelayBottleThrow(5, aiTarget, true));
 
                 //Skip AI Turn
+                gameManager.aiSkipCount++;
                 GameManager.Instance.aiSkippedTurns++;
 
                 playCardForPlayerCalled = false;
@@ -174,6 +169,7 @@ public class BottleCard : MonoBehaviour
                     StartCoroutine(DelayBottleThrow(5, playerTarget, false));
                 }
 
+                gameManager.playerSkipCount++;
                 GameManager.Instance.playerSkippedTurns++;
             }
         }
@@ -215,6 +211,6 @@ public class BottleCard : MonoBehaviour
     //Check If Knife/ Gun Action Is Ongoing
     private bool KnifeOrGunActionInProgress()
     {
-        return gameManager.inKnifeActionAiPlayed || gameManager.inKnifeActionPlayerPlayed || gameManager.inGunAction;
+        return gameManager.inKnifeActionAiPlayed || gameManager.inKnifeActionPlayerPlayed || gameManager.inGunAction || gameManager.aiGunCount > 0;
     }
 }

@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices.WindowsRuntime;
+using System.Threading.Tasks;
 using TMPro;
 using Unity.Burst.CompilerServices;
 using Unity.Services.Analytics;
@@ -325,7 +326,7 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    public void ShowCards()
+    public async void ShowCards()
     {
         CardSelection.ClearAllHovers();
 
@@ -334,6 +335,12 @@ public class GameManager : MonoBehaviour
             aiSkippedTurns--;
         }
 
+        Debug.Log("WAITING FOR PLAY CARDS");
+
+        //DELAY FOR CARDS TO HAVE TIME TO BE PLACED ON TABLE TO BE COMPARED AGAINST PROPERLY (particularly for bottle cards)
+        await DelayCardsActionsBeingCalledForChecksToHappen();
+
+        Debug.Log("WAITING FOR PLAY CARDS");
         //IMPORTANT Make Sure The Cards Logic Is Executed Before This Is Called!
         //Could Maybe Add The Destroy To The Card GameObject
         if (CardDrawSystem.Instance.selectedPosition1.childCount > 0 && playerSkippedTurns == 0)
@@ -450,6 +457,12 @@ public class GameManager : MonoBehaviour
 
         CardDrawSystem.Instance.isPlayersTurn = false;
         StartCoroutine(MoveCamera());
+    }
+
+    private async Task DelayCardsActionsBeingCalledForChecksToHappen()
+    {
+        //Wait For 1 Seconds
+        await Task.Delay(1000);
     }
 
     //TUTORIAL SPECIFIC FUNCTION

@@ -38,6 +38,12 @@ public class BottleSmash : MonoBehaviour
         LoadAudioClips();
         PlayRandomClip();
 
+        if(!isPlayer)
+        {
+            //Enable Opponent's Ragdoll
+            RagdollToggle.Instance.ragdoll = true;
+        }
+
         yield return new WaitForSeconds(1.5f);
 
         //Destroy Bottle
@@ -63,6 +69,7 @@ public class BottleSmash : MonoBehaviour
     {
         //Retrieve All Audio Clips In Bottle SFX Folder
         audioClips = Resources.LoadAll<AudioClip>("SFX/Bottle");
+        //TODO: LOAD IN SCREAM CLIP TO PLAY IF HITS AI ASWELL
         if (audioClips.Length == 0)
         {
             Debug.LogWarning("No Audio Clips Found In Resources/SFX/Bottle Folder");

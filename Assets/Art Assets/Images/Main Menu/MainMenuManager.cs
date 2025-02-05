@@ -68,14 +68,12 @@ public class MainMenuManager : MonoBehaviour
 
     private void OpenSettings()
     {
-        Debug.Log("Settings menu");
         mainMenuParent.SetActive(false);
         settingsMenuParent.SetActive(true);
     }
 
     private void OpenStats()
     {
-        Debug.Log("Stats menu");
         mainMenuParent.SetActive(false);
         statsMenuParent.SetActive(true);
     }

@@ -133,7 +133,7 @@ public class BottleCard : MonoBehaviour
             {
                 //gameManager.inBottleAction = false;
 
-                StartCoroutine(DelayBottleThrow(5, aiTarget, true));
+                StartCoroutine(DelayBottleThrow(4, aiTarget, true));
 
                 //Skip AI Turn
                 gameManager.aiSkipCount++;
@@ -161,12 +161,12 @@ public class BottleCard : MonoBehaviour
                 if (waitForPlayersThrow)
                 {
                     //Debug.Log("PLAYER PLAYED SKIP, WAITING");
-                    StartCoroutine(DelayBottleThrow(10, playerTarget, false));
+                    StartCoroutine(DelayBottleThrow(6, playerTarget, false));
                 }
                 else
                 {
                     //Debug.Log("PLAYER DID NOT PLAY SKIP");
-                    StartCoroutine(DelayBottleThrow(5, playerTarget, false));
+                    StartCoroutine(DelayBottleThrow(4, playerTarget, false));
                 }
 
                 gameManager.playerSkipCount++;

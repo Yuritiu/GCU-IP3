@@ -46,6 +46,11 @@ public class RagdollToggle : MonoBehaviour
         if (ragdoll)
         {
             EnableRagdoll(true);
+            if (!enableBloodParticles)
+            {
+                enableBloodParticles = true;
+                bloodParticles.Play();
+            }
         }
         else
         {
@@ -94,12 +99,6 @@ public class RagdollToggle : MonoBehaviour
                 rb.detectCollisions = enabled;
                 //rb.velocity = Vector3.zero;
             }
-        }
-
-        if (!enableBloodParticles)
-        {
-            enableBloodParticles = true;
-            bloodParticles.Play();
         }
     }
 

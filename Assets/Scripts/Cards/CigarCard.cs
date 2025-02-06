@@ -28,8 +28,8 @@ public class CigarCard : MonoBehaviour
         float chance = gameManager.statusPercent;
         float roll = UnityEngine.Random.Range(0f, 100f);
 
-        if (roll <= chance)
-        {
+        //if (roll <= chance)
+        //{
             //Display BACKFIRE! Text
             TextMeshProUGUI backfireText = GetComponentInChildren<TextMeshProUGUI>();
             backfireText.enabled = true;
@@ -40,7 +40,7 @@ public class CigarCard : MonoBehaviour
 
             //GameManager.Instance.cigarBackfire.gameObject.SetActive(true);
             statusDropdown.DisplayStatusEffect(0, 4);
-        }
+        //}
 
     }
     public void PlayCardForAI()

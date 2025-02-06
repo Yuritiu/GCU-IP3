@@ -102,7 +102,7 @@ public class Hand : MonoBehaviour
                     {
                         //move knife back and forward
                         //from -0.15 to 0.1 degrees rotation on the z axis
-                        turn.x += Input.GetAxis("Mouse X") * (sensitivity -0.4f);
+                        turn.x += Input.GetAxis("Mouse X") * (sensitivity -0.2f);
 
                         //print(turn.x);
                         if (-turn.x <= 18 && -turn.x >= -13)
@@ -144,7 +144,6 @@ public class Hand : MonoBehaviour
                     {
                         //print("Remove Finger");
                         EndOfAction(GameManager.Instance.playerFingers);
-                        SFXManager.instance.PlaySFXClip(PlayerScream, transform, 0.2f);
                     }
                 }
             }

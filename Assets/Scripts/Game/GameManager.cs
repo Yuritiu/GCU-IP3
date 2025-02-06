@@ -236,27 +236,19 @@ public class GameManager : MonoBehaviour
         //Debug.Log("Next Turn");
 
         //Add Cards For Player And AI
-        if (!isTutorial)
+        AICardDrawSystem.Instance.AddCardAfterTurn();
+        AICardDrawSystem.Instance.selectedCardCount = 0;
+        CardDrawSystem.Instance.AddCardAfterTurn();
+        if (playerDraw2Cards == true)
         {
-            AICardDrawSystem.Instance.AddCardAfterTurn();
-            AICardDrawSystem.Instance.selectedCardCount = 0;
+            playerDraw2Cards = false;
             CardDrawSystem.Instance.AddCardAfterTurn();
-            if (playerDraw2Cards == true)
-            {
-                playerDraw2Cards = false;
-                CardDrawSystem.Instance.AddCardAfterTurn();
-            }
-            if (aiDraw2Cards == true)
-            {
-                aiDraw2Cards = false;
-                AICardDrawSystem.Instance.AddCardAfterTurn();
-            }
         }
-        else
+
+        if (aiDraw2Cards == true)
         {
-            TutorialAICardDraw.Instance.AddCardAfterTurn();
-            TutorialAICardDraw.Instance.selectedCardCount = 0;
-            TutorialCardDraw.Instance.AddCardAfterTurn();
+            aiDraw2Cards = false;
+            AICardDrawSystem.Instance.AddCardAfterTurn();
         }
 
         playerArmour = 0;
@@ -264,14 +256,7 @@ public class GameManager : MonoBehaviour
 
         if (playerSkippedTurns > 0)
         {
-            if (!isTutorial)
-            {
-                CardDrawSystem.Instance.isPlayersTurn = false;
-            }
-            else
-            {
-                TutorialCardDraw.Instance.isPlayersTurn = false;
-            }
+            CardDrawSystem.Instance.isPlayersTurn = false;
 
             playerSkippedTurns--;
 
@@ -279,23 +264,13 @@ public class GameManager : MonoBehaviour
         }
         else
         {
-            if (!isTutorial)
-            {
-                CardDrawSystem.Instance.isPlayersTurn = true;
+            CardDrawSystem.Instance.isPlayersTurn = true;
 
-                //Debug
-                CardDrawSystem.Instance.debugCurrentTurnText.text = ("Play Time");
+            //Debug
+            CardDrawSystem.Instance.debugCurrentTurnText.text = ("Play Time");
 
-                playerSkippedTurnsText.text = "";
-                playerSkippedTurnsText.enabled = false;
-            }
-            else
-            {
-                TutorialCardDraw.Instance.isPlayersTurn = true;
-
-                //Debug
-                TutorialCardDraw.Instance.debugCurrentTurnText.text = ("Play Time");
-            }
+            playerSkippedTurnsText.text = "";
+            playerSkippedTurnsText.enabled = false;
         }
     }
 
@@ -308,21 +283,13 @@ public class GameManager : MonoBehaviour
 
         //Debug.Log("Played Hand: " + isTutorial);
 
-        if (aiSkippedTurns == 0 && !isTutorial)
+        if (aiSkippedTurns == 0)
         {
             StartCoroutine(AIPlaceCards());
         }
-        else if (aiSkippedTurns == 0 && isTutorial)
-        {
-            StartCoroutine(AIPlaceCardsInTutorial());
-        }
-        else if (!isTutorial)
+        else
         {
             ShowCards();
-        }
-        else if (isTutorial)
-        {
-            ShowCardsInTutorial();
         }
     }
 
@@ -462,58 +429,6 @@ public class GameManager : MonoBehaviour
         await Task.Delay(1000);
     }
 
-    //TUTORIAL SPECIFIC FUNCTION
-    public void ShowCardsInTutorial()
-    {
-        if (aiSkippedTurns > 0)
-        {
-            aiSkippedTurns--;
-        }
-
-        //IMPORTANT Make Sure The Cards Logic Is Executed Before This Is Called!
-        //Could Maybe Add The Destroy To The Card GameObject
-        if (TutorialCardDraw.Instance.selectedPosition1.childCount > 0 && playerSkippedTurns == 0)
-        {
-            //For This To Work, Please Make Sure Card's Logic Is Executed In A Public Function Called PlayCard
-            //And The Card's Hierarchy Mathches The 'Skip Next Turn' Card
-            cardsOnTable1 = TutorialCardDraw.Instance.selectedPosition1.GetChild(0).gameObject.GetComponentAtIndex(1);
-
-            cardsOnTable1.SendMessage("PlayCardForPlayer");
-
-            TutorialCardDraw.Instance.selectedCardCount--;
-        }
-        if (TutorialCardDraw.Instance.selectedPosition2.childCount > 0 && playerSkippedTurns == 0)
-        {
-            //For This To Work, Please Make Sure Card's Logic Is Executed In A Public Function Called PlayCard
-            //And The Card's Hierarchy Mathches The 'Skip Next Turn' Card
-            cardsOnTable2 = TutorialCardDraw.Instance.selectedPosition2.GetChild(0).gameObject.GetComponentAtIndex(1);
-            cardsOnTable2.SendMessage("PlayCardForPlayer");
-
-            TutorialCardDraw.Instance.selectedCardCount--;
-        }
-        if (cardsOnTable3 != null)
-        {
-            //For This To Work, Please Make Sure Card's Logic Is Executed In A Public Function Called PlayCard
-            //And The Card's Hierarchy Mathches The 'Skip Next Turn' Card
-            cardsOnTable3.SendMessage("PlayCardForAI");
-
-            TutorialAICardDraw.Instance.selectedCardCount--;
-        }
-        if (cardsOnTable4 != null)
-        {
-            //For This To Work, Please Make Sure Card's Logic Is Executed In A Public Function Called PlayCard
-            //And The Card's Hierarchy Mathches The 'Skip Next Turn' Card
-            cardsOnTable4.SendMessage("PlayCardForAI");
-
-            TutorialAICardDraw.Instance.selectedCardCount--;
-        }
-
-        IsReadyToCompare = true;
-
-        TutorialCardDraw.Instance.isPlayersTurn = false;
-        StartCoroutine(WaitSoCardsCanRevealInTutorial());
-    }
-
     IEnumerator AIPlaceCards()
     {
         //waits for cards to reveal
@@ -523,17 +438,6 @@ public class GameManager : MonoBehaviour
         cardsOnTable4 = AICardDrawSystem.Instance.SelectCard();
         yield return new WaitForSeconds(0.3f);
         ShowCards();
-    }
-
-    //TUTORIAL SPECIFIC FUNCTION
-    IEnumerator AIPlaceCardsInTutorial()
-    {
-        yield return new WaitForSeconds(0.3f);
-        cardsOnTable3 = TutorialAICardDraw.Instance.SelectCard();
-        yield return new WaitForSeconds(0.3f);
-        cardsOnTable4 = TutorialAICardDraw.Instance.SelectCard();
-        yield return new WaitForSeconds(0.3f);
-        ShowCardsInTutorial();
     }
 
     IEnumerator MoveCamera()
@@ -555,8 +459,7 @@ public class GameManager : MonoBehaviour
 
     IEnumerator WaitSoCardsCanReveal()
     {
-        //CHANGED FROM 5.5 TO 4 - Felt Too Long
-        yield return new WaitForSeconds(4);
+        yield return new WaitForSeconds(1);
 
         IsReadyToCompare = false;
         CardDrawSystem.Instance.canPlay = true;
@@ -624,38 +527,6 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    IEnumerator WaitSoCardsCanRevealInTutorial()
-    {
-        //Debug
-        TutorialCardDraw.Instance.debugCurrentTurnText.text = ("Revealing Cards");
-
-        yield return new WaitForSeconds(4);
-
-        if (TutorialCardDraw.Instance.selectedPosition1.childCount > 0)
-        {
-            Destroy(TutorialCardDraw.Instance.selectedPosition1.GetChild(0).gameObject);
-        }
-        if (TutorialCardDraw.Instance.selectedPosition2.childCount > 0)
-        {
-            Destroy(TutorialCardDraw.Instance.selectedPosition2.GetChild(0).gameObject);
-        }
-        if (TutorialAICardDraw.Instance.selectedPosition1.childCount > 0)
-        {
-            Destroy(TutorialAICardDraw.Instance.selectedPosition1.GetChild(0).gameObject);
-        }
-        if (TutorialAICardDraw.Instance.selectedPosition2.childCount > 0)
-        {
-            Destroy(TutorialAICardDraw.Instance.selectedPosition2.GetChild(0).gameObject);
-        }
-
-        yield return new WaitForSeconds(0.5f);
-
-        IsReadyToCompare = false;
-        CardDrawSystem.Instance.canPlay = true;
-
-        NextTurn();
-    }
-
     public IEnumerator WaitToCompareCards(int character, int type)
     {
         //waits for cards to reveal
@@ -707,42 +578,6 @@ public class GameManager : MonoBehaviour
 
     public void CheckFingers()
     {
-        //if (playerFingers == 0)
-        //{
-        //    if (Hand.Instance.bloodParticleSystem5 != null)
-        //    {
-        //        Hand.Instance.bloodParticleSystem5.Play();
-        //    }
-        //}
-        //else if (playerFingers == 1)
-        //{
-        //    if (Hand.Instance.bloodParticleSystem4 != null)
-        //    {
-        //        Hand.Instance.bloodParticleSystem4.Play();
-        //    }
-        //}
-        //else if (playerFingers == 2)
-        //{
-        //    if (Hand.Instance.bloodParticleSystem3 != null)
-        //    {
-        //        Hand.Instance.bloodParticleSystem3.Play();
-        //    }
-        //}
-        //else if (playerFingers == 3)
-        //{
-        //    if (Hand.Instance.bloodParticleSystem2 != null)
-        //    {
-        //        Hand.Instance.bloodParticleSystem2.Play();
-        //    }
-        //}
-        //else if (playerFingers == 4)
-        //{
-        //    if(Hand.Instance.bloodParticleSystem1 != null)
-        //    {
-        //        Hand.Instance.bloodParticleSystem1.Play();
-        //    }
-        //}
-
         if (aiFingers <= 0 && !isTutorial)
         {
             EndGameWin();
@@ -759,8 +594,6 @@ public class GameManager : MonoBehaviour
 
     public void CheckArmour(int character, int type)
     {
-        //print("character - " + character + "ai armour" + aiArmour);
-
         //this ensures the armour stops the gun instead of the knife
         if (character == 1)
         {
@@ -942,36 +775,6 @@ public class GameManager : MonoBehaviour
             inGunAction = true;
         }
 
-        ////Input for "s" key
-        //if (Input.GetKey("s") && !isActionInProgress)
-        //{
-        //    isActionInProgress = true;
-        //    in2ndPos = false;
-        //    in3rdPos = false;
-
-        //    StartCoroutine(HandleCameraTransition(Target1));
-        //}
-
-        ////Input for "w" key
-        //if (Input.GetKey("w") && !isActionInProgress)
-        //{
-        //    isActionInProgress = true;
-        //    in2ndPos = true;
-        //    in3rdPos = false;
-
-        //    StartCoroutine(HandleCameraTransition(Target2));
-        //}
-
-        ////Input for "p" key
-        //if (Input.GetKey("p") && !isActionInProgress)
-        //{
-        //    isActionInProgress = true;
-        //    in2ndPos = false;
-        //    in3rdPos = true;
-
-        //    StartCoroutine(HandleCameraTransition(Target3));
-        //}
-
         //Transition To Bat Camera
         if (in4thPos && !isActionInProgress)
         {
@@ -1125,14 +928,6 @@ public class GameManager : MonoBehaviour
 
     public void EndGameWin()
     {
-        print("You Win");
-
-        //Unity.Services.Analytics.CustomEvent timesWon = new Unity.Services.Analytics.CustomEvent("TimesWon")
-        //{
-        //    { "timesWon", 1 }
-        //};
-
-        //Debug.Log("Analytic Recorded: " + "Times Won");
         gameEnded = true;
         WinScreen.SetActive(true);
         Cursor.visible = true;
@@ -1142,14 +937,6 @@ public class GameManager : MonoBehaviour
 
     public void EndGameLose()
     {
-        print("You Lose");
-
-        //Unity.Services.Analytics.CustomEvent timesDied = new Unity.Services.Analytics.CustomEvent("TimesDied")
-        //{
-        //    { "timesDied", 1 }
-        //};
-
-        //Debug.Log("Analytic Recorded: " + "Times Died");
         gameEnded = true;
         LoseScreen.SetActive(true);
         Cursor.visible = true;

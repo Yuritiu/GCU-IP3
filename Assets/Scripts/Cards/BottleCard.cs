@@ -21,6 +21,9 @@ public class BottleCard : MonoBehaviour
     [HideInInspector] Component cardsOnTable3;
     [HideInInspector] Component cardsOnTable4;
 
+    [Header("Cooldown Variables")]
+    float baseWaitTime = 4.2f;
+
     public bool waitForPlayersThrow;
     bool checkedPlayersCards = false;
 
@@ -80,7 +83,7 @@ public class BottleCard : MonoBehaviour
         //Set Bottle's Velocity For A Deterministic Trajectory
         rb.velocity = initialVelocity;
 
-        //IF AI AND PLAYER HAVE PLAYED A BOTTLE THROW WAIT 5 SECONDS FOR THROWS TO FINISH
+        //IF AI AND PLAYER HAVE PLAYED A BOTTLE THROW WAIT baseWaitTime SECONDS FOR THROWS TO FINISH
         if ((gameManager.increaseCard1SkipCalled || gameManager.increaseCard2SkipCalled) && (gameManager.increaseCard3SkipCalled || gameManager.increaseCard4SkipCalled))
         {
             StartCoroutine(WaitForAIThrow());
@@ -93,7 +96,7 @@ public class BottleCard : MonoBehaviour
 
     IEnumerator WaitForAIThrow()
     {
-        yield return new WaitForSeconds(5f);
+        yield return new WaitForSeconds(baseWaitTime - 2f);
         gameManager.FinishBottleTurn();
     }
 
@@ -133,7 +136,7 @@ public class BottleCard : MonoBehaviour
             {
                 //gameManager.inBottleAction = false;
 
-                StartCoroutine(DelayBottleThrow(4, aiTarget, true));
+                StartCoroutine(DelayBottleThrow(baseWaitTime, aiTarget, true));
 
                 //Skip AI Turn
                 gameManager.aiSkipCount++;
@@ -161,12 +164,12 @@ public class BottleCard : MonoBehaviour
                 if (waitForPlayersThrow)
                 {
                     //Debug.Log("PLAYER PLAYED SKIP, WAITING");
-                    StartCoroutine(DelayBottleThrow(6, playerTarget, false));
+                    StartCoroutine(DelayBottleThrow(baseWaitTime + 1f, playerTarget, false));
                 }
                 else
                 {
                     //Debug.Log("PLAYER DID NOT PLAY SKIP");
-                    StartCoroutine(DelayBottleThrow(4, playerTarget, false));
+                    StartCoroutine(DelayBottleThrow(baseWaitTime, playerTarget, false));
                 }
 
                 gameManager.playerSkipCount++;

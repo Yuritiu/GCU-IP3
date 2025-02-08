@@ -155,6 +155,8 @@ public class GameManager : MonoBehaviour
 
     [Header("Camera Movement Variables")]
     [HideInInspector] public bool isActionInProgress = false;
+    [HideInInspector] public bool crosshairUnlocked;
+    [HideInInspector] public bool freelookEnabled;
 
     [SerializeField] private AudioClip AIScream;
 
@@ -758,6 +760,25 @@ public class GameManager : MonoBehaviour
 
     private void Update()
     {
+        if (Input.GetKeyDown(KeyCode.Tab))
+        {
+            crosshairUnlocked = !crosshairUnlocked;
+            if (crosshairUnlocked)
+            {
+                Cursor.lockState = CursorLockMode.None;
+            }
+            else
+            {
+                Cursor.lockState = CursorLockMode.Locked;
+            }
+            Cursor.visible = crosshairUnlocked;
+
+            // Only disable camera look when unlocking the cursor
+            freelookEnabled = !crosshairUnlocked;
+
+           
+        }
+
         //print(playerFingers);
 
         if (showddown == true && ShootScript.instance1.AiShot == false && ShootScript.instance2.PlayerShot == false)

@@ -65,9 +65,13 @@ public class Freelook : MonoBehaviour
             xRotation = GameManager.Instance.Target6.position.x;
             yRotation = GameManager.Instance.Target6.position.y;
         }
-        else if (GameManager.Instance.in2ndPos == false && GameManager.Instance.in3rdPos == false && !GameManager.Instance.in4thPos && !GameManager.Instance.in5thPos && !inBatSwing)
+        else if (GameManager.Instance.in2ndPos == false && GameManager.Instance.in3rdPos == false && !GameManager.Instance.in4thPos && !GameManager.Instance.in5thPos && !inBatSwing && !GameManager.Instance.crosshairUnlocked)
         {
             canLook = true;
+        }
+        else if (GameManager.Instance.crosshairUnlocked)
+        {
+            canLook = false;
         }
 
         if (!canLook || pauseMenu.isPaused)

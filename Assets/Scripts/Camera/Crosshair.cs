@@ -13,7 +13,7 @@ public class Crosshair : MonoBehaviour
 
     [Header("Variables")]
     [SerializeField] float hoverScale = 1.1f;
-    [SerializeField]  float tweenDuration = 0.25f;
+    [SerializeField] float tweenDuration = 0.25f;
 
     Vector3 originalOuterScale;
     Vector3 targetScale;
@@ -24,7 +24,7 @@ public class Crosshair : MonoBehaviour
     {
         if (crosshairOuter != null)
         {
-            originalOuterScale = new Vector3(1,1,1);
+            originalOuterScale = new Vector3(1, 1, 1);
             targetScale = originalOuterScale;
         }
     }
@@ -61,6 +61,25 @@ public class Crosshair : MonoBehaviour
             //Disables Inner Crosshair When Not Players Turn
             HoverScale(false);
             return;
+        }
+
+        else if (GameManager.Instance.crosshairUnlocked)
+        {
+
+            Vector3 mousePosition = Input.mousePosition;
+            crosshairInner.position = new Vector2(mousePosition.x, mousePosition.y);
+            crosshairOuter.position = new Vector2(mousePosition.x, mousePosition.y);
+
+        }
+        else
+        {
+            // When the mouse is locked, move the crosshair to the center of the screen
+            if (crosshairInner != null && crosshairOuter != null)
+            {
+                Vector2 centerPosition = new Vector2(Screen.width / 2f, Screen.height / 2f);
+                crosshairInner.position = centerPosition;
+                crosshairOuter.position = centerPosition;
+            }
         }
     }
 

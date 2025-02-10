@@ -719,17 +719,28 @@ public class GameManager : MonoBehaviour
                 var cardObject1 = cardsOnTable1.gameObject;
                 var cardObject2 = cardsOnTable2.gameObject;
 
-                //Card To Be Cloned Is In Slot 2
-                if (cardObject1.name.Contains("cigar") && !cardObject2.name.Contains("cigar"))
+                //Card To Be Cloned Is In Slot 2 And Not A Bottle
+                if (cardObject1.name.Contains("cigar") && (!cardObject2.name.Contains("cigar") && !cardObject2.name.Contains("bottle")))
                 {
                     //Debug.Log("Called Function 1");
                     cardObject2.SendMessage("PlayCardForPlayer");
                 }
-                //Card To Be Cloned Is In Slot 1
-                if (cardObject2.name.Contains("cigar") && !cardObject1.name.Contains("cigar"))
+                //If Bottle Is Played With Cigar:
+                else if(cardObject1.name.Contains("cigar") && (!cardObject2.name.Contains("cigar") && cardObject2.name.Contains("bottle"))) 
+                {
+                    aiSkippedTurns++;
+                }
+
+                //Card To Be Cloned Is In Slot 1 And Not A Bottle
+                if (cardObject2.name.Contains("cigar") && (!cardObject1.name.Contains("cigar") && !cardObject1.name.Contains("bottle")))
                 {
                     //Debug.Log("Called Function 2");
                     cardObject1.SendMessage("PlayCardForPlayer");
+                }
+                //If Bottle Is Played With Cigar:
+                else if (cardObject2.name.Contains("cigar") && (!cardObject1.name.Contains("cigar") && cardObject1.name.Contains("bottle")))
+                {
+                    aiSkippedTurns++;
                 }
             }
         }
@@ -741,18 +752,29 @@ public class GameManager : MonoBehaviour
                 var cardObject4 = cardsOnTable4.gameObject;
                 Component aiClonedCard = null;
                 //Card To Be Cloned Is In Slot 4
-                if (cardObject3.name.Contains("cigar") && !cardObject4.name.Contains("cigar"))
+                if (cardObject3.name.Contains("cigar") && (!cardObject4.name.Contains("cigar") && !cardObject4.name.Contains("bottle")))
                 {
                     //Debug.Log("Called Function 3");
                     aiClonedCard = cardObject4.GetComponentAtIndex(1);
                     aiClonedCard.SendMessage("PlayCardForAI");
                 }
+                //If Bottle Is Played With Cigar:
+                else if (cardObject3.name.Contains("cigar") && (!cardObject4.name.Contains("cigar") && cardObject4.name.Contains("bottle")))
+                {
+                    playerSkippedTurns++;
+                }
+
                 //Card To Be Cloned Is In Slot 3
-                if (cardObject4.name.Contains("cigar") && !cardObject3.name.Contains("cigar"))
+                if (cardObject4.name.Contains("cigar") && (!cardObject3.name.Contains("cigar") && !cardObject3.name.Contains("bottle")))
                 {
                     //Debug.Log("Called Function 4");
                     aiClonedCard = cardObject3.GetComponentAtIndex(1);
                     aiClonedCard.SendMessage("PlayCardForAI");
+                }
+                //If Bottle Is Played With Cigar:
+                else if (cardObject4.name.Contains("cigar") && (!cardObject3.name.Contains("cigar") && cardObject3.name.Contains("bottle")))
+                {
+                    playerSkippedTurns++;
                 }
             }
         }

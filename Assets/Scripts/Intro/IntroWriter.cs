@@ -21,11 +21,12 @@ public class TextWriter : MonoBehaviour
     public float volume = 0.5f;
 
     [Header("Image Fade Settings")]
-    public Image uiImage;  // Reference to the Image component you want to fade
-    public float imageFadeDelay = 1f;  // Delay before starting the fade
-    public float imageFadeDuration = 1f;  // Duration of the fade
+    public Image uiImage;
+    public float imageFadeDelay = 1f;
+    public float imageFadeDuration = 1f;
 
     public IntroCamera introCamera;
+    public IntroPlayer introPlayer;
 
     private int index = 0;
     private Coroutine typingCoroutine;
@@ -145,11 +146,12 @@ public class TextWriter : MonoBehaviour
         StartCoroutine(FadeImageFrom1To0());
 
         introCamera.cameraLocked = false;
+        introPlayer.playerLocked = false;
     }
 
     IEnumerator FadeImageFrom1To0()
     {
-        yield return new WaitForSeconds(imageFadeDelay); // Delay before starting the fade
+        yield return new WaitForSeconds(imageFadeDelay);
 
         float startAlpha = uiImage.color.a;
         float elapsedTime = 0f;

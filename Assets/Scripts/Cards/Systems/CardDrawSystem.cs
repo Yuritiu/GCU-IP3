@@ -414,11 +414,11 @@ public class CardDrawSystem : MonoBehaviour
         //Check If The Card Is Being Selected (true) OR Deselected (false)
         if (cardMovingToTable)
         {
-            //Start Position TODO: CHECK WHAT POSITION
+            //Start Position
             startPosition = currentPosition.transform.position;
             startRotation = currentPosition.transform.rotation;
 
-            halfwayRotation = Quaternion.Euler(-20, 180, -33);
+            halfwayRotation = Quaternion.Euler(-90, 180, 0);
 
             //Final Position
             targetPosition = selectedPosition.position;

@@ -29,6 +29,7 @@ public class ShootScript : MonoBehaviour
 
     bool isPlayer;
     bool reducedPlayerGunCount = false;
+    bool hasGunLoaded= false;
 
     private GameManager gameManager;
     [SerializeField] private AudioClip Gunload;
@@ -48,14 +49,14 @@ public class ShootScript : MonoBehaviour
         {
             //print("instanceed1");
             instance1 = this;
-            //SFXManager.instance.PlaySFXClip(Gunload, transform, 0.15f);
+            
             isPlayer = false;
         }
         if(gameObject.name == "Player Gun")
         {
             instance2 = this;
             isPlayer = true;
-            //SFXManager.instance.PlaySFXClip(Gunload, transform, 0.15f);
+            
             clampActivated = true;
             
         }
@@ -83,6 +84,7 @@ public class ShootScript : MonoBehaviour
 
             //reducedPlayerGunCount = true;
             gameManager.inGunAction = false;
+            hasGunLoaded = false;
 
             //gameManager.playerGunCount = 0;
         }
@@ -91,7 +93,19 @@ public class ShootScript : MonoBehaviour
         {
             Hammer.transform.Rotate(-1, 0f, 0f, Space.Self);
             currentRotation = currentRotation - 1;
+            if (!hasGunLoaded) 
+                                 
+            {
+                SFXManager.instance.PlaySFXClip(Gunload, transform, 0.15f);
+                hasGunLoaded = true; 
+            }
+
+            
+
+
         }
+
+    
 
         if(clampActivated == true)
         {

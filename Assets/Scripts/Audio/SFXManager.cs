@@ -87,7 +87,7 @@ public class SFXManager : MonoBehaviour
         int rand = Random.Range(0, audioClip.Length);
 
         //spawn in gameObject
-        AudioSource audioSource = Instantiate(MusicObject, spawnTransform.position, Quaternion.identity);
+        AudioSource audioSource = Instantiate(SFXObject, spawnTransform.position, Quaternion.identity);
 
         //assign the audioClip
         audioSource.clip = audioClip[rand];

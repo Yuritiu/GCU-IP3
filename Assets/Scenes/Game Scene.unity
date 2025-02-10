@@ -19489,6 +19489,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 595854290}
     - target: {fileID: 2229647336694770922, guid: 5f30ef53536cc8b4694232906fbc92d4, type: 3}
+      propertyPath: aiScreams.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2229647336694770922, guid: 5f30ef53536cc8b4694232906fbc92d4, type: 3}
       propertyPath: emptyPromiseBackfire
       value: 
       objectReference: {fileID: 1772904239}
@@ -19504,6 +19508,14 @@ PrefabInstance:
       propertyPath: playerSkippedTurnsText
       value: 
       objectReference: {fileID: 1203212298}
+    - target: {fileID: 2229647336694770922, guid: 5f30ef53536cc8b4694232906fbc92d4, type: 3}
+      propertyPath: aiScreams.Array.data[0]
+      value: 
+      objectReference: {fileID: 8300000, guid: 0937576821e957242b0c1598e2b8abe8, type: 3}
+    - target: {fileID: 2229647336694770922, guid: 5f30ef53536cc8b4694232906fbc92d4, type: 3}
+      propertyPath: aiScreams.Array.data[1]
+      value: 
+      objectReference: {fileID: 8300000, guid: 1869386727666084ea927c99fec19ac6, type: 3}
     - target: {fileID: 2981733723500107123, guid: 5f30ef53536cc8b4694232906fbc92d4, type: 3}
       propertyPath: ge
       value: 
@@ -108281,6 +108293,18 @@ PrefabInstance:
       propertyPath: Cutting.Array.data[2]
       value: 
       objectReference: {fileID: 8300000, guid: 923ac9b33142c814abbc5eee3896689e, type: 3}
+    - target: {fileID: 1148584488116116778, guid: 51b7432981d42044aab0051738de45d3, type: 3}
+      propertyPath: playerScreams.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1148584488116116778, guid: 51b7432981d42044aab0051738de45d3, type: 3}
+      propertyPath: playerScreams.Array.data[0]
+      value: 
+      objectReference: {fileID: 8300000, guid: 1f1377ba115cce34682a4f06e4abec4e, type: 3}
+    - target: {fileID: 1148584488116116778, guid: 51b7432981d42044aab0051738de45d3, type: 3}
+      propertyPath: playerScreams.Array.data[1]
+      value: 
+      objectReference: {fileID: 8300000, guid: 829574d5cac983b42b6b3d7f488f4cd1, type: 3}
     - target: {fileID: 1579051938548258989, guid: 51b7432981d42044aab0051738de45d3, type: 3}
       propertyPath: m_Name
       value: Finger3

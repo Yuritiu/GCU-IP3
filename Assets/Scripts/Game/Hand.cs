@@ -24,6 +24,7 @@ public class Hand : MonoBehaviour
     [SerializeField] private GameObject actionUI;
 
     [SerializeField] private AudioClip[] Cutting;
+    [SerializeField] private AudioClip[] playerScreams;
 
     [Header("References")]
     [SerializeField] public ParticleSystem bloodParticleSystem1;
@@ -186,6 +187,7 @@ public class Hand : MonoBehaviour
         actionUI.SetActive(false);
 
         GameManager.Instance.playerFingers--;
+        SFXManager.instance.PlayRandomSFXClip(playerScreams, transform, 0.15f);
         CheckForSecondAction();
         RemoveFinger(num);
     }

@@ -158,7 +158,9 @@ public class GameManager : MonoBehaviour
     [HideInInspector] public bool crosshairUnlocked;
     [HideInInspector] public bool freelookEnabled;
 
-    [SerializeField] private AudioClip AIScream;
+    
+    
+    [SerializeField] private AudioClip[] aiScreams;
 
     public bool firstStepsTutorial = false;
 
@@ -558,7 +560,7 @@ public class GameManager : MonoBehaviour
             inKnifeActionPlayerPlayed = false;
             aiFingers--;
             aiHand.RemoveFinger(aiFingers);
-            SFXManager.instance.PlaySFXClip(AIScream, transform, 0.2f);
+            SFXManager.instance.PlayRandomSFXClip(aiScreams, transform, 0.15f);
         }
         //Player
         else if (character == 2)
@@ -569,9 +571,13 @@ public class GameManager : MonoBehaviour
             }
             if (type == 3)
             {
+
                 playerHand.RemoveFinger(playerFingers);
+                
                 playerFingers--;
+                
             }
+
             //Debug.Log("Countdown Started");
             BloodlossSystem.Instance.IncreaseBloodloss();
         }

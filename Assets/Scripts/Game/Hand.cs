@@ -77,15 +77,18 @@ public class Hand : MonoBehaviour
                 {
                     if (!waitingToCut)
                     {
-                        //move knife back and forward
-                        //from -0.15 to 0.1 degrees rotation on the z axis
+                        //move knife up and down
                         turn.y += Input.GetAxis("Mouse Y") * sensitivity;
 
-                        
                         print(turn.y);
+
                         if (turn.y >= 7.5)
                         {
-                            knife.transform.position = new Vector3(knife.transform.position.x , turn.y/10, knife.transform.position.z);
+                            knife.transform.position = new Vector3(knife.transform.position.x, turn.y / 10, knife.transform.position.z);
+                        }
+                        else if (turn.y <= 10)
+                        {
+                            return;
                         }
                         else
                         {

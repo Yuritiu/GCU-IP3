@@ -38,15 +38,14 @@ public class Armour : MonoBehaviour
         {
             GameManager.Instance.playerArmour++;
         }
-
     } 
            
     public void PlayCardForAI()
     {
+        GameManager.Instance.aiArmour++;
+
         //Display BACKFIRE! Text
         TextMeshProUGUI backfireText = GetComponentInChildren<TextMeshProUGUI>();
         backfireText.enabled = true;
-
-        GameManager.Instance.aiArmour++;
     }
 }

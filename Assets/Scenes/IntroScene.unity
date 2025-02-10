@@ -253,7 +253,7 @@ GameObject:
   - component: {fileID: 78869331}
   - component: {fileID: 78869330}
   m_Layer: 0
-  m_Name: Floor (1)
+  m_Name: Lower Floor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -16174,6 +16174,7 @@ MonoBehaviour:
   dragCount: 9
   rotationSpeed: 0.5
   stairHeight: 0.25
+  stairDepth: 0.5
   stairDelay: 0.5
   introCamera: {fileID: 382931591}
 --- !u!114 &2105075142

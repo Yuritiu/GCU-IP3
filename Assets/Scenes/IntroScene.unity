@@ -358,6 +358,8 @@ MonoBehaviour:
   maxXRotation: -5
   minYRotation: -60
   maxYRotation: 60
+  dizzyStrength: 25
+  driftSpeed: 0.8
 --- !u!114 &382931592
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -616,7 +618,7 @@ GameObject:
   - component: {fileID: 531732391}
   - component: {fileID: 531732390}
   m_Layer: 0
-  m_Name: Cube
+  m_Name: Floor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -703,7 +705,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: -1.3, z: 0}
-  m_LocalScale: {x: 4, y: 1, z: 20}
+  m_LocalScale: {x: 4, y: 1, z: 100}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -809,6 +811,55 @@ CapsuleCollider:
   m_Height: 0.0027934692
   m_Direction: 1
   m_Center: {x: 0, y: 0.0013967346, z: 0}
+--- !u!1 &752633543
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 752633545}
+  - component: {fileID: 752633544}
+  m_Layer: 0
+  m_Name: Post Process Volume
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &752633544
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 752633543}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 172515602e62fb746b5d573b38a5fe58, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_IsGlobal: 1
+  priority: 0
+  blendDistance: 0
+  weight: 1
+  sharedProfile: {fileID: 0}
+--- !u!4 &752633545
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 752633543}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &798816136
 GameObject:
   m_ObjectHideFlags: 0
@@ -1843,7 +1894,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 3eda67498c248c14f86a32121030e134, type: 3}
       propertyPath: m_Name
-      value: idle animation
+      value: Size Ref
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 3eda67498c248c14f86a32121030e134, type: 3}
       propertyPath: m_Layer
@@ -12932,6 +12983,7 @@ GameObject:
   - component: {fileID: 2105075139}
   - component: {fileID: 2105075138}
   - component: {fileID: 2105075137}
+  - component: {fileID: 2105075141}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -13029,6 +13081,23 @@ Transform:
   - {fileID: 1567921673}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: -30.91, y: 0, z: 0}
+--- !u!114 &2105075141
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2105075136}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8d86875fbcc25ee48831579f8669d71b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dragDistance: -1
+  dragSpeed: 1
+  pauseDuration: 0.5
+  playerLocked: 1
+  dragCount: 4
 --- !u!1 &2119091464
 GameObject:
   m_ObjectHideFlags: 0
@@ -13102,10 +13171,11 @@ SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
   - {fileID: 74329168}
-  - {fileID: 2105075140}
-  - {fileID: 1235991700}
   - {fileID: 2084097104}
+  - {fileID: 531732393}
+  - {fileID: 1235991700}
   - {fileID: 959262565}
   - {fileID: 1646101812}
+  - {fileID: 2105075140}
   - {fileID: 1239349576}
-  - {fileID: 531732393}
+  - {fileID: 752633545}

@@ -15,6 +15,9 @@ public class IntroCamera : MonoBehaviour
     public float minYRotation = -180f;
     public float maxYRotation = 180f;
 
+    public float dizzyStrength = 10f; 
+    public float driftSpeed = 1f; 
+
     void Start()
     {
         Cursor.lockState = CursorLockMode.Locked;
@@ -28,10 +31,16 @@ public class IntroCamera : MonoBehaviour
         float mouseX = Input.GetAxis("Mouse X") * sensitivityX * Time.deltaTime;
         float mouseY = Input.GetAxis("Mouse Y") * sensitivityY * Time.deltaTime;
 
-        xRotation -= mouseY;
-        xRotation = Mathf.Clamp(xRotation, minXRotation, maxXRotation);
+        float resistanceX = Mathf.Sin(Time.time * 2f) * dizzyStrength * Time.deltaTime;
+        float resistanceY = Mathf.Sin(Time.time * 1.5f) * dizzyStrength * Time.deltaTime;
 
-        yRotation += mouseX;
+        xRotation -= mouseY - resistanceX;
+        yRotation += mouseX - resistanceY;
+
+        xRotation += Mathf.Sin(Time.time * 0.5f) * driftSpeed * Time.deltaTime;
+        yRotation += Mathf.Sin(Time.time * 0.3f) * driftSpeed * Time.deltaTime;
+
+        xRotation = Mathf.Clamp(xRotation, minXRotation, maxXRotation);
         yRotation = Mathf.Clamp(yRotation, minYRotation, maxYRotation);
 
         transform.rotation = Quaternion.Euler(xRotation, yRotation, 0f);

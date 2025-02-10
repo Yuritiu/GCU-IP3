@@ -50,7 +50,7 @@ public class StatusDropdown : MonoBehaviour
         {
             var (playerIndex, effectIndex) = effectQueue.Dequeue();
 
-            playerText.text = playerStatusNames[playerIndex];
+            playerText.text = playerStatusNames[playerIndex] + " BACKFIRE";
             playerText.color = playerStatusColours[playerIndex];
 
             titleText.text = status[effectIndex];

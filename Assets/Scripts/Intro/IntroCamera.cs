@@ -2,21 +2,25 @@ using UnityEngine;
 
 public class IntroCamera : MonoBehaviour
 {
+    [Header("Sensitivity Settings")]
     public float sensitivityX = 200f;
     public float sensitivityY = 200f;
 
-    private float xRotation = 0f;
-    private float yRotation = 0f;
-
-    public bool cameraLocked = true;
-
+    [Header("Rotation Limits")]
     public float minXRotation = -90f;
     public float maxXRotation = 90f;
     public float minYRotation = -180f;
     public float maxYRotation = 180f;
 
-    public float dizzyStrength = 10f; 
-    public float driftSpeed = 1f; 
+    [Header("Camera State")]
+    private float xRotation = 0f;
+    private float yRotation = 0f;
+    public bool cameraLocked = true;
+
+    [Header("Effects Settings")]
+    public float dizzyStrength = 10f;
+    public float driftSpeed = 1f;
+
 
     void Start()
     {

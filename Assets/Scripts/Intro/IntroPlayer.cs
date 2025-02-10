@@ -3,21 +3,33 @@ using UnityEngine;
 
 public class IntroPlayer : MonoBehaviour
 {
-    public float dragDistance = -1f;
-    public float dragSpeed = 1f;
-    public float pauseDuration = 0.4f;
+    [Header("Drag Settings")]
+    public float initialDelay = 3f;
+    public float dragDistance = -1.5f;
+    public float dragSpeed = 0.8f;
+    public float pauseDuration = 0.8f;
+
+    [Header("Player Control")]
     public bool playerLocked = true;
     public int dragCount = 3;
 
+    [Header("Drag State")]
     private bool dragStarted = false;
+
 
     private void Update()
     {
         if (!playerLocked && !dragStarted)
         {
-            StartCoroutine(DragLoop());
+            StartCoroutine(StartWithDelay());
             dragStarted = true;
         }
+    }
+
+    IEnumerator StartWithDelay()
+    {
+        yield return new WaitForSeconds(initialDelay);
+        StartCoroutine(DragLoop());
     }
 
     IEnumerator DragLoop()

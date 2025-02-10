@@ -26,6 +26,7 @@ public class TextWriter : MonoBehaviour
     public float imageFadeDuration = 1f;
 
     public IntroCamera introCamera;
+    public IntroPlayer introPlayer;
 
     private int index = 0;
     private Coroutine typingCoroutine;
@@ -145,6 +146,7 @@ public class TextWriter : MonoBehaviour
         StartCoroutine(FadeImageFrom1To0());
 
         introCamera.cameraLocked = false;
+        introPlayer.playerLocked = false;
     }
 
     IEnumerator FadeImageFrom1To0()

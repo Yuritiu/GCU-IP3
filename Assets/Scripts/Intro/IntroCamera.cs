@@ -7,10 +7,10 @@ public class IntroCamera : MonoBehaviour
     public float sensitivityY = 200f;
 
     [Header("Rotation Limits")]
-    public float minXRotation = -90f;
-    public float maxXRotation = 90f;
-    public float minYRotation = -180f;
-    public float maxYRotation = 180f;
+    public float minXRotation = -50f;
+    public float maxXRotation = -5f;
+    public float minYRotation = -60;
+    public float maxYRotation = 60;
 
     [Header("Camera State")]
     private float xRotation = 0f;

@@ -16,6 +16,13 @@ public class IntroPlayer : MonoBehaviour
     [Header("Drag State")]
     private bool dragStarted = false;
 
+    [Header("Rotation and Stairs")]
+    public float rotationSpeed = 0.5f;
+    public float stairHeight = 0.5f;
+    public float stairDepth = 0.5f;
+    public float stairDelay = 0.5f;
+
+    public IntroCamera introCamera;
 
     private void Update()
     {
@@ -51,5 +58,28 @@ public class IntroPlayer : MonoBehaviour
             transform.position = endPos;
             yield return new WaitForSeconds(pauseDuration);
         }
+
+        StartCoroutine(WalkDownStairs());
     }
+    IEnumerator WalkDownStairs()
+    {
+        for (int i = 0; i < 6; i++)
+        {
+            Vector3 startPos = transform.position;
+            Vector3 endPos = startPos + new Vector3(0, -stairHeight, -stairDepth);
+            float stepTime = 0.2f;
+
+            float elapsedTime = 0f;
+            while (elapsedTime < stepTime)
+            {
+                transform.position = Vector3.Lerp(startPos, endPos, elapsedTime / stepTime);
+                elapsedTime += Time.deltaTime;
+                yield return null;
+            }
+
+            transform.position = endPos;
+            yield return new WaitForSeconds(stairDelay);
+        }
+    }
+
 }

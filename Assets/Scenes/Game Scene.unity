@@ -40284,6 +40284,75 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1995685959}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1001 &2006349893
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 3994387107122334692, guid: 67c7eccce4702a74ebc0334ab1a279bc, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.10224773
+      objectReference: {fileID: 0}
+    - target: {fileID: 3994387107122334692, guid: 67c7eccce4702a74ebc0334ab1a279bc, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.10224773
+      objectReference: {fileID: 0}
+    - target: {fileID: 3994387107122334692, guid: 67c7eccce4702a74ebc0334ab1a279bc, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.10224773
+      objectReference: {fileID: 0}
+    - target: {fileID: 3994387107122334692, guid: 67c7eccce4702a74ebc0334ab1a279bc, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -8.23
+      objectReference: {fileID: 0}
+    - target: {fileID: 3994387107122334692, guid: 67c7eccce4702a74ebc0334ab1a279bc, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.0000009536743
+      objectReference: {fileID: 0}
+    - target: {fileID: 3994387107122334692, guid: 67c7eccce4702a74ebc0334ab1a279bc, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0.28
+      objectReference: {fileID: 0}
+    - target: {fileID: 3994387107122334692, guid: 67c7eccce4702a74ebc0334ab1a279bc, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: -0.71787775
+      objectReference: {fileID: 0}
+    - target: {fileID: 3994387107122334692, guid: 67c7eccce4702a74ebc0334ab1a279bc, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3994387107122334692, guid: 67c7eccce4702a74ebc0334ab1a279bc, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0.6961693
+      objectReference: {fileID: 0}
+    - target: {fileID: 3994387107122334692, guid: 67c7eccce4702a74ebc0334ab1a279bc, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3994387107122334692, guid: 67c7eccce4702a74ebc0334ab1a279bc, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3994387107122334692, guid: 67c7eccce4702a74ebc0334ab1a279bc, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: -271.759
+      objectReference: {fileID: 0}
+    - target: {fileID: 3994387107122334692, guid: 67c7eccce4702a74ebc0334ab1a279bc, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6360692597056879891, guid: 67c7eccce4702a74ebc0334ab1a279bc, type: 3}
+      propertyPath: m_Name
+      value: Larry Dance
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 67c7eccce4702a74ebc0334ab1a279bc, type: 3}
 --- !u!1 &2043439503
 GameObject:
   m_ObjectHideFlags: 0
@@ -160559,3 +160628,4 @@ SceneRoots:
   - {fileID: 2069450413}
   - {fileID: 336367335}
   - {fileID: 5981919231824253542}
+  - {fileID: 2006349893}

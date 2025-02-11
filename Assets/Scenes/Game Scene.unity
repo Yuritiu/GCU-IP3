@@ -18732,6 +18732,14 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5128300180416186954, guid: 24c94e7929bad4b408a3c87aac8caa73, type: 3}
+      propertyPath: Gunfire
+      value: 
+      objectReference: {fileID: 8300000, guid: 9e5e2a20f9f69864883eb994e3fd3848, type: 3}
+    - target: {fileID: 5128300180416186954, guid: 24c94e7929bad4b408a3c87aac8caa73, type: 3}
+      propertyPath: Gunload
+      value: 
+      objectReference: {fileID: 8300000, guid: 27dd00141830c2d41b66a0e9829871c4, type: 3}
+    - target: {fileID: 5128300180416186954, guid: 24c94e7929bad4b408a3c87aac8caa73, type: 3}
       propertyPath: gunName
       value: PlayerGun
       objectReference: {fileID: 0}

@@ -31,7 +31,6 @@ public class Armour : MonoBehaviour
 
             // Slow bloodloss
             BloodlossSystem.Instance.bloodlossTime -= BloodlossSystem.Instance.shieldBloodlossReduce;
-            GameManager.Instance.playerArmour++;
 
             //GameManager.Instance.armourBackfire.gameObject.SetActive(true);
             statusDropdown.DisplayStatusEffect(0, 3);

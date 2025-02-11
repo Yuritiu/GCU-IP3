@@ -51,7 +51,8 @@ public class GameManager : MonoBehaviour
     [HideInInspector] public bool in4thPos;
     [HideInInspector] public bool in5thPos;
 
-
+    private Vector3 tablePosition;
+    private Quaternion rotation;
     public bool cameraMovement; //used for turning off W S P when using Knife
 
 
@@ -67,8 +68,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] public float statusPercent = 20f;
 
     [Header("Gun")]
-    [SerializeField] GameObject PlayerGun;
-    [SerializeField] GameObject AIGun;
+    
     [SerializeField] public GameObject Gun;
     [HideInInspector] public int bullets;
     public bool showddown = false;
@@ -176,14 +176,16 @@ public class GameManager : MonoBehaviour
 
         await UnityServices.InitializeAsync();
         AnalyticsService.Instance.StartDataCollection();
+
+        tablePosition = Gun.transform.position;
+        rotation = Gun.transform.rotation;
     }
 
     private void Awake()
     {
         Instance = this;
 
-        PlayerGun.SetActive(false);
-        AIGun.SetActive(false);
+        
 
         wPressed = false;
         sPressed = false;
@@ -472,26 +474,37 @@ public class GameManager : MonoBehaviour
         NextTurn();
     }
 
+    public bool isPlayerGun = false;
+    public bool isAiGun = false;
+    public GameObject PositionForPlayer;
+    public GameObject PositionForAi;
+
     public void PlayerRoulette()
     {
         timesToShoot++;
         inGunAction = true;
-        StartCoroutine(WaitForGun(PlayerGun));
+        StartCoroutine(WaitForGun(Gun));
+        isPlayerGun = true;
     }
 
     public void AiRoulette()
     {
         inGunAction = true;
-        StartCoroutine(WaitForGun(AIGun));
+        StartCoroutine(WaitForGun(Gun));
+        isAiGun = true;
     }
+
+    
 
     IEnumerator WaitForGun(GameObject gun)
     {
         //print("scooby snack");
 
         //print(gun.name);
+
+        //float t = 0.00f;
         yield return new WaitForSeconds(3f);
-        Gun.SetActive(false);
+        
 
         bool PlayerShot = false;
 
@@ -500,31 +513,39 @@ public class GameManager : MonoBehaviour
             PlayerShot = ShootScript.instance2.PlayerShot;
         }
 
-        if (gun.name == "Player Gun" && !playerGunActive)
+        if (isPlayerGun == true && !playerGunActive)
         {
             has2Guns = false;
             playerGunActive = true;
-            gun.SetActive(true);
+            
+            
+            gun.transform.position = PositionForPlayer.transform.position;
+            gun.transform.rotation = PositionForPlayer.transform.rotation;
+            
         }
-        else if (gun.name == "Player Gun" && playerGunActive)
+        else if (isPlayerGun == true && playerGunActive)
         {
             has2Guns = true;
             PlayerRoulette();
         }
 
-        else if (gun.name == "Ai Gun" && !playerGunActive && !aiGunActive)
+        else if (isAiGun == true && !playerGunActive && !aiGunActive)
         {
             has2Guns = false;
             aiGunActive = true;
-            gun.SetActive(true);
+            
+            
+            Gun.transform.position = PositionForAi.transform.position;
+            Gun.transform.rotation = PositionForAi.transform.rotation;
+            ShootScript.instance2.GunInAiPosition();
         }
 
-        else if (gun.name == "Ai Gun" && playerGunActive == true)
+        else if (isAiGun == true && playerGunActive == true)
         {
             AiRoulette();
         }
 
-        else if (gun.name == "Ai Gun" && !playerGunActive && aiGunActive)
+        else if (isAiGun == true && !playerGunActive && aiGunActive)
         {
             has2Guns = true;
             AiRoulette();
@@ -814,14 +835,19 @@ public class GameManager : MonoBehaviour
             GameManager.Instance.Showdown();
         }
 
-        if (PlayerGun.activeInHierarchy == true)
+        if (isPlayerGun ==true)
         {
             inGunAction = true;
         }
 
-        if (AIGun.activeInHierarchy == true)
+        if (isAiGun == true)
         {
             inGunAction = true;
+        }
+
+        if(isAiGun == false && isPlayerGun == false)
+        {
+
         }
 
         //Transition To Bat Camera

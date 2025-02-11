@@ -45,27 +45,30 @@ public class ShootScript : MonoBehaviour
 
     private void Awake()
     {
-        if (gunName == "Ai Gun")
+        if (gunName == "PlayerGun")
         {
             //print("instanceed1");
             instance1 = this;
             
             isPlayer = false;
         }
-        if(gameObject.name == "Player Gun")
+        if(gunName == "AiGun")
         {
             instance2 = this;
             isPlayer = true;
             
-            clampActivated = true;
+            
             
         }
+
+        
     }
 
-    private void OnEnable()
+    public void GunInAiPosition()
     {
-        if (gameObject.name == "Ai Gun")
+        if (gunName == "AiGun")
         {
+            clampActivated = true;
             gunAnim = GetComponent<Animator>();
             StartCoroutine(AiFire(gameObject));
             
@@ -75,7 +78,7 @@ public class ShootScript : MonoBehaviour
     private void Update()
     {
         //Debug.Log("Hey We Got Here!");
-        if (gunName == "Player Gun" && Input.GetMouseButtonDown(0) && firePressed == false && currentRotation <= 0) //&& !reducedPlayerGunCount)
+        if (GameManager.Instance.isPlayerGun == true && Input.GetMouseButtonDown(0) && firePressed == false && currentRotation <= 0) //&& !reducedPlayerGunCount)
         {
             gunAnim = GetComponent<Animator>();
             StartCoroutine(Fire(gameObject));
@@ -87,9 +90,11 @@ public class ShootScript : MonoBehaviour
             hasGunLoaded = false;
 
             //gameManager.playerGunCount = 0;
+
+
         }
 
-        if (gunName == "Player Gun" && Input.GetMouseButton(1) && currentRotation > 0)
+        if (GameManager.Instance.isPlayerGun == true && Input.GetMouseButton(1) && currentRotation > 0)
         {
             Hammer.transform.Rotate(-1, 0f, 0f, Space.Self);
             currentRotation = currentRotation - 1;
@@ -105,9 +110,9 @@ public class ShootScript : MonoBehaviour
 
         }
 
-    
+        
 
-        if(clampActivated == true)
+            if (clampActivated == true)
         {
             Freelook.Instance.minX = -2;
             Freelook.Instance.maxX = 18;
@@ -115,12 +120,12 @@ public class ShootScript : MonoBehaviour
             Freelook.Instance.maxY = 10;
         }
 
-        if (currentRotation > 0 && gunName == "Player Gun" && firePressed == false) ;
+        if (currentRotation > 0 && GameManager.Instance.isPlayerGun == true) ;
         {
             textUnderGun.text = "HOLD RMB";
         }
 
-        if(currentRotation <= 0 && gunName == "Player Gun")
+        if(currentRotation <= 0 && GameManager.Instance.isPlayerGun == true)
         {
             textUnderGun.text = "CLICK LMB";
         }
@@ -170,7 +175,7 @@ public class ShootScript : MonoBehaviour
 
         GameManager.Instance.Gun.SetActive(true);
         GameManager.Instance.aiGunActive = false;
-        gun.SetActive(false);
+        GameManager.Instance.isAiGun = false;
 
         gameManager.inGunAction = false;
 
@@ -239,7 +244,7 @@ public class ShootScript : MonoBehaviour
         GameManager.Instance.playerGunActive = false;
         GameManager.Instance.Gun.SetActive(true);
         GameManager.Instance.playerGunActive = false;
-        gun.SetActive(false);
+        GameManager.Instance.isPlayerGun = false;
         if (GameManager.Instance.has2Guns == false)
         {
             GameManager.Instance.inGunAction = false;

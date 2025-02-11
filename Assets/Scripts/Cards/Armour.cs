@@ -21,6 +21,8 @@ public class Armour : MonoBehaviour
         float chance = gameManager.statusPercent;
         float roll = UnityEngine.Random.Range(0f, 100f);
 
+        GameManager.Instance.playerArmour++;
+
         if (roll <= chance)
         {
             //Display BACKFIRE! Text
@@ -34,18 +36,10 @@ public class Armour : MonoBehaviour
             //GameManager.Instance.armourBackfire.gameObject.SetActive(true);
             statusDropdown.DisplayStatusEffect(0, 3);
         }
-        else
-        {
-            GameManager.Instance.playerArmour++;
-        }
     } 
            
     public void PlayCardForAI()
     {
         GameManager.Instance.aiArmour++;
-
-        //Display BACKFIRE! Text
-        TextMeshProUGUI backfireText = GetComponentInChildren<TextMeshProUGUI>();
-        backfireText.enabled = true;
     }
 }

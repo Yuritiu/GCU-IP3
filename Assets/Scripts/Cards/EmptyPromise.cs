@@ -20,7 +20,7 @@ public class EmptyPromise : MonoBehaviour
     {
         float chance = gameManager.statusPercent;
         float roll = UnityEngine.Random.Range(0f, 100f);
-
+        
         if (roll <= chance)
         {
             //Display BACKFIRE! Text

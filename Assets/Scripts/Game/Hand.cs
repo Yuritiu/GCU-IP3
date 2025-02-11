@@ -80,17 +80,17 @@ public class Hand : MonoBehaviour
                         //move knife up and down
                         turn.y += Input.GetAxis("Mouse Y") * sensitivity;
 
-                        print(turn.y);
+                        //print(turn.y);
 
-                        if (turn.y >= 7.5)
+                        if (turn.y >= 7.5 && turn.y <= 10)
                         {
                             knife.transform.position = new Vector3(knife.transform.position.x, turn.y / 10, knife.transform.position.z);
                         }
-                        else if (turn.y <= 10)
+                        else if (turn.y >= 10)
                         {
-                            return;
+                            turn.y = 10;
                         }
-                        else
+                        else if (turn.y <= 7.5)
                         {
                             turn.y = 7.5f;
                             knife.transform.position = new Vector3(knife.transform.position.x , turn.y/10, knife.transform.position.z);
@@ -191,12 +191,15 @@ public class Hand : MonoBehaviour
 
         GameManager.Instance.playerFingers--;
         SFXManager.instance.PlayRandomSFXClip(playerScreams, transform, 0.15f);
-        CheckForSecondAction();
+        StartCoroutine(CheckForSecondAction());
         RemoveFinger(num);
     }
 
-    public void CheckForSecondAction()
+    public IEnumerator CheckForSecondAction()
     {
+
+        yield return new WaitForSeconds(1f);
+
         //print(GameManager.Instance.numberOfKnifeCards);
         GameManager.Instance.numberOfKnifeCards--;
         //print(GameManager.Instance.numberOfKnifeCards);

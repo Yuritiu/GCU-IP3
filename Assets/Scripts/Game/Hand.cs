@@ -203,7 +203,7 @@ public class Hand : MonoBehaviour
         //print(GameManager.Instance.numberOfKnifeCards);
         GameManager.Instance.numberOfKnifeCards--;
         //print(GameManager.Instance.numberOfKnifeCards);
-        if (GameManager.Instance.numberOfKnifeCards >= 1 && GameManager.Instance.playerFingers > 0)
+        if (GameManager.Instance.numberOfKnifeCards > 1 && GameManager.Instance.playerFingers > 0)
         {
             StartOfAction();
             GameManager.Instance.numberOfKnifeCards = 0;

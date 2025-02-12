@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
@@ -34,6 +35,8 @@ public class AICardDrawSystem : MonoBehaviour
     [HideInInspector] bool cardAdded = false;
     [HideInInspector] public bool card1Moving = false;
     [HideInInspector] public bool card2Moving = false;
+    //Track Each Card's Movement Status From Deck To Hand
+    bool[] cardMovementStatus = new bool[4];
     //Current Number Of Selected Cards - Max Of 2
     [HideInInspector] public int selectedCardCount = 0;
     [HideInInspector] public bool isPlayersTurn = true;
@@ -52,12 +55,26 @@ public class AICardDrawSystem : MonoBehaviour
 
     void Start()
     {
+        StartCoroutine(WaitForDeckToFinishFanning());
+    }
+
+    IEnumerator WaitForDeckToFinishFanning()
+    {
+        while (!CardDeck.Instance.fanAnimationComplete)
+        {
+            yield return null;
+        }
+
         StartGame();
     }
 
     void StartGame()
     {
         //Debug.Log("Deck Count Before Creating Hand: " + CardDeck.Instance.deck.Count);
+
+        var playingDeckLocation = CardDrawSystem.Instance.playingDeckLocation;
+        float currentTopDeckPosition = CardDeck.Instance.currentDeckStackHeight + playingDeckLocation.transform.position.y;
+        Vector3 playingDeckTopLocation = new Vector3(playingDeckLocation.transform.position.x, currentTopDeckPosition, playingDeckLocation.transform.position.z);
 
         //Initialize cardsInHand With 4 Slots
         cardsInHand = new GameObject[4];
@@ -75,7 +92,9 @@ public class AICardDrawSystem : MonoBehaviour
             //Debug.Log("Drew Card: " + card.name + " Remaining Cards In Deck: " + CardDeck.Instance.deck.Count);
 
             //Instantiate And Store The Reference
-            cardsInHand[i] = Instantiate(card, originalPositions[i].position, originalPositions[i].rotation);
+            //cardsInHand[i] = Instantiate(card, originalPositions[i].position, originalPositions[i].rotation);
+            cardsInHand[i] = Instantiate(card, playingDeckTopLocation, originalPositions[i].rotation);
+
             //Destroy The CardSelection Script On The AI's Cards So The Player Can't Hover Them
             Destroy(cardsInHand[i].GetComponent<CardSelection>());
             Destroy(cardsInHand[i].GetComponent<BoxCollider>());
@@ -88,10 +107,47 @@ public class AICardDrawSystem : MonoBehaviour
                 case 2: card3 = true; break;
                 case 3: card4 = true; break;
             }
+
+            StartCoroutine(MoveCardToSlot(cardsInHand[i], originalPositions[i].position, originalPositions[i].rotation, 0.5f, i * 0.3f, i));
         }
         
                 
         //Debug.Log("Deck Count After Creating Hand: " + CardDeck.Instance.deck.Count);
+    }
+
+    IEnumerator MoveCardToSlot(GameObject card, Vector3 targetPosition, Quaternion targetRotation, float duration, float delay, int cardIndex)
+    {
+        cardMovementStatus[cardIndex] = true;
+
+        Vector3 startPosition = card.transform.position;
+        Vector3 endPosition = targetPosition;
+        float elapsedTime = 0f;
+
+        yield return new WaitForSeconds(delay);
+
+        //Move Card With A Parabolic Arc (Throw)
+        while (elapsedTime < duration)
+        {
+            float progress = elapsedTime / duration;
+
+            //Throwing Arc Height
+            float arcHeight = Mathf.Sin(progress * Mathf.PI) * 0.1f;
+            Vector3 currentPosition = Vector3.Lerp(startPosition, endPosition, progress);
+            currentPosition.y += arcHeight;
+
+            Quaternion currentRotation = Quaternion.Lerp(card.transform.rotation, targetRotation, progress);
+
+            card.transform.position = currentPosition;
+            card.transform.rotation = currentRotation;
+
+            elapsedTime += Time.deltaTime;
+            yield return null;
+        }
+
+        card.transform.position = endPosition;
+        card.transform.rotation = targetRotation;
+
+        cardMovementStatus[cardIndex] = false;
     }
 
     public void DeleteCardsInHand()
@@ -124,6 +180,11 @@ public class AICardDrawSystem : MonoBehaviour
     {
         int index;
 
+        if (IsAnyCardMoving())
+        {
+            return null;
+        }
+
         //picks cards AI will use
         index = Random.Range(0, 4);
         //for debugging
@@ -144,7 +205,6 @@ public class AICardDrawSystem : MonoBehaviour
 
         if (cardsInHand[index] != null && (index != bannedCard) && (index != bannedCard2))
         {
-
             if (selectedCardCount == 0 && !cardsInHand[index].name.Contains("cigar"))
             {
                 selectedCardCount++;
@@ -161,7 +221,20 @@ public class AICardDrawSystem : MonoBehaviour
                 return cardsInHand[index].GetComponentAtIndex(1);
             }
         }
+
         return null;
+    }
+
+    bool IsAnyCardMoving()
+    {
+        foreach (bool isMoving in cardMovementStatus)
+        {
+            if (isMoving)
+            {
+                return true;
+            }
+        }
+        return false;
     }
 
     void MoveCard1ToPosition(int index, Transform selectedPosition, Transform currentPosition)
@@ -316,6 +389,10 @@ public class AICardDrawSystem : MonoBehaviour
     {
         //Debug.Log("Attempting To Add An AI Card After The Turn...");
 
+        var playingDeckLocation = CardDrawSystem.Instance.playingDeckLocation;
+        float currentTopDeckPosition = CardDeck.Instance.currentDeckStackHeight + playingDeckLocation.transform.position.y;
+        Vector3 playingDeckTopLocation = new Vector3(playingDeckLocation.transform.position.x, currentTopDeckPosition, playingDeckLocation.transform.position.z);
+
         for (int i = 0; i < cardsInHand.Length; i++)
         {
             if (cardsInHand[i] == null && CardDeck.Instance.deck.Count > 0)
@@ -327,10 +404,13 @@ public class AICardDrawSystem : MonoBehaviour
                     return;
                 }
 
-                cardsInHand[i] = Instantiate(card, originalPositions[i].position, originalPositions[i].rotation);
+                //cardsInHand[i] = Instantiate(card, originalPositions[i].position, originalPositions[i].rotation);
+                cardsInHand[i] = Instantiate(card, playingDeckTopLocation, originalPositions[i].rotation);
+                StartCoroutine(MoveCardToSlot(cardsInHand[i], originalPositions[i].position, originalPositions[i].rotation, 0.5f, i * 0.3f, i));
                 cardAdded = true;
 
                 //Debug.Log("Card Added Successfully.");
+
                 break;
             }
         }

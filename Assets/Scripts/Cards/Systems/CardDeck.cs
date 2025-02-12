@@ -1,3 +1,4 @@
+using System.Buffers.Text;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -24,30 +25,38 @@ public class CardDeck : MonoBehaviour
     [SerializeField] Transform deckPosition;
     //Distance Between Cards
     [SerializeField] float cardStackOffset = 0.002f;
-    [SerializeField] float currentDeckStackHeight;
+    [SerializeField] public float currentDeckStackHeight;
 
     [Header("Card Count Display")]
     private TextMeshProUGUI cardCount;
     [SerializeField] Camera playerCamera;
 
     private List<GameObject> visualDeck = new List<GameObject>();
+    bool reshuffling;
 
-    private bool reshuffling;
+    [Header("Deck Fan Settings")]
+    [SerializeField] Transform fanStartPosition;
+    [SerializeField] float fanDuration = 1f;
+    [SerializeField] float returnDuration = 1f;
+    [SerializeField] float pauseDuration = 5f;
+    bool fannedDeck = false;
+    bool calledStartDraw = false;
+    [HideInInspector] public bool fanAnimationComplete = false;
 
-    private void Start()
+    void Start()
     {
         GameObject cardCountObject = GameObject.Find("CardCount");
 
         if (cardCountObject != null)
         {
             cardCount = cardCountObject.GetComponent<TextMeshProUGUI>();
-            UpdateCardCount();
         }
         else
         {
             Debug.LogWarning("CardCount Display Not Found");
         }
     }
+
     void Awake()
     {
         Instance = this;
@@ -61,12 +70,10 @@ public class CardDeck : MonoBehaviour
         InitializeDeck();
     }
 
-
     void Update()
     {
         if (deck.Count == 0 && !GameManager.Instance.showddown)
         {
-            
             GameManager.Instance.Showdown();
         }
 
@@ -74,6 +81,12 @@ public class CardDeck : MonoBehaviour
         {
             cardCount.transform.LookAt(playerCamera.transform);
             cardCount.transform.Rotate(0, 180, 0);
+        }
+
+        if(fannedDeck && !calledStartDraw)
+        {
+            calledStartDraw = true;
+            DrawCard();
         }
     }
 
@@ -92,10 +105,10 @@ public class CardDeck : MonoBehaviour
                 if (card != null)
                 {
                     //For Each Card In The Deck Instantiate A Visual Card Prefab At The Proper Position
-                    Vector3 playingDeckStackPosition = deckPosition.position + new Vector3(90, currentDeckStackHeight + cardStackOffset, 0);
+                    Vector3 playingDeckStackPosition = fanStartPosition.position + new Vector3(90, currentDeckStackHeight + cardStackOffset, 0);
                     GameObject emptyCard = Instantiate(emptyCardPrefab, playingDeckStackPosition, Quaternion.identity);
 
-                    emptyCard.transform.localPosition = new Vector3(deckPosition.position.x, playingDeckStackPosition.y, deckPosition.position.z);
+                    emptyCard.transform.localPosition = new Vector3(fanStartPosition.position.x, playingDeckStackPosition.y, fanStartPosition.position.z);
                     emptyCard.transform.localRotation = Quaternion.Euler(90, 0, 0);
 
                     // Add to the list of visual cards
@@ -105,14 +118,26 @@ public class CardDeck : MonoBehaviour
                     currentDeckStackHeight += cardStackOffset;
 
                     deck.Add(card.cardPrefab);
-                    UpdateCardCount();
+
+                    if (fannedDeck)
+                    {
+                        UpdateCardCount();
+                    }
                 }
             }
         }
 
         ShuffleDeck();
-        UpdateCardCount();
-        //Debug.Log("Deck Created With " + deck.Count + " Cards.");
+        Debug.Log("Deck Created With " + deck.Count + " Cards.");
+
+        if (!fannedDeck)
+        {
+            FanCardDeck();
+        }
+        else
+        {
+            UpdateCardCount();
+        }
     }
 
     void ShuffleDeck()
@@ -155,7 +180,11 @@ public class CardDeck : MonoBehaviour
         //Remove The Drawn Card From The Deck
         deck.RemoveAt(0);
         RemoveCards(1);
-        UpdateCardCount();
+
+        if (fannedDeck)
+        {
+            UpdateCardCount();
+        }
 
         return card;
     }
@@ -172,6 +201,8 @@ public class CardDeck : MonoBehaviour
 
             Destroy(visualCard);
 
+            currentDeckStackHeight -= cardStackOffset;
+
             //Remove The Destroyed Card From The List Of Visual Cards
             visualDeck.RemoveAt(visualDeck.Count - 1);
         }
@@ -183,5 +214,80 @@ public class CardDeck : MonoBehaviour
         {
             cardCount.text = visualDeck.Count.ToString();
         }
+    }
+
+    //CALLED AT START OF GAME TO ANIMATE CARDS
+    void FanCardDeck()
+    {
+        StartCoroutine(AnimateFanIn());
+    }
+
+    IEnumerator AnimateFanIn()
+    {
+        //Stack From Bottom Instead Of Top Of Deck
+        float baseY = deckPosition.position.y;
+        List<Coroutine> currentCardMoveCoroutines = new List<Coroutine>();
+
+        for (int i = 0; i < visualDeck.Count; i++)
+        {
+            //Card Slide
+            Vector3 slidePosition = new Vector3(deckPosition.position.x, baseY, deckPosition.position.z);
+            Quaternion slideRotation = Quaternion.Euler(-90, 0, 0);
+
+            //Card Stack
+            Vector3 stackPosition = new Vector3(deckPosition.position.x, deckPosition.position.y + (i * cardStackOffset), deckPosition.position.z);
+            Quaternion stackRotation = Quaternion.Euler(90, 0, 0);
+
+            currentCardMoveCoroutines.Add(StartCoroutine(MoveCard(visualDeck[i], slidePosition, stackPosition, slideRotation, stackRotation, fanDuration)));
+            yield return new WaitForSeconds(0.05f);
+
+            if (cardCount != null)
+            {
+                cardCount.text = i.ToString();
+            }
+        }
+
+        foreach (Coroutine coroutine in currentCardMoveCoroutines)
+        {
+            yield return coroutine;
+        }
+
+        fannedDeck = true;
+        fanAnimationComplete = true;
+    }
+
+    IEnumerator MoveCard(GameObject card, Vector3 slideTarget, Vector3 stackTarget, Quaternion targetSlideRotation, Quaternion targetStackRotation, float duration)
+    {
+        Vector3 startPosition = card.transform.position;
+        float elapsedTime = 0f;
+
+        while (elapsedTime < duration)
+        {
+            float progress = elapsedTime / duration;
+
+            card.transform.position = Vector3.Lerp(startPosition, slideTarget, progress);
+            card.transform.rotation = targetSlideRotation;
+
+            elapsedTime += Time.deltaTime;
+
+            yield return null;
+        }
+
+        card.transform.position = slideTarget;
+        elapsedTime = 0f;
+
+        while (elapsedTime < duration)
+        {
+            float progress = elapsedTime / duration;
+
+            card.transform.position = Vector3.Lerp(slideTarget, stackTarget, progress);
+            card.transform.rotation = targetStackRotation;
+
+            elapsedTime += Time.deltaTime;
+
+            yield return null;
+        }
+
+        card.transform.position = stackTarget;
     }
 }

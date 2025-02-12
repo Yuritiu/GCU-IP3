@@ -40,7 +40,7 @@ public class ShootScript : MonoBehaviour
         gunAnim = GetComponent<Animator>();
         gameManager = FindAnyObjectByType<GameManager>();
         statusDropdown = FindAnyObjectByType<StatusDropdown>();
-        currentRotation = startingRotation;  
+        //currentRotation = startingRotation;  
     }
 
     private void Awake()

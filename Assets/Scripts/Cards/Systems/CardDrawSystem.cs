@@ -264,7 +264,7 @@ public class CardDrawSystem : MonoBehaviour
 
     IEnumerator DelayGameStart()
     {
-        yield return new WaitForSeconds(1.5f);
+        yield return new WaitForSeconds(2f);
         GameManager.Instance.canPlay = true;
         canPlay = true;
         TooltipManager.Instance.clickToPlayHandText.gameObject.SetActive(true);

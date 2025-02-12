@@ -111,7 +111,8 @@ public class Hand : MonoBehaviour
                         //print(turn.x);
                         if (-turn.x <= 18 && -turn.x >= -13)
                         {
-                            knife.transform.localRotation = Quaternion.Euler(0, 0, -turn.x);
+                            knife.transform.localRotation = Quaternion.Euler(0, 0, -turn.x); 
+                            knife.transform.position = new Vector3(fingers[GameManager.Instance.playerFingers].gameObject.transform.position.x + (turn.x/1000), knife.transform.position.y , knife.transform.position.z);
                         }
                     }
 
@@ -203,7 +204,7 @@ public class Hand : MonoBehaviour
         //print(GameManager.Instance.numberOfKnifeCards);
         GameManager.Instance.numberOfKnifeCards--;
         //print(GameManager.Instance.numberOfKnifeCards);
-        if (GameManager.Instance.numberOfKnifeCards > 1 && GameManager.Instance.playerFingers > 0)
+        if (GameManager.Instance.numberOfKnifeCards >= 1 && GameManager.Instance.playerFingers > 0)
         {
             StartOfAction();
             GameManager.Instance.numberOfKnifeCards = 0;

@@ -213,7 +213,7 @@ public class CardDrawSystem : MonoBehaviour
             //Debug.Log("Drew Card: " +  card.name + " Remaining Cards In Deck: " + CardDeck.Instance.deck.Count);
 
             //cardsInHand[i] = Instantiate(card, originalPositions[i].position, originalPositions[i].rotation);
-            cardsInHand[i] = Instantiate(card, playingDeckTopLocation, originalPositions[i].rotation);
+            cardsInHand[i] = Instantiate(card, playingDeckTopLocation, Quaternion.Euler(90, 0, 0));
 
             //updates what cards are banned
             switch (i)
@@ -301,7 +301,7 @@ public class CardDrawSystem : MonoBehaviour
                 }
 
                 //cardsInHand[i] = Instantiate(card, originalPositions[i].position, originalPositions[i].rotation);
-                cardsInHand[i] = Instantiate(card, playingDeckTopLocation, originalPositions[i].rotation);
+                cardsInHand[i] = Instantiate(card, playingDeckTopLocation, Quaternion.Euler(90,0,0));
                 StartCoroutine(MoveCardToSlot(cardsInHand[i], originalPositions[i].position, originalPositions[i].rotation, 0.5f, i * 0.3f));
                 cardAdded = true;
 

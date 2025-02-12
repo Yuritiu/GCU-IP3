@@ -93,7 +93,7 @@ public class AICardDrawSystem : MonoBehaviour
 
             //Instantiate And Store The Reference
             //cardsInHand[i] = Instantiate(card, originalPositions[i].position, originalPositions[i].rotation);
-            cardsInHand[i] = Instantiate(card, playingDeckTopLocation, originalPositions[i].rotation);
+            cardsInHand[i] = Instantiate(card, playingDeckTopLocation, Quaternion.Euler(90, 0, 0));
 
             //Destroy The CardSelection Script On The AI's Cards So The Player Can't Hover Them
             Destroy(cardsInHand[i].GetComponent<CardSelection>());
@@ -405,7 +405,7 @@ public class AICardDrawSystem : MonoBehaviour
                 }
 
                 //cardsInHand[i] = Instantiate(card, originalPositions[i].position, originalPositions[i].rotation);
-                cardsInHand[i] = Instantiate(card, playingDeckTopLocation, originalPositions[i].rotation);
+                cardsInHand[i] = Instantiate(card, playingDeckTopLocation, Quaternion.Euler(90, 0, 0));
                 StartCoroutine(MoveCardToSlot(cardsInHand[i], originalPositions[i].position, originalPositions[i].rotation, 0.5f, i * 0.3f, i));
                 cardAdded = true;
 

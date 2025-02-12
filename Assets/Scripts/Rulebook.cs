@@ -5,7 +5,7 @@ using UnityEngine;
 public class Rulebook : MonoBehaviour
 {
     private bool isMoving = false;
-    private Vector3 originalPosition;
+    [SerializeField] GameObject originalPosition;
     private Quaternion originalRotation;
 
     [Header("Transform Variables")]
@@ -27,8 +27,7 @@ public class Rulebook : MonoBehaviour
 
     void Start()
     {
-        originalPosition = transform.position;
-        originalRotation = transform.rotation;
+        originalRotation = originalPosition.transform.rotation;
 
         for (int i = 1; i < pages.Count; i++)
         {
@@ -47,7 +46,6 @@ public class Rulebook : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(0) && !isMoving)
         {
-
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             RaycastHit hit;
 
@@ -55,12 +53,12 @@ public class Rulebook : MonoBehaviour
             {
                 if (!inHand)
                 {
-                    StartCoroutine(MoveRulebook(originalPosition, targetPosition, originalRotation, targetRotation));
+                    StartCoroutine(MoveRulebook(originalPosition.transform.position, targetPosition, originalRotation, targetRotation));
                     EnableObjects();
                 }
                 else
                 {
-                    StartCoroutine(MoveRulebook(targetPosition, originalPosition, targetRotation, originalRotation));
+                    StartCoroutine(MoveRulebook(targetPosition, originalPosition.transform.position, targetRotation, originalRotation));
                     DisableObjects();
                 }
 
@@ -74,11 +72,11 @@ public class Rulebook : MonoBehaviour
 
         if (inHand)
         {
-            if (Input.GetKeyDown(KeyCode.RightArrow))
+            if (Input.GetKeyDown(KeyCode.RightArrow) || Input.GetKeyDown(KeyCode.D))
             {
                 TurnPageForward();
             }
-            if (Input.GetKeyDown(KeyCode.LeftArrow))
+            if (Input.GetKeyDown(KeyCode.LeftArrow) || Input.GetKeyDown(KeyCode.A))
             {
                 TurnPageBackward();
             }

@@ -921,6 +921,37 @@ Transform:
   - {fileID: 1995685960}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &177318394
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 177318395}
+  m_Layer: 0
+  m_Name: Deck Fan Start Position
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &177318395
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 177318394}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0.571, y: 0.758, z: 0.007}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2043439504}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!144 &180020361
 CharacterJoint:
   m_ObjectHideFlags: 0
@@ -38074,6 +38105,7 @@ Transform:
   m_Children:
   - {fileID: 329482880}
   - {fileID: 1442113531}
+  - {fileID: 177318395}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &2043439505
@@ -38094,7 +38126,7 @@ MonoBehaviour:
   - cardPrefab: {fileID: 1833519795021809735, guid: 645c191d862b60e4e91a4ee05387a552, type: 3}
     quantity: 9
   - cardPrefab: {fileID: 1833519795021809735, guid: 13468f5a105746847b27d9d5496777f7, type: 3}
-    quantity: 900
+    quantity: 9
   - cardPrefab: {fileID: 1833519795021809735, guid: 4758c9d31efe1c64994cecb864c3e9bc, type: 3}
     quantity: 9
   - cardPrefab: {fileID: 1833519795021809735, guid: bf314c8f96af77148b7c787435c1c55e, type: 3}
@@ -38102,13 +38134,17 @@ MonoBehaviour:
   - cardPrefab: {fileID: 1833519795021809735, guid: 80493192768bbe24a98044b5fa79e23d, type: 3}
     quantity: 8
   - cardPrefab: {fileID: 1833519795021809735, guid: 5483eb8b06d5b644d88d87dbd32457d3, type: 3}
-    quantity: 0
+    quantity: 8
   deck: []
   emptyCardPrefab: {fileID: 1833519795021809735, guid: a90b0b83808e8bd479fa48eecd5fdf3f, type: 3}
   deckPosition: {fileID: 1946011886}
   cardStackOffset: 0.002
   currentDeckStackHeight: 0
   playerCamera: {fileID: 565869793}
+  fanStartPosition: {fileID: 177318395}
+  fanDuration: 0.5
+  returnDuration: 1
+  pauseDuration: 5
 --- !u!65 &2047411884
 BoxCollider:
   m_ObjectHideFlags: 0

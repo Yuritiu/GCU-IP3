@@ -52,6 +52,16 @@ public class AICardDrawSystem : MonoBehaviour
 
     void Start()
     {
+        StartCoroutine(WaitForDeckToFinishFanning());
+    }
+
+    IEnumerator WaitForDeckToFinishFanning()
+    {
+        while (!CardDeck.Instance.fanAnimationComplete)
+        {
+            yield return null;
+        }
+
         StartGame();
     }
 

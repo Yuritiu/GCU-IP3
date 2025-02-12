@@ -84,6 +84,8 @@ public class CardDrawSystem : MonoBehaviour
 
     void Start()
     {
+        GameManager.Instance.canPlay = false;
+
         if(discardDeckLocation != null)
         {
             discardBasePosition = discardDeckLocation.transform;
@@ -102,9 +104,20 @@ public class CardDrawSystem : MonoBehaviour
             Debug.LogError("No Playing Deck Location Assigned");
         }
 
-        StartGame();
         introTutorial = FindObjectOfType<IntroTutorial>();
         pauseMenu = FindFirstObjectByType<PauseMenu>();
+
+        StartCoroutine(WaitForDeckToFinishFanning());
+    }
+
+    IEnumerator WaitForDeckToFinishFanning()
+    {
+        while (!CardDeck.Instance.fanAnimationComplete)
+        {
+            yield return null;
+        }
+
+        StartGame();
     }
 
     void Update()
@@ -112,7 +125,7 @@ public class CardDrawSystem : MonoBehaviour
         if (pauseMenu.isPaused)
             return;
 
-            if (isPlayersTurn)
+        if (isPlayersTurn)
         {
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             RaycastHit hit;
@@ -207,6 +220,7 @@ public class CardDrawSystem : MonoBehaviour
             }
         }
 
+        GameManager.Instance.canPlay = true;
         //Debug.Log("Deck Count After Creating Hand: " + CardDeck.Instance.deck.Count);
     }
 

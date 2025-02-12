@@ -194,6 +194,9 @@ public class CardDrawSystem : MonoBehaviour
     {
         //Debug.Log("Deck Count Before Creating Hand: " + CardDeck.Instance.deck.Count);
 
+        float currentTopDeckPosition = CardDeck.Instance.currentDeckStackHeight + playingDeckLocation.transform.position.y;
+        Vector3 playingDeckTopLocation = new Vector3(playingDeckLocation.transform.position.x, currentTopDeckPosition, playingDeckLocation.transform.position.z);
+
         //Initialize cardsInHand With 4 Slots
         cardsInHand = new GameObject[4];
 
@@ -210,7 +213,7 @@ public class CardDrawSystem : MonoBehaviour
             //Debug.Log("Drew Card: " +  card.name + " Remaining Cards In Deck: " + CardDeck.Instance.deck.Count);
 
             //cardsInHand[i] = Instantiate(card, originalPositions[i].position, originalPositions[i].rotation);
-            cardsInHand[i] = Instantiate(card, playingDeckLocation.transform.position, originalPositions[i].rotation);
+            cardsInHand[i] = Instantiate(card, playingDeckTopLocation, originalPositions[i].rotation);
 
             //updates what cards are banned
             switch (i)
@@ -255,7 +258,6 @@ public class CardDrawSystem : MonoBehaviour
             yield return null;
         }
 
-        // Ensure the card ends exactly at the target position and rotation
         card.transform.position = endPosition;
         card.transform.rotation = targetRotation;
     }
@@ -272,6 +274,10 @@ public class CardDrawSystem : MonoBehaviour
     public void AddCardAfterTurn()
     {
         //Debug.Log("Attempting To Add A Card After The Turn...");
+
+        var playingDeckLocation = CardDrawSystem.Instance.playingDeckLocation;
+        float currentTopDeckPosition = CardDeck.Instance.currentDeckStackHeight + playingDeckLocation.transform.position.y;
+        Vector3 playingDeckTopLocation = new Vector3(playingDeckLocation.transform.position.x, currentTopDeckPosition, playingDeckLocation.transform.position.z);
 
         for (int i = 0; i < cardsInHand.Length; i++)
         {
@@ -295,7 +301,7 @@ public class CardDrawSystem : MonoBehaviour
                 }
 
                 //cardsInHand[i] = Instantiate(card, originalPositions[i].position, originalPositions[i].rotation);
-                cardsInHand[i] = Instantiate(card, playingDeckLocation.transform.position, originalPositions[i].rotation);
+                cardsInHand[i] = Instantiate(card, playingDeckTopLocation, originalPositions[i].rotation);
                 StartCoroutine(MoveCardToSlot(cardsInHand[i], originalPositions[i].position, originalPositions[i].rotation, 0.5f, i * 0.3f));
                 cardAdded = true;
 

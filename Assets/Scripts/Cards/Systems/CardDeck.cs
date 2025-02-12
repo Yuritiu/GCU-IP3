@@ -25,7 +25,7 @@ public class CardDeck : MonoBehaviour
     [SerializeField] Transform deckPosition;
     //Distance Between Cards
     [SerializeField] float cardStackOffset = 0.002f;
-    [SerializeField] float currentDeckStackHeight;
+    [SerializeField] public float currentDeckStackHeight;
 
     [Header("Card Count Display")]
     private TextMeshProUGUI cardCount;
@@ -86,7 +86,6 @@ public class CardDeck : MonoBehaviour
         if(fannedDeck && !calledStartDraw)
         {
             calledStartDraw = true;
-            Debug.Log("CALLED DRAW CARD");
             DrawCard();
         }
     }
@@ -133,7 +132,6 @@ public class CardDeck : MonoBehaviour
 
         if (!fannedDeck)
         {
-            Debug.Log("CALLED DECK FAN");
             FanCardDeck();
         }
         else
@@ -202,6 +200,8 @@ public class CardDeck : MonoBehaviour
             GameObject visualCard = visualDeck[visualDeck.Count - 1];
 
             Destroy(visualCard);
+
+            currentDeckStackHeight -= cardStackOffset;
 
             //Remove The Destroyed Card From The List Of Visual Cards
             visualDeck.RemoveAt(visualDeck.Count - 1);

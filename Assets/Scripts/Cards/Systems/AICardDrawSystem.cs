@@ -85,7 +85,9 @@ public class AICardDrawSystem : MonoBehaviour
             //Debug.Log("Drew Card: " + card.name + " Remaining Cards In Deck: " + CardDeck.Instance.deck.Count);
 
             //Instantiate And Store The Reference
-            cardsInHand[i] = Instantiate(card, originalPositions[i].position, originalPositions[i].rotation);
+            //cardsInHand[i] = Instantiate(card, originalPositions[i].position, originalPositions[i].rotation);
+            cardsInHand[i] = Instantiate(card, CardDrawSystem.Instance.playingDeckLocation.transform.position, originalPositions[i].rotation);
+
             //Destroy The CardSelection Script On The AI's Cards So The Player Can't Hover Them
             Destroy(cardsInHand[i].GetComponent<CardSelection>());
             Destroy(cardsInHand[i].GetComponent<BoxCollider>());
@@ -98,10 +100,44 @@ public class AICardDrawSystem : MonoBehaviour
                 case 2: card3 = true; break;
                 case 3: card4 = true; break;
             }
+
+            StartCoroutine(MoveCardToSlot(cardsInHand[i], originalPositions[i].position, originalPositions[i].rotation, 0.5f, i * 0.3f));
         }
         
                 
         //Debug.Log("Deck Count After Creating Hand: " + CardDeck.Instance.deck.Count);
+    }
+
+    IEnumerator MoveCardToSlot(GameObject card, Vector3 targetPosition, Quaternion targetRotation, float duration, float delay)
+    {
+        Vector3 startPosition = card.transform.position;
+        Vector3 endPosition = targetPosition;
+        float elapsedTime = 0f;
+
+        yield return new WaitForSeconds(delay);
+
+        //Move Card With A Parabolic Arc (Throw)
+        while (elapsedTime < duration)
+        {
+            float progress = elapsedTime / duration;
+
+            //Throwing Arc Height
+            float arcHeight = Mathf.Sin(progress * Mathf.PI) * 0.1f;
+            Vector3 currentPosition = Vector3.Lerp(startPosition, endPosition, progress);
+            currentPosition.y += arcHeight;
+
+            Quaternion currentRotation = Quaternion.Lerp(card.transform.rotation, targetRotation, progress);
+
+            card.transform.position = currentPosition;
+            card.transform.rotation = currentRotation;
+
+            elapsedTime += Time.deltaTime;
+            yield return null;
+        }
+
+        // Ensure the card ends exactly at the target position and rotation
+        card.transform.position = endPosition;
+        card.transform.rotation = targetRotation;
     }
 
     public void DeleteCardsInHand()
@@ -337,7 +373,9 @@ public class AICardDrawSystem : MonoBehaviour
                     return;
                 }
 
-                cardsInHand[i] = Instantiate(card, originalPositions[i].position, originalPositions[i].rotation);
+                //cardsInHand[i] = Instantiate(card, originalPositions[i].position, originalPositions[i].rotation);
+                cardsInHand[i] = Instantiate(card, CardDrawSystem.Instance.playingDeckLocation.transform.position, originalPositions[i].rotation);
+                StartCoroutine(MoveCardToSlot(cardsInHand[i], originalPositions[i].position, originalPositions[i].rotation, 0.5f, i * 0.3f));
                 cardAdded = true;
 
                 //Debug.Log("Card Added Successfully.");

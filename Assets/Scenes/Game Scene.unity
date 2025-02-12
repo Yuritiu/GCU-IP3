@@ -434,6 +434,7 @@ GameObject:
   - component: {fileID: 104702539}
   - component: {fileID: 104702538}
   - component: {fileID: 104702537}
+  - component: {fileID: 104702540}
   m_Layer: 0
   m_Name: Rulebook
   m_TagString: Rulebook
@@ -508,6 +509,18 @@ Transform:
   - {fileID: 162870426}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 360, y: 60, z: 0}
+--- !u!114 &104702540
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 104702536}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ecefcb5cc0987294cb444d76add9a60a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &108820062 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 1148584488116116778, guid: 51b7432981d42044aab0051738de45d3, type: 3}
@@ -38145,6 +38158,7 @@ MonoBehaviour:
   fanDuration: 0.5
   returnDuration: 1
   pauseDuration: 5
+  fanAnimationComplete: 0
 --- !u!65 &2047411884
 BoxCollider:
   m_ObjectHideFlags: 0

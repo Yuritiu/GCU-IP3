@@ -1,0 +1,9 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class RuleBookThrow : MonoBehaviour
+{
+    //TODO: THROW RULE BOOK FROM BARTENDER ONTO TABLE AFTER CARDS HAVE BEEN FANNED (REALISTIC THROW WITH BOUNCE), ALSO DO THE SAME WITH GUN BUT HAVE OPPONENT THROW ONTO TABLE (HAVE IT SPIN ON LANDING ON TABLE)
+
+}

@@ -163,6 +163,7 @@ public class GameManager : MonoBehaviour
     
     
     [SerializeField] private AudioClip[] aiScreams;
+    [SerializeField] private AudioClip deathSFX;
 
     public bool firstStepsTutorial = false;
 
@@ -615,6 +616,7 @@ public class GameManager : MonoBehaviour
         else if (playerFingers < 0 && !isTutorial)
         {
             EndGameLose();
+            SFXManager.instance.PlaySFXClip(deathSFX, transform, 0.5f);
         }
 
         playerFingersText.text = ("Player Fingers: " + playerFingers).ToString();
@@ -734,6 +736,7 @@ public class GameManager : MonoBehaviour
         if (character == 2)
         {
             EndGameLose();
+            SFXManager.instance.PlaySFXClip(deathSFX, transform, 0.5f);
         }
     }
 

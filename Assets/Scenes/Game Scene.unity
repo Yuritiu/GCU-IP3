@@ -22424,6 +22424,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1772904239}
     - target: {fileID: 2229647336694770922, guid: 5f30ef53536cc8b4694232906fbc92d4, type: 3}
+      propertyPath: deathSFX
+      value: 
+      objectReference: {fileID: 8300000, guid: b8e5e5f0d645e2044bfead5adc67fcee, type: 3}
+    - target: {fileID: 2229647336694770922, guid: 5f30ef53536cc8b4694232906fbc92d4, type: 3}
       propertyPath: PlayerGun
       value: 
       objectReference: {fileID: 976134956}
@@ -115428,6 +115432,10 @@ PrefabInstance:
       propertyPath: knifePos
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 1148584488116116778, guid: 51b7432981d42044aab0051738de45d3, type: 3}
+      propertyPath: knifeInsert
+      value: 
+      objectReference: {fileID: 8300000, guid: e1abe14dde0f19a44b27e963f967e296, type: 3}
     - target: {fileID: 1148584488116116778, guid: 51b7432981d42044aab0051738de45d3, type: 3}
       propertyPath: PlayerScream
       value: 

@@ -25,6 +25,7 @@ public class Hand : MonoBehaviour
 
     [SerializeField] private AudioClip[] Cutting;
     [SerializeField] private AudioClip[] playerScreams;
+    [SerializeField] private AudioClip knifeInsert;
 
     [Header("References")]
     [SerializeField] public ParticleSystem bloodParticleSystem1;
@@ -95,6 +96,8 @@ public class Hand : MonoBehaviour
                             turn.y = 7.5f;
                             knife.transform.position = new Vector3(knife.transform.position.x , turn.y/10, knife.transform.position.z);
                             phaseOfAction = 2;
+                            SFXManager.instance.PlaySFXClip(knifeInsert, transform, 1f);
+
                         }
                     }
                 }

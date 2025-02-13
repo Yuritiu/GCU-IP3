@@ -15,7 +15,7 @@ public class VideoSettings : MonoBehaviour
 
     [Header("Resolution Variables")]
     [SerializeField] TMP_Dropdown resolutionDropdown;
-    Resolution[] resolutions;
+    List<Resolution> filteredResolutions = new List<Resolution>();
 
     void Start()
     {
@@ -51,34 +51,53 @@ public class VideoSettings : MonoBehaviour
 
     void PopulateResolutionDropdown()
     {
-        resolutions = Screen.resolutions;
+        Resolution[] allResolutions = Screen.resolutions;
         resolutionDropdown.ClearOptions();
+        filteredResolutions.Clear();
 
         List<string> options = new List<string>();
         int currentResolutionIndex = 0;
 
-        for (int i = 0; i < resolutions.Length; i++)
+        for (int i = 0; i < allResolutions.Length; i++)
         {
-            string option = resolutions[i].width + " x " + resolutions[i].height + " @ " + resolutions[i].refreshRate + "Hz";
-            options.Add(option);
-
-            if (resolutions[i].width == Screen.currentResolution.width && resolutions[i].height == Screen.currentResolution.height &&
-                resolutions[i].refreshRate == Screen.currentResolution.refreshRate)
+            if (allResolutions[i].width >= 1920 && allResolutions[i].height >= 1080)
             {
-                currentResolutionIndex = i;
+                filteredResolutions.Add(allResolutions[i]);
+
+                string option = allResolutions[i].width + " x " + allResolutions[i].height + " @ " + allResolutions[i].refreshRate + "Hz";
+                options.Add(option);
+
+                if (allResolutions[i].width == Screen.currentResolution.width && allResolutions[i].height == Screen.currentResolution.height &&
+                    allResolutions[i].refreshRate == Screen.currentResolution.refreshRate)
+                {
+                    currentResolutionIndex = filteredResolutions.Count - 1;
+                }
             }
         }
 
+        if (filteredResolutions.Count == 0)
+        {
+            Debug.LogWarning("No resolutions at or above 1080p found!");
+            return;
+        }
+
         resolutionDropdown.AddOptions(options);
+
+        int savedIndex = PlayerPrefs.GetInt("Resolution");
+        if (savedIndex >= 0 && savedIndex < filteredResolutions.Count)
+        {
+            currentResolutionIndex = savedIndex;
+        }
+
         resolutionDropdown.value = currentResolutionIndex;
         resolutionDropdown.RefreshShownValue();
-
         resolutionDropdown.onValueChanged.AddListener(SetResolution);
     }
 
+
     void SetResolution(int resolutionIndex)
     {
-        Resolution resolution = resolutions[resolutionIndex];
+        Resolution resolution = filteredResolutions[resolutionIndex];
         Screen.SetResolution(resolution.width, resolution.height, Screen.fullScreen, resolution.refreshRate);
 
         PlayerPrefs.SetInt("Resolution", resolutionIndex);
@@ -89,7 +108,7 @@ public class VideoSettings : MonoBehaviour
     public void LoadResolution()
     {
         int savedIndex = PlayerPrefs.GetInt("Resolution");
-        if (savedIndex >= 0 && savedIndex < resolutions.Length)
+        if (savedIndex >= 0 && savedIndex < filteredResolutions.Count)
         {
             SetResolution(savedIndex);
             resolutionDropdown.value = savedIndex;

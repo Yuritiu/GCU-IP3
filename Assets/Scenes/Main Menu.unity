@@ -6232,78 +6232,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 927145921}
   m_CullTransparentMesh: 1
---- !u!1 &933301273
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 933301275}
-  - component: {fileID: 933301274}
-  m_Layer: 0
-  m_Name: --- Card Deck Manager ---
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &933301274
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 933301273}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c033838a57071dd4088b34ca2d35c466, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  cardPrefabs:
-  - cardPrefab: {fileID: 1833519795021809735, guid: 7aa893a5d89a070459d915fe1d984339, type: 3}
-    quantity: 5
-  - cardPrefab: {fileID: 1833519795021809735, guid: 645c191d862b60e4e91a4ee05387a552, type: 3}
-    quantity: 9
-  - cardPrefab: {fileID: 1833519795021809735, guid: 13468f5a105746847b27d9d5496777f7, type: 3}
-    quantity: 9
-  - cardPrefab: {fileID: 1833519795021809735, guid: 6a81a850bda80cc4ab8201a24f31b0d3, type: 3}
-    quantity: 8
-  - cardPrefab: {fileID: 1833519795021809735, guid: bf314c8f96af77148b7c787435c1c55e, type: 3}
-    quantity: 5
-  - cardPrefab: {fileID: 1833519795021809735, guid: 80493192768bbe24a98044b5fa79e23d, type: 3}
-    quantity: 8
-  - cardPrefab: {fileID: 1833519795021809735, guid: 5483eb8b06d5b644d88d87dbd32457d3, type: 3}
-    quantity: 8
-  deck: []
-  emptyCardPrefab: {fileID: 1833519795021809735, guid: a90b0b83808e8bd479fa48eecd5fdf3f, type: 3}
-  deckPosition: {fileID: 1488200620}
-  cardStackOffset: 0.002
-  currentDeckStackHeight: 0
-  playerCamera: {fileID: 0}
-  fanStartPosition: {fileID: 0}
-  fanDuration: 1
-  returnDuration: 1
-  pauseDuration: 5
-  fanAnimationComplete: 0
---- !u!4 &933301275
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 933301273}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 1176065807}
-  - {fileID: 1934826912}
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &938059190
 GameObject:
   m_ObjectHideFlags: 0
@@ -8788,37 +8716,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1160521290}
   m_CullTransparentMesh: 1
---- !u!1 &1176065806
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1176065807}
-  m_Layer: 0
-  m_Name: Card Deck Pile
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1176065807
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1176065806}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.632, y: 0.7517, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 933301275}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1184594009
 GameObject:
   m_ObjectHideFlags: 0
@@ -13268,37 +13165,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1897501860}
   m_CullTransparentMesh: 1
---- !u!1 &1934826911
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1934826912}
-  m_Layer: 0
-  m_Name: Card Discard Pile
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1934826912
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1934826911}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.512, y: 0.75, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 933301275}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1950086221
 GameObject:
   m_ObjectHideFlags: 0
@@ -15691,6 +15557,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   fovSlider: {fileID: 510646198}
   fovValueText: {fileID: 1552696841}
+  camera: {fileID: 0}
 --- !u!114 &7965369196834570334 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 7712187509838546338, guid: 5213701ca0a20e14f970ed250f6b113b, type: 3}
@@ -15718,7 +15585,6 @@ SceneRoots:
   - {fileID: 844468830}
   - {fileID: 1735038569}
   - {fileID: 2096201347}
-  - {fileID: 933301275}
   - {fileID: 1488200620}
   - {fileID: 1310641198}
   - {fileID: 1684512118}

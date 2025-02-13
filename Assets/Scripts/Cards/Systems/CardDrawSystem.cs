@@ -77,7 +77,7 @@ public class CardDrawSystem : MonoBehaviour
 
     private PauseMenu pauseMenu;
 
-    [SerializeField] private LiveDeckGrid liveDeckGrid;
+    private LiveDeckGrid liveDeckGrid;
 
     private void Awake()
     {
@@ -86,7 +86,7 @@ public class CardDrawSystem : MonoBehaviour
 
     void Start()
     {
-        liveDeckGrid = FindFirstObjectByType<LiveDeckGrid>();
+        liveDeckGrid = FindAnyObjectByType<LiveDeckGrid>();
 
         GameManager.Instance.canPlay = false;
         canPlay = false;
@@ -424,11 +424,7 @@ public class CardDrawSystem : MonoBehaviour
                         Debug.Log("Material Name: " + cleanedMaterialName);
                         materialNames.Add(cleanedMaterialName);
 
-                        //Send material to livedeckGrid to check for a match
-                        if (liveDeckGrid != null)
-                        {
-                            liveDeckGrid.CheckMaterialMatch(cleanedMaterialName);
-                        }
+                        liveDeckGrid.CheckMaterialMatch(cleanedMaterialName);
                     }
                 }
 

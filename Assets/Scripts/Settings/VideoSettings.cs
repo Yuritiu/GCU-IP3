@@ -60,7 +60,7 @@ public class VideoSettings : MonoBehaviour
 
         for (int i = 0; i < allResolutions.Length; i++)
         {
-            if (allResolutions[i].width >= 1920 && allResolutions[i].height >= 1080)
+            if (allResolutions[i].width >= 1024 && allResolutions[i].height >= 768)
             {
                 filteredResolutions.Add(allResolutions[i]);
 

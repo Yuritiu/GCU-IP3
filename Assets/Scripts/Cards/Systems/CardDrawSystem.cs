@@ -77,6 +77,8 @@ public class CardDrawSystem : MonoBehaviour
 
     private PauseMenu pauseMenu;
 
+    [SerializeField] private LiveDeckGrid liveDeckGrid;
+
     private void Awake()
     {
         Instance = this;
@@ -84,6 +86,8 @@ public class CardDrawSystem : MonoBehaviour
 
     void Start()
     {
+        liveDeckGrid = FindFirstObjectByType<LiveDeckGrid>();
+
         GameManager.Instance.canPlay = false;
         canPlay = false;
 
@@ -402,31 +406,55 @@ public class CardDrawSystem : MonoBehaviour
     {
         //List To Temporarily Store Found Cards
         List<GameObject> foundCards = new List<GameObject>();
+        List<string> materialNames = new List<string>();
 
         //Find All Cards In The Scene
         foreach (GameObject card in FindObjectsOfType<GameObject>())
         {
             if (card.transform.parent != null && card.transform.parent.name.Contains("Selected"))
             {
-                //Clear Parent
+                // Find and Debug Materials
+                Renderer renderer = card.GetComponent<Renderer>();
+                if (renderer != null)
+                {
+                    foreach (Material material in renderer.materials)
+                    {
+                        //Clean material name to remove Instance from the end
+                        string cleanedMaterialName = material.name.Split(' ')[0];
+                        Debug.Log("Material Name: " + cleanedMaterialName);
+                        materialNames.Add(cleanedMaterialName);
+
+                        //Send material to livedeckGrid to check for a match
+                        if (liveDeckGrid != null)
+                        {
+                            liveDeckGrid.CheckMaterialMatch(cleanedMaterialName);
+                        }
+                    }
+                }
+
+                // Clear Parent
                 card.transform.parent = null;
                 card.name = "Discarded Card";
                 Destroy(card.GetComponentInChildren<Canvas>().gameObject);
 
-                if(card.GetComponent <CardSelection>() != null && card.GetComponent<BoxCollider>() != null)
+                if (card.GetComponent<CardSelection>() != null && card.GetComponent<BoxCollider>() != null)
                 {
                     Destroy(card.GetComponent<CardSelection>());
                     Destroy(card.GetComponent<BoxCollider>());
                 }
+
                 AICardDrawSystem.Instance.DeleteCardsInHand();
                 DeleteCardsInHand();
                 foundCards.Add(card.gameObject);
             }
         }
 
-        //Convert The List To An Array
+        // Convert The List To An Array
         cardsToDiscard = foundCards.ToArray();
     }
+
+
+
 
     public void DeleteCardsInHand()
     {

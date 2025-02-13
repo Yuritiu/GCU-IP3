@@ -2182,9 +2182,10 @@ MonoBehaviour:
   - {fileID: 21300000, guid: a371ebb5dfe4ecb4699e0b4d7b563489, type: 3}
   - {fileID: 21300000, guid: ad80e0fd3574e844b846b394bfc72e85, type: 3}
   cardPrefab: {fileID: 4922742234080591535, guid: 2b6c098fe4bcbf742ad33999d5dd4bb8, type: 3}
-  targetGrid: {fileID: 1549458196}
-  cardCount: 52
+  cardCount: 53
+  cardFaceCounts: 09000000080000000500000009000000050000000900000008000000
   grid: {fileID: 1549458198}
+  targetGrid: {fileID: 1549458196}
 --- !u!1001 &255610577
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -31558,6 +31559,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0b0caabde363b5e4481e8a3cb1399f15, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  customOrder:
+  - Knife
+  - Gun
+  - Chamber
+  - Armor
+  - Cigar
+  - Bottle
+  - Promise
 --- !u!1 &1567804247
 GameObject:
   m_ObjectHideFlags: 0

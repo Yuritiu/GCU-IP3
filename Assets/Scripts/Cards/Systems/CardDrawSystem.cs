@@ -77,7 +77,7 @@ public class CardDrawSystem : MonoBehaviour
 
     private PauseMenu pauseMenu;
 
-    private LiveDeckGrid liveDeckGrid;
+    public LiveDeckGrid liveDeckGrid;
 
     private void Awake()
     {
@@ -86,7 +86,6 @@ public class CardDrawSystem : MonoBehaviour
 
     void Start()
     {
-        liveDeckGrid = FindAnyObjectByType<LiveDeckGrid>();
 
         GameManager.Instance.canPlay = false;
         canPlay = false;

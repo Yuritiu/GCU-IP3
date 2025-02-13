@@ -33329,6 +33329,10 @@ PrefabInstance:
       value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 5165826222751895394, guid: 6d97c6adadc67ca4a9fab2ffb0260aee, type: 3}
+      propertyPath: liveDeckGrid
+      value: 
+      objectReference: {fileID: 1549458198}
+    - target: {fileID: 5165826222751895394, guid: 6d97c6adadc67ca4a9fab2ffb0260aee, type: 3}
       propertyPath: legendaryRarity
       value: 5
       objectReference: {fileID: 0}

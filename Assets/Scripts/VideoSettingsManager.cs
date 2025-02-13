@@ -20,7 +20,7 @@ public class VideoSettingsManager : MonoBehaviour
     }
 
     [Header("Settings Blocks")]
-    public Setting resolutionSetting;
+    //public Setting resolutionSetting;
     //public Setting refreshRateSetting;
     public Setting fullscreenSetting;
     public Setting vsyncSetting;
@@ -40,7 +40,6 @@ public class VideoSettingsManager : MonoBehaviour
     {
         LoadSettings();
         //InitializeSetting(resolutionSetting, ApplyResolution);
-        InitializeResolution();
         //Refresh Rate Not Needed, Resolution Changes It
         //InitializeSetting(refreshRateSetting, ApplyRefreshRate);
         InitializeSetting(fullscreenSetting, ApplyFullscreen);
@@ -59,7 +58,7 @@ public class VideoSettingsManager : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Escape) && (fullscreen != 1 || fullscreen != 2))
         {
             //Apply Resolution When Exiting Settings So That Can Change Easier When Cycling Through List
-            ApplyResolution();
+            //ApplyResolution();
         }
     }
 
@@ -76,79 +75,6 @@ public class VideoSettingsManager : MonoBehaviour
         setting.valueText.text = setting.options[setting.currentIndex];
         applyAction?.Invoke();
     }
-
-    //////////////////////////////////////RESOLUTION STUFF///////////////////////////////////////////////////////////
-
-    void InitializeResolution()
-    {
-        availableResolutions = new List<Resolution>();
-        resolutionOptions = new List<string>();
-
-        //Get All Available Resolutions
-        Resolution[] allResolutions = Screen.resolutions;
-
-        //Store All Unique Resolutions
-        foreach (Resolution res in allResolutions)
-        {
-            //Add All Resolutions
-            availableResolutions.Add(res);
-            resolutionOptions.Add($"{res.width} x {res.height} @ {res.refreshRate}Hz");
-        }
-
-        //Load Saved Resolution Index
-        int savedIndex = PlayerPrefs.GetInt("ResolutionIndex", 0);
-
-        //Ensure Saved Index Is Within Valid Range
-        if (savedIndex >= availableResolutions.Count)
-        {
-            savedResolutionIndex = availableResolutions.Count - 1;
-        }
-
-        //Apply Saved Resolution Index
-        savedResolutionIndex = savedIndex;
-        resolutionSetting.currentIndex = savedResolutionIndex;
-
-        resolutionSetting.options = resolutionOptions.ToArray();
-        resolutionSetting.valueText.text = resolutionSetting.options[resolutionSetting.currentIndex];
-    }
-
-    public void ChangeResolution(int direction)
-    {
-        //Null So Doesn't Actively Change When Cycling Through Resolutions
-        ChangeSetting(resolutionSetting, direction, null);
-    }
-
-    void ApplyResolution()
-    {
-        //Get Selected Resolution From The List
-        Resolution selectedResolution = availableResolutions[resolutionSetting.currentIndex];
-
-        //Apply Resolution Along With It's Refresh Rate
-        //Fullscreen
-        if (fullscreen == 0)
-        {
-            Screen.SetResolution(selectedResolution.width, selectedResolution.height, FullScreenMode.ExclusiveFullScreen, selectedResolution.refreshRate);
-        }
-        //Borderless
-        else if(fullscreen == 1)
-        {
-            //Screen.SetResolution(selectedResolution.width, selectedResolution.height, FullScreenMode.MaximizedWindow, selectedResolution.refreshRate);
-            Debug.LogWarning("Refresh Rate Won't Be Applied In Borderless Mode");
-        }
-        //Windowed
-        else
-        {
-            //Screen.SetResolution(selectedResolution.width, selectedResolution.height, FullScreenMode.MaximizedWindow, selectedResolution.refreshRate);
-            Debug.LogWarning("Refresh Rate Won't Be Applied In Windowed Mode");
-        }
-
-        //Save Selected Resolution Index
-        PlayerPrefs.SetInt("ResolutionIndex", resolutionSetting.currentIndex);
-        PlayerPrefs.Save();
-    }
-
-    //////////////////////////////////////RESOLUTION STUFF END///////////////////////////////////////////////////////////
-
 
     //Refresh Rate Not Needed, Resolution Changes It
     //void ApplyRefreshRate()
@@ -222,7 +148,7 @@ public class VideoSettingsManager : MonoBehaviour
     //Save settings to PlayerPrefs
     public void SaveSettings()
     {
-        PlayerPrefs.SetInt("ResolutionIndex", resolutionSetting.currentIndex);
+        //PlayerPrefs.SetInt("ResolutionIndex", resolutionSetting.currentIndex);
         //Refresh Rate Not Needed, Resolution Changes It
         //PlayerPrefs.SetInt("RefreshRateIndex", refreshRateSetting.currentIndex);
         PlayerPrefs.SetInt("FullscreenIndex", fullscreenSetting.currentIndex);
@@ -237,7 +163,7 @@ public class VideoSettingsManager : MonoBehaviour
     // Load settings from PlayerPrefs
     public void LoadSettings()
     {
-        resolutionSetting.currentIndex = PlayerPrefs.GetInt("ResolutionIndex", 2);
+        //resolutionSetting.currentIndex = PlayerPrefs.GetInt("ResolutionIndex", 2);
         //Refresh Rate Not Needed, Resolution Changes It
         //refreshRateSetting.currentIndex = PlayerPrefs.GetInt("RefreshRateIndex", 1);
         fullscreenSetting.currentIndex = PlayerPrefs.GetInt("FullscreenIndex", 0);

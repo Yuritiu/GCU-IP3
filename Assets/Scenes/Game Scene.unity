@@ -725,7 +725,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   originalPosition: {fileID: 1398171338}
-  targetPosition: {x: 0.22, y: 1.1, z: -0.56}
+  targetPosition: {x: 0.22, y: 1.05, z: -0.54}
   targetRotation: {x: 0.16043, y: 0.37686962, z: -0.06645229, w: 0.9098437}
   transitionSpeed: 2
   inHand: 0
@@ -14370,7 +14370,7 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 490542312}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: -0.00000009682847}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -14378,7 +14378,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -0.1573}
+  m_AnchoredPosition: {x: -0.000000035041012, y: 0.16050003}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &490542314
@@ -14428,8 +14428,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 0.016
-  m_fontSizeBase: 0.016
+  m_fontSize: 0.0135
+  m_fontSizeBase: 0.0135
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -29203,7 +29203,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -0.1573}
+  m_AnchoredPosition: {x: 0, y: 0.1605}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1317826151
@@ -29254,8 +29254,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 0.016
-  m_fontSizeBase: 0.016
+  m_fontSize: 0.0135
+  m_fontSizeBase: 0.0135
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -31567,6 +31567,14 @@ MonoBehaviour:
   - Cigar
   - Bottle
   - Promise
+  matReceiver:
+  - KnifeMat
+  - GunMat
+  - ChamberMat
+  - ArmorMat
+  - CigarMat
+  - BottleMat
+  - PromiseMat
 --- !u!1 &1567804247
 GameObject:
   m_ObjectHideFlags: 0
@@ -31951,7 +31959,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!23 &1588030643
 MeshRenderer:
   m_ObjectHideFlags: 0

@@ -11,7 +11,7 @@ public class Rulebook : MonoBehaviour
     [Header("Transform Variables")]
     public Vector3 targetPosition = new Vector3(5, 1, 5);
     public Quaternion targetRotation = Quaternion.Euler(0, 90, 0);
-    public float transitionSpeed = 2.0f; 
+    public float transitionSpeed = 2.0f;
     public bool inHand = false;
 
     [Header("Rulebook Pages")]
@@ -24,6 +24,9 @@ public class Rulebook : MonoBehaviour
 
     private IntroTutorial introTutorial;
     private bool stepCompleted = false;
+
+    public float keyHoldThreshold = 0.2f; 
+    private float keyHoldTimer = 0f; 
 
     void Start()
     {
@@ -72,10 +75,36 @@ public class Rulebook : MonoBehaviour
 
         if (inHand)
         {
+            //Detecting key hold and tap
+            if (Input.GetKey(KeyCode.RightArrow) || Input.GetKey(KeyCode.D))
+            {
+                keyHoldTimer += Time.deltaTime;
+                if (keyHoldTimer >= keyHoldThreshold)
+                {
+                    TurnPageForward();
+                    keyHoldTimer = 0f;
+                }
+            }
+            else if (Input.GetKey(KeyCode.LeftArrow) || Input.GetKey(KeyCode.A))
+            {
+                keyHoldTimer += Time.deltaTime;
+                if (keyHoldTimer >= keyHoldThreshold)
+                {
+                    TurnPageBackward();
+                    keyHoldTimer = 0f;
+                }
+            }
+            else
+            {
+                keyHoldTimer = 0f;
+            }
+
+            //Tap behavior for page turn
             if (Input.GetKeyDown(KeyCode.RightArrow) || Input.GetKeyDown(KeyCode.D))
             {
                 TurnPageForward();
             }
+
             if (Input.GetKeyDown(KeyCode.LeftArrow) || Input.GetKeyDown(KeyCode.A))
             {
                 TurnPageBackward();
@@ -134,9 +163,9 @@ public class Rulebook : MonoBehaviour
     {
         if (currentPage < pages.Count - 1)
         {
-            pages[currentPage].SetActive(false); 
-            currentPage++; 
-            pages[currentPage].SetActive(true); 
+            pages[currentPage].SetActive(false);
+            currentPage++;
+            pages[currentPage].SetActive(true);
         }
     }
 
@@ -145,8 +174,8 @@ public class Rulebook : MonoBehaviour
         if (currentPage > 0)
         {
             pages[currentPage].SetActive(false);
-            currentPage--; 
-            pages[currentPage].SetActive(true); 
+            currentPage--;
+            pages[currentPage].SetActive(true);
         }
     }
 }

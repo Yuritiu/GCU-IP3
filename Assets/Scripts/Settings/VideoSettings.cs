@@ -40,7 +40,5 @@ public class VideoSettings : MonoBehaviour
         PlayerPrefs.SetFloat("FOV", savedFOV);
 
         fovSlider.value = savedFOV;
-
-        Debug.Log("FOV Loaded: " + savedFOV);
     }
 }

@@ -70,6 +70,8 @@ public class GameManager : MonoBehaviour
     [Header("Gun")]
     
     [SerializeField] public GameObject Gun;
+    public GameObject PlayerGun;
+    public GameObject AiGun;
     [HideInInspector] public int bullets;
     public bool showddown = false;
 
@@ -185,7 +187,8 @@ public class GameManager : MonoBehaviour
     {
         Instance = this;
 
-        
+        PlayerGun.SetActive(false);
+        AiGun.SetActive(false);
 
         wPressed = false;
         sPressed = false;
@@ -483,14 +486,14 @@ public class GameManager : MonoBehaviour
     {
         timesToShoot++;
         inGunAction = true;
-        StartCoroutine(WaitForGun(Gun));
+        StartCoroutine(WaitForGun(PlayerGun));
         isPlayerGun = true;
     }
 
     public void AiRoulette()
     {
         inGunAction = true;
-        StartCoroutine(WaitForGun(Gun));
+        StartCoroutine(WaitForGun(AiGun));
         isAiGun = true;
     }
 
@@ -507,6 +510,7 @@ public class GameManager : MonoBehaviour
         
 
         bool PlayerShot = false;
+        Gun.SetActive(false);
 
         if (ShootScript.instance2 != null)
         {
@@ -517,10 +521,9 @@ public class GameManager : MonoBehaviour
         {
             has2Guns = false;
             playerGunActive = true;
+            gun.SetActive(true);
             
             
-            gun.transform.position = PositionForPlayer.transform.position;
-            gun.transform.rotation = PositionForPlayer.transform.rotation;
             
         }
         else if (isPlayerGun == true && playerGunActive)
@@ -534,10 +537,8 @@ public class GameManager : MonoBehaviour
             has2Guns = false;
             aiGunActive = true;
             
+            AiGun.SetActive(true);
             
-            Gun.transform.position = PositionForAi.transform.position;
-            Gun.transform.rotation = PositionForAi.transform.rotation;
-            ShootScript.instance2.GunInAiPosition();
         }
 
         else if (isAiGun == true && playerGunActive == true)

@@ -205,7 +205,7 @@ public class GameManager : MonoBehaviour
         playerFingers = 4;
 
         //sets number of bullets
-        bullets = 1;
+        bullets = 0;
 
         //Set Fingers Debug Text
         ReduceHealth(0, 0);

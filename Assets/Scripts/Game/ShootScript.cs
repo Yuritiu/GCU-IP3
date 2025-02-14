@@ -174,10 +174,7 @@ public class ShootScript : MonoBehaviour
         {
             GameManager.Instance.CheckArmour(2, 3);
             GameManager.Instance.bullets--;
-            if (GameManager.Instance.bullets < 1)
-            {
-                GameManager.Instance.bullets = 1;
-            }
+            
         }
 
         GameManager.Instance.Gun.SetActive(true);
@@ -237,10 +234,7 @@ public class ShootScript : MonoBehaviour
         {
             GameManager.Instance.CheckArmour(1, 3);
             GameManager.Instance.bullets--;
-            if(GameManager.Instance.bullets < 1)
-            {
-                GameManager.Instance.bullets = 1;
-            }
+            
         }
 
         

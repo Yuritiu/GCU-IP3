@@ -77,7 +77,7 @@ public class BloodlossSystem : MonoBehaviour
         float fillAmount = Mathf.Clamp01(currentHealth / maxHealth);
         //Fill Bar Visual
         //print(currentHealth);
-        print(fillAmount);
+        //print(fillAmount);
         //print(heartbeat.volume);
         //print(heartbeatfast.volume);
         if (bloodlossEffectsEnabled)

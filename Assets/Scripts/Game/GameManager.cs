@@ -518,7 +518,7 @@ public class GameManager : MonoBehaviour
             PlayerShot = ShootScript.instance2.PlayerShot;
         }
 
-        if (isPlayerGun == true && !playerGunActive)
+        if (gun.name == "PlayerGun" && !playerGunActive)
         {
             has2Guns = false;
             playerGunActive = true;
@@ -527,27 +527,27 @@ public class GameManager : MonoBehaviour
             
             
         }
-        else if (isPlayerGun == true && playerGunActive)
+        else if (gun.name == "PlayerGun" && playerGunActive)
         {
             has2Guns = true;
             PlayerRoulette();
         }
 
-        else if (isAiGun == true && !playerGunActive && !aiGunActive)
+        if (gun.name == "AiGun" && !playerGunActive && !aiGunActive)
         {
             has2Guns = false;
             aiGunActive = true;
             
-            AiGun.SetActive(true);
+            gun.SetActive(true);
             
         }
 
-        else if (isAiGun == true && playerGunActive == true)
+        else if (gun.name == "AiGun" && playerGunActive == true)
         {
             AiRoulette();
         }
 
-        else if (isAiGun == true && !playerGunActive && aiGunActive)
+        else if (gun.name == "AiGun" && !playerGunActive && aiGunActive)
         {
             has2Guns = true;
             AiRoulette();
@@ -832,6 +832,13 @@ public class GameManager : MonoBehaviour
            
         }
 
+        if(Gun.activeInHierarchy == true && ShootScript.instance1 != null && ShootScript.instance2 != null)
+        {
+            ShootScript.instance1.clampActivated = false;
+            ShootScript.instance2.clampActivated = false;
+
+        }
+
         //print(playerFingers);
 
         if (showddown == true && ShootScript.instance1.AiShot == false && ShootScript.instance2.PlayerShot == false)
@@ -839,20 +846,28 @@ public class GameManager : MonoBehaviour
             GameManager.Instance.Showdown();
         }
 
-        if (isPlayerGun ==true)
+        if (PlayerGun.activeInHierarchy == true)
         {
             inGunAction = true;
+            ShootScript.instance1.clampActivated = true;
         }
 
-        if (isAiGun == true)
+        else if(PlayerGun.activeInHierarchy == false && ShootScript.instance1 != null)
+        {
+            ShootScript.instance1.clampActivated = false;
+        }
+
+        if (AiGun.activeInHierarchy == true)
         {
             inGunAction = true;
+            ShootScript.instance2.clampActivated = true;
         }
-
-        if(isAiGun == false && isPlayerGun == false)
+        else if (AiGun.activeInHierarchy == false && ShootScript.instance2 != null)
         {
-
+            ShootScript.instance2.clampActivated = false;
         }
+
+
 
         //Transition To Bat Camera
         if (in4thPos && !isActionInProgress)

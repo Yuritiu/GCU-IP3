@@ -24,7 +24,7 @@ public class ShootScript : MonoBehaviour
     public GameObject Hammer;
     float startingRotation = 38f;
     float currentRotation;
-    bool clampActivated;
+    public bool clampActivated;
     public TextMeshProUGUI textUnderGun;
 
     bool isPlayer;
@@ -67,7 +67,7 @@ public class ShootScript : MonoBehaviour
     {
         if (gunName == "AiGun")
         {
-            clampActivated = true;
+            
             gunAnim = GetComponent<Animator>();
             StartCoroutine(AiFire(gameObject));
 
@@ -110,7 +110,13 @@ public class ShootScript : MonoBehaviour
 
         }
 
-
+        if (clampActivated == false)
+        {
+            Freelook.Instance.minX = -30;
+            Freelook.Instance.maxX = 60;
+            Freelook.Instance.minY = -75;
+            Freelook.Instance.maxY = 75;
+        }
         
 
             if (clampActivated == true)
@@ -121,7 +127,7 @@ public class ShootScript : MonoBehaviour
             Freelook.Instance.maxY = 10;
         }
 
-        if (currentRotation > 0 && gunName == "PlayerGun") ;
+        if (currentRotation > 0 && gunName == "PlayerGun" && firePressed ==false) ;
         {
             textUnderGun.text = "HOLD RMB";
         }
@@ -135,7 +141,7 @@ public class ShootScript : MonoBehaviour
     private IEnumerator AiFire(GameObject gun)
     {
         AiShot = true;
-
+        
         int randForBullet = UnityEngine.Random.Range(1, 7);
 
         AiRandom = randForBullet;
@@ -178,6 +184,8 @@ public class ShootScript : MonoBehaviour
         GameManager.Instance.aiGunActive = false;
         GameManager.Instance.isAiGun = false;
 
+
+       
         gameManager.inGunAction = false;
 
         gameManager.aiGunCount = 0;
@@ -191,7 +199,7 @@ public class ShootScript : MonoBehaviour
         gunAnim.Play("GunPause");
         firePressed = false;
         AiShot = false;
-      
+        
     }
 
     private IEnumerator Fire(GameObject gun)

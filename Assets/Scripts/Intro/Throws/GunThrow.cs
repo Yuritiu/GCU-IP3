@@ -50,6 +50,6 @@ public class GunThrow : MonoBehaviour
         gun.transform.rotation = targetRotation;
 
         shootScript.gunAnim.enabled = true;
-        shootScript.gunAnim.Play("GunPause");
+        shootScript.gunAnim.Play("idle");
     }
 }

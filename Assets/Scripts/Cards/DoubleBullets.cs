@@ -20,7 +20,7 @@ public class DoubleBullets : MonoBehaviour
     {
         float chance = gameManager.statusPercent;
         float roll = UnityEngine.Random.Range(0f, 100f);
-        reloadScript.Instance.reloadHappened = false;
+        //reloadScript.Instance.reloadHappened = false;
 
         if (roll <= chance)
         {
@@ -40,7 +40,7 @@ public class DoubleBullets : MonoBehaviour
     {
         float chance = gameManager.statusPercent;
         float roll = UnityEngine.Random.Range(0f, 100f);
-        reloadScript.Instance.reloadHappened = false;
+        //reloadScript.Instance.reloadHappened = false;
         if (roll <= chance)
         {
             //Display BACKFIRE! Text

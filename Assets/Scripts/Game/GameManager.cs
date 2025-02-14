@@ -594,15 +594,13 @@ public class GameManager : MonoBehaviour
             }
             if (type == 3)
             {
+                //Debug.Log("Countdown Started");
+                BloodlossSystem.Instance.IncreaseBloodloss();
 
                 playerHand.RemoveFinger(playerFingers);
-                
                 playerFingers--;
-                
             }
 
-            //Debug.Log("Countdown Started");
-            BloodlossSystem.Instance.IncreaseBloodloss();
         }
         CheckFingers();
     }

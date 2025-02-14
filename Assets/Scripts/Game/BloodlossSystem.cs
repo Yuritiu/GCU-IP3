@@ -17,8 +17,8 @@ public class BloodlossSystem : MonoBehaviour
     int difficulty;
 
     [Header("Countdown References")]
-    [SerializeField] Image countdownImage;
     [SerializeField] Image bloodBlur;
+    [SerializeField] Image blackoutBlur;
     float easyCountdownTime = 400f;
     float hardCountdownTime = 350f;
 
@@ -28,6 +28,8 @@ public class BloodlossSystem : MonoBehaviour
     [SerializeField] private AudioClip thud;
     bool heartbeatStartCalled;
     bool heartbeatfastStartCalled;
+    bool usingHeartBeat1;
+    bool usingHeartBeat2;
     
 
     float maxHealth;
@@ -66,7 +68,6 @@ public class BloodlossSystem : MonoBehaviour
         }
 
         currentHealth = maxHealth;
-        countdownImage.fillAmount = 1f;
 
         //Debug.Log("Difficulty: " + difficulty);
     }
@@ -75,31 +76,54 @@ public class BloodlossSystem : MonoBehaviour
         //Normalize The Time To 0-1 Range So It Fits In Image Right
         float fillAmount = Mathf.Clamp01(currentHealth / maxHealth);
         //Fill Bar Visual
-        countdownImage.fillAmount = fillAmount;
         //print(currentHealth);
+        print(fillAmount);
+        //print(heartbeat.volume);
+        //print(heartbeatfast.volume);
         if (bloodlossEffectsEnabled)
         {
             Color bloodBlurColour = bloodBlur.color;
-            bloodBlurColour.a = 0.7f - (fillAmount * 1.5f);
+            bloodBlurColour.a = 0.6f - (fillAmount);
             bloodBlur.color = bloodBlurColour;
             //print(bloodBlur.color.a);
+
+            Color blackoutBlurColour = blackoutBlur.color;
+            blackoutBlurColour.a = 0.2f - (fillAmount * 5f);
+            blackoutBlur.color = blackoutBlurColour;
+            //print(bloodBlur.color.a);
+
         }
+
+
+
+        if (usingHeartBeat1)
+        {
+            heartbeat.volume = 0.75f  - fillAmount;
+        }
+        
+        if(usingHeartBeat2)
+        {
+            heartbeatfast.volume = 0.5f  - fillAmount;
+        }
+
 
         //Play Heartbeat SFX
-        if(fillAmount <= 0.75f && !heartbeatStartCalled)
+        if (fillAmount <= 0.75f && !heartbeatStartCalled)
         {
+            usingHeartBeat1 = true;
             heartbeatStartCalled = true;
-            
             heartbeat.Play();
-            
         }
 
-        if(fillAmount <= 0.5f && !heartbeatfastStartCalled)
+        if(fillAmount <= 0.35f && !heartbeatfastStartCalled)
         {
+            usingHeartBeat1 = false;
+            usingHeartBeat2 = true;
+            
             heartbeatfastStartCalled = true;
 
             heartbeat.Stop();
-            
+
             heartbeatfast.Play();
         }
     }
@@ -125,7 +149,7 @@ public class BloodlossSystem : MonoBehaviour
     {
         //increases the speed of bloodloss
         isCountingDown = true;
-        bloodlossTime += knifeBloodlossAdd;
+        bloodlossTime += knifeBloodlossAdd * 5;
     }
 
     void CountdownFinished()

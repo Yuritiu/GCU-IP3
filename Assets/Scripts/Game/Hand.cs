@@ -190,6 +190,9 @@ public class Hand : MonoBehaviour
 
     private void EndOfAction(int num)
     {
+
+        //Debug.Log("Countdown Started");
+        BloodlossSystem.Instance.IncreaseBloodloss();
         knife.gameObject.transform.SetPositionAndRotation(knifeDefaultPos,knifeRot);
         actionUI.SetActive(false);
 

@@ -3,7 +3,37 @@ guid: 265f7ed5a2bb18c45b467b6b25272e34
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Face_body
+    second: {fileID: 2100000, guid: 57b119e7a71e87a4c8fb401d3c2792ad, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Glove
+    second: {fileID: 2100000, guid: 65bcba63546d6e34b92b996916e64e67, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Hat1
+    second: {fileID: 2100000, guid: fdf0cba0965a3d54aae69c0a5a2c0aaf, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Jacket1
+    second: {fileID: 2100000, guid: d6f5cb37c1c385b4ea8419e1b1ff6341, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Mustache1
+    second: {fileID: 2100000, guid: 64382a1ce93bdff4b920f9ce33ce0955, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Tie1
+    second: {fileID: 2100000, guid: 31511c620435ebb40ae1deed4f5a94b7, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0

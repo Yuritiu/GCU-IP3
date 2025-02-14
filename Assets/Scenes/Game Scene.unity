@@ -9529,19 +9529,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5333116497694472727, guid: 24c94e7929bad4b408a3c87aac8caa73, type: 3}
       propertyPath: m_LocalRotation.w
-      value: -1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5333116497694472727, guid: 24c94e7929bad4b408a3c87aac8caa73, type: 3}
       propertyPath: m_LocalRotation.x
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5333116497694472727, guid: 24c94e7929bad4b408a3c87aac8caa73, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0.0000000745058
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5333116497694472727, guid: 24c94e7929bad4b408a3c87aac8caa73, type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5333116497694472727, guid: 24c94e7929bad4b408a3c87aac8caa73, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -21673,7 +21673,7 @@ PrefabInstance:
       objectReference: {fileID: 8300000, guid: 27dd00141830c2d41b66a0e9829871c4, type: 3}
     - target: {fileID: 5128300180416186954, guid: 24c94e7929bad4b408a3c87aac8caa73, type: 3}
       propertyPath: gunName
-      value: PlayerGun
+      value: TableGun
       objectReference: {fileID: 0}
     - target: {fileID: 5128300180416186954, guid: 24c94e7929bad4b408a3c87aac8caa73, type: 3}
       propertyPath: m_Enabled

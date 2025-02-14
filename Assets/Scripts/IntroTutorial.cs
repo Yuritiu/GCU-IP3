@@ -14,11 +14,12 @@ public class IntroTutorial : MonoBehaviour
     [Header("Settings")]
     public float fadeOutDelay = 2f;
     public float fadeOutDuration = 1f;
+    public float safetyTimer = 60f;
 
     private CanvasGroup canvasGroup;
     private int completedSteps = 0;
-
     private GameManager gameManager;
+    private bool isFadingOut = false;
 
     void Start()
     {
@@ -28,9 +29,9 @@ public class IntroTutorial : MonoBehaviour
         {
             canvasGroup = GetComponent<CanvasGroup>();
             if (canvasGroup == null) canvasGroup = gameObject.AddComponent<CanvasGroup>();
+
+            StartCoroutine(SafetyTimer());
         }
-        else
-            return;
     }
 
     public void CompleteStep(int stepNumber)
@@ -52,12 +53,12 @@ public class IntroTutorial : MonoBehaviour
             {
                 string firstChar = originalText.Substring(0, 1);
                 string remainingText = originalText.Substring(1);
-                stepText.color = Color.green; // Set base text color to green for strikethrough
+                stepText.color = Color.green;
                 stepText.text = firstChar + "<s>" + remainingText + "</s>";
             }
             else
             {
-                stepText.color = Color.green; // Set base text color to green for single-character text
+                stepText.color = Color.green;
                 stepText.text = "<s>" + originalText + "</s>";
             }
 
@@ -66,8 +67,17 @@ public class IntroTutorial : MonoBehaviour
         }
     }
 
+    private IEnumerator SafetyTimer()
+    {
+        yield return new WaitForSeconds(safetyTimer);
+        StartCoroutine(FadeOutAndDelete());
+    }
+
     private IEnumerator FadeOutAndDelete()
     {
+        if (isFadingOut) yield break;
+        isFadingOut = true;
+
         yield return new WaitForSeconds(fadeOutDelay);
 
         float elapsedTime = 0f;

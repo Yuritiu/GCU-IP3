@@ -32024,7 +32024,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2975584555816667125, guid: 4b07c6008ede1a64ba31574467b42611, type: 3}
       propertyPath: endPos.y
-      value: 244
+      value: 345
       objectReference: {fileID: 0}
     - target: {fileID: 2975584555816667125, guid: 4b07c6008ede1a64ba31574467b42611, type: 3}
       propertyPath: startPos.y
@@ -115755,6 +115755,10 @@ PrefabInstance:
       propertyPath: knifePos
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 1148584488116116778, guid: 51b7432981d42044aab0051738de45d3, type: 3}
+      propertyPath: knifeInsert
+      value: 
+      objectReference: {fileID: 8300000, guid: e1abe14dde0f19a44b27e963f967e296, type: 3}
     - target: {fileID: 1148584488116116778, guid: 51b7432981d42044aab0051738de45d3, type: 3}
       propertyPath: PlayerScream
       value: 

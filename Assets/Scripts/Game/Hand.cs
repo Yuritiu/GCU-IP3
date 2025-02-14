@@ -87,9 +87,9 @@ public class Hand : MonoBehaviour
                         {
                             knife.transform.position = new Vector3(knife.transform.position.x, turn.y / 10, knife.transform.position.z);
                         }
-                        else if (turn.y >= 10)
+                        else if (turn.y >= 9)
                         {
-                            turn.y = 10;
+                            turn.y = 9;
                         }
                         else if (turn.y <= 7.5)
                         {

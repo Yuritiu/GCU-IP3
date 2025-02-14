@@ -829,7 +829,7 @@ public class CardDrawSystem : MonoBehaviour
 
     public void UnbanCards()
     {
-        if (bannedCard != -1)
+        if (bannedCard > 0)
         {
             if (cardsInHand[bannedCard] != null)
             {
@@ -837,7 +837,7 @@ public class CardDrawSystem : MonoBehaviour
             }
             bannedCard = -1;
         }
-        if (bannedCard2 != -1)
+        if (bannedCard2 > 0)
         {
             if (cardsInHand[bannedCard2] != null)
             {

@@ -12,6 +12,7 @@ public class GunThrow : MonoBehaviour
 
     [Header("References")]
     [SerializeField] ShootScript shootScript;
+    [SerializeField] AudioSource gunThrowAudioSource;
 
     void Start()
     {
@@ -45,6 +46,8 @@ public class GunThrow : MonoBehaviour
             elapsedTime += Time.deltaTime;
             yield return null;
         }
+
+        gunThrowAudioSource.Play();
 
         gun.transform.position = targetPosition;
         gun.transform.rotation = targetRotation;

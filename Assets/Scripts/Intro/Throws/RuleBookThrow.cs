@@ -4,13 +4,14 @@ using UnityEngine;
 
 public class RuleBookThrow : MonoBehaviour
 {
-    //TODO: THROW RULE BOOK FROM BARTENDER ONTO TABLE AFTER CARDS HAVE BEEN FANNED (REALISTIC THROW WITH BOUNCE), ALSO DO THE SAME WITH GUN BUT HAVE OPPONENT THROW ONTO TABLE (HAVE IT SPIN ON LANDING ON TABLE)
-
     [Header("Throw Variables")]
     [SerializeField] GameObject targetPosition;
     [SerializeField] float throwDuration;
     [SerializeField] float throwDelay;
     Quaternion startRotation;
+
+    [Header("References")]
+    [SerializeField] AudioSource rulebookThrowAudioSource;
 
     void Start()
     {
@@ -43,6 +44,8 @@ public class RuleBookThrow : MonoBehaviour
             elapsedTime += Time.deltaTime;
             yield return null;
         }
+
+        rulebookThrowAudioSource.Play();
 
         rulebook.transform.position = targetPosition;
         rulebook.transform.rotation = targetRotation;

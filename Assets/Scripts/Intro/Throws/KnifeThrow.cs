@@ -14,6 +14,9 @@ public class KnifeThrow : MonoBehaviour
 
     Quaternion targetRotation;
 
+    [Header("References")]
+    [SerializeField] AudioSource knifeDropAudioSource;
+
     void Start()
     {
         startRotation = transform.rotation;
@@ -45,6 +48,8 @@ public class KnifeThrow : MonoBehaviour
             elapsedTime += Time.deltaTime;
             yield return null;
         }
+
+        knifeDropAudioSource.Play();
 
         knife.transform.position = targetPosition;
         knife.transform.rotation = targetRotation;

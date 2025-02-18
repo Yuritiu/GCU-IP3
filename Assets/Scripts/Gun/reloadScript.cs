@@ -7,45 +7,61 @@ using TMPro;
 
 public class reloadScript : MonoBehaviour
 {
+    public GameObject gunPos;
+    public GameObject targetPos;
     public static reloadScript Instance;
     public Animator gunAnim;
-    [HideInInspector] public GameObject gun;
+    [SerializeField] public float speed;
+
     public bool reloadHappened;
     public GameObject chamber;
 
-    // Start is called before the first frame update
-    void Start()
+    public bool in1stPos = false;
+    public bool in2ndPos = false;
+
+    private void Awake()
     {
         Instance = this;
-        gun = this.gameObject;
-        
-        reloadHappened = false;
+    }
+    private void Start()
+    {
+        in1stPos = true;
     }
 
-    // Update is called once per frame
-    void Update()
+    public void moveGun()
     {
-        if (reloadHappened == false)
+        if (in1stPos == true)
         {
-           
-            StartCoroutine(reload());
+            StartCoroutine(gunTransition(targetPos));
+            in2ndPos=true;
+            in1stPos= false;
+        }
 
+        else if (in2ndPos == true)
+        {
+            StartCoroutine(gunTransition(gunPos));
+            in1stPos=true;
+            in2ndPos=false;
+        }
+    }
+    
+
+    
+    IEnumerator gunTransition(GameObject Target)
+    {
+        float t = 0.00f;
+        Vector3 startingpos = gameObject.transform.position;
+
+        while (t < 1.0f)
+        {
+            t += Time.deltaTime * (Time.timeScale * speed);
+            gameObject.transform.position = Vector3.Lerp(startingpos, Target.transform.position, t);
+
+            yield return null;
         }
 
         
     }
 
-    private void moveGunForReload()
-    {
-        //gunAnim.Play("GunPause");
-        
-    }
-
-    public IEnumerator reload()
-    {
-        gunAnim.Play("load");
-        yield return new WaitForSeconds(1f) ;
-        reloadHappened = true;
-        gunAnim.Play("GunPause");
-    }    
+    
 }

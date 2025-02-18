@@ -12,10 +12,10 @@ public class LoadingManager : MonoBehaviour
     public void LoadScene(string sceneName)
     {
         loadingMenu.SetActive(true);
-        StartCoroutine(LoadSceneAsync(sceneName));
+        StartCoroutine(LoadingSceneCoroutine(sceneName));
     }
 
-    IEnumerator LoadSceneAsync(string sceneName)
+    IEnumerator LoadingSceneCoroutine(string sceneName)
     {
         AsyncOperation operation = SceneManager.LoadSceneAsync(sceneName);
 
@@ -28,6 +28,7 @@ public class LoadingManager : MonoBehaviour
 
             if (operation.progress >= 0.9f)
             {
+                //"Fake" Delay
                 yield return new WaitForSeconds(1f);
                 operation.allowSceneActivation = true;
             }

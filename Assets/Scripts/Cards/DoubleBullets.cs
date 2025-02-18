@@ -21,6 +21,7 @@ public class DoubleBullets : MonoBehaviour
         float chance = gameManager.statusPercent;
         float roll = UnityEngine.Random.Range(0f, 100f);
         //reloadScript.Instance.reloadHappened = false;
+        
 
         if (roll <= chance)
         {
@@ -32,6 +33,7 @@ public class DoubleBullets : MonoBehaviour
             statusDropdown.DisplayStatusEffect(0, 2);
             return;
         }
+        reloadScript.Instance.moveGun();
         GameManager.Instance.addBullet();
         
     }
@@ -41,6 +43,7 @@ public class DoubleBullets : MonoBehaviour
         float chance = gameManager.statusPercent;
         float roll = UnityEngine.Random.Range(0f, 100f);
         //reloadScript.Instance.reloadHappened = false;
+        
         if (roll <= chance)
         {
             //Display BACKFIRE! Text
@@ -51,6 +54,7 @@ public class DoubleBullets : MonoBehaviour
             statusDropdown.DisplayStatusEffect(1, 2);
             return;
         }
+        reloadScript.Instance.moveGun();
         GameManager.Instance.addBullet();
         
     }

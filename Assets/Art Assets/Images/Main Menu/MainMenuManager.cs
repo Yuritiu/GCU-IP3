@@ -48,7 +48,7 @@ public class MainMenuManager : MonoBehaviour
         quitGameButton.onClick.AddListener(QuitGame);
         feedBackButton.onClick.AddListener(OpenFeedbackLink);
 
-        playButton.onClick.AddListener(PlayGame);
+        //playButton.onClick.AddListener(PlayGame);
         closeButton.onClick.AddListener(CloseExpandedMenu);
     }
 

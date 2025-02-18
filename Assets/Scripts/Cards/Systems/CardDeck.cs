@@ -232,13 +232,14 @@ public class CardDeck : MonoBehaviour
         {
             //Card Slide
             Vector3 slidePosition = new Vector3(deckPosition.position.x, baseY, deckPosition.position.z);
-            Quaternion slideRotation = Quaternion.Euler(-90, 0, 0);
+            Quaternion slideRotation = Quaternion.Euler(90, 0, 0);
 
             //Card Stack
             Vector3 stackPosition = new Vector3(deckPosition.position.x, deckPosition.position.y + (i * cardStackOffset), deckPosition.position.z);
             Quaternion stackRotation = Quaternion.Euler(90, 0, 0);
 
             currentCardMoveCoroutines.Add(StartCoroutine(MoveCard(visualDeck[i], slidePosition, stackPosition, slideRotation, stackRotation, fanDuration)));
+
             yield return new WaitForSeconds(0.05f);
 
             if (cardCount != null)
@@ -259,6 +260,7 @@ public class CardDeck : MonoBehaviour
     IEnumerator MoveCard(GameObject card, Vector3 slideTarget, Vector3 stackTarget, Quaternion targetSlideRotation, Quaternion targetStackRotation, float duration)
     {
         Vector3 startPosition = card.transform.position;
+        Quaternion startRotation = card.transform.rotation;
         float elapsedTime = 0f;
 
         while (elapsedTime < duration)
@@ -266,7 +268,7 @@ public class CardDeck : MonoBehaviour
             float progress = elapsedTime / duration;
 
             card.transform.position = Vector3.Lerp(startPosition, slideTarget, progress);
-            card.transform.rotation = targetSlideRotation;
+            card.transform.rotation = Quaternion.Lerp(startRotation, targetSlideRotation, progress);
 
             elapsedTime += Time.deltaTime;
 
@@ -281,7 +283,7 @@ public class CardDeck : MonoBehaviour
             float progress = elapsedTime / duration;
 
             card.transform.position = Vector3.Lerp(slideTarget, stackTarget, progress);
-            card.transform.rotation = targetStackRotation;
+            card.transform.rotation = Quaternion.Lerp(startRotation, targetSlideRotation, progress);
 
             elapsedTime += Time.deltaTime;
 

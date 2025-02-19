@@ -7,14 +7,14 @@ using UnityEngine.SceneManagement;
 public class MainMenuManager : MonoBehaviour
 {
     [Header("Main Menu Buttons")]
-    public Button startGameButton;
+    //public Button startGameButton;
     public Button settingsButton;
     public Button statsButton;
     public Button quitGameButton;
     public Button feedBackButton;
 
     [Header("Expanded Menu Buttons")]
-    public Button playButton;
+    //public Button playButton;
     public Button closeButton;
 
     [Header("Menu Items to Toggle")]
@@ -42,7 +42,7 @@ public class MainMenuManager : MonoBehaviour
         controlsSettingsManager.LoadSettings();
         audioSettingsManager.LoadSettings();
         //Listeners for interactions
-        startGameButton.onClick.AddListener(StartGame);
+        //startGameButton.onClick.AddListener(StartGame);
         settingsButton.onClick.AddListener(OpenSettings);
         statsButton.onClick.AddListener(OpenStats);
         quitGameButton.onClick.AddListener(QuitGame);
@@ -93,7 +93,7 @@ public class MainMenuManager : MonoBehaviour
         //Debug.Log("Easy");
     }
 
-    private void CloseExpandedMenu()
+    public void CloseExpandedMenu()
     {
         ExpandMainMenu();
     }

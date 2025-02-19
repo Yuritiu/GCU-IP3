@@ -78,8 +78,8 @@ public class PauseMenu : MonoBehaviour
 
     private void QuitToMainMenu()
     {
+        //AudioListener.volume = 0f;
         Time.timeScale = 1f;
-        SceneManager.LoadScene("Main Menu");
     }
 
     public void ShowPauseMenu()

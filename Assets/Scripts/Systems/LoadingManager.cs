@@ -7,7 +7,6 @@ using UnityEngine.SceneManagement;
 public class LoadingManager : MonoBehaviour
 {
     [SerializeField] GameObject loadingMenu;
-    [SerializeField] Slider loadingProgressBar;
 
     public void LoadScene(string sceneName)
     {
@@ -24,12 +23,11 @@ public class LoadingManager : MonoBehaviour
         while (!operation.isDone)
         {
             float progress = Mathf.Clamp01(operation.progress / 0.9f);
-            loadingProgressBar.value = progress;
 
             if (operation.progress >= 0.9f)
             {
                 //"Fake" Delay
-                yield return new WaitForSeconds(1f);
+                yield return new WaitForSeconds(2f);
                 operation.allowSceneActivation = true;
             }
 

@@ -101,7 +101,6 @@ public class VideoSettings : MonoBehaviour
         Screen.SetResolution(resolution.width, resolution.height, Screen.fullScreen, resolution.refreshRate);
 
         PlayerPrefs.SetInt("Resolution", resolutionIndex);
-        Debug.Log(resolutionIndex);
         PlayerPrefs.Save();
     }
 

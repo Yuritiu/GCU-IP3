@@ -19,7 +19,7 @@ public class BloodlossSystem : MonoBehaviour
     [SerializeField] Image bloodBlur;
     [SerializeField] Image blackoutBlur;
     float easyCountdownTime = 400f;
-    float hardCountdownTime = 350f;
+    float hardCountdownTime = 70f;
 
     [Header("Audio References")]
     [SerializeField] private AudioSource heartbeat;
@@ -57,14 +57,7 @@ public class BloodlossSystem : MonoBehaviour
 
         bloodlossEffectsEnabled = true;
 
-        if (difficulty == 0)
-        {
-            maxHealth = easyCountdownTime;
-        }
-        else
-        {
-            maxHealth = hardCountdownTime;
-        }
+        maxHealth = hardCountdownTime;
 
         currentHealth = maxHealth;
 
@@ -73,12 +66,15 @@ public class BloodlossSystem : MonoBehaviour
     private void Update()
     {
         //Normalize The Time To 0-1 Range So It Fits In Image Right
-        float fillAmount = Mathf.Clamp01(currentHealth / maxHealth);
+        float fillAmount = Mathf.Clamp01(currentHealth / 350);
+        
         //Fill Bar Visual
         //print(currentHealth);
         //print(fillAmount);
+        //print(blackoutBlur.color);
         //print(heartbeat.volume);
         //print(heartbeatfast.volume);
+        
         if (bloodlossEffectsEnabled)
         {
             Color bloodBlurColour = bloodBlur.color;
@@ -86,11 +82,14 @@ public class BloodlossSystem : MonoBehaviour
             bloodBlur.color = bloodBlurColour;
             //print(bloodBlur.color.a);
 
-            Color blackoutBlurColour = blackoutBlur.color;
-            blackoutBlurColour.a = 0.2f - (fillAmount * 5f);
-            blackoutBlur.color = blackoutBlurColour;
-            //print(bloodBlur.color.a);
 
+            if (fillAmount < 0.2f)
+            {
+                Color blackoutBlurColour = blackoutBlur.color;
+                blackoutBlurColour.a = 1f - (fillAmount * 5f);
+                blackoutBlur.color = blackoutBlurColour;
+                //print(bloodBlur.color.a);
+            }
         }
 
         if (usingHeartBeat1)

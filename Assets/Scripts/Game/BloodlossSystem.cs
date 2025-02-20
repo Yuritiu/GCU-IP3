@@ -13,7 +13,6 @@ public class BloodlossSystem : MonoBehaviour
 
     public static BloodlossSystem Instance;
 
-    //1 is Easy, 2 is Hard
     int difficulty;
 
     [Header("Countdown References")]
@@ -94,8 +93,6 @@ public class BloodlossSystem : MonoBehaviour
 
         }
 
-
-
         if (usingHeartBeat1)
         {
             heartbeat.volume = 0.75f  - fillAmount;
@@ -105,7 +102,6 @@ public class BloodlossSystem : MonoBehaviour
         {
             heartbeatfast.volume = 0.5f  - fillAmount;
         }
-
 
         //Play Heartbeat SFX
         if (fillAmount <= 0.75f && !heartbeatStartCalled)

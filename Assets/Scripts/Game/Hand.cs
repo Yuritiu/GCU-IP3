@@ -74,84 +74,90 @@ public class Hand : MonoBehaviour
         {
             if (GameManager.Instance.canCutFinger)
             {
-                if (phaseOfAction == 1)
+                if (Input.GetMouseButton(0))
                 {
-                    if (!waitingToCut)
+                    //add hand grabbing knife
+
+
+                    if (phaseOfAction == 1)
                     {
-                        //move knife up and down
-                        turn.y += Input.GetAxis("Mouse Y") * sensitivity;
-
-                        //print(turn.y);
-
-                        if (turn.y >= 7.5 && turn.y <= 10)
+                        if (!waitingToCut)
                         {
-                            knife.transform.position = new Vector3(knife.transform.position.x, turn.y / 10, knife.transform.position.z);
-                        }
-                        else if (turn.y >= 9)
-                        {
-                            turn.y = 9;
-                        }
-                        else if (turn.y <= 7.5)
-                        {
-                            turn.y = 7.5f;
-                            knife.transform.position = new Vector3(knife.transform.position.x , turn.y/10, knife.transform.position.z);
-                            phaseOfAction = 2;
-                            SFXManager.instance.PlaySFXClip(knifeInsert, transform, 1f);
+                            //move knife up and down
+                            turn.y += Input.GetAxis("Mouse Y") * sensitivity;
 
+                            //print(turn.y);
+
+                            if (turn.y >= 7.5 && turn.y <= 9)
+                            {
+                                knife.transform.position = new Vector3(knife.transform.position.x, turn.y / 10, knife.transform.position.z);
+                            }
+                            else if (turn.y >= 9)
+                            {
+                                turn.y = 9;
+                            }
+                            else if (turn.y <= 7.5)
+                            {
+                                turn.y = 7.5f;
+                                knife.transform.position = new Vector3(knife.transform.position.x, turn.y / 10, knife.transform.position.z);
+                                phaseOfAction = 2;
+                                SFXManager.instance.PlaySFXClip(knifeInsert, transform, 1f);
+                            }
                         }
                     }
-                }
 
-                if (phaseOfAction == 2)
-                {
-                    //print(turn.x);
-                    if (!waitingToCut)
+                    if (phaseOfAction == 2)
                     {
-                        //move knife back and forward
-                        //from -0.15 to 0.1 degrees rotation on the z axis
-                        turn.x += Input.GetAxis("Mouse X") * (sensitivity -0.2f);
-
                         //print(turn.x);
-                        if (-turn.x <= 18 && -turn.x >= -13)
+                        if (!waitingToCut)
                         {
-                            knife.transform.localRotation = Quaternion.Euler(0, 0, -turn.x); 
-                            knife.transform.position = new Vector3(fingers[GameManager.Instance.playerFingers].gameObject.transform.position.x + (turn.x/1000), knife.transform.position.y , knife.transform.position.z);
-                        }
-                    }
+                            //move knife back and forward
+                            //from -0.15 to 0.1 degrees rotation on the z axis
+                            turn.x += Input.GetAxis("Mouse X") * (sensitivity - 0.2f);
 
-                    if(turn.x > 7)
-                    {
-                        //print("too big");
-                        if (sideToHit)
-                        {
-                            //waitingToCut = true;
-                            //StartCoroutine(WaitToCut());
-                            movedKnifeEnough++;
-                            sideToHit = false;
-                            SFXManager.instance.PlayRandomSFXClip(Cutting, transform, 0.2f);
+                            //print(turn.x);
+                            if (-turn.x <= 18 && -turn.x >= -13)
+                            {
+                                knife.transform.localRotation = Quaternion.Euler(0, 0, -turn.x);
+                                knife.transform.position = new Vector3(fingers[GameManager.Instance.playerFingers].gameObject.transform.position.x + (turn.x / 1000), knife.transform.position.y, knife.transform.position.z);
+                            }
                         }
-                        turn.x = 7;
-                    }
-                    if (turn.x < -5)
-                    {
-                        //print("too small");
-                        if (!sideToHit)
-                        {
-                            //print(movedKnifeEnough);
-                            //waitingToCut = true;
-                            //StartCoroutine(WaitToCut());
-                            movedKnifeEnough++;
-                            sideToHit = true;
-                            SFXManager.instance.PlayRandomSFXClip(Cutting, transform, 0.2f);
-                        }
-                        turn.x = -5;
-                    }
 
-                    //after knife has moved back and forward several times remove it from the hand
-                    if (movedKnifeEnough > 9)
-                    {
-                        //print("Remove Finger");
-                        EndOfAction(GameManager.Instance.playerFingers);
+                        if (turn.x > 7)
+                        {
+                            //print("too big");
+                            if (sideToHit)
+                            {
+                                //waitingToCut = true;
+                                //StartCoroutine(WaitToCut());
+                                movedKnifeEnough++;
+                                sideToHit = false;
+                                SFXManager.instance.PlayRandomSFXClip(Cutting, transform, 0.2f);
+                            }
+                            turn.x = 7;
+                        }
+
+                        if (turn.x < -5)
+                        {
+                            //print("too small");
+                            if (!sideToHit)
+                            {
+                                //print(movedKnifeEnough);
+                                //waitingToCut = true;
+                                //StartCoroutine(WaitToCut());
+                                movedKnifeEnough++;
+                                sideToHit = true;
+                                SFXManager.instance.PlayRandomSFXClip(Cutting, transform, 0.2f);
+                            }
+                            turn.x = -5;
+                        }
+
+                        //after knife has moved back and forward several times remove it from the hand
+                        if (movedKnifeEnough > 9)
+                        {
+                            //print("Remove Finger");
+                            EndOfAction(GameManager.Instance.playerFingers);
+                        }
                     }
                 }
             }

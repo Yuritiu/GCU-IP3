@@ -49,6 +49,8 @@ public class CameraDeathEffect : MonoBehaviour
         Quaternion endRotation = Quaternion.Euler(90, startRotation.eulerAngles.y, 0);
 
         playerCoughAudioSource.Play();
+        BloodlossSystem.Instance.heartbeat.Stop();
+        BloodlossSystem.Instance.heartbeatfast.Stop();
 
         float time = 0f;
         while (time < 1f)

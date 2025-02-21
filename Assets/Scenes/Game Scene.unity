@@ -4063,7 +4063,7 @@ MonoBehaviour:
   tableHitAudioSource1: {fileID: 565869800}
   tableHitAudioSource2: {fileID: 565869801}
   playerCoughAudioSource: {fileID: 565869799}
-  endGame: 0
+  gameEnd: 0
 --- !u!224 &346987572 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 4288279339227819109, guid: 0c2bde1f1322b5f49be953ced4e9337b, type: 3}

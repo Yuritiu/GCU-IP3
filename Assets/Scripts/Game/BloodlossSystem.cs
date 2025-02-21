@@ -19,11 +19,11 @@ public class BloodlossSystem : MonoBehaviour
     [SerializeField] Image bloodBlur;
     [SerializeField] Image blackoutBlur;
     float easyCountdownTime = 400f;
-    float hardCountdownTime = 70f;
+    float hardCountdownTime = 250f;
 
     [Header("Audio References")]
-    [SerializeField] private AudioSource heartbeat;
-    [SerializeField] private AudioSource heartbeatfast;// faster version when low
+    [SerializeField] public AudioSource heartbeat;
+    [SerializeField] public AudioSource heartbeatfast;// faster version when low
     [SerializeField] private AudioClip thud;
     bool heartbeatStartCalled;
     bool heartbeatfastStartCalled;
@@ -57,7 +57,7 @@ public class BloodlossSystem : MonoBehaviour
 
         bloodlossEffectsEnabled = true;
 
-        maxHealth = hardCountdownTime;
+        maxHealth = easyCountdownTime;
 
         currentHealth = maxHealth;
 

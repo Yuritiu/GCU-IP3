@@ -1029,11 +1029,7 @@ public class GameManager : MonoBehaviour
 
     public void EndGameLose()
     {
-        gameEnded = true;
-        LoseScreen.SetActive(true);
-        Cursor.visible = true;
-        Cursor.lockState = CursorLockMode.Confined;
-        Time.timeScale = 0f;
+        CameraDeathEffect.Instance.TriggerDeathSequence();
     }
 
     public void RestartGame()

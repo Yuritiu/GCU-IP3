@@ -8,11 +8,11 @@ public class WinLoss : MonoBehaviour
 {
     [Header("Buttons")]
     public Button[] restartButtons;
-    public Button[] feedbackButtons;
-    public Button[] mainMenuButtons;
+   // public Button[] feedbackButtons;
+   // public Button[] mainMenuButtons;
 
-    [Header("FeedbackURL")]
-    public string feedbackURL = "https://forms.gle/4rPB2aM3a4HumPxD8";
+    //[Header("FeedbackURL")]
+    //public string feedbackURL = "https://forms.gle/4rPB2aM3a4HumPxD8";
 
     private void Start()
     {
@@ -21,15 +21,15 @@ public class WinLoss : MonoBehaviour
             restartButton.onClick.AddListener(RestartGame);
         }
 
-        foreach (Button feedbackButton in feedbackButtons)
-        {
-            feedbackButton.onClick.AddListener(OpenFeedbackLink);
-        }
+        //foreach (Button feedbackButton in feedbackButtons)
+        //{
+        //    feedbackButton.onClick.AddListener(OpenFeedbackLink);
+        //}
 
-        foreach (Button mainMenuButton in mainMenuButtons)
-        {
-            mainMenuButton.onClick.AddListener(GoToMainMenu);
-        }
+        //foreach (Button mainMenuButton in mainMenuButtons)
+        //{
+        //    mainMenuButton.onClick.AddListener(GoToMainMenu);
+        //}
     }
 
     private void RestartGame()
@@ -38,14 +38,14 @@ public class WinLoss : MonoBehaviour
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
-    private void OpenFeedbackLink()
-    {
-        Application.OpenURL(feedbackURL);
-    }
+    //private void OpenFeedbackLink()
+    //{
+    //    Application.OpenURL(feedbackURL);
+    //}
 
-    private void GoToMainMenu()
-    {
-        Time.timeScale = 1f;
-        SceneManager.LoadScene("Main Menu");
-    }
+    //private void GoToMainMenu()
+    //{
+    //    Time.timeScale = 1f;
+    //    SceneManager.LoadScene("Main Menu");
+    //}
 }

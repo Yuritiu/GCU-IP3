@@ -5,11 +5,18 @@ using UnityEngine.Audio;
 
 public class MixerManager : MonoBehaviour
 {
+    public static MixerManager Instance;
+
     [SerializeField] private AudioMixer audioMixer;
 
-    [Range(1, 100)][SerializeField] private int musicVolume = 100;
+    [Range(1, 100)][SerializeField] public int musicVolume = 100;
     [Range(1, 100)][SerializeField] private int sfxVolume = 100;
     [Range(1, 100)][SerializeField] private int masterVolume = 100;
+
+    void Awake()
+    {
+        Instance = this;
+    }
 
     private void OnValidate()
     {

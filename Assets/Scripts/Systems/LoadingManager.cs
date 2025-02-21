@@ -10,6 +10,8 @@ public class LoadingManager : MonoBehaviour
 
     public void LoadScene(string sceneName)
     {
+        Time.timeScale = 1f;
+
         loadingMenu.SetActive(true);
         StartCoroutine(LoadingSceneCoroutine(sceneName));
     }

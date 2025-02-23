@@ -32,7 +32,7 @@ public class BloodlossSystem : MonoBehaviour
     
 
     float maxHealth;
-    float currentHealth;
+    public float currentHealth;
     bool isCountingDown = false;
     bool bloodlossEffectsEnabled;
     [HideInInspector] public float bloodlossTime = 0f;

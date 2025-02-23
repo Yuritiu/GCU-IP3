@@ -42,7 +42,7 @@ public class AudioEffects : MonoBehaviour
     void FixedUpdate()
     {
         //Start When Bloodloss < 90 Seconds Left
-        if (BloodlossSystem.Instance.currentHealth < 390)
+        if (BloodlossSystem.Instance.currentHealth < 90)
         {
             if (!effectsEnabled)
             {

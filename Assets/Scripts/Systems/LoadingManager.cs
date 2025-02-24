@@ -7,17 +7,21 @@ using UnityEngine.SceneManagement;
 public class LoadingManager : MonoBehaviour
 {
     [SerializeField] GameObject loadingMenu;
+    [SerializeField] Image loadingFade;
+    [SerializeField] float fadeDuration = 1f;
 
     public void LoadScene(string sceneName)
     {
         Time.timeScale = 1f;
-
-        loadingMenu.SetActive(true);
         StartCoroutine(LoadingSceneCoroutine(sceneName));
     }
 
     IEnumerator LoadingSceneCoroutine(string sceneName)
     {
+        yield return StartCoroutine(FadeInBlackScreen());
+
+        loadingMenu.SetActive(true);
+
         AsyncOperation operation = SceneManager.LoadSceneAsync(sceneName);
 
         operation.allowSceneActivation = false;
@@ -35,5 +39,29 @@ public class LoadingManager : MonoBehaviour
 
             yield return null;
         }
+
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
+
     }
+    IEnumerator FadeInBlackScreen()
+    {
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
+
+        float timer = 0f;
+        Color fadeColor = loadingFade.color;
+
+        while (timer < fadeDuration)
+        {
+            timer += Time.deltaTime;
+            fadeColor.a = Mathf.Lerp(0f, 1f, timer / fadeDuration);
+            loadingFade.color = fadeColor;
+            yield return null;
+        }
+
+        fadeColor.a = 1f;
+        loadingFade.color = fadeColor;
+    }
+
 }

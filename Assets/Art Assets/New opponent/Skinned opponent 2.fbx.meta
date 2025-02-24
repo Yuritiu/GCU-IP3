@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: d4ca803cbb9e14c4695925f35819fe23
+guid: 8d44be47578450a488fd64554476b2d4
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
@@ -46,8 +46,8 @@ ModelImporter:
     optimizeGameObjects: 0
     removeConstantScaleCurves: 0
     motionNodeName: 
-    rigImportErrors: "Avatar creation failed:\n\tTransform 'Pelvis' is not an ancestor
-      of 'root'\n"
+    rigImportErrors: "Invalid Avatar Rig Configuration. Missing or invalid transform:\n\tRequired
+      human bone 'LeftLowerLeg' not found\n"
     rigImportWarnings: 
     animationImportErrors: 
     animationImportWarnings: 
@@ -113,7 +113,7 @@ ModelImporter:
   humanDescription:
     serializedVersion: 3
     human:
-    - boneName: Pelvis
+    - boneName: root
       humanName: Hips
       limit:
         min: {x: 0, y: 0, z: 0}
@@ -131,6 +131,14 @@ ModelImporter:
         modified: 0
     - boneName: r_thigh
       humanName: RightUpperLeg
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: back
+      humanName: Spine
       limit:
         min: {x: 0, y: 0, z: 0}
         max: {x: 0, y: 0, z: 0}
@@ -489,15 +497,7 @@ ModelImporter:
         value: {x: 0, y: 0, z: 0}
         length: 0
         modified: 0
-    - boneName: root
-      humanName: Spine
-      limit:
-        min: {x: 0, y: 0, z: 0}
-        max: {x: 0, y: 0, z: 0}
-        value: {x: 0, y: 0, z: 0}
-        length: 0
-        modified: 0
-    - boneName: back
+    - boneName: chest
       humanName: Chest
       limit:
         min: {x: 0, y: 0, z: 0}
@@ -505,22 +505,14 @@ ModelImporter:
         value: {x: 0, y: 0, z: 0}
         length: 0
         modified: 0
-    - boneName: chest
-      humanName: UpperChest
-      limit:
-        min: {x: 0, y: 0, z: 0}
-        max: {x: 0, y: 0, z: 0}
-        value: {x: 0, y: 0, z: 0}
-        length: 0
-        modified: 0
     skeleton:
-    - name: Skinned opponent(Clone)
+    - name: Skinned opponent 2(Clone)
       parentName: 
       position: {x: 0, y: 0, z: 0}
       rotation: {x: 0, y: 0, z: 0, w: 1}
       scale: {x: 1, y: 1, z: 1}
     - name: Opponent
-      parentName: Skinned opponent(Clone)
+      parentName: Skinned opponent 2(Clone)
       position: {x: 0.0000007102219, y: -0.015989138, z: 0.0020742805}
       rotation: {x: 0, y: -0, z: -0, w: 1}
       scale: {x: 1, y: 1, z: 1}
@@ -620,13 +612,13 @@ ModelImporter:
       rotation: {x: 0, y: -0, z: -0, w: 1}
       scale: {x: 1, y: 1, z: 1}
     - name: Skeleton
-      parentName: Skinned opponent(Clone)
+      parentName: Skinned opponent 2(Clone)
       position: {x: 0.000000024013252, y: -0.024672607, z: 0.0015092867}
       rotation: {x: 0, y: -0, z: -0, w: 1}
       scale: {x: 1, y: 1, z: 1}
     - name: root
       parentName: Skeleton
-      position: {x: -0.000000021664448, y: 0.0011894321, z: 0.0004965027}
+      position: {x: -0.000000021664448, y: 0.024672607, z: -0.0015092867}
       rotation: {x: 0, y: -0, z: -0.7071068, w: 0.7071068}
       scale: {x: 1, y: 1, z: 1}
     - name: back
@@ -652,7 +644,7 @@ ModelImporter:
     - name: l_shoulder
       parentName: l_end_clavicle
       position: {x: 4.2829077e-11, y: 3.5085698e-10, z: 2.884911e-11}
-      rotation: {x: -0.00074768276, y: -0.057039697, z: 0.013091438, w: 0.99828583}
+      rotation: {x: -0.00074801384, y: -0.05703975, z: 0.013091426, w: 0.99828583}
       scale: {x: 1, y: 1, z: 1}
     - name: l_forearm
       parentName: l_shoulder
@@ -791,8 +783,8 @@ ModelImporter:
       scale: {x: 1, y: 1, z: 1}
     - name: r_shoulder
       parentName: r_end_clavicle
-      position: {x: -0, y: 4.440892e-18, z: -2.7755575e-19}
-      rotation: {x: -0.0007480404, y: -0.057039753, z: 0.0130914245, w: 0.99828583}
+      position: {x: 5.551115e-19, y: 4.440892e-18, z: -2.7755575e-19}
+      rotation: {x: -0.00074801384, y: -0.05703975, z: 0.013091426, w: 0.99828583}
       scale: {x: 1, y: 1, z: 1}
     - name: r_forearm
       parentName: r_shoulder
@@ -906,18 +898,18 @@ ModelImporter:
       scale: {x: 1, y: 1, z: 1}
     - name: Pelvis
       parentName: root
-      position: {x: -0, y: 0, z: 0}
+      position: {x: -0, y: 0, z: 2.7755575e-19}
       rotation: {x: -0.0012492994, y: 0.7071057, z: -0.7071057, w: -0.0012492994}
       scale: {x: 1, y: 1, z: 1}
     - name: l_thigh
       parentName: Pelvis
       position: {x: 0.000000024123278, y: 7.1206435e-10, z: 0.0021532376}
-      rotation: {x: 0.9981314, y: 0.05521298, z: -0.02614194, w: -0.0013534076}
+      rotation: {x: 0.9981314, y: 0.055212967, z: -0.02614191, w: -0.0013537478}
       scale: {x: 1, y: 1, z: 1}
     - name: l_knee
       parentName: l_thigh
       position: {x: -0.008492923, y: -0.00086172647, z: 0.0000056327035}
-      rotation: {x: 0.99498314, y: 0.10004289, z: 1.5158857e-17, w: 6.00169e-17}
+      rotation: {x: 0.99498314, y: 0.10004289, z: 1.6664356e-17, w: 5.986553e-17}
       scale: {x: 1, y: 1, z: 1}
     - name: l_foot
       parentName: l_knee
@@ -932,12 +924,12 @@ ModelImporter:
     - name: r_thigh
       parentName: Pelvis
       position: {x: -0.000000023766448, y: -6.550345e-10, z: -0.0021532376}
-      rotation: {x: -0.055212975, y: 0.9981314, z: -0.0013534268, w: 0.026141938}
+      rotation: {x: -0.055212975, y: 0.9981314, z: -0.0013534641, w: 0.026141934}
       scale: {x: 1, y: 1, z: 1}
     - name: r_knee
       parentName: r_thigh
       position: {x: 0.008492845, y: 0.0008617244, z: -0.0000056333465}
-      rotation: {x: 0.99498314, y: 0.10004289, z: 0.0000000010541231, w: 0.000000010483851}
+      rotation: {x: 0.99498314, y: 0.10004289, z: 0.0000000010541228, w: 0.000000010483851}
       scale: {x: 1, y: 1, z: 1}
     - name: r_foot
       parentName: r_knee

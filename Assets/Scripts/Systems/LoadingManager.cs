@@ -44,7 +44,7 @@ public class LoadingManager : MonoBehaviour
             if (operation.progress >= 0.9f)
             {
                 //"Fake" Delay
-                yield return new WaitForSeconds(2f);
+                yield return new WaitForSeconds(Random.Range(2f, 4.5f));
                 operation.allowSceneActivation = true;
             }
 

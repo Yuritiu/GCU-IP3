@@ -1,19 +1,21 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class FadeIn : MonoBehaviour
 {
-
     [SerializeField] Image loadingFade;
     [SerializeField] float fadeDuration = 1f;
 
-    // Start is called before the first frame update
     private void Awake()
     {
-        Color fadeColor = loadingFade.color;
-        fadeColor.a = 1f;
+        if (loadingFade)
+        {
+            Color fadeColor = loadingFade.color;
+            fadeColor.a = 1f;
+            loadingFade.color = fadeColor;
+        }
     }
 
     void Start()
@@ -23,22 +25,26 @@ public class FadeIn : MonoBehaviour
 
     IEnumerator FadeOutBlackScreen()
     {
-        Cursor.lockState = CursorLockMode.Locked;
-        Cursor.visible = false;
-
         float timer = 0f;
         Color fadeColor = loadingFade.color;
 
         while (timer < fadeDuration)
         {
             timer += Time.deltaTime;
-            fadeColor.a = Mathf.Lerp(1, 0f, timer / fadeDuration);
+            fadeColor.a = Mathf.Lerp(1f, 0f, timer / fadeDuration);
             loadingFade.color = fadeColor;
             yield return null;
         }
 
         fadeColor.a = 0f;
         loadingFade.color = fadeColor;
-        Destroy(gameObject);
+
+        if (SceneManager.GetActiveScene().name == "Main Menu")
+        {
+            Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
+        }
+
+        gameObject.SetActive(false);
     }
 }

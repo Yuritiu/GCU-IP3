@@ -10,6 +10,17 @@ public class LoadingManager : MonoBehaviour
     [SerializeField] Image loadingFade;
     [SerializeField] float fadeDuration = 1f;
 
+    [SerializeField] GameObject fadePrefab;
+    GameObject fadeInstance;
+
+    void Start()
+    {
+        if (fadePrefab)
+        {
+            fadeInstance = Instantiate(fadePrefab);
+        }
+    }
+
     public void LoadScene(string sceneName)
     {
         Time.timeScale = 1f;

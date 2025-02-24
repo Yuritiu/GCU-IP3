@@ -2543,6 +2543,7 @@ MonoBehaviour:
   loadingMenu: {fileID: 1348007598}
   loadingFade: {fileID: 1185906280}
   fadeDuration: 1
+  fadePrefab: {fileID: 4948472547418611464, guid: 9a1d99949ab205f41959b4866bdbf921, type: 3}
 --- !u!1 &327877679
 GameObject:
   m_ObjectHideFlags: 0

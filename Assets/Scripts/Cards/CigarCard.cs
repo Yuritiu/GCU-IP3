@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 using TMPro;
+using UnityEngine.VFX;
 
 public class CigarCard : MonoBehaviour
 {
@@ -13,10 +14,15 @@ public class CigarCard : MonoBehaviour
     [SerializeField] private AudioClip PlayerCough;
     [SerializeField] private AudioClip AICough;
 
+    [Header("Smoke Effect")]
+    VisualEffect smokeVFX;
+
     void Start()
     {
         gameManager = FindAnyObjectByType<GameManager>();
         statusDropdown = FindAnyObjectByType<StatusDropdown>();
+
+        smokeVFX = GetComponent<VisualEffect>();
     }
 
     public void PlayCardForPlayer()
@@ -64,5 +70,41 @@ public class CigarCard : MonoBehaviour
 
             statusDropdown.DisplayStatusEffect(1, 4);
         }
+    }
+
+    public void PlaySmokeVFX(string objectName)
+    {
+        GameObject targetObject = GameObject.Find(objectName);
+        if (targetObject == null)
+        {
+            Debug.LogWarning("No GameObject With The Name: " + objectName);
+            return;
+        }
+
+        VisualEffect smokeVFX = targetObject.GetComponent<VisualEffect>();
+        if (smokeVFX == null)
+        {
+            Debug.LogWarning("No VisualEffect Found On " + objectName);
+            return;
+        }
+
+        smokeVFX.Play();
+
+        //Stop Effect After Duration
+        float effectDuration = 0.5f;
+        if (effectDuration > 0)
+        {
+            StartCoroutine(StopVFXAfterTime(smokeVFX, effectDuration));
+        }
+    }
+
+    private IEnumerator StopVFXAfterTime(VisualEffect smokeVFX, float delay)
+    {
+        yield return new WaitForSeconds(delay - 0.2f);
+        //Hide Cigar Card
+        this.gameObject.GetComponent<MeshRenderer>().enabled = false;
+
+        yield return new WaitForSeconds(delay);
+        smokeVFX.Stop();
     }
 }

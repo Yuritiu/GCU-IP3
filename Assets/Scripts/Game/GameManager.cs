@@ -73,6 +73,7 @@ public class GameManager : MonoBehaviour
     public GameObject PlayerGun;
     public GameObject AiGun;
     [HideInInspector] public int bullets;
+    public TextMeshProUGUI bulletText;
     public bool showddown = false;
 
     [Header("Armour")]
@@ -217,6 +218,11 @@ public class GameManager : MonoBehaviour
     public void addBullet()
     {
         bullets++;
+    }
+
+    public void UpdateAmmoText()
+    {
+        bulletText.text = bullets.ToString();
     }
 
     public void NextTurn()
@@ -823,6 +829,8 @@ public class GameManager : MonoBehaviour
 
     private void Update()
     {
+        UpdateAmmoText();
+
         if (Input.GetKeyDown(KeyCode.Tab))
         {
             crosshairUnlocked = !crosshairUnlocked;

@@ -97,7 +97,14 @@ public class reloadScript : MonoBehaviour
 
     IEnumerator gunTransition(GameObject Target)
     {
-        yield return new WaitForSeconds(4f);
+        if (in2ndPos == true)
+        {
+            yield return new WaitForSeconds(4f);
+        }
+        else if (in2ndPos == false)
+        {
+            yield return new WaitForSeconds(2f);
+        }
         float t = 0.00f;
         Vector3 startingpos = gun.transform.position;
         bool moveFinished = false;

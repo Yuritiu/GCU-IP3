@@ -57,9 +57,6 @@ public class ShootScript : MonoBehaviour
         {
             instance2 = this;
             isPlayer = true;
-
-            
-
         }
 
         
@@ -68,10 +65,8 @@ public class ShootScript : MonoBehaviour
     {
         if (gunName == "AiGun")
         {
-            
             gunAnim = GetComponent<Animator>();
             StartCoroutine(AiFire(gameObject));
-
         }
     }
    
@@ -91,8 +86,6 @@ public class ShootScript : MonoBehaviour
             hasGunLoaded = false;
 
             //gameManager.playerGunCount = 0;
-
-
         }
 
         if (gunName == "PlayerGun" && Input.GetMouseButton(1) && currentRotation > 0)
@@ -105,10 +98,6 @@ public class ShootScript : MonoBehaviour
                 SFXManager.instance.PlaySFXClip(Gunload, transform, 0.15f);
                 hasGunLoaded = true; 
             }
-
-            
-
-
         }
 
         if (clampActivated == false)
@@ -120,7 +109,7 @@ public class ShootScript : MonoBehaviour
         }
         
 
-            if (clampActivated == true)
+        if (clampActivated == true)
         {
             Freelook.Instance.minX = -2;
             Freelook.Instance.maxX = 18;
@@ -165,7 +154,7 @@ public class ShootScript : MonoBehaviour
         float chance = gameManager.statusPercent;
         float roll = UnityEngine.Random.Range(0f, 100f);
 
-        if (roll <= chance)
+        if (roll <= chance && (GameManager.Instance.bullets > 0))
         {
             //Shoots off your own finger
             GameManager.Instance.ReduceHealth(1, 3);
@@ -226,7 +215,7 @@ public class ShootScript : MonoBehaviour
             SFXManager.instance.PlaySFXClip(Gunfire, transform, 0.3f);
         }
         yield return new WaitForSeconds(delay);
-        if (rand == 0)
+        if (rand == 0 && (GameManager.Instance.bullets > 0))
         {
                 //Shoots off your own finger
             GameManager.Instance.ReduceHealth(2, 3);
@@ -237,7 +226,6 @@ public class ShootScript : MonoBehaviour
         {
             GameManager.Instance.CheckArmour(1, 3);
             GameManager.Instance.bullets--;
-            
         }
 
         

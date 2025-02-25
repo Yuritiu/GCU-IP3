@@ -4,6 +4,7 @@ using System.Threading;
 using Unity.VisualScripting;
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.Rendering.Universal;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
@@ -18,8 +19,10 @@ public class BloodlossSystem : MonoBehaviour
     [Header("Countdown References")]
     [SerializeField] Image bloodBlur;
     [SerializeField] Image blackoutBlur;
-    float easyCountdownTime = 400f;
-    float hardCountdownTime = 250f;
+    
+    public GameObject blur;
+    public Material blurMat;
+    bool blurStarted = false;
 
     [Header("Audio References")]
     [SerializeField] public AudioSource heartbeat;
@@ -29,10 +32,9 @@ public class BloodlossSystem : MonoBehaviour
     bool heartbeatfastStartCalled;
     bool usingHeartBeat1;
     bool usingHeartBeat2;
-    
 
-    float maxHealth;
-    public float currentHealth;
+    public float maxHealth = 350;
+    [HideInInspector] public float currentHealth;
     bool isCountingDown = false;
     bool bloodlossEffectsEnabled;
     [HideInInspector] public float bloodlossTime = 0f;
@@ -56,8 +58,8 @@ public class BloodlossSystem : MonoBehaviour
         }
 
         bloodlossEffectsEnabled = true;
-
-        maxHealth = easyCountdownTime;
+        
+        blurStarted = false;
 
         currentHealth = maxHealth;
 
@@ -66,7 +68,7 @@ public class BloodlossSystem : MonoBehaviour
     private void Update()
     {
         //Normalize The Time To 0-1 Range So It Fits In Image Right
-        float fillAmount = Mathf.Clamp01(currentHealth / 350);
+        float fillAmount = Mathf.Clamp01(currentHealth / maxHealth);
         
         //Fill Bar Visual
         //print(currentHealth);
@@ -82,13 +84,31 @@ public class BloodlossSystem : MonoBehaviour
             bloodBlur.color = bloodBlurColour;
             //print(bloodBlur.color.a);
 
-
+            //make screen darker and add blur to start taking effect
             if (fillAmount < 0.2f)
             {
+                if(!blurStarted)
+                {
+                    blur.SetActive(true);
+                    blurStarted = true;
+                }
+
+                float blurOp = (1f - (fillAmount * 5)) / 100;
+
+                blurMat.SetFloat("_Value", Mathf.Clamp01(blurOp));
+
                 Color blackoutBlurColour = blackoutBlur.color;
                 blackoutBlurColour.a = 1f - (fillAmount * 5f);
                 blackoutBlur.color = blackoutBlurColour;
                 //print(bloodBlur.color.a);
+            }
+            else 
+            {
+                if(blurStarted)
+                {
+                    blur.SetActive(false);
+                    blurStarted = false;
+                }
             }
         }
 

@@ -358,12 +358,13 @@ MonoBehaviour:
   targetPos: {fileID: 728769674}
   gunAnim: {fileID: 20444858}
   speed: 2
-  gun: {fileID: 0}
-  shootScript: {fileID: 0}
+  gun: {fileID: 20444857}
+  shootScript: {fileID: 20444862}
   reloadHappened: 0
   chamber: {fileID: 610974269}
   in1stPos: 0
   in2ndPos: 0
+  UsedTwice: 0
 --- !u!1 &21989140
 GameObject:
   m_ObjectHideFlags: 0
@@ -19134,13 +19135,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 728769674}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.056, y: 1.173, z: -0.535}
+  m_LocalRotation: {x: 0.38268274, y: -0, z: -0, w: 0.9238798}
+  m_LocalPosition: {x: 0.056, y: 1.105, z: -0.644}
   m_LocalScale: {x: 0.10000001, y: 0.1, z: 0.10000001}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 45, y: 0, z: 0}
 --- !u!1 &735602132
 GameObject:
   m_ObjectHideFlags: 0
@@ -50191,7 +50192,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cardPrefabs:
   - cardPrefab: {fileID: 1833519795021809735, guid: 7aa893a5d89a070459d915fe1d984339, type: 3}
-    quantity: 5
+    quantity: 100
   - cardPrefab: {fileID: 1833519795021809735, guid: 645c191d862b60e4e91a4ee05387a552, type: 3}
     quantity: 9
   - cardPrefab: {fileID: 1833519795021809735, guid: 13468f5a105746847b27d9d5496777f7, type: 3}

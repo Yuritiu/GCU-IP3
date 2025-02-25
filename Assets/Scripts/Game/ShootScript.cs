@@ -34,6 +34,7 @@ public class ShootScript : MonoBehaviour
     private GameManager gameManager;
     [SerializeField] private AudioClip Gunload;
     [SerializeField] private AudioClip Gunfire;
+    [SerializeField] private AudioClip earRinging;
 
     private void Start()
     {
@@ -169,6 +170,7 @@ public class ShootScript : MonoBehaviour
             //Shoots off your own finger
             GameManager.Instance.ReduceHealth(1, 3);
             statusDropdown.DisplayStatusEffect(1, 1);
+            
         }
         else if (AiRandom <= GameManager.Instance.bullets)
         {
@@ -229,6 +231,7 @@ public class ShootScript : MonoBehaviour
                 //Shoots off your own finger
             GameManager.Instance.ReduceHealth(2, 3);
             statusDropdown.DisplayStatusEffect(0, 1);
+            SFXManager.instance.PlaySFXClip(earRinging, transform, 0.3f);
         }
         else if (PRandom <= GameManager.Instance.bullets)
         {

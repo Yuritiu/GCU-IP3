@@ -17,26 +17,30 @@ public class TooltipManager : MonoBehaviour
     {
         Instance = this;
 
-        float assistsEnabled = PlayerPrefs.GetFloat("TipsEnabled");
+        float assistsEnabled = PlayerPrefs.GetInt("TipsEnabled");
         if (assistsEnabled == 1)
         {
             assistsOn = true;
+            Debug.Log("ASSISTS ON");
         }
         else
         {
             assistsOn = false;
+            Debug.Log("ASSISTS OFF");
         }
     }
 
     void FixedUpdate()
     {
-        if (!GameManager.Instance.canPlay && clickToPlayHandText.enabled)
+        if (!GameManager.Instance.canPlay)
         {
-            clickToPlayHandText.gameObject.SetActive(false);
+            clickToPlayHandText.enabled = false;
+            Debug.Log("CANT PLAY");
         }
-        else if(GameManager.Instance.canPlay && assistsOn && !clickToPlayHandText.enabled)
+        else if(GameManager.Instance.canPlay && assistsOn)
         {
-            clickToPlayHandText.gameObject.SetActive(true);
+            clickToPlayHandText.enabled = true;
+            Debug.Log("CAN PLAY");
         }
     }
 
@@ -44,14 +48,12 @@ public class TooltipManager : MonoBehaviour
     {
         if(toggle)
         {
-            clickToPlayHandText.enabled = true;
-            PlayerPrefs.SetFloat("TipsEnabled", 1);
+            PlayerPrefs.SetInt("TipsEnabled", 1);
             assistsOn = true;
         }
         else
         {
-            clickToPlayHandText.enabled = false;
-            PlayerPrefs.SetFloat("TipsEnabled", 0);
+            PlayerPrefs.SetInt("TipsEnabled", 0);
             assistsOn = false;
         }
     }

@@ -5,6 +5,7 @@ using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.VFX;
 using static UnityEngine.UI.Image;
 
 public class CardDrawSystem : MonoBehaviour
@@ -440,6 +441,20 @@ public class CardDrawSystem : MonoBehaviour
 
                 AICardDrawSystem.Instance.DeleteCardsInHand();
                 DeleteCardsInHand();
+
+                //Stop Smoke If Cigar Fails To (Card Destroyed Before Can Call Stop)
+                VisualEffect[] allSmokeVFX = FindObjectsOfType<VisualEffect>();
+                Debug.Log("SMOKE VFX's: " + allSmokeVFX.Length);
+
+                foreach (VisualEffect vfx in allSmokeVFX)
+                {
+                    if (vfx != null)
+                    {
+                        vfx.Stop();
+                        vfx.GetComponent<VisualEffect>().enabled = false;
+                    }
+                }
+
                 foundCards.Add(card.gameObject);
             }
         }

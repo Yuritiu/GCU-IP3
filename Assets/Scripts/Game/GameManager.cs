@@ -140,7 +140,6 @@ public class GameManager : MonoBehaviour
     bool calledCard1 = false;
     bool calledCard2 = false;
 
-
     [HideInInspector] public bool knife1used = false;
     [HideInInspector] public bool knife2used = false;
 

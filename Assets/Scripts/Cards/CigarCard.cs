@@ -16,6 +16,7 @@ public class CigarCard : MonoBehaviour
 
     [Header("Smoke Effect")]
     VisualEffect smokeVFX;
+    bool backfired = false;
 
     void Start()
     {
@@ -34,8 +35,9 @@ public class CigarCard : MonoBehaviour
         float chance = gameManager.statusPercent;
         float roll = UnityEngine.Random.Range(0f, 100f);
 
-        if (roll <= chance)
+        if (roll <= chance && !backfired)
         {
+            backfired = true;
             //Display BACKFIRE!Text
             TextMeshProUGUI backfireText = GetComponentInChildren<TextMeshProUGUI>();
             backfireText.enabled = true;
@@ -46,8 +48,9 @@ public class CigarCard : MonoBehaviour
 
             GameManager.Instance.cigarBackfire.gameObject.SetActive(true);
             statusDropdown.DisplayStatusEffect(0, 4);
-        }
 
+            StopAllSmokeVFX();
+        }
     }
     public void PlayCardForAI()
     {
@@ -58,8 +61,9 @@ public class CigarCard : MonoBehaviour
         float chance = gameManager.statusPercent;
         float roll = UnityEngine.Random.Range(0f, 100f);
 
-        if (roll <= chance)
+        if (roll <= chance && !backfired)
         {
+            backfired = true;
             //Display BACKFIRE! Text
             TextMeshProUGUI backfireText = GetComponentInChildren<TextMeshProUGUI>();
             backfireText.enabled = true;
@@ -69,10 +73,12 @@ public class CigarCard : MonoBehaviour
             SFXManager.instance.PlaySFXClip(AICough, transform, 0.2f);
 
             statusDropdown.DisplayStatusEffect(1, 4);
+
+            StopAllSmokeVFX();
         }
     }
 
-    public void PlaySmokeVFX(string objectName)
+    public void PlaySmokeVFX(string objectName, string cardName)
     {
         GameObject targetObject = GameObject.Find(objectName);
         if (targetObject == null)
@@ -88,14 +94,22 @@ public class CigarCard : MonoBehaviour
             return;
         }
 
+        if (backfired)
+            return;
+
+        smokeVFX.GetComponent<VisualEffect>().enabled = true;
         smokeVFX.Play();
 
-        //Stop Effect After Duration
-        float effectDuration = 0.5f;
-        if (effectDuration > 0)
+        StartCoroutine(StopVFXAfterTime(smokeVFX, 0.3f));
+
+        //Get Card To Be Cloned From CigarManager
+        GameObject cardPrefab = CigarManager.Instance.GetCardPrefab(cardName);
+        if (cardPrefab == null)
         {
-            StartCoroutine(StopVFXAfterTime(smokeVFX, effectDuration));
+            return;
         }
+        //Spawn Cloned Card In Place Of Cigar
+        Instantiate(cardPrefab, this.transform.position, this.transform.rotation);
     }
 
     private IEnumerator StopVFXAfterTime(VisualEffect smokeVFX, float delay)
@@ -106,5 +120,20 @@ public class CigarCard : MonoBehaviour
 
         yield return new WaitForSeconds(delay);
         smokeVFX.Stop();
+    }
+
+    void StopAllSmokeVFX()
+    {
+        VisualEffect[] allSmokeVFX = FindObjectsOfType<VisualEffect>();
+        Debug.Log("SMOKE VFX's: " + allSmokeVFX.Length);
+
+        foreach (VisualEffect vfx in allSmokeVFX)
+        {
+            if (vfx != null)
+            {
+                vfx.Stop();
+                vfx.GetComponent<VisualEffect>().enabled = false;
+            }
+        }
     }
 }

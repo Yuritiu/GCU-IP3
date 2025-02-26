@@ -759,15 +759,33 @@ public class GameManager : MonoBehaviour
                 {
                     //Debug.Log("Called Function 1");
                     cardObject2.SendMessage("PlayCardForPlayer");
+
                     //Play Smoke VFX
-                    cardObject1.GetComponent<CigarCard>().PlaySmokeVFX("Player Smoke Graph 1");
+                    //cardObject1.GetComponent<CigarCard>().PlaySmokeVFX("Player Smoke Graph 1");
+                    if (cardObject2.name.Contains("knife"))
+                    {
+                        cardObject1.GetComponent<CigarCard>().PlaySmokeVFX("Player Smoke Graph 1", "knife");
+                    }
+                    else if (cardObject2.name.Contains("gun"))
+                    {
+                        cardObject1.GetComponent<CigarCard>().PlaySmokeVFX("Player Smoke Graph 1", "gun");
+                    }
+                    else if (cardObject2.name.Contains("chamber"))
+                    {
+                        cardObject1.GetComponent<CigarCard>().PlaySmokeVFX("Player Smoke Graph 1", "chamber");
+                    }
+                    else if (cardObject2.name.Contains("armour"))
+                    {
+                        cardObject1.GetComponent<CigarCard>().PlaySmokeVFX("Player Smoke Graph 1", "armour");
+                    }
                 }
                 //If Bottle Is Played With Cigar:
                 else if(cardObject1.name.Contains("cigar") && (!cardObject2.name.Contains("cigar") && cardObject2.name.Contains("bottle"))) 
                 {
                     aiSkippedTurns++;
+
                     //Play Smoke VFX
-                    cardObject1.GetComponent<CigarCard>().PlaySmokeVFX("Player Smoke Graph 1");
+                    cardObject1.GetComponent<CigarCard>().PlaySmokeVFX("Player Smoke Graph 1", "bottle");
                 }
 
                 //Card To Be Cloned Is In Slot 1 And Not A Bottle
@@ -775,15 +793,31 @@ public class GameManager : MonoBehaviour
                 {
                     //Debug.Log("Called Function 2");
                     cardObject2.SendMessage("PlayCardForPlayer");
+
                     //Play Smoke VFX
-                    cardObject2.GetComponent<CigarCard>().PlaySmokeVFX("Player Smoke Graph 2");
+                    if (cardObject1.name.Contains("knife"))
+                    {
+                        cardObject2.GetComponent<CigarCard>().PlaySmokeVFX("Player Smoke Graph 2", "knife");
+                    }
+                    else if (cardObject1.name.Contains("gun"))
+                    {
+                        cardObject2.GetComponent<CigarCard>().PlaySmokeVFX("Player Smoke Graph 2", "gun");
+                    }
+                    else if (cardObject1.name.Contains("chamber"))
+                    {
+                        cardObject2.GetComponent<CigarCard>().PlaySmokeVFX("Player Smoke Graph 2", "chamber");
+                    }
+                    else if (cardObject1.name.Contains("armour"))
+                    {
+                        cardObject2.GetComponent<CigarCard>().PlaySmokeVFX("Player Smoke Graph 2", "armour");
+                    }
                 }
                 //If Bottle Is Played With Cigar:
                 else if (cardObject2.name.Contains("cigar") && (!cardObject1.name.Contains("cigar") && cardObject1.name.Contains("bottle")))
                 {
                     aiSkippedTurns++;
                     //Play Smoke VFX
-                    cardObject1.GetComponent<CigarCard>().PlaySmokeVFX("Player Smoke Graph 2");
+                    cardObject2.GetComponent<CigarCard>().PlaySmokeVFX("Player Smoke Graph 2", "bottle");
                 }
             }
         }
@@ -800,13 +834,31 @@ public class GameManager : MonoBehaviour
                     //Debug.Log("Called Function 3");
                     aiClonedCard = cardObject4.GetComponentAtIndex(1);
                     aiClonedCard.SendMessage("PlayCardForAI");
-                    cardObject3.GetComponent<CigarCard>().PlaySmokeVFX("AI Smoke Graph 1");
+
+                    //Play Smoke VFX
+                    if (cardObject4.name.Contains("knife"))
+                    {
+                        cardObject3.GetComponent<CigarCard>().PlaySmokeVFX("AI Smoke Graph 1", "knife");
+                    }
+                    else if (cardObject4.name.Contains("gun"))
+                    {
+                        cardObject3.GetComponent<CigarCard>().PlaySmokeVFX("AI Smoke Graph 1", "gun");
+                    }
+                    else if (cardObject4.name.Contains("chamber"))
+                    {
+                        cardObject3.GetComponent<CigarCard>().PlaySmokeVFX("AI Smoke Graph 1", "chamber");
+                    }
+                    else if (cardObject4.name.Contains("armour"))
+                    {
+                        cardObject3.GetComponent<CigarCard>().PlaySmokeVFX("AI Smoke Graph 1", "armour");
+                    }
                 }
                 //If Bottle Is Played With Cigar:
                 else if (cardObject3.name.Contains("cigar") && (!cardObject4.name.Contains("cigar") && cardObject4.name.Contains("bottle")))
                 {
                     playerSkippedTurns++;
-                    cardObject3.GetComponent<CigarCard>().PlaySmokeVFX("AI Smoke Graph 1");
+
+                    cardObject3.GetComponent<CigarCard>().PlaySmokeVFX("AI Smoke Graph 1", "bottle");
                 }
 
                 //Card To Be Cloned Is In Slot 3
@@ -815,13 +867,31 @@ public class GameManager : MonoBehaviour
                     //Debug.Log("Called Function 4");
                     aiClonedCard = cardObject3.GetComponentAtIndex(1);
                     aiClonedCard.SendMessage("PlayCardForAI");
-                    cardObject4.GetComponent<CigarCard>().PlaySmokeVFX("AI Smoke Graph 2");
+
+                    //Play Smoke VFX
+                    if (cardObject3.name.Contains("knife"))
+                    {
+                        cardObject4.GetComponent<CigarCard>().PlaySmokeVFX("AI Smoke Graph 2", "knife");
+                    }
+                    else if (cardObject3.name.Contains("gun"))
+                    {
+                        cardObject4.GetComponent<CigarCard>().PlaySmokeVFX("AI Smoke Graph 2", "gun");
+                    }
+                    else if (cardObject3.name.Contains("chamber"))
+                    {
+                        cardObject4.GetComponent<CigarCard>().PlaySmokeVFX("AI Smoke Graph 2", "chamber");
+                    }
+                    else if (cardObject3.name.Contains("armour"))
+                    {
+                        cardObject4.GetComponent<CigarCard>().PlaySmokeVFX("AI Smoke Graph 2", "armour");
+                    }
                 }
                 //If Bottle Is Played With Cigar:
                 else if (cardObject4.name.Contains("cigar") && (!cardObject3.name.Contains("cigar") && cardObject3.name.Contains("bottle")))
                 {
                     playerSkippedTurns++;
-                    cardObject4.GetComponent<CigarCard>().PlaySmokeVFX("AI Smoke Graph 2");
+
+                    cardObject4.GetComponent<CigarCard>().PlaySmokeVFX("AI Smoke Graph 2", "bottle");
                 }
             }
         }

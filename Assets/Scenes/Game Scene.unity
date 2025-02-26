@@ -38242,6 +38242,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1715627132}
+  - component: {fileID: 1715627133}
   m_Layer: 0
   m_Name: --- Smoke VFX ---
   m_TagString: Untagged
@@ -38268,6 +38269,34 @@ Transform:
   - {fileID: 1033866129}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1715627133
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1715627131}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 226f198e326824f46bd29161a1711868, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cardNames:
+  - bottle
+  - chamber
+  - armour
+  - cigar
+  - gun
+  - knife
+  - promise
+  cardPrefabs:
+  - {fileID: 1833519795021809735, guid: 81c382b329ce2144d8b9683ced7a51e8, type: 3}
+  - {fileID: 1833519795021809735, guid: 103a988ca592a38408c1503a129d54a8, type: 3}
+  - {fileID: 1833519795021809735, guid: ddff9dd2082f6f94daf7332721bcb9bc, type: 3}
+  - {fileID: 1833519795021809735, guid: 9a64fcf3aee2b1e4ba2647db802039fc, type: 3}
+  - {fileID: 1833519795021809735, guid: 7781602e260fb4a45b3f29699339a950, type: 3}
+  - {fileID: 1833519795021809735, guid: caea6992a13d1ba4ea12aa24a97c0977, type: 3}
+  - {fileID: 1833519795021809735, guid: cc3a69990cfc5134faa5ac859869b9ac, type: 3}
 --- !u!1 &1725278622
 GameObject:
   m_ObjectHideFlags: 0
@@ -51046,19 +51075,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cardPrefabs:
   - cardPrefab: {fileID: 1833519795021809735, guid: 7aa893a5d89a070459d915fe1d984339, type: 3}
-    quantity: 5
+    quantity: 6
   - cardPrefab: {fileID: 1833519795021809735, guid: 645c191d862b60e4e91a4ee05387a552, type: 3}
     quantity: 9
   - cardPrefab: {fileID: 1833519795021809735, guid: 13468f5a105746847b27d9d5496777f7, type: 3}
-    quantity: 9
+    quantity: 11
   - cardPrefab: {fileID: 1833519795021809735, guid: 4758c9d31efe1c64994cecb864c3e9bc, type: 3}
-    quantity: 9
+    quantity: 6
   - cardPrefab: {fileID: 1833519795021809735, guid: bf314c8f96af77148b7c787435c1c55e, type: 3}
     quantity: 5
   - cardPrefab: {fileID: 1833519795021809735, guid: 80493192768bbe24a98044b5fa79e23d, type: 3}
-    quantity: 8
+    quantity: 9
   - cardPrefab: {fileID: 1833519795021809735, guid: 5483eb8b06d5b644d88d87dbd32457d3, type: 3}
-    quantity: 5
+    quantity: 6
   deck: []
   emptyCardPrefab: {fileID: 1833519795021809735, guid: a90b0b83808e8bd479fa48eecd5fdf3f, type: 3}
   deckPosition: {fileID: 1946011886}

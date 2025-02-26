@@ -412,7 +412,7 @@ public class CardDrawSystem : MonoBehaviour
         {
             if (card.transform.parent != null && card.transform.parent.name.Contains("Selected"))
             {
-                // Find and Debug Materials
+                //Find and Debug Materials
                 Renderer renderer = card.GetComponent<Renderer>();
                 if (renderer != null)
                 {
@@ -427,7 +427,7 @@ public class CardDrawSystem : MonoBehaviour
                     }
                 }
 
-                // Clear Parent
+                //Clear Parent
                 card.transform.parent = null;
                 card.name = "Discarded Card";
                 Destroy(card.GetComponentInChildren<Canvas>().gameObject);
@@ -444,7 +444,22 @@ public class CardDrawSystem : MonoBehaviour
             }
         }
 
-        // Convert The List To An Array
+        //Find Cigar Instantated Cloned Cards
+        foreach (GameObject card in FindObjectsOfType<GameObject>())
+        {
+            if (card != null && card.name.ToLower().Contains("cloned"))
+            {
+                foundCards.Add(card.gameObject);
+            }
+        }
+
+        //Stop Cigar Cloned Card From Populating Slot 1
+        if(selectedCardCount > 0)
+        {
+            selectedCardCount = 0;
+        }
+
+        //Convert The List To An Array
         cardsToDiscard = foundCards.ToArray();
     }
 

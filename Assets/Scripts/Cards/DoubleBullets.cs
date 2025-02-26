@@ -28,16 +28,6 @@ public class DoubleBullets : MonoBehaviour
 
     IEnumerator WaitForActionsAndPlayChamber(bool isPlayer)
     {
-        ////STOPS FROM AUTO ENDING TURN ONCE KNIFE/ GUN FINISHED
-        //if (isPlayer)
-        //{
-        //    gameManager.inPlayerReloadCalled = true;
-        //}
-        //else
-        //{
-        //    gameManager.inAIReloadCalled = true;
-        //}
-
         if (PriorityCardExists())
         {
             Debug.Log("Priority card detected! Waiting for its action to start...");

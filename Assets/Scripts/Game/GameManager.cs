@@ -137,6 +137,9 @@ public class GameManager : MonoBehaviour
     [HideInInspector] public bool inAIBatAction = false;
     [HideInInspector] public bool has2Guns = false;
     [HideInInspector] public int numberOfKnifeCards = 0;
+    bool calledCard1 = false;
+    bool calledCard2 = false;
+
 
     [HideInInspector] public bool knife1used = false;
     [HideInInspector] public bool knife2used = false;
@@ -241,6 +244,9 @@ public class GameManager : MonoBehaviour
         AICardDrawSystem.Instance.card1Moving = false;
         AICardDrawSystem.Instance.card2Moving = false;
 
+        calledCard1 = false;
+        calledCard2 = false;
+
         DisableAllBackfires();
 
         //Move Played Cards To Discard Pile
@@ -328,8 +334,10 @@ public class GameManager : MonoBehaviour
             //And The Card's Hierarchy Mathches The 'Skip Next Turn' Card
             cardsOnTable1 = CardDrawSystem.Instance.selectedPosition1.GetChild(0).gameObject.GetComponentAtIndex(1);
 
-            if (cardsOnTable1 != null)
+            if (cardsOnTable1 != null && !calledCard1)
             {
+                //calledCard1 = true;
+
                 if (cardsOnTable1.name.Contains("bottle") && !increaseCard1SkipCalled)
                 {
                     increaseCard1SkipCalled = true;
@@ -345,7 +353,7 @@ public class GameManager : MonoBehaviour
             }
 
             cardsOnTable1.SendMessage("PlayCardForPlayer");
-
+            
             CardDrawSystem.Instance.selectedCardCount--;
         }
         if (CardDrawSystem.Instance.selectedPosition2.childCount > 0 && playerSkippedTurns == 0)
@@ -354,8 +362,10 @@ public class GameManager : MonoBehaviour
             //And The Card's Hierarchy Mathches The 'Skip Next Turn' Card
             cardsOnTable2 = CardDrawSystem.Instance.selectedPosition2.GetChild(0).gameObject.GetComponentAtIndex(1);
 
-            if (cardsOnTable2 != null)
+            if (cardsOnTable2 != null && !calledCard2)
             {
+                //calledCard2 = true;
+
                 if (cardsOnTable2.name.Contains("bottle") && !increaseCard2SkipCalled)
                 {
                     increaseCard2SkipCalled = true;
@@ -763,8 +773,11 @@ public class GameManager : MonoBehaviour
         //Player Functions
         if (player == 1)
         {
-            if (cardsOnTable1 != null && cardsOnTable2 != null)
+            if ((cardsOnTable1 != null && cardsOnTable2 != null) && !calledCard1 && !calledCard2)
             {
+                calledCard1 = true;
+                calledCard2 = true;
+
                 var cardObject1 = cardsOnTable1.gameObject;
                 var cardObject2 = cardsOnTable2.gameObject;
 
@@ -1148,19 +1161,16 @@ public class GameManager : MonoBehaviour
             increaseCard2SkipCalled = false;
             increaseCard3SkipCalled = false;
             increaseCard4SkipCalled = false;
-            Debug.Log("CALLED FINISH BOTTLE TURN");
         }
     }
 
     public void FinishPlayerReload()
     {
-        Debug.Log("CALLED FINISH PLAYER RELOAD");
         inPlayerReloadCalled = false;
     }
 
     public void FinishAIReload()
     {
-        Debug.Log("CALLED FINISH AI RELOAD");
         inAIReloadCalled = false;
     }
 

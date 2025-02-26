@@ -120,6 +120,7 @@ public class CigarCard : MonoBehaviour
 
         yield return new WaitForSeconds(delay);
         smokeVFX.Stop();
+        smokeVFX.GetComponent<VisualEffect>().enabled = false;
     }
 
     void StopAllSmokeVFX()

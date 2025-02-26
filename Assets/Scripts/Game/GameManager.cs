@@ -180,7 +180,6 @@ public class GameManager : MonoBehaviour
         playerSkippedTurnsText.enabled = false;
 
         await UnityServices.InitializeAsync();
-        AnalyticsService.Instance.StartDataCollection();
 
         tablePosition = Gun.transform.position;
         rotation = Gun.transform.rotation;

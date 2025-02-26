@@ -20222,7 +20222,7 @@ MonoBehaviour:
   m_fontColor32:
     serializedVersion: 2
     rgba: 4278190335
-  m_fontColor: {r: 1, g: 0, b: 0, a: 1}
+  m_fontColor: {r: 1, g: 0.051886797, b: 0.051886797, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -38841,7 +38841,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0.1, y: 0.03}
+  m_SizeDelta: {x: 0.2, y: 0.03}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1779098252
 MonoBehaviour:
@@ -38863,7 +38863,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: < WIGGLE TO CUT >
+  m_text: < SHAKE MOUSE TO CUT >
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 98f44de8edb63f4439463e8c4d09a738, type: 2}
   m_sharedMaterial: {fileID: -5923343289724165877, guid: 98f44de8edb63f4439463e8c4d09a738, type: 2}
@@ -56104,7 +56104,7 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2056392819}
   m_LocalRotation: {x: 0.0000011484007, y: 0.98028076, z: -0.1976099, w: -9.254107e-11}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0.296}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -56112,7 +56112,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 22.794, y: 180, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -0, y: -0.12}
+  m_AnchoredPosition: {x: 0.027, y: -0.12}
   m_SizeDelta: {x: 21.68, y: 0.03}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2056392821
@@ -56135,7 +56135,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: < CLICK TO PLAY HAND >
+  m_text: < CLICK ON TARGET TO PLAY HAND >
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 98f44de8edb63f4439463e8c4d09a738, type: 2}
   m_sharedMaterial: {fileID: -5923343289724165877, guid: 98f44de8edb63f4439463e8c4d09a738, type: 2}
@@ -56144,8 +56144,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4294967295
-  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
+    rgba: 4284456629
+  m_fontColor: {r: 0.70980394, g: 0.61960787, b: 0.37254903, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:

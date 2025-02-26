@@ -89,79 +89,55 @@ public class Knife : MonoBehaviour
         GameManager.Instance.playerHasKnife = true;
         yield return new WaitForSeconds(0.5f);
 
-        //Check If Its The Tutorial First
-        if (!GameManager.Instance.isTutorial)
+        float chance = gameManager.statusPercent;
+        float roll = UnityEngine.Random.Range(0f, 100f);
+
+        if (roll <= chance)
         {
-            float chance = gameManager.statusPercent;
-            float roll = UnityEngine.Random.Range(0f, 100f);
+            //Display BACKFIRE! Text
+            TextMeshProUGUI backfireText = GetComponentInChildren<TextMeshProUGUI>();
+            backfireText.enabled = true;
 
-            if (roll <= chance)
+            //makes 1 card not usable for 1 turn
+            CardDrawSystem.Instance.StopOneCard();
+            statusDropdown.DisplayStatusEffect(0, 0);
+        }
+
+        if (CardDrawSystem.Instance.selectedPosition1.childCount > 0 && CardDrawSystem.Instance.selectedPosition2.childCount > 0)
+        {
+            //print("made it");
+            Component card1 = CardDrawSystem.Instance.selectedPosition1.GetChild(0);
+            Component card2 = CardDrawSystem.Instance.selectedPosition2.GetChild(0);
+            //Damage opponent 
+            //takes 1 finger away
+            if ((card1.gameObject.name.Contains("knife") || card1.gameObject.name.Contains("cigar")) && (card2.gameObject.name.Contains("knife") || card2.gameObject.name.Contains("cigar")))
             {
-                //Display BACKFIRE! Text
-                TextMeshProUGUI backfireText = GetComponentInChildren<TextMeshProUGUI>();
-                backfireText.enabled = true;
-
-                //makes 1 card not usable for 1 turn
-                CardDrawSystem.Instance.StopOneCard();
-                statusDropdown.DisplayStatusEffect(0, 0);
-            }
-
-            if (CardDrawSystem.Instance.selectedPosition1.childCount > 0 && CardDrawSystem.Instance.selectedPosition2.childCount > 0)
-            {
-                //print("made it");
-                Component card1 = CardDrawSystem.Instance.selectedPosition1.GetChild(0);
-                Component card2 = CardDrawSystem.Instance.selectedPosition2.GetChild(0);
-                //Damage opponent 
-                //takes 1 finger away
-                if ((card1.gameObject.name.Contains("knife") || card1.gameObject.name.Contains("cigar")) && (card2.gameObject.name.Contains("knife") || card2.gameObject.name.Contains("cigar")))
+                if (card2.gameObject == this.gameObject)
                 {
-                    if (card2.gameObject == this.gameObject)
-                    {
-                        StartCoroutine(WaitToStart(1, 1));
-                        yield return null;
-                    }
-                    else
-                    {
-                        //print(1);
-                        StartCoroutine(GameManager.Instance.WaitToCompareCards(1, 1));
-                    }
+                    StartCoroutine(WaitToStart(1, 1));
+                    yield return null;
                 }
                 else
                 {
-                    //print(2);
+                    //print(1);
                     StartCoroutine(GameManager.Instance.WaitToCompareCards(1, 1));
                 }
-                
-                //else if (card1.gameObject.name.Contains("knife") || card2.gameObject.name.Contains("knife"))
-                //{
-                //    //Avoids Softlock When inKnifeAction Is Still True
-                //    GameManager.Instance.inKnifeAiAction = false;
-                //}
             }
             else
             {
-                //print(3);
+                //print(2);
                 StartCoroutine(GameManager.Instance.WaitToCompareCards(1, 1));
-            }        
+            }
+
+            //else if (card1.gameObject.name.Contains("knife") || card2.gameObject.name.Contains("knife"))
+            //{
+            //    //Avoids Softlock When inKnifeAction Is Still True
+            //    GameManager.Instance.inKnifeAiAction = false;
+            //}
         }
         else
         {
-            if (TutorialCardDraw.Instance.selectedPosition1.childCount > 0 && TutorialCardDraw.Instance.selectedPosition2.childCount > 0)
-            {
-                //print("made it");
-                Component card1 = TutorialCardDraw.Instance.selectedPosition1.GetChild(0);
-                Component card2 = TutorialCardDraw.Instance.selectedPosition2.GetChild(0);
-                //Damage opponent 
-                //takes 1 finger away
-                if (card1.gameObject.name.Contains("Knife") && card2.gameObject.name.Contains("Knife"))
-                {
-                    if (card2.gameObject == this.gameObject)
-                    {
-                        StartCoroutine(WaitToStart(1, 1));
-                        yield return null;
-                    }
-                }
-            }
+            //print(3);
             StartCoroutine(GameManager.Instance.WaitToCompareCards(1, 1));
         }
     }

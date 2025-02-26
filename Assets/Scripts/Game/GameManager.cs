@@ -141,9 +141,7 @@ public class GameManager : MonoBehaviour
     [HideInInspector] public bool knife1used = false;
     [HideInInspector] public bool knife2used = false;
 
-    [Header("Bat References")]
-    [HideInInspector] public bool bat1Used = false;
-    [HideInInspector] public bool bat2Used = false;
+    [Header("Bat Variables")]
     [HideInInspector] public int playerSkipCount = 0;
     [HideInInspector] public int aiSkipCount = 0;
     [HideInInspector] public int playerGunCount = 0;
@@ -154,15 +152,16 @@ public class GameManager : MonoBehaviour
     [HideInInspector] public bool increaseCard4SkipCalled = false;
     [HideInInspector] public bool increaseCard3GunCalled = false;
     [HideInInspector] public bool increaseCard4GunCalled = false;
-    [HideInInspector] public bool calledAIBatSwing = false;
+
+    [Header("One In The Chamber Variables")]
+    [HideInInspector] public bool inPlayerReloadCalled = false;
+    [HideInInspector] public bool inAIReloadCalled = false;
 
     [Header("Camera Movement Variables")]
     [HideInInspector] public bool isActionInProgress = false;
     [HideInInspector] public bool crosshairUnlocked;
     [HideInInspector] public bool freelookEnabled;
-
-    
-    
+   
     [SerializeField] private AudioClip[] aiScreams;
     [SerializeField] private AudioClip deathSFX;
 
@@ -337,6 +336,12 @@ public class GameManager : MonoBehaviour
                     Debug.Log("BOTTLE IN CARD 1");
                     playerSkipCount++;
                 }
+                else if (cardsOnTable1.name.Contains("Chamber") && !inPlayerReloadCalled)
+                {
+                    //Wait For One In The Chamber Reload
+                    inPlayerReloadCalled = true;
+                    Debug.Log("One In Chamber In Slot 1");
+                }
             }
 
             cardsOnTable1.SendMessage("PlayCardForPlayer");
@@ -357,6 +362,12 @@ public class GameManager : MonoBehaviour
                     Debug.Log("BOTTLE IN CARD 2");
                     playerSkipCount++;
                 }
+                else if (cardsOnTable2.name.Contains("Chamber") && !inPlayerReloadCalled)
+                {
+                    //Wait For One In The Chamber Reload
+                    inPlayerReloadCalled = true;
+                    Debug.Log("One In Chamber In Slot 2");
+                }
             }
 
             cardsOnTable2.SendMessage("PlayCardForPlayer");
@@ -375,14 +386,21 @@ public class GameManager : MonoBehaviour
                     {
                         increaseCard3GunCalled = true;
                         aiGunCount++;
+                        cardsOnTable3.SendMessage("PlayCardForAI");
                     }
-                    if (cardsOnTable3.name.Contains("bottle") && !increaseCard3SkipCalled)
+                    else if (cardsOnTable3.name.Contains("bottle") && !increaseCard3SkipCalled)
                     {
                         increaseCard3SkipCalled = true;
                         Debug.Log("BOTTLE IN CARD 3");
                         aiSkipCount++;
 
                         cardsOnTable3.SendMessage("PlayDelayCardForAI");
+                    }
+                    else if(cardsOnTable3.name.Contains("Chamber") && !inAIReloadCalled)
+                    {
+                        inAIReloadCalled = true;
+                        Debug.Log("One In Chamber In Slot 3");
+                        cardsOnTable3.SendMessage("PlayCardForAI");
                     }
                     else
                     {
@@ -392,8 +410,6 @@ public class GameManager : MonoBehaviour
 
                 AICardDrawSystem.Instance.selectedCardCount--;
             }
-
-
         }
         if (cardsOnTable4 != null)
         {
@@ -407,8 +423,9 @@ public class GameManager : MonoBehaviour
                     {
                         increaseCard4GunCalled = true;
                         aiGunCount++;
+                        cardsOnTable4.SendMessage("PlayCardForAI");
                     }
-                    if (cardsOnTable4.name.Contains("bottle") && !increaseCard4SkipCalled)
+                    else if (cardsOnTable4.name.Contains("bottle") && !increaseCard4SkipCalled)
                     {
                         increaseCard4SkipCalled = true;
                         Debug.Log("BOTTLE IN CARD 4");
@@ -422,6 +439,12 @@ public class GameManager : MonoBehaviour
                         {
                             cardsOnTable4.SendMessage("PlayCardForAI");
                         }
+                    }
+                    else if (cardsOnTable4.name.Contains("Chamber") && !inAIReloadCalled)
+                    {
+                        Debug.Log("One In Chamber In Slot 4");
+                        inAIReloadCalled = true;
+                        cardsOnTable4.SendMessage("PlayCardForAI");
                     }
                     else
                     {
@@ -504,8 +527,6 @@ public class GameManager : MonoBehaviour
         isAiGun = true;
     }
 
-    
-
     IEnumerator WaitForGun(GameObject gun)
     {
         //print("scooby snack");
@@ -515,7 +536,6 @@ public class GameManager : MonoBehaviour
         //float t = 0.00f;
         yield return new WaitForSeconds(3f);
         
-
         bool PlayerShot = false;
         Gun.SetActive(false);
 
@@ -528,10 +548,7 @@ public class GameManager : MonoBehaviour
         {
             has2Guns = false;
             playerGunActive = true;
-            gun.SetActive(true);
-            
-            
-            
+            gun.SetActive(true);     
         }
         else if (gun.name == "PlayerGun" && playerGunActive)
         {
@@ -544,8 +561,7 @@ public class GameManager : MonoBehaviour
             has2Guns = false;
             aiGunActive = true;
             
-            gun.SetActive(true);
-            
+            gun.SetActive(true);         
         }
 
         else if (gun.name == "AiGun" && playerGunActive == true)
@@ -606,7 +622,6 @@ public class GameManager : MonoBehaviour
                 playerHand.RemoveFinger(playerFingers);
                 playerFingers--;
             }
-
         }
         CheckFingers();
     }
@@ -625,7 +640,6 @@ public class GameManager : MonoBehaviour
 
         playerFingersText.text = ("Player Fingers: " + playerFingers).ToString();
         aiFingersText.text = ("AI Fingers: " + aiFingers).ToString();
-
     }
 
     public void CheckArmour(int character, int type)
@@ -915,16 +929,13 @@ public class GameManager : MonoBehaviour
             Cursor.visible = crosshairUnlocked;
 
             // Only disable camera look when unlocking the cursor
-            freelookEnabled = !crosshairUnlocked;
-
-           
+            freelookEnabled = !crosshairUnlocked;       
         }
 
         if(Gun.activeInHierarchy == true && ShootScript.instance1 != null && ShootScript.instance2 != null)
         {
             ShootScript.instance1.clampActivated = false;
             ShootScript.instance2.clampActivated = false;
-
         }
 
         //print(playerFingers);
@@ -954,8 +965,6 @@ public class GameManager : MonoBehaviour
         {
             ShootScript.instance2.clampActivated = false;
         }
-
-
 
         //Transition To Bat Camera
         if (in4thPos && !isActionInProgress)
@@ -1143,6 +1152,18 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    public void FinishPlayerReload()
+    {
+        Debug.Log("CALLED FINISH PLAYER RELOAD");
+        inPlayerReloadCalled = false;
+    }
+
+    public void FinishAIReload()
+    {
+        Debug.Log("CALLED FINISH AI RELOAD");
+        inAIReloadCalled = false;
+    }
+
     private bool allActionsDone()
     {
         //print(inKnifeActionAiPlayed);
@@ -1161,10 +1182,14 @@ public class GameManager : MonoBehaviour
                     //Debug.Log("No gun in action");
                     if (!inBottleAction && !inAIBottleAction)
                     {
-                        Debug.Log("ALL ACTIONS DONE");
-                        isActionInProgress = false;
-                        canMoveOn = false;
-                        return true;
+                        if(!inPlayerReloadCalled && !inAIReloadCalled)
+                        {
+                            Debug.Log("ALL ACTIONS DONE");
+                            isActionInProgress = false;
+                            canMoveOn = false;
+
+                            return true;
+                        }
                     }
                 }
             }

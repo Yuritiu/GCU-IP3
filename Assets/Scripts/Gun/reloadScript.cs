@@ -35,8 +35,6 @@ public class reloadScript : MonoBehaviour
 
     public void moveGun()
     {
-        
-
         if (in1stPos == true && isActive == false)
         {
             in2ndPos=true;
@@ -44,7 +42,6 @@ public class reloadScript : MonoBehaviour
             //shootScript.gunAnim.Play("GunPause");
             StartCoroutine(gunTransition(targetPos));
             isActive = true;
-
         }
 
         else if (in2ndPos == true)
@@ -53,12 +50,9 @@ public class reloadScript : MonoBehaviour
             in2ndPos=false;
             //shootScript.gunAnim.Play("GunPause");
             StartCoroutine(gunTransition(gunPos));
-
+            
             isActive = false;
         }
-
-        
-        
 
         if(GameManager.Instance.inGunAction == true)
         {
@@ -68,10 +62,15 @@ public class reloadScript : MonoBehaviour
         }
     }
 
-
     void loadGun()
     {
         StartCoroutine(loadWeapon(chamber));
+    }
+
+    //Check If Gun Action Is Happening
+    private bool GunActionInProgress()
+    {
+        return GameManager.Instance.inGunAction|| GameManager.Instance.aiGunCount > 0;
     }
 
     private void Update()
@@ -92,7 +91,6 @@ public class reloadScript : MonoBehaviour
             Freelook.Instance.minY = -5;
             Freelook.Instance.maxY = 10;
         }
-
     }
 
     IEnumerator gunTransition(GameObject Target)
@@ -133,16 +131,21 @@ public class reloadScript : MonoBehaviour
         {
             loadGun();
         }
-        
-        
-        yield return null;
-        
+            
+        yield return null;    
     }
 
    
 
     IEnumerator loadWeapon(GameObject chamber)
     {
+        //Wait Until All Knife/Gun Actions Are Finished
+        while (GunActionInProgress())
+        {
+            Debug.Log("Gun action in progress! Waiting...");
+            yield return null;
+        }
+
         float x = chamber.transform.position.x;
         yield return new WaitForSeconds(0.3f);
         //chamber.transform.position = new Vector3(0.003f, chamber.transform.position.y, chamber.transform.position.z);
@@ -162,21 +165,20 @@ public class reloadScript : MonoBehaviour
             }
             yield return null;
         }
-        
-        
+               
         chamber.transform.position = new Vector3(x, chamber.transform.position.y, chamber.transform.position.z);
-        isActive = false;
-
-        
+        isActive = false;   
 
         moveGun();
         isActive = false;
 
-        
+        //Wait For Gun To Move Back To Table
+        yield return new WaitForSeconds(2f);
+
+        GameManager.Instance.FinishPlayerReload();
+        GameManager.Instance.FinishAIReload();
+
         yield return null;
-
-    }
-
-    
+    }    
 }
 

@@ -9,7 +9,7 @@ public class TooltipManager : MonoBehaviour
     public GameSettingsManager gameSettingsManager;
 
     [Header("References")]
-    [SerializeField] public TextMeshProUGUI clickToPlayHandText;
+    [SerializeField] public TextMeshProUGUI clickToPlayHandText = null;
 
     public bool assistsOn;
 
@@ -17,7 +17,7 @@ public class TooltipManager : MonoBehaviour
     {
         Instance = this;
 
-        float assistsEnabled = PlayerPrefs.GetInt("TipsEnabled");
+        int assistsEnabled = PlayerPrefs.GetInt("TipsEnabled");
         if (assistsEnabled == 1)
         {
             assistsOn = true;
@@ -32,6 +32,9 @@ public class TooltipManager : MonoBehaviour
 
     void FixedUpdate()
     {
+        if (GameManager.Instance == null)
+            return;
+
         if (!GameManager.Instance.canPlay)
         {
             clickToPlayHandText.enabled = false;
@@ -44,17 +47,19 @@ public class TooltipManager : MonoBehaviour
         }
     }
 
-    public void ToggleTooltips(bool toggle)
+    public void ToggleTooltips()
     {
-        if(toggle)
+        if(!assistsOn)
         {
             PlayerPrefs.SetInt("TipsEnabled", 1);
             assistsOn = true;
+            Debug.Log("ASSISTS TOGGLED ON");
         }
         else
         {
             PlayerPrefs.SetInt("TipsEnabled", 0);
             assistsOn = false;
+            Debug.Log("ASSISTS TOGGLED OFF");
         }
     }
 }

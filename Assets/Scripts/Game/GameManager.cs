@@ -173,11 +173,13 @@ public class GameManager : MonoBehaviour
 
     public bool gameEnded = false;
 
+    public bool displaySkipTurnText = false;
+
     async void Start()
     {
         Time.timeScale = 1f;
         originalCameraPosition.transform.position = MainCamera.transform.position;
-        playerSkippedTurnsText.enabled = false;
+        //playerSkippedTurnsText.enabled = false;
 
         await UnityServices.InitializeAsync();
 
@@ -233,6 +235,11 @@ public class GameManager : MonoBehaviour
 
         timesToShoot = 0;
 
+        if(playerSkippedTurns> 0)
+        {
+            displaySkipTurnText = true;
+        }
+
         if (!canPlay)
             return;
 
@@ -276,6 +283,7 @@ public class GameManager : MonoBehaviour
         if (playerSkippedTurns > 0)
         {
             CardDrawSystem.Instance.isPlayersTurn = false;
+            //nextTurnStarted = true;
 
             playerSkippedTurns--;
 
@@ -288,8 +296,8 @@ public class GameManager : MonoBehaviour
             //Debug
             CardDrawSystem.Instance.debugCurrentTurnText.text = ("Play Time");
 
-            playerSkippedTurnsText.text = "";
-            playerSkippedTurnsText.enabled = false;
+            //playerSkippedTurnsText.text = "";
+            //playerSkippedTurnsText.enabled = false;
         }
     }
 
@@ -315,7 +323,6 @@ public class GameManager : MonoBehaviour
     public async void ShowCards()
     {
         CardSelection.ClearAllHovers();
-
         if (aiSkippedTurns > 0)
         {
             aiSkippedTurns--;
@@ -465,6 +472,7 @@ public class GameManager : MonoBehaviour
         }
 
         canMoveOn = true;
+        //displaySkipTurnText = true;
 
         CardDrawSystem.Instance.isPlayersTurn = false;
         StartCoroutine(MoveCamera());
@@ -925,6 +933,7 @@ public class GameManager : MonoBehaviour
     private void Update()
     {
         UpdateAmmoText();
+        UpdateSkipTurnText();
 
         if (Input.GetKeyDown(KeyCode.Tab))
         {
@@ -1004,6 +1013,14 @@ public class GameManager : MonoBehaviour
         if (allActionsDone() == true)
         {
             StartCoroutine(WaitSoCardsCanReveal());
+        }
+    }
+
+    void UpdateSkipTurnText()
+    {
+        if (playerSkippedTurns == 0 && canPlay)
+        {
+            displaySkipTurnText = false;
         }
     }
 

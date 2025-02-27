@@ -21,12 +21,10 @@ public class TooltipManager : MonoBehaviour
         if (assistsEnabled == 1)
         {
             assistsOn = true;
-            Debug.Log("ASSISTS ON");
         }
         else
         {
             assistsOn = false;
-            Debug.Log("ASSISTS OFF");
         }
     }
 
@@ -38,12 +36,10 @@ public class TooltipManager : MonoBehaviour
         if (!GameManager.Instance.canPlay)
         {
             clickToPlayHandText.enabled = false;
-            Debug.Log("CANT PLAY");
         }
         else if(GameManager.Instance.canPlay && assistsOn)
         {
             clickToPlayHandText.enabled = true;
-            Debug.Log("CAN PLAY");
         }
     }
 
@@ -53,13 +49,13 @@ public class TooltipManager : MonoBehaviour
         {
             PlayerPrefs.SetInt("TipsEnabled", 1);
             assistsOn = true;
-            Debug.Log("ASSISTS TOGGLED ON");
+            //Debug.Log("ASSISTS TOGGLED ON");
         }
         else
         {
             PlayerPrefs.SetInt("TipsEnabled", 0);
             assistsOn = false;
-            Debug.Log("ASSISTS TOGGLED OFF");
+            //Debug.Log("ASSISTS TOGGLED OFF");
         }
     }
 }

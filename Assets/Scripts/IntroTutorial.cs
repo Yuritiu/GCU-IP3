@@ -25,12 +25,19 @@ public class IntroTutorial : MonoBehaviour
     {
         gameManager = FindFirstObjectByType<GameManager>();
 
-        if (gameManager.firstStepsTutorial == false)
+        if (gameManager.firstStepsTutorial == false && TooltipManager.Instance.assistsOn)
         {
             canvasGroup = GetComponent<CanvasGroup>();
             if (canvasGroup == null) canvasGroup = gameObject.AddComponent<CanvasGroup>();
 
             StartCoroutine(SafetyTimer());
+        }
+        else
+        {
+            canvasGroup = GetComponent<CanvasGroup>();
+            if (canvasGroup == null) canvasGroup = gameObject.AddComponent<CanvasGroup>();
+
+            canvasGroup.alpha = 0f;
         }
     }
 

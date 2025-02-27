@@ -140,7 +140,7 @@ public class BottleCard : MonoBehaviour
 
                 //Skip AI Turn
                 gameManager.aiSkipCount++;
-                GameManager.Instance.aiSkippedTurns++;
+                gameManager.aiSkippedTurns++;
 
                 playCardForPlayerCalled = false;
             }
@@ -173,7 +173,7 @@ public class BottleCard : MonoBehaviour
                 }
 
                 gameManager.playerSkipCount++;
-                GameManager.Instance.playerSkippedTurns++;
+                gameManager.playerSkippedTurns++;
             }
         }
     }

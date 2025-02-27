@@ -38485,7 +38485,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cardNames:
   - bottle
-  - chamber
+  - Chamber
   - armour
   - cigar
   - gun

@@ -15,6 +15,7 @@ public class CigarCard : MonoBehaviour
     [SerializeField] private AudioClip AICough;
 
     [Header("Smoke Effect")]
+    [SerializeField] AudioSource smokeAudioSource;
     VisualEffect smokeVFX;
     bool backfired = false;
 
@@ -80,6 +81,9 @@ public class CigarCard : MonoBehaviour
 
     public void PlaySmokeVFX(string objectName, string cardName)
     {
+        if (backfired)
+            return;
+
         GameObject targetObject = GameObject.Find(objectName);
         if (targetObject == null)
         {
@@ -94,11 +98,16 @@ public class CigarCard : MonoBehaviour
             return;
         }
 
-        if (backfired)
+        if (smokeAudioSource == null)
+        {
+            Debug.LogWarning("No Audio Source On Card");
             return;
+        }
 
         smokeVFX.GetComponent<VisualEffect>().enabled = true;
         smokeVFX.Play();
+
+        smokeAudioSource.Play();
 
         StartCoroutine(StopVFXAfterTime(smokeVFX, 0.3f));
 

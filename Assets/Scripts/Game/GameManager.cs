@@ -803,9 +803,9 @@ public class GameManager : MonoBehaviour
                     {
                         cardObject1.GetComponent<CigarCard>().PlaySmokeVFX("Player Smoke Graph 1", "gun");
                     }
-                    else if (cardObject2.name.Contains("chamber"))
+                    else if (cardObject2.name.Contains("Chamber"))
                     {
-                        cardObject1.GetComponent<CigarCard>().PlaySmokeVFX("Player Smoke Graph 1", "chamber");
+                        cardObject1.GetComponent<CigarCard>().PlaySmokeVFX("Player Smoke Graph 1", "Chamber");
                     }
                     else if (cardObject2.name.Contains("armour"))
                     {
@@ -836,9 +836,9 @@ public class GameManager : MonoBehaviour
                     {
                         cardObject2.GetComponent<CigarCard>().PlaySmokeVFX("Player Smoke Graph 2", "gun");
                     }
-                    else if (cardObject1.name.Contains("chamber"))
+                    else if (cardObject1.name.Contains("Chamber"))
                     {
-                        cardObject2.GetComponent<CigarCard>().PlaySmokeVFX("Player Smoke Graph 2", "chamber");
+                        cardObject2.GetComponent<CigarCard>().PlaySmokeVFX("Player Smoke Graph 2", "Chamber");
                     }
                     else if (cardObject1.name.Contains("armour"))
                     {
@@ -877,9 +877,9 @@ public class GameManager : MonoBehaviour
                     {
                         cardObject3.GetComponent<CigarCard>().PlaySmokeVFX("AI Smoke Graph 1", "gun");
                     }
-                    else if (cardObject4.name.Contains("chamber"))
+                    else if (cardObject4.name.Contains("Chamber"))
                     {
-                        cardObject3.GetComponent<CigarCard>().PlaySmokeVFX("AI Smoke Graph 1", "chamber");
+                        cardObject3.GetComponent<CigarCard>().PlaySmokeVFX("AI Smoke Graph 1", "Chamber");
                     }
                     else if (cardObject4.name.Contains("armour"))
                     {
@@ -910,9 +910,9 @@ public class GameManager : MonoBehaviour
                     {
                         cardObject4.GetComponent<CigarCard>().PlaySmokeVFX("AI Smoke Graph 2", "gun");
                     }
-                    else if (cardObject3.name.Contains("chamber"))
+                    else if (cardObject3.name.Contains("Chamber"))
                     {
-                        cardObject4.GetComponent<CigarCard>().PlaySmokeVFX("AI Smoke Graph 2", "chamber");
+                        cardObject4.GetComponent<CigarCard>().PlaySmokeVFX("AI Smoke Graph 2", "Chamber");
                     }
                     else if (cardObject3.name.Contains("armour"))
                     {

@@ -75,22 +75,7 @@ public class reloadScript : MonoBehaviour
 
     private void Update()
     {
-        if (in2ndPos == false)
-        {
-            Freelook.Instance.minX = -30;
-            Freelook.Instance.maxX = 60;
-            Freelook.Instance.minY = -75;
-            Freelook.Instance.maxY = 75;
-        }
 
-        if (in2ndPos == true)
-        {
-
-            Freelook.Instance.minX = -2;
-            Freelook.Instance.maxX = 18;
-            Freelook.Instance.minY = -5;
-            Freelook.Instance.maxY = 10;
-        }
     }
 
     IEnumerator gunTransition(GameObject Target)
@@ -106,11 +91,6 @@ public class reloadScript : MonoBehaviour
         float t = 0.00f;
         Vector3 startingpos = gun.transform.position;
         bool moveFinished = false;
-
-        Freelook.Instance.minX = -2;
-        Freelook.Instance.maxX = 18;
-        Freelook.Instance.minY = -5;
-        Freelook.Instance.maxY = 10;
 
         while (t < 1.0f && moveFinished == false )
         {

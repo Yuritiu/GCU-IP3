@@ -23,15 +23,18 @@ public class CameraController : MonoBehaviour
 
     [Header("Camera Position Targets")]
     public Transform positionTarget;
+    public Transform knifeTargetPoint;
 
     [Header("Lerp Settings")]
     public float positionLerpSpeed = 1f;
     public float rotationLerpSpeed = 1f;
     public float positionLerpDuration = 1f;
 
+    public bool cameraLocked = false; // Added to lock/unlock camera movement
+
     private Vector2 smoothedVelocity;
     private Vector2 currentLookingPos;
-    private Vector2 targetLookingPos;
+    public Vector2 targetLookingPos;
     private bool isRotatingToTarget = false;
     private bool isMovementUnlocked = true;
     private bool isInNewPosition = false;
@@ -50,18 +53,20 @@ public class CameraController : MonoBehaviour
         originalRotation = transform.rotation;
 
         mainCamera = Camera.main;
-
     }
 
     private void Update()
     {
-        if (isRotatingToTarget)
+        if (!cameraLocked) // Prevent movement if locked
         {
-            HandleTargetTransition();
-        }
-        else if (isMovementUnlocked)
-        {
-            HandleFreeMovement();
+            if (isRotatingToTarget)
+            {
+                HandleTargetTransition();
+            }
+            else if (isMovementUnlocked)
+            {
+                HandleFreeMovement();
+            }
         }
 
         CheckForKeyPresses();
@@ -120,7 +125,11 @@ public class CameraController : MonoBehaviour
         {
             isRotatingToTarget = false;
 
-            if (targetLookingPos == opponentTarget)
+            if (targetLookingPos == knifeTarget)
+            {
+                cameraLocked = true; // Lock camera ONLY after the knife transition
+            }
+            else if (targetLookingPos == opponentTarget)
             {
                 isMovementUnlocked = true;
                 if (isInNewPosition)
@@ -132,6 +141,7 @@ public class CameraController : MonoBehaviour
         }
     }
 
+
     public void SetCameraToBarTarget()
     {
         SetCameraTarget(barTarget);
@@ -139,7 +149,9 @@ public class CameraController : MonoBehaviour
 
     public void SetCameraToKnifeTarget()
     {
+        MoveCamera(knifeTargetPoint.position);
         SetCameraTarget(knifeTarget);
+        isInNewPosition = true;
     }
 
     public void SetCameraToOpponentTarget()
@@ -183,5 +195,4 @@ public class CameraController : MonoBehaviour
 
         transform.position = newPosition;
     }
-
 }

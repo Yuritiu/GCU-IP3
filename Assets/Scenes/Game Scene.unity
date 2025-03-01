@@ -1413,6 +1413,37 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 129490787}
   m_CullTransparentMesh: 1
+--- !u!1 &139760395
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 139760396}
+  m_Layer: 0
+  m_Name: AboveKnifePoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &139760396
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 139760395}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.23, y: 1.1, z: -0.58}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &159581999
 GameObject:
   m_ObjectHideFlags: 0
@@ -5088,6 +5119,37 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 421396587}
   m_CullTransparentMesh: 1
+--- !u!1 &453174602
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 453174603}
+  m_Layer: 0
+  m_Name: AboveTablePoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &453174603
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 453174602}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 1.429, z: -0.129}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &454031532
 GameObject:
   m_ObjectHideFlags: 0
@@ -16341,7 +16403,7 @@ GameObject:
   - component: {fileID: 565869794}
   - component: {fileID: 565869793}
   - component: {fileID: 565869792}
-  - component: {fileID: 565869791}
+  - component: {fileID: 565869802}
   - component: {fileID: 565869796}
   - component: {fileID: 565869795}
   - component: {fileID: 565869797}
@@ -16356,33 +16418,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &565869791
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 565869790}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 12a4e0d32b439ea428da225cba15e1c5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  mouseSensitivity: 350
-  mouseSmoothing: 5
-  minX: -30
-  maxX: 60
-  minY: -75
-  maxY: 75
-  xRotation: 0
-  currentXRotation: 0
-  yRotation: 0
-  currentYRotation: 0
-  mouseY: 0
-  mouseX: 0
-  canLook: 1
-  reset: 0
-  inBatSwing: 0
 --- !u!81 &565869792
 AudioListener:
   m_ObjectHideFlags: 0
@@ -16990,6 +17025,34 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &565869802
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 565869790}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 177a6d59aea9c6b4c89fbee2995a89f1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sensitivity: 300
+  enableSmoothing: 1
+  smoothing: 5
+  xClamp: {x: -75, y: 75}
+  zClamp: {x: -30, y: 60}
+  barTarget: {x: 46, y: -12}
+  knifeTarget: {x: -21.8, y: 25.68}
+  opponentTarget: {x: 0, y: 0}
+  positionRotationTarget: {x: 0, y: 80}
+  positionTarget: {fileID: 453174603}
+  knifeTargetPoint: {fileID: 139760396}
+  positionLerpSpeed: 8
+  rotationLerpSpeed: 4
+  positionLerpDuration: 0.5
+  cameraLocked: 0
+  targetLookingPos: {x: 0, y: 0}
 --- !u!1 &566393988 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 3eda67498c248c14f86a32121030e134, type: 3}
@@ -32730,7 +32793,11 @@ PrefabInstance:
     - target: {fileID: 115285935265018789, guid: 5213701ca0a20e14f970ed250f6b113b, type: 3}
       propertyPath: freelookScript
       value: 
-      objectReference: {fileID: 565869791}
+      objectReference: {fileID: 0}
+    - target: {fileID: 115285935265018789, guid: 5213701ca0a20e14f970ed250f6b113b, type: 3}
+      propertyPath: cameraController
+      value: 
+      objectReference: {fileID: 565869802}
     - target: {fileID: 210386123449982730, guid: 5213701ca0a20e14f970ed250f6b113b, type: 3}
       propertyPath: m_AnchorMax.x
       value: 1
@@ -173529,6 +173596,8 @@ SceneRoots:
   - {fileID: 694210905}
   - {fileID: 159582003}
   - {fileID: 565869794}
+  - {fileID: 453174603}
+  - {fileID: 139760396}
   - {fileID: 2092305624}
   - {fileID: 952571704}
   - {fileID: 1163542274}

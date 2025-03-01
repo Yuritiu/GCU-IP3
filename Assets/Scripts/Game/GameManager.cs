@@ -38,18 +38,8 @@ public class GameManager : MonoBehaviour
     private bool pPressed;
 
     [SerializeField] public float speed;
-    [SerializeField] public Transform Target1;
-    [SerializeField] public Transform Target2;
-    [SerializeField] public Transform Target3;
-    [SerializeField] public Transform Target4;
-    [SerializeField] public Transform Target5;
-    [SerializeField] public Transform Target6;
-    [SerializeField] public Transform Target7;
-    [SerializeField] public Transform Target8;
-    [HideInInspector] public bool in2ndPos;
-    [HideInInspector] public bool in3rdPos;
-    [HideInInspector] public bool in4thPos;
-    [HideInInspector] public bool in5thPos;
+
+    public CameraController cameraController;
 
     private Vector3 tablePosition;
     private Quaternion rotation;
@@ -185,6 +175,8 @@ public class GameManager : MonoBehaviour
 
         tablePosition = Gun.transform.position;
         rotation = Gun.transform.rotation;
+
+        cameraController = FindFirstObjectByType<CameraController>();
     }
 
     private void Awake()
@@ -196,9 +188,6 @@ public class GameManager : MonoBehaviour
 
         wPressed = false;
         sPressed = false;
-        in2ndPos = false;
-        in3rdPos = false;
-        in4thPos = false;
 
         isTutorial = false;
         canPlay = true;
@@ -517,16 +506,14 @@ public class GameManager : MonoBehaviour
 
     IEnumerator MoveCamera()
     {
-        in2ndPos = true;
-        StartCoroutine(CameraTransitionIEnum(Target2));
+        cameraController.SetCameraToPositionTarget();
 
         //waits for cards to reveal
         yield return new WaitForSeconds(3f);
-        in2ndPos = false;
 
-        if (!in3rdPos && !in4thPos)
+        if(cameraController.targetLookingPos != cameraController.knifeTarget)
         {
-            StartCoroutine(CameraTransitionIEnum(Target1));
+            cameraController.SetCameraToOpponentTarget();
         }
 
         IsReadyToCompare = true;
@@ -1006,30 +993,6 @@ public class GameManager : MonoBehaviour
             ShootScript.instance2.clampActivated = false;
         }
 
-        //Transition To Bat Camera
-        if (in4thPos && !isActionInProgress)
-        {
-            isActionInProgress = true;
-            in2ndPos = false;
-            in3rdPos = false;
-            in4thPos = true;
-            in5thPos = false;
-
-            StartCoroutine(HandleCameraTransition(Target7));
-        }
-
-        //Transition To Bat Camera
-        if (in5thPos && !isActionInProgress)
-        {
-            isActionInProgress = true;
-            in2ndPos = false;
-            in3rdPos = false;
-            in4thPos = false;
-            in5thPos = true;
-
-            StartCoroutine(HandleCameraTransition(Target7));
-        }
-
         if (allActionsDone() == true)
         {
             StartCoroutine(WaitSoCardsCanReveal());
@@ -1063,106 +1026,6 @@ public class GameManager : MonoBehaviour
         gunBackfire.gameObject.SetActive(false);
         twoInChamberBackfire.gameObject.SetActive(false);
         cigarBackfire.gameObject.SetActive(false);
-    }
-
-    public IEnumerator HandleCameraTransition(Transform target)
-    {
-        yield return CameraTransitionIEnum(target);
-    }
-
-    public IEnumerator CameraTransitionIEnum(Transform Target)
-    {
-        float t = 0.00f;
-        Vector3 startingpos = MainCamera.transform.position;
-
-        // Transition when not in 2nd or 3rd positions
-        while (t < 1.0f && !in2ndPos && !in3rdPos && !in4thPos && !in5thPos)
-        {
-            t += Time.deltaTime * (Time.timeScale * speed);
-            MainCamera.transform.position = Vector3.Lerp(startingpos, Target.position, t);
-
-            if (t >= 1.0f)
-                isActionInProgress = false;
-            yield return null;
-        }
-
-        //Transition to 2nd position
-        while (in2ndPos && t < 1.0f)
-        {
-            t += Time.deltaTime * (Time.timeScale * speed);
-            MainCamera.transform.position = Vector3.Lerp(startingpos, Target.position, t);
-            MainCamera.transform.rotation = Quaternion.Slerp(MainCamera.transform.rotation, Quaternion.LookRotation(Target5.position - MainCamera.transform.position), speed * Time.deltaTime);
-
-            if (t >= 1.0f)
-                isActionInProgress = false;
-
-            yield return null;
-        }
-
-        //Maintain 2nd position rotation
-        while (in2ndPos)
-        {
-            MainCamera.transform.rotation = Quaternion.Slerp(MainCamera.transform.rotation, Quaternion.LookRotation(Target5.position - MainCamera.transform.position), speed * Time.deltaTime);
-
-            yield return null;
-        }
-
-        //Transition to 3rd position
-        while (in3rdPos && t < 1.0f)
-        {
-            t += Time.deltaTime * (Time.timeScale * speed);
-            MainCamera.transform.position = Vector3.Lerp(startingpos, Target.position, t);
-            MainCamera.transform.rotation = Quaternion.Slerp(MainCamera.transform.rotation, Quaternion.LookRotation(Target6.position - MainCamera.transform.position), speed * Time.deltaTime);
-
-            yield return null;
-        }
-
-        //Maintain 3rd position rotation
-        while (in3rdPos)
-        {
-            isActionInProgress = true;
-            MainCamera.transform.rotation = Quaternion.Slerp(MainCamera.transform.rotation, Quaternion.LookRotation(Target6.position - MainCamera.transform.position), speed * Time.deltaTime);
-
-            yield return null;
-        }
-
-        //Transition to 4th position
-        while (in4thPos && t < 1.0f)
-        {
-            t += Time.deltaTime * (Time.timeScale * speed);
-            MainCamera.transform.position = Vector3.Lerp(startingpos, Target.position, t);
-            MainCamera.transform.rotation = Quaternion.Slerp(MainCamera.transform.rotation, Quaternion.LookRotation(Target7.position - MainCamera.transform.position), speed * Time.deltaTime);
-
-            yield return null;
-        }
-
-        //Maintain 4th position rotation
-        while (in4thPos)
-        {
-            isActionInProgress = true;
-            MainCamera.transform.rotation = Quaternion.Slerp(MainCamera.transform.rotation, Quaternion.LookRotation(Target7.position - MainCamera.transform.position), speed * Time.deltaTime);
-
-            yield return null;
-        }
-
-        //Transition to 5th position
-        while (in5thPos && t < 1.0f)
-        {
-            t += Time.deltaTime * (Time.timeScale * speed);
-            MainCamera.transform.position = Vector3.Lerp(startingpos, Target.position, t);
-            MainCamera.transform.rotation = Quaternion.Slerp(MainCamera.transform.rotation, Quaternion.LookRotation(Target8.position - MainCamera.transform.position), speed * Time.deltaTime);
-
-            yield return null;
-        }
-
-        //Maintain 5th position rotation
-        while (in5thPos)
-        {
-            isActionInProgress = true;
-            MainCamera.transform.rotation = Quaternion.Slerp(MainCamera.transform.rotation, Quaternion.LookRotation(Target8.position - MainCamera.transform.position), speed * Time.deltaTime);
-
-            yield return null;
-        }
     }
 
     public void EndGameWin()

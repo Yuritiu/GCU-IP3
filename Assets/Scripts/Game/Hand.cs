@@ -34,6 +34,8 @@ public class Hand : MonoBehaviour
     [SerializeField] public ParticleSystem bloodParticleSystem4;
     [SerializeField] public ParticleSystem bloodParticleSystem5;
 
+    public CameraController cameraController;
+
     private void Awake()
     {
         Instance = this;
@@ -61,6 +63,8 @@ public class Hand : MonoBehaviour
         }
 
         turn.y = 9;
+
+        cameraController = FindFirstObjectByType<CameraController>();
     }
 
     private void Update()
@@ -176,11 +180,10 @@ public class Hand : MonoBehaviour
             Transform knifeGameObject = knife.gameObject.transform;
             actionUI.SetActive(true);
             //move camera infront of hand
-            GameManager.Instance.in2ndPos = false;
-            GameManager.Instance.in3rdPos = true;
             GameManager.Instance.cameraMovement = false; //disables W S P Camera controls
-            StartCoroutine(GameManager.Instance.CameraTransitionIEnum(GameManager.Instance.Target3));
-            
+            cameraController.SetCameraToKnifeTarget();
+
+
             turn.y = 9;
 
             //LERP needed
@@ -265,8 +268,8 @@ public class Hand : MonoBehaviour
     {
         yield return new WaitForSeconds(1f);
         GameManager.Instance.cameraMovement = true;
-        GameManager.Instance.in3rdPos = false;
-        StartCoroutine(GameManager.Instance.CameraTransitionIEnum(GameManager.Instance.Target1));
+        cameraController.SetCameraToOpponentTarget();
+        cameraController.cameraLocked = false;
     }
 
 }

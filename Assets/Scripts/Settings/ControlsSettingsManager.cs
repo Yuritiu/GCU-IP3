@@ -7,7 +7,7 @@ public class ControlsSettingsManager : MonoBehaviour
     [Header("Mouse Sensitivity")]
     [SerializeField] private Slider sensitivitySlider;
     [SerializeField] private TextMeshProUGUI sensitivityValueText;
-    [SerializeField] private Freelook freelookScript;
+    [SerializeField] private CameraController cameraController;
 
     private const string MouseSensitivityKey = "MouseSensitivity";
 
@@ -23,7 +23,7 @@ public class ControlsSettingsManager : MonoBehaviour
 
     private void OnSensitivityChanged(float value)
     {
-        freelookScript.mouseSensitivity = value * 10f;
+        cameraController.sensitivity = value * 10f;
         UpdateSensitivityDisplay();
         SaveSettings();
     }
@@ -35,14 +35,14 @@ public class ControlsSettingsManager : MonoBehaviour
 
     public void SaveSettings()
     {
-        PlayerPrefs.SetFloat(MouseSensitivityKey, freelookScript.mouseSensitivity);
+        PlayerPrefs.SetFloat(MouseSensitivityKey, cameraController.sensitivity);
         PlayerPrefs.Save();
     }
 
     public void LoadSettings()
     {
         float savedSensitivity = PlayerPrefs.GetFloat(MouseSensitivityKey, 350f);
-        freelookScript.mouseSensitivity = savedSensitivity;
+        cameraController.sensitivity = savedSensitivity;
         sensitivitySlider.value = savedSensitivity / 10f;
         UpdateSensitivityDisplay();
     }

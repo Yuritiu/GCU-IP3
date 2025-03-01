@@ -100,22 +100,6 @@ public class ShootScript : MonoBehaviour
             }
         }
 
-        if (clampActivated == false)
-        {
-            Freelook.Instance.minX = -30;
-            Freelook.Instance.maxX = 60;
-            Freelook.Instance.minY = -75;
-            Freelook.Instance.maxY = 75;
-        }
-        
-
-        if (clampActivated == true)
-        {
-            Freelook.Instance.minX = -2;
-            Freelook.Instance.maxX = 18;
-            Freelook.Instance.minY = -5;
-            Freelook.Instance.maxY = 10;
-        }
 
         if (currentRotation > 0 && gunName == "PlayerGun" && firePressed ==false) ;
         {
@@ -230,13 +214,6 @@ public class ShootScript : MonoBehaviour
             GameManager.Instance.CheckArmour(1, 3);
             GameManager.Instance.bullets--;
         }
-
-        
-        Freelook.Instance.minX = -30;
-        Freelook.Instance.maxX = 60;
-        Freelook.Instance.minY = -75;
-        Freelook.Instance.maxY = 75;
-
 
         GameManager.Instance.playerGunActive = false;
         GameManager.Instance.Gun.SetActive(true);

@@ -156,6 +156,7 @@ public class CameraController : MonoBehaviour
 
     public void SetCameraToOpponentTarget()
     {
+        cameraLocked = false;
         MoveCamera(originalPosition);
         SetCameraTarget(opponentTarget);
         isInNewPosition = false;

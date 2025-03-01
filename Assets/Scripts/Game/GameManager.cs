@@ -508,16 +508,16 @@ public class GameManager : MonoBehaviour
     {
         cameraController.SetCameraToPositionTarget();
 
-        //waits for cards to reveal
         yield return new WaitForSeconds(3f);
 
-        if(cameraController.targetLookingPos != cameraController.knifeTarget)
+        if (cameraController.targetLookingPos != cameraController.barTarget && cameraController.targetLookingPos != cameraController.knifeTarget)
         {
             cameraController.SetCameraToOpponentTarget();
         }
 
         IsReadyToCompare = true;
     }
+
 
     IEnumerator WaitSoCardsCanReveal()
     {

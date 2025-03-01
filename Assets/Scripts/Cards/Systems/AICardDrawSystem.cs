@@ -48,6 +48,11 @@ public class AICardDrawSystem : MonoBehaviour
     [Header("cards that have been used")]
     private int selectedCard1Index = 0;
 
+    [Header("Dev Console Variables")]
+    //If True -> AI Waits For Manual Draw Input
+    [HideInInspector] public bool manualMode = false;
+    public Queue<GameObject> manualDrawQueue = new Queue<GameObject>();
+
     private void Awake()
     {
         Instance = this;
@@ -111,7 +116,6 @@ public class AICardDrawSystem : MonoBehaviour
             StartCoroutine(MoveCardToSlot(cardsInHand[i], originalPositions[i].position, originalPositions[i].rotation, 0.5f, i * 0.3f, i));
         }
         
-                
         //Debug.Log("Deck Count After Creating Hand: " + CardDeck.Instance.deck.Count);
     }
 
@@ -178,6 +182,57 @@ public class AICardDrawSystem : MonoBehaviour
 
     public Component SelectCard()
     {
+        if (manualMode && manualDrawQueue.Count > 0)
+        {
+            //Dequeue The Next Card Prefab From Manual Draw Queue
+            GameObject cardPrefab = manualDrawQueue.Dequeue();
+
+            if (cardPrefab != null)
+            {
+                for (int i = 0; i < cardsInHand.Length; i++)
+                {
+                    //Only Select Empty Slots And Check There Are Cards In The Deck
+                    if (cardsInHand[i] == null && CardDeck.Instance.deck.Count > 0)
+                    {
+                        if (selectedCardCount == 0)
+                        {
+                            selectedCardCount++;
+
+                            //Get Top Of The Deck For Second Card
+                            var playingDeckLocation = CardDrawSystem.Instance.playingDeckLocation;
+                            float currentTopDeckPosition = CardDeck.Instance.currentDeckStackHeight + playingDeckLocation.transform.position.y;
+                            Vector3 playingDeckTopLocation = new Vector3(playingDeckLocation.transform.position.x, currentTopDeckPosition, playingDeckLocation.transform.position.z);
+
+                            cardsInHand[i] = Instantiate(cardPrefab, playingDeckTopLocation, Quaternion.Euler(90, 0, 0));
+                            MoveCard1ToPosition(i, selectedPosition1, cardsInHand[i].transform);
+
+                            return cardsInHand[i].GetComponent<Component>();
+                        }
+                        else if (selectedCardCount == 1)
+                        {
+                            selectedCardCount++;
+
+                            //Get Top Of The Deck For Second Card
+                            var playingDeckLocation = CardDrawSystem.Instance.playingDeckLocation;
+                            float currentTopDeckPosition = CardDeck.Instance.currentDeckStackHeight + playingDeckLocation.transform.position.y;
+                            Vector3 playingDeckTopLocation = new Vector3(playingDeckLocation.transform.position.x, currentTopDeckPosition, playingDeckLocation.transform.position.z);
+
+                            cardsInHand[i] = Instantiate(cardPrefab, playingDeckTopLocation, Quaternion.Euler(90, 0, 0));
+                            MoveCard2ToPosition(i, selectedPosition2, cardsInHand[i].transform);
+
+                            return cardsInHand[i].GetComponent<Component>();
+                        }
+                    }
+                }
+            }
+            else
+            {
+                Debug.LogWarning("Card Prefab Is Null");
+                return null;
+            }
+        }
+
+        //If Not In Manual Mode -> Proceed With AI's Random Selection
         int index;
 
         if (IsAnyCardMoving())
@@ -185,30 +240,34 @@ public class AICardDrawSystem : MonoBehaviour
             return null;
         }
 
-        //picks cards AI will use
+        //Pick a random card index (for AI)
         index = Random.Range(0, 4);
-        //for debugging
-        //index = 0; 
-        //print(index);
 
+        //Debugging purposes
+        //index = 0; // For debugging, force it to always pick the first card
+
+        //Check if all cards are not null
         if (cardsInHand[0] != null && cardsInHand[1] != null && cardsInHand[2] != null && cardsInHand[3] != null)
         {
-            if (cardsInHand[0].name.Contains("cigar") && cardsInHand[1].name.Contains("cigar") && cardsInHand[2].name.Contains("cigar") && cardsInHand[3].name.Contains("cigar"))
+            //If all cards contain the "cigar" in their name, handle them specially
+            if (cardsInHand[0].name.Contains("cigar") && cardsInHand[1].name.Contains("cigar") &&
+                cardsInHand[2].name.Contains("cigar") && cardsInHand[3].name.Contains("cigar"))
             {
                 selectedCardCount++;
-                //Move To Selected Position 1
+                //Move the selected card to the first selected position
                 MoveCard1ToPosition(index, selectedPosition1, cardsInHand[index].transform);
                 selectedCard1Index = index;
                 return cardsInHand[index].GetComponentAtIndex(0);
             }
         }
 
-        if (cardsInHand[index] != null && (index != bannedCard) && (index != bannedCard2))
+        //Ensure the selected card isn't banned
+        if (cardsInHand[index] != null && index != bannedCard && index != bannedCard2)
         {
             if (selectedCardCount == 0 && !cardsInHand[index].name.Contains("cigar"))
             {
                 selectedCardCount++;
-                //Move To Selected Position 1
+                //Move the selected card to the first selected position
                 MoveCard1ToPosition(index, selectedPosition1, cardsInHand[index].transform);
                 selectedCard1Index = index;
                 return cardsInHand[index].GetComponentAtIndex(0);
@@ -216,7 +275,7 @@ public class AICardDrawSystem : MonoBehaviour
             else if (selectedCardCount == 1 && index != selectedCard1Index)
             {
                 selectedCardCount++;
-                //Move To Selected Position 2
+                //Move the second selected card to the second selected position
                 MoveCard2ToPosition(index, selectedPosition2, cardsInHand[index].transform);
                 return cardsInHand[index].GetComponentAtIndex(1);
             }
@@ -224,6 +283,7 @@ public class AICardDrawSystem : MonoBehaviour
 
         return null;
     }
+
 
     bool IsAnyCardMoving()
     {
@@ -387,6 +447,18 @@ public class AICardDrawSystem : MonoBehaviour
 
     public void AddCardAfterTurn()
     {
+        if (manualMode)
+        {
+            Debug.Log("Manual Mode is ON. Waiting For Player To Select Card(s) Using 'set_ai_draw'");
+
+            return;
+        }
+
+        DrawAndAddCard();
+    }
+
+    void DrawAndAddCard() 
+    {
         //Debug.Log("Attempting To Add An AI Card After The Turn...");
 
         var playingDeckLocation = CardDrawSystem.Instance.playingDeckLocation;
@@ -531,5 +603,77 @@ public class AICardDrawSystem : MonoBehaviour
             }
             bannedCard2 = -1;
         }
+    }
+
+    //-----------------------------------------------DEV CONSOLE FUNCTIONS-----------------------------------------------
+    public void ToggleManualDrawMode()
+    {
+        manualMode = !manualMode;
+        //Remove All Cards In Current AI Hand
+        ManualDeleteCardsInHand();
+
+        if (manualMode)
+        {
+            DevConsole.Instance.debugText.text = "Manual Draw Mode Enabled";
+        }
+        else
+        {
+            DevConsole.Instance.debugText.text = "Manual Draw Mode Disabled";
+        }
+    }
+
+    public void ManualDeleteCardsInHand()
+    {
+        for (int i = 0; i < cardsInHand.Length; i++)
+        {
+            if (cardsInHand[i] != null)
+            {
+                Destroy(cardsInHand[i].gameObject);
+                cardsInHand[i] = null;
+            }
+        }
+    }
+
+    public void ListAvailableCards()
+    {
+        if (CardDeck.Instance.deck.Count == 0)
+        {
+            DevConsole.Instance.debugText.text = "No Cards Available In Deck";
+            return;
+        }
+
+        List<string> cardNames = CardDeck.Instance.deck
+            .Select(card => card.name)
+            .Distinct()
+            .ToList();
+
+        DevConsole.Instance.debugText.text = ("Available Cards: " + string.Join(", ", cardNames));
+    }
+
+    public void SetNextDrawCards(string[] cardNames)
+    {
+        if (!manualMode)
+        {
+            DevConsole.Instance.debugText.text = "Enable Manual Mode first: Use 'manualdraw'";
+            return;
+        }
+
+        manualDrawQueue.Clear();
+
+        foreach (string name in cardNames)
+        {
+            GameObject cardPrefab = CardDeck.Instance.deck.FirstOrDefault(c => c.name.ToLower().Contains(name.ToLower()));
+            if (cardPrefab != null)
+            {
+                //If A Card Matching The Keyword Is Found -> Enqueue The Card Prefab
+                manualDrawQueue.Enqueue(cardPrefab);
+            }
+            else
+            {
+                DevConsole.Instance.debugText.text = ($"No Card Found With Keyword: {name}");
+            }
+        }
+
+        DevConsole.Instance.debugText.text = ($"Queued {manualDrawQueue.Count} Cards For AI Draw.");
     }
 }

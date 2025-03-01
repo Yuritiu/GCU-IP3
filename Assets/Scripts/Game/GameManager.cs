@@ -486,12 +486,32 @@ public class GameManager : MonoBehaviour
 
     IEnumerator AIPlaceCards()
     {
-        //waits for cards to reveal
+        //If There Are Cards In Manual Queue -> Select Them
+        if (AICardDrawSystem.Instance.manualMode && AICardDrawSystem.Instance.manualDrawQueue.Count > 0)
+        {
+            //Manually Select Card For Slot 3
+            cardsOnTable3 = (Component)AICardDrawSystem.Instance.SelectCard();
+        }
+        else
+        {
+            cardsOnTable3 = (Component)AICardDrawSystem.Instance.SelectCard();
+        }
+
         yield return new WaitForSeconds(0.3f);
-        cardsOnTable3 = AICardDrawSystem.Instance.SelectCard();
+
+        //If There Are Cards In Manual Queue -> Select Them
+        if (AICardDrawSystem.Instance.manualMode && AICardDrawSystem.Instance.manualDrawQueue.Count > 0)
+        {
+            //Manually Select Card For Slot 4
+            cardsOnTable4 = (Component)AICardDrawSystem.Instance.SelectCard();
+        }
+        else
+        {
+            cardsOnTable4 = (Component)AICardDrawSystem.Instance.SelectCard();
+        }
+
         yield return new WaitForSeconds(0.3f);
-        cardsOnTable4 = AICardDrawSystem.Instance.SelectCard();
-        yield return new WaitForSeconds(0.3f);
+
         ShowCards();
     }
 

@@ -16,6 +16,8 @@ public class reloadScript : MonoBehaviour
     [SerializeField] ShootScript shootScript;
     private bool isActive = false;
 
+    private CameraController cameraController;
+
     public bool reloadHappened;
     public GameObject chamber;
 
@@ -31,6 +33,7 @@ public class reloadScript : MonoBehaviour
     private void Start()
     {
         in1stPos = true;
+        cameraController = FindFirstObjectByType<CameraController>();
     }
 
     public void moveGun()
@@ -40,6 +43,7 @@ public class reloadScript : MonoBehaviour
             in2ndPos=true;
             in1stPos= false;
             //shootScript.gunAnim.Play("GunPause");
+
             StartCoroutine(gunTransition(targetPos));
             isActive = true;
         }
@@ -80,6 +84,7 @@ public class reloadScript : MonoBehaviour
 
     IEnumerator gunTransition(GameObject Target)
     {
+        cameraController.SetCameraToReloadTarget();
         if (in2ndPos == true)
         {
             yield return new WaitForSeconds(4f);
@@ -154,6 +159,7 @@ public class reloadScript : MonoBehaviour
 
         //Wait For Gun To Move Back To Table
         yield return new WaitForSeconds(2f);
+        cameraController.SetCameraToOpponentTarget();
 
         GameManager.Instance.FinishPlayerReload();
         GameManager.Instance.FinishAIReload();

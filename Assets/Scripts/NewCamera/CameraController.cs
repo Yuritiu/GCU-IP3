@@ -12,12 +12,19 @@ public class CameraController : MonoBehaviour
     public float smoothing = 5f;
 
     [Header("Look Boundaries")]
-    public Vector2 xClamp = new Vector2(-90f, 90f);
+    public bool gunInHand = false;
+    public Vector2 xClamp = new Vector2(-75f, 75f);
     public Vector2 zClamp = new Vector2(-45f, 45f);
+    public Vector2 gunXClamp = new Vector2(-50f, 50f);
+    public Vector2 gunZClamp = new Vector2(-25f, 25f);
+    private Vector2 originalXClamp;
+    private Vector2 originalZClamp;
+
 
     [Header("Target Points")]
     public Vector2 barTarget = new Vector2(0f, 0f);
     public Vector2 knifeTarget = new Vector2(0f, 0f);
+    public Vector2 reloadTarget = new Vector2(0f, 0f);
     public Vector2 opponentTarget = new Vector2(0f, 0f);
     public Vector2 positionRotationTarget = new Vector2(0f, 0f);
 
@@ -52,12 +59,26 @@ public class CameraController : MonoBehaviour
         originalPosition = transform.position;
         originalRotation = transform.rotation;
 
+        originalXClamp = xClamp;
+        originalZClamp = zClamp;
+
         mainCamera = Camera.main;
     }
 
     private void Update()
     {
-        if (!cameraLocked) // Prevent movement if locked
+        if (gunInHand)
+        {
+            xClamp = gunXClamp;
+            zClamp = gunZClamp;
+        }
+        else
+        {
+            xClamp = originalXClamp;
+            zClamp = originalZClamp;
+        }
+
+        if (!cameraLocked)
         {
             if (isRotatingToTarget)
             {
@@ -127,8 +148,14 @@ public class CameraController : MonoBehaviour
 
             if (targetLookingPos == knifeTarget)
             {
-                cameraLocked = true; // Lock camera ONLY after the knife transition
+                cameraLocked = true;
             }
+
+            if (targetLookingPos == reloadTarget)
+            {
+                cameraLocked = true;
+            }
+
             else if (targetLookingPos == opponentTarget)
             {
                 isMovementUnlocked = true;
@@ -145,6 +172,11 @@ public class CameraController : MonoBehaviour
     public void SetCameraToBarTarget()
     {
         SetCameraTarget(barTarget);
+    }
+
+    public void SetCameraToReloadTarget()
+    {
+        SetCameraTarget(reloadTarget);
     }
 
     public void SetCameraToKnifeTarget()

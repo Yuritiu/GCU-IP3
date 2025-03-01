@@ -10363,6 +10363,10 @@ PrefabInstance:
       propertyPath: earRinging
       value: 
       objectReference: {fileID: 8300000, guid: 817994af5d119db4099c692f188486f1, type: 3}
+    - target: {fileID: 5128300180416186954, guid: 24c94e7929bad4b408a3c87aac8caa73, type: 3}
+      propertyPath: cameraController
+      value: 
+      objectReference: {fileID: 565869802}
     - target: {fileID: 5333116497694472727, guid: 24c94e7929bad4b408a3c87aac8caa73, type: 3}
       propertyPath: m_LocalScale.x
       value: 0.1
@@ -17040,10 +17044,14 @@ MonoBehaviour:
   sensitivity: 300
   enableSmoothing: 1
   smoothing: 5
+  gunInHand: 0
   xClamp: {x: -75, y: 75}
   zClamp: {x: -30, y: 60}
+  gunXClamp: {x: -2, y: 4}
+  gunZClamp: {x: 0, y: 18}
   barTarget: {x: 46, y: -12}
   knifeTarget: {x: -21.8, y: 25.68}
+  reloadTarget: {x: 0, y: 17}
   opponentTarget: {x: 0, y: 0}
   positionRotationTarget: {x: 0, y: 80}
   positionTarget: {fileID: 453174603}
@@ -25145,6 +25153,10 @@ PrefabInstance:
       propertyPath: earRinging
       value: 
       objectReference: {fileID: 8300000, guid: 817994af5d119db4099c692f188486f1, type: 3}
+    - target: {fileID: 5128300180416186954, guid: 24c94e7929bad4b408a3c87aac8caa73, type: 3}
+      propertyPath: cameraController
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 5333116497694472727, guid: 24c94e7929bad4b408a3c87aac8caa73, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0.628
@@ -36256,6 +36268,10 @@ PrefabInstance:
       propertyPath: earRinging
       value: 
       objectReference: {fileID: 8300000, guid: 817994af5d119db4099c692f188486f1, type: 3}
+    - target: {fileID: 5128300180416186954, guid: 24c94e7929bad4b408a3c87aac8caa73, type: 3}
+      propertyPath: cameraController
+      value: 
+      objectReference: {fileID: 565869802}
     - target: {fileID: 5333116497694472727, guid: 24c94e7929bad4b408a3c87aac8caa73, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0.0158

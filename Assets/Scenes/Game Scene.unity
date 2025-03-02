@@ -56854,6 +56854,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gameSettingsManager: {fileID: 1304636265}
   clickToPlayHandText: {fileID: 2056392821}
+  valueText: {fileID: 203046503}
   assistsOn: 0
 --- !u!1 &2112440552 stripped
 GameObject:

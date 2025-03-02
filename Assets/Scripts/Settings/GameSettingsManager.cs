@@ -46,7 +46,7 @@ public class GameSettingsManager : MonoBehaviour
     void Start()
     {
         LoadSettings();
-        InitializeSetting(assistsSetting, ApplyAssists);
+        //InitializeSetting(assistsSetting, ApplyAssists);
     }
 
     void InitializeSetting(Setting setting, System.Action applyAction)
@@ -63,20 +63,20 @@ public class GameSettingsManager : MonoBehaviour
         applyAction?.Invoke();
     }
 
-    void ApplyAssists()
-    {
-        switch (assistsSetting.currentIndex)
-        {
-            case 0: //Yes
-                assistsOn = true;
-                TooltipObjectToggle();
-                break;
-            case 1: //No
-                assistsOn = false;
-                TooltipObjectToggle();
-                break;
-        }
-    }
+    //void ApplyAssists()
+    //{
+    //    switch (assistsSetting.currentIndex)
+    //    {
+    //        case 0: //Yes
+    //            assistsOn = true;
+    //            TooltipObjectToggle();
+    //            break;
+    //        case 1: //No
+    //            assistsOn = false;
+    //            TooltipObjectToggle();
+    //            break;
+    //    }
+    //}
 
     public void TooltipObjectToggle()
     {

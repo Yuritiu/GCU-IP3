@@ -1,3 +1,4 @@
+using Newtonsoft.Json.Linq;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -28,6 +29,11 @@ public class TooltipManager : MonoBehaviour
         }
     }
 
+    void Start()
+    {
+        LoadSettings();
+    }
+
     void FixedUpdate()
     {
         if (GameManager.Instance == null)
@@ -48,14 +54,29 @@ public class TooltipManager : MonoBehaviour
         if(!assistsOn)
         {
             PlayerPrefs.SetInt("TipsEnabled", 1);
+            PlayerPrefs.Save();
             assistsOn = true;
             //Debug.Log("ASSISTS TOGGLED ON");
         }
         else
         {
             PlayerPrefs.SetInt("TipsEnabled", 0);
+            PlayerPrefs.Save();
             assistsOn = false;
             //Debug.Log("ASSISTS TOGGLED OFF");
+        }
+    }
+
+    void LoadSettings()
+    {
+        var tipsOn = PlayerPrefs.GetInt("TipsEnabled", 1);
+        if(tipsOn == 1)
+        {
+            assistsOn = true;
+        }
+        else
+        {
+            assistsOn = false;
         }
     }
 }

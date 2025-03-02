@@ -8,7 +8,7 @@ public class CardSelection : MonoBehaviour
 
     [HideInInspector] public bool canSelect = true;
 
-    public GameSettingsManager gamesSettingsManager;
+    public TooltipManager tooltipManager;
 
     private static CardSelection currentlyHoveredCard;
 
@@ -17,7 +17,7 @@ public class CardSelection : MonoBehaviour
         if (cardInfoText != null)
             cardInfoText.gameObject.SetActive(false);
 
-        gamesSettingsManager = FindFirstObjectByType<GameSettingsManager>();
+        tooltipManager = FindFirstObjectByType<TooltipManager>();
     }
 
     public void CardHovered(bool hovering)
@@ -51,7 +51,7 @@ public class CardSelection : MonoBehaviour
             hovering = false;
         }
 
-        if (gamesSettingsManager.assistsOn == true)
+        if (tooltipManager.assistsOn == true)
         {
             cardInfoText.gameObject.SetActive(hovering);
         }

@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class TooltipManager : MonoBehaviour
 {
@@ -11,6 +12,8 @@ public class TooltipManager : MonoBehaviour
     [Header("References")]
     [SerializeField] public TextMeshProUGUI clickToPlayHandText = null;
     [SerializeField] public TextMeshProUGUI valueText = null;
+    [SerializeField] public GameObject tutorialCanvas = null;
+    string gameSceneName = "Game Scene";
 
     public bool assistsOn;
     bool loadedSettings = false;
@@ -58,21 +61,47 @@ public class TooltipManager : MonoBehaviour
 
     public void ToggleTooltips()
     {
-        if(!assistsOn)
+        string currentScene = SceneManager.GetActiveScene().name;
+
+        if (currentScene == gameSceneName)
         {
-            PlayerPrefs.SetInt("TipsEnabled", 1);
-            PlayerPrefs.Save();
-            assistsOn = true;
-            valueText.text = "ON";
-            //Debug.Log("AS;SISTS TOGGLED ON");
+            if (assistsOn == true)
+            {
+                assistsOn = false;
+                PlayerPrefs.SetInt("TipsEnabled", 0);
+                PlayerPrefs.Save();
+                clickToPlayHandText.gameObject.SetActive(false);
+                tutorialCanvas.gameObject.SetActive(false);
+                valueText.text = "OFF";
+            }
+            else
+            {
+                assistsOn = true;
+                PlayerPrefs.SetInt("TipsEnabled", 1);
+                PlayerPrefs.Save();
+                clickToPlayHandText.gameObject.SetActive(true);
+                tutorialCanvas.gameObject.SetActive(true);
+                valueText.text = "ON";
+            }
         }
-        else
+        else if(currentScene != gameSceneName)
         {
-            PlayerPrefs.SetInt("TipsEnabled", 0);
-            PlayerPrefs.Save();
-            assistsOn = false;
-            valueText.text = "OFF";
-            //Debug.Log("ASSISTS TOGGLED OFF");
+            if (assistsOn == true)
+            {
+                assistsOn = false;
+                PlayerPrefs.SetInt("TipsEnabled", 0);
+                PlayerPrefs.Save();
+
+                valueText.text = "OFF";
+            }
+            else
+            {
+                assistsOn = true;
+                PlayerPrefs.SetInt("TipsEnabled", 1);
+                PlayerPrefs.Save();
+
+                valueText.text = "ON";
+            }
         }
     }
 

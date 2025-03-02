@@ -14368,6 +14368,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   clickToPlayHandText: {fileID: 0}
   valueText: {fileID: 440694049}
+  tutorialCanvas: {fileID: 0}
   assistsOn: 0
 --- !u!4 &1571776876
 Transform:

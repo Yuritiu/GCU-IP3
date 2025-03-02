@@ -33088,17 +33088,6 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 9104032689933695737, guid: 5213701ca0a20e14f970ed250f6b113b, type: 3}
   m_PrefabInstance: {fileID: 1304636263}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1304636265 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 8336191829790503466, guid: 5213701ca0a20e14f970ed250f6b113b, type: 3}
-  m_PrefabInstance: {fileID: 1304636263}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: da29951460af7a344a6d3dee17986f1f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &1304636266 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 8560590831039393050, guid: 5213701ca0a20e14f970ed250f6b113b, type: 3}
@@ -56852,9 +56841,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5582322fea394fd4899dbc426bfb4f30, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gameSettingsManager: {fileID: 1304636265}
   clickToPlayHandText: {fileID: 2056392821}
   valueText: {fileID: 203046503}
+  tutorialCanvas: {fileID: 21989140}
   assistsOn: 0
 --- !u!1 &2112440552 stripped
 GameObject:

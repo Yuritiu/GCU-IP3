@@ -14366,7 +14366,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5582322fea394fd4899dbc426bfb4f30, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gameSettingsManager: {fileID: 1244843876952470936}
   clickToPlayHandText: {fileID: 0}
   valueText: {fileID: 440694049}
   assistsOn: 0
@@ -15337,7 +15336,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1711474461
 RectTransform:
   m_ObjectHideFlags: 0
@@ -18748,17 +18747,6 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 8836198798914024112, guid: 5213701ca0a20e14f970ed250f6b113b, type: 3}
   m_PrefabInstance: {fileID: 1244843876952470934}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1244843876952470936 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 8336191829790503466, guid: 5213701ca0a20e14f970ed250f6b113b, type: 3}
-  m_PrefabInstance: {fileID: 1244843876952470934}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: da29951460af7a344a6d3dee17986f1f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1244843876952470937 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 7305411564288183587, guid: 5213701ca0a20e14f970ed250f6b113b, type: 3}

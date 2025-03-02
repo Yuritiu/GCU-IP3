@@ -9,12 +9,12 @@ public class CameraController : MonoBehaviour
 
     [Header("Smoothing Settings")]
     public bool enableSmoothing = true;
-    public float smoothing = 5f;
+    public float smoothing = 3f;
 
     [Header("Look Boundaries")]
     public bool gunInHand = false;
     public Vector2 xClamp = new Vector2(-75f, 75f);
-    public Vector2 zClamp = new Vector2(-45f, 45f);
+    public Vector2 zClamp = new Vector2(-75f, 75f);
     public Vector2 gunXClamp = new Vector2(-50f, 50f);
     public Vector2 gunZClamp = new Vector2(-25f, 25f);
     private Vector2 originalXClamp;
@@ -60,6 +60,7 @@ public class CameraController : MonoBehaviour
         originalRotation = transform.rotation;
 
         originalXClamp = xClamp;
+        zClamp = new Vector2(-75f, 75f);
         originalZClamp = zClamp;
 
         mainCamera = Camera.main;

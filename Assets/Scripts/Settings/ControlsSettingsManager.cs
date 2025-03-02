@@ -10,6 +10,7 @@ public class ControlsSettingsManager : MonoBehaviour
     [SerializeField] private CameraController cameraController;
 
     private const string MouseSensitivityKey = "MouseSensitivity";
+    const int sensMultiplier = 3;
 
     private void Start()
     {
@@ -23,7 +24,12 @@ public class ControlsSettingsManager : MonoBehaviour
 
     private void OnSensitivityChanged(float value)
     {
-        cameraController.sensitivity = value * 10f;
+        if(cameraController != null)
+        {
+            cameraController.sensitivity = value * sensMultiplier;
+            
+        }
+
         UpdateSensitivityDisplay();
         SaveSettings();
     }
@@ -35,15 +41,21 @@ public class ControlsSettingsManager : MonoBehaviour
 
     public void SaveSettings()
     {
-        PlayerPrefs.SetFloat(MouseSensitivityKey, cameraController.sensitivity);
+        int savedSensitivity = Mathf.RoundToInt(sensitivitySlider.value);
+        Debug.Log("SENSITIVITY: " + savedSensitivity);
+        PlayerPrefs.SetInt(MouseSensitivityKey, savedSensitivity);
         PlayerPrefs.Save();
     }
 
     public void LoadSettings()
     {
-        float savedSensitivity = PlayerPrefs.GetFloat(MouseSensitivityKey, 350f);
-        cameraController.sensitivity = savedSensitivity;
-        sensitivitySlider.value = savedSensitivity / 10f;
+        int savedSensitivity = PlayerPrefs.GetInt(MouseSensitivityKey, 50);
+        if (cameraController != null)
+        {
+            cameraController.sensitivity = savedSensitivity * sensMultiplier;
+            Debug.Log("LOADED SENSITIVITY: " + savedSensitivity);
+        }
+        sensitivitySlider.value = savedSensitivity;
         UpdateSensitivityDisplay();
     }
 }

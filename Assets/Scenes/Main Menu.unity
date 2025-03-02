@@ -7022,7 +7022,7 @@ PrefabInstance:
     - target: {fileID: 115285935265018789, guid: 5213701ca0a20e14f970ed250f6b113b, type: 3}
       propertyPath: freelookScript
       value: 
-      objectReference: {fileID: 921669827}
+      objectReference: {fileID: 0}
     - target: {fileID: 210386123449982730, guid: 5213701ca0a20e14f970ed250f6b113b, type: 3}
       propertyPath: m_AnchorMax.x
       value: 1
@@ -7698,7 +7698,6 @@ GameObject:
   - component: {fileID: 921669825}
   - component: {fileID: 921669829}
   - component: {fileID: 921669828}
-  - component: {fileID: 921669827}
   - component: {fileID: 921669826}
   - component: {fileID: 921669830}
   m_Layer: 0
@@ -7740,33 +7739,6 @@ MonoBehaviour:
   height: 0.7
   rotationSpeed: 6
   angle: 0
---- !u!114 &921669827
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 921669824}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 12a4e0d32b439ea428da225cba15e1c5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  mouseSensitivity: 350
-  mouseSmoothing: 5
-  minX: -30
-  maxX: 60
-  minY: -75
-  maxY: 75
-  xRotation: 0
-  currentXRotation: 0
-  yRotation: 0
-  currentYRotation: 0
-  mouseY: 0
-  mouseX: 0
-  canLook: 1
-  reset: 0
-  inBatSwing: 0
 --- !u!81 &921669828
 AudioListener:
   m_ObjectHideFlags: 0
@@ -17688,7 +17660,7 @@ PrefabInstance:
     - target: {fileID: 115285935265018789, guid: 5213701ca0a20e14f970ed250f6b113b, type: 3}
       propertyPath: freelookScript
       value: 
-      objectReference: {fileID: 921669827}
+      objectReference: {fileID: 0}
     - target: {fileID: 210386123449982730, guid: 5213701ca0a20e14f970ed250f6b113b, type: 3}
       propertyPath: m_AnchorMax.x
       value: 1

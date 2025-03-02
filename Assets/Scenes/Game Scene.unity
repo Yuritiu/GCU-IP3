@@ -16958,10 +16958,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sensitivity: 300
   enableSmoothing: 1
-  smoothing: 5
+  smoothing: 3
   gunInHand: 0
   xClamp: {x: -75, y: 75}
-  zClamp: {x: -30, y: 60}
+  zClamp: {x: -75, y: 75}
   gunXClamp: {x: -2, y: 4}
   gunZClamp: {x: 0, y: 18}
   barTarget: {x: 46, y: -12}

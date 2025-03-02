@@ -63,9 +63,10 @@ public class ShootScript : MonoBehaviour
 
         
     }
+
     private void OnEnable()
     {
-        cameraController.gunInHand = true;
+        //cameraController.gunInHand = true;
 
         if (gunName == "AiGun")
         {
@@ -73,8 +74,6 @@ public class ShootScript : MonoBehaviour
             StartCoroutine(AiFire(gameObject));
             cameraController.gunInHand = false;
         }
-
-
     }
    
 

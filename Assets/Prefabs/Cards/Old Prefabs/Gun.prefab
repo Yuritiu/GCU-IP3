@@ -248,7 +248,6 @@ GameObject:
   - component: {fileID: 9186417109946204404}
   - component: {fileID: 4630359454597691122}
   - component: {fileID: 3738365108683279466}
-  - component: {fileID: 7512414088110293687}
   - component: {fileID: 8153615240554731953}
   - component: {fileID: 5341411526381230415}
   m_Layer: 6
@@ -345,18 +344,6 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &7512414088110293687
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5151252464221464428}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b364a678d33f5ce4abf7800d9e1cf0e6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &8153615240554731953
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -369,10 +356,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ec5c9fb80b86d6c428855d2a7c7d1625, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cardInfoImageTag: CardInfoImage
-  cardInfoTextTag: CardInfoText
-  cardInfoImage: {fileID: 7319352315363178561, guid: edb6bd3d944c4a742a6b7546aefbab5a, type: 3}
-  cardInfoText: Gun
+  cardInfoText: {fileID: 0}
+  canSelect: 1
+  gamesSettingsManager: {fileID: 0}
 --- !u!114 &5341411526381230415
 MonoBehaviour:
   m_ObjectHideFlags: 0

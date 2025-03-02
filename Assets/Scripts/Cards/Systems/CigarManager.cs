@@ -17,7 +17,7 @@ public class CigarManager : MonoBehaviour
         //Check Both Lists Are Same Size
         if (cardNames.Count != cardPrefabs.Count)
         {
-            Debug.LogError("Lists Aren;t Same Size");
+            Debug.LogError("Lists Aren't Same Size");
             return;
         }
 

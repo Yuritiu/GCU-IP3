@@ -39,7 +39,7 @@ public class VideoSettings : MonoBehaviour
 
     public void LoadFOV()
     {
-        savedFOV = PlayerPrefs.GetFloat("FOV", 50);
+        savedFOV = PlayerPrefs.GetFloat("FOV", 60);
         fovValueText.text = savedFOV.ToString();
 
         PlayerPrefs.SetFloat("FOV", savedFOV);

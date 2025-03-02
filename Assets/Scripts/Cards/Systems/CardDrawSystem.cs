@@ -249,7 +249,7 @@ public class CardDrawSystem : MonoBehaviour
             float progress = elapsedTime / duration;
 
             //Throwing Arc Height
-            float arcHeight = Mathf.Sin(progress * Mathf.PI) * 0.1f;
+            float arcHeight = Mathf.Sin(progress * Mathf.PI) * 0.075f;
             Vector3 currentPosition = Vector3.Lerp(startPosition, endPosition, progress);
             currentPosition.y += arcHeight;
 
@@ -568,17 +568,17 @@ public class CardDrawSystem : MonoBehaviour
         //Check If The Card Is Being Selected (true) OR Deselected (false)
         if (cardMovingToTable)
         {
-            liftPosition = new Vector3(startPosition.x, startPosition.y + 0.08f, startPosition.z);
-            liftRotation = Quaternion.Euler(-20, 180, -0.235f);
+            liftPosition = new Vector3(startPosition.x, startPosition.y + 0.09f, startPosition.z);
+            liftRotation = Quaternion.Euler(-40, 180, -0.235f);
 
             halfwayPosition = (liftPosition + targetPosition) / 2 + Vector3.up * 0.03f;
         }
         else
         {
-            liftPosition = new Vector3(startPosition.x, startPosition.y + 0.1f, startPosition.z);
-            liftRotation = Quaternion.Euler(-20, 180, 0.235f);
+            liftPosition = new Vector3(startPosition.x, startPosition.y + 0.03f, startPosition.z);
+            liftRotation = Quaternion.Euler(255, 180, 0f);
 
-            halfwayPosition = (liftPosition + targetPosition) / 2 + Vector3.up * -0.03f;
+            halfwayPosition = (liftPosition + targetPosition) / 2 + Vector3.up * +0.07f;
         }
 
         float elapsedTime = 0f;

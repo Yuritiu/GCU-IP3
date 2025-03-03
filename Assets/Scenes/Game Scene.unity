@@ -12318,7 +12318,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 8d44be47578450a488fd64554476b2d4, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.288
+      value: 0.526
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 8d44be47578450a488fd64554476b2d4, type: 3}
       propertyPath: m_LocalPosition.z
@@ -12356,6 +12356,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: OPPONENT
       objectReference: {fileID: 0}
+    - target: {fileID: 5866666021909216657, guid: 8d44be47578450a488fd64554476b2d4, type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: 193c7820da415e3419c429b9f8d05667, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects:

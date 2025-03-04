@@ -141,7 +141,7 @@ public class reloadScript : MonoBehaviour
         while (t < 1.0f && moveFinished == false)
         {
             t += Time.deltaTime;
-            chamber.transform.Rotate(0f, 0f, -2f, Space.Self);
+            chamber.transform.Rotate(0f, 0f, -5f, Space.Self);
             
 
             if (t >= 1.0f)

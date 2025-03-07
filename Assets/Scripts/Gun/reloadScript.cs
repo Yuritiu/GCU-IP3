@@ -86,7 +86,7 @@ public class reloadScript : MonoBehaviour
 
     IEnumerator gunTransition(GameObject Target)
     {
-        cameraController.SetCameraToReloadTarget();
+        //cameraController.SetCameraToReloadTarget();
         if (in2ndPos == true)
         {
             yield return new WaitForSeconds(4f);
@@ -162,7 +162,7 @@ public class reloadScript : MonoBehaviour
 
         //Wait For Gun To Move Back To Table
         yield return new WaitForSeconds(2f);
-        cameraController.SetCameraToOpponentTarget();
+        //cameraController.SetCameraToOpponentTarget();
 
         GameManager.Instance.FinishPlayerReload();
         GameManager.Instance.FinishAIReload();

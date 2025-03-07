@@ -19,6 +19,7 @@ public class BloodlossSystem : MonoBehaviour
     [Header("Countdown References")]
     [SerializeField] Image bloodBlur;
     [SerializeField] Image blackoutBlur;
+    public Image bloodSplatter;
     
     public GameObject blur;
     public Material blurMat;
@@ -76,6 +77,14 @@ public class BloodlossSystem : MonoBehaviour
         //print(blackoutBlur.color);
         //print(heartbeat.volume);
         //print(heartbeatfast.volume);
+
+        if(bloodSplatter.color.a > 0)
+        {
+            Color splatter = bloodSplatter.color;
+            splatter.a -= 0.01f * Time.deltaTime;
+            bloodSplatter.color = splatter;
+            //print(10 * Time.deltaTime);
+        }
         
         if (bloodlossEffectsEnabled)
         {

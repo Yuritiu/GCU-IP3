@@ -30,7 +30,7 @@ public class DoubleBullets : MonoBehaviour
     {
         if (PriorityCardExists())
         {
-            Debug.Log("Priority card detected! Waiting for its action to start...");
+            //Debug.Log("Priority card detected! Waiting for its action to start...");
 
             //Wait A Short Time To Allow Any Knife/Gun Action To Start
             yield return new WaitForSeconds(3f);
@@ -39,11 +39,11 @@ public class DoubleBullets : MonoBehaviour
         //Wait Until All Knife/Gun Actions Are Finished
         while (PriorityActionInProgress())
         {
-            Debug.Log("Priority action in progress! Waiting...");
+            //Debug.Log("Priority action in progress! Waiting...");
             yield return null;
         }
 
-        Debug.Log("All Priority actions are done. Proceeding with chamber action.");
+        //Debug.Log("All Priority actions are done. Proceeding with chamber action.");
 
         //All Actions Done -> Proceed With The Chamber Action
         if (isPlayer)
@@ -69,10 +69,13 @@ public class DoubleBullets : MonoBehaviour
                     statusDropdown.DisplayStatusEffect(0, 2);
                     //return;
                 }
-
-                gameManager.addBullet();
+                else
+                {
+                    gameManager.addBullet();
+                }
             }
         }
+
         //AI Logic
         else
         {
@@ -87,7 +90,7 @@ public class DoubleBullets : MonoBehaviour
                 {
                     reloadScript.Instance.moveGun();
                 }
-
+                
                 if (roll <= chance)
                 {
                     //Display BACKFIRE! Text
@@ -98,8 +101,10 @@ public class DoubleBullets : MonoBehaviour
                     statusDropdown.DisplayStatusEffect(1, 2);
                     //return;
                 }
-
-                gameManager.addBullet();
+                else
+                {
+                    gameManager.addBullet();
+                }
             }
         }
     }

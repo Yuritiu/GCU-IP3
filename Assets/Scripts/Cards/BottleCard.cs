@@ -114,7 +114,7 @@ public class BottleCard : MonoBehaviour
 
         if (KnifeOrGunCardExists())
         {
-            Debug.Log("Knife/Gun card detected! Waiting for its action to start...");
+            //Debug.Log("Knife/Gun card detected! Waiting for its action to start...");
 
             //Wait A Short Time To Allow Any Knife/Gun Action To Start
             yield return new WaitForSeconds(3f);
@@ -123,11 +123,11 @@ public class BottleCard : MonoBehaviour
         //Wait Until All Knife/Gun Actions Are Finished
         while (KnifeOrGunActionInProgress())
         {
-            Debug.Log("Knife/Gun action in progress! Waiting...");
+            //Debug.Log("Knife/Gun action in progress! Waiting...");
             yield return null;
         }
 
-        Debug.Log("All Knife/Gun actions are done. Proceeding with bottle action.");
+        //Debug.Log("All Knife/Gun actions are done. Proceeding with bottle action.");
 
         //All Actions Done -> Proceed With The Bottle Action
         if (isPlayer)

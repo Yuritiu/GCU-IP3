@@ -516,72 +516,75 @@ public class AICardDrawSystem : MonoBehaviour
         }
         //print(cardsInCurrentHand);
 
-        int rand = UnityEngine.Random.Range(0, cardsInCurrentHand);
+        if(cardsInCurrentHand > 0)
+        {
+            int rand = UnityEngine.Random.Range(0, cardsInCurrentHand--);
 
-        //print(rand);
-        if (card1 == true)
-        {
-            if (rand == 0)
+            //print(rand);
+            if (card1 == true)
             {
-                GameObject cardNotinUse = cardsInHand[0].gameObject;
-                cardNotinUse.transform.Rotate(0, 180, 0);
-                if (bannedCard != -1)
+                if (rand == 0)
                 {
-                    bannedCard2 = 0;
+                    GameObject cardNotinUse = cardsInHand[0].gameObject;
+                    cardNotinUse.transform.Rotate(0, 180, 0);
+                    if (bannedCard != -1)
+                    {
+                        bannedCard2 = 0;
+                        return;
+                    }
+                    bannedCard = 0;
                     return;
                 }
-                bannedCard = 0;
-                return;
+                rand--;
             }
-            rand--;
-        }
-        if (card2 == true)
-        {
-            if (rand == 0)
+            if (card2 == true)
             {
-                GameObject cardNotinUse = cardsInHand[1].gameObject;
-                cardNotinUse.transform.Rotate(0, 180, 0);
-                if (bannedCard != -1)
+                if (rand == 0)
                 {
-                    bannedCard2 = 1;
+                    GameObject cardNotinUse = cardsInHand[1].gameObject;
+                    cardNotinUse.transform.Rotate(0, 180, 0);
+                    if (bannedCard != -1)
+                    {
+                        bannedCard2 = 1;
+                        return;
+                    }
+                    bannedCard = 1;
                     return;
                 }
-                bannedCard = 1;
-                return;
+                rand--;
             }
-            rand--;
-        }
-        if (card3 == true)
-        {
-            if (rand == 0)
+            if (card3 == true)
             {
-                GameObject cardNotinUse = cardsInHand[2].gameObject;
-                cardNotinUse.transform.Rotate(0, 180, 0);
-                if (bannedCard != -1)
+                if (rand == 0)
                 {
-                    bannedCard2 = 2;
+                    GameObject cardNotinUse = cardsInHand[2].gameObject;
+                    cardNotinUse.transform.Rotate(0, 180, 0);
+                    if (bannedCard != -1)
+                    {
+                        bannedCard2 = 2;
+                        return;
+                    }
+                    bannedCard = 2;
                     return;
                 }
-                bannedCard = 2;
-                return;
+                rand--;
             }
-            rand--;
-        }
-        if (card4 == true)
-        {
-            if (rand == 0)
+            if (card4 == true)
             {
-                GameObject cardNotinUse = cardsInHand[3].gameObject;
-                cardNotinUse.transform.Rotate(0, 180, 0);
-                if (bannedCard != -1)
+                if (rand == 0)
                 {
-                    bannedCard2 = 3;
+                    GameObject cardNotinUse = cardsInHand[3].gameObject;
+                    cardNotinUse.transform.Rotate(0, 180, 0);
+                    if (bannedCard != -1)
+                    {
+                        bannedCard2 = 3;
+                        return;
+                    }
+                    bannedCard = 3;
                     return;
                 }
-                bannedCard = 3;
-                return;
+                rand--;
             }
-            rand--;
         }
     }
 

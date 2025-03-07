@@ -16,6 +16,7 @@ public class Hand : MonoBehaviour
     public float sensitivity = .5f;
     public bool sideToHit = false;
     public bool waitingToCut = false;
+    public bool bloodSplatterEffect = false;
     public int phaseOfAction = 1;
     
     private Vector3 knifeDefaultPos;
@@ -67,6 +68,21 @@ public class Hand : MonoBehaviour
         cameraController = FindFirstObjectByType<CameraController>();
     }
 
+    private void FixedUpdate()
+    {
+        if (bloodSplatterEffect)
+        {
+            Color splatter = BloodlossSystem.Instance.bloodSplatter.color;
+            splatter.a += 0.06f;
+            BloodlossSystem.Instance.bloodSplatter.color = splatter;
+            
+            if(BloodlossSystem.Instance.bloodSplatter.color.a > 0.2f)
+            {
+                bloodSplatterEffect = false;
+            }
+        }
+    }
+
     private void Update()
     {
         if (GameManager.Instance.inGunAction)
@@ -105,6 +121,8 @@ public class Hand : MonoBehaviour
                                 turn.y = 7.5f;
                                 knife.transform.position = new Vector3(knife.transform.position.x, turn.y / 10, knife.transform.position.z);
                                 phaseOfAction = 2;
+                                bloodSplatterEffect = true;
+                                
                                 SFXManager.instance.PlaySFXClip(knifeInsert, transform, 1f);
                             }
                         }
@@ -213,26 +231,49 @@ public class Hand : MonoBehaviour
 
     public IEnumerator CheckForSecondAction()
     {
+        print(GameManager.Instance.numberOfKnifeCardsAI);
+        //print(GameManager.Instance.numberOfKnifeCardsPlayer);
 
         yield return new WaitForSeconds(1f);
 
-        //print(GameManager.Instance.numberOfKnifeCards);
-        GameManager.Instance.numberOfKnifeCards--;
-        //print(GameManager.Instance.numberOfKnifeCards);
-        if (GameManager.Instance.numberOfKnifeCards >= 1 && GameManager.Instance.playerFingers > 0)
+        if (this.gameObject.tag == "Player")
         {
-            StartOfAction();
-            GameManager.Instance.numberOfKnifeCards = 0;
+            GameManager.Instance.numberOfKnifeCardsAI--;
+            if (GameManager.Instance.numberOfKnifeCardsAI >= 1 && GameManager.Instance.playerFingers > 0)
+            {
+                StartOfAction();
+                GameManager.Instance.numberOfKnifeCardsAI = 0;
+            }
+            else
+            {
+                GameManager.Instance.knife1used = false;
+                GameManager.Instance.knife2used = false;
+                GameManager.Instance.aiHasKnife = false;
+                GameManager.Instance.inKnifeActionAiPlayed = false;
+                GameManager.Instance.canCutFinger = false;
+                GameManager.Instance.numberOfKnifeCardsAI = 0;
+                DisableCamera();
+            }
         }
+
         else
         {
-            GameManager.Instance.knife1used = false;
-            GameManager.Instance.knife2used = false;
-            GameManager.Instance.aiHasKnife = false;
-            GameManager.Instance.inKnifeActionAiPlayed = false;
-            GameManager.Instance.canCutFinger= false;
-            GameManager.Instance.numberOfKnifeCards = 0;
-            DisableCamera();
+            GameManager.Instance.numberOfKnifeCardsPlayer--;
+            if (GameManager.Instance.numberOfKnifeCardsPlayer >= 1 && GameManager.Instance.playerFingers > 0)
+            {
+                StartOfAction();
+                GameManager.Instance.numberOfKnifeCardsPlayer = 0;
+            }
+            else
+            {
+                GameManager.Instance.knife1used = false;
+                GameManager.Instance.knife2used = false;
+                GameManager.Instance.aiHasKnife = false;
+                GameManager.Instance.inKnifeActionAiPlayed = false;
+                GameManager.Instance.canCutFinger = false;
+                GameManager.Instance.numberOfKnifeCardsPlayer = 0;
+                DisableCamera();
+            }
         }
     }
     

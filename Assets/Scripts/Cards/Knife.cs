@@ -19,11 +19,13 @@ public class Knife : MonoBehaviour
 
     public void PlayCardForPlayer()
     {
+        GameManager.Instance.numberOfKnifeCardsPlayer++;
         GameManager.Instance.inKnifeActionPlayerPlayed = true;
         StartCoroutine(PlayPlayerKnife());
     }
     public void PlayCardForAI()
     {
+        GameManager.Instance.numberOfKnifeCardsAI++;
         GameManager.Instance.inKnifeActionAiPlayed = true;
         StartCoroutine(PlayAiKnife());
     }
@@ -64,7 +66,6 @@ public class Knife : MonoBehaviour
                 if ((AICardDrawSystem.Instance.selectedPosition1.GetChild(0).name.Contains("knife") || AICardDrawSystem.Instance.selectedPosition1.GetChild(0).name.Contains("cigar")) && !GameManager.Instance.knife1used)
                 {
                     GameManager.Instance.knife1used = true;
-                    GameManager.Instance.numberOfKnifeCards++;
                     StartCoroutine(GameManager.Instance.WaitToCompareCards(2, 1));
                 }
             }
@@ -74,7 +75,6 @@ public class Knife : MonoBehaviour
                 if ((AICardDrawSystem.Instance.selectedPosition2.GetChild(0).name.Contains("knife") || AICardDrawSystem.Instance.selectedPosition2.GetChild(0).name.Contains("cigar")) && !GameManager.Instance.knife2used)
                 {
                     GameManager.Instance.knife2used = true;
-                    GameManager.Instance.numberOfKnifeCards++;
                     if (!GameManager.Instance.knife1used)
                     {
                         StartCoroutine(GameManager.Instance.WaitToCompareCards(2, 1));

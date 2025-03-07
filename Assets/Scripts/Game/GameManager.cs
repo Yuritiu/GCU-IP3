@@ -126,7 +126,8 @@ public class GameManager : MonoBehaviour
     [HideInInspector] public bool inAIBottleAction = false;
     [HideInInspector] public bool inAIBatAction = false;
     [HideInInspector] public bool has2Guns = false;
-    [HideInInspector] public int numberOfKnifeCards = 0;
+    [HideInInspector] public int numberOfKnifeCardsAI = 0;
+    [HideInInspector] public int numberOfKnifeCardsPlayer = 0;
     bool calledCard1 = false;
     bool calledCard2 = false;
 
@@ -153,7 +154,7 @@ public class GameManager : MonoBehaviour
     [HideInInspector] public bool isActionInProgress = false;
     [HideInInspector] public bool crosshairUnlocked;
     [HideInInspector] public bool freelookEnabled;
-   
+
     [SerializeField] private AudioClip[] aiScreams;
     [SerializeField] private AudioClip deathSFX;
 
@@ -295,6 +296,7 @@ public class GameManager : MonoBehaviour
         canPlay = false;
 
         CardDrawSystem.Instance.UnbanCards();
+        AICardDrawSystem.Instance.UnbanCards();
         blur.SetActive(false);
 
         //Debug.Log("Played Hand: " + isTutorial);
@@ -739,7 +741,6 @@ public class GameManager : MonoBehaviour
                 }
                 else
                 {
-                    numberOfKnifeCards--;
                     knife2used = false;
                     playerArmour--;
                     ReduceHealth(character, type);

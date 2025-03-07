@@ -783,7 +783,7 @@ public class CardDrawSystem : MonoBehaviour
         }
         //print(cardsInCurrentHand);
 
-        int rand = UnityEngine.Random.Range(0, cardsInCurrentHand);
+        int rand = UnityEngine.Random.Range(0, cardsInCurrentHand--);
 
         //print(rand);
         //print(card1);

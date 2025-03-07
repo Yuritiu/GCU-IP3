@@ -2460,7 +2460,7 @@ MonoBehaviour:
   settingsMenuParent: {fileID: 8095370415855637498}
   statsMenuParent: {fileID: 844468831}
   toggleDev: {fileID: 1521259541}
-  feedbackURL: https://forms.gle/4rPB2aM3a4HumPxD8
+  feedbackURL: https://docs.google.com/forms/d/e/1FAIpQLSd67zlf5szkqItWKDgmLZmwNtN8CBrJGLJ2JCFEKC3z16PM6A/viewform?usp=header
   videoSettingsManager: {fileID: 6825802071121820931}
   audioSettingsManager: {fileID: 7965369196834570334}
   controlsSettingsManager: {fileID: 950115600092821672}

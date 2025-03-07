@@ -16,6 +16,8 @@ public class reloadScript : MonoBehaviour
     [SerializeField] ShootScript shootScript;
     private bool isActive = false;
 
+    [SerializeField] private AudioClip chamberSpin;
+
     private CameraController cameraController;
 
     public bool reloadHappened;
@@ -132,6 +134,7 @@ public class reloadScript : MonoBehaviour
         }
 
         float x = chamber.transform.position.x;
+        SFXManager.instance.PlaySFXClip(chamberSpin, transform, 0.3f);
         yield return new WaitForSeconds(0.3f);
         //chamber.transform.position = new Vector3(0.003f, chamber.transform.position.y, chamber.transform.position.z);
         float t = 0.00f;

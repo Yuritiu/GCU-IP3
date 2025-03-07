@@ -360,6 +360,7 @@ MonoBehaviour:
   speed: 2
   gun: {fileID: 20444857}
   shootScript: {fileID: 20444862}
+  chamberSpin: {fileID: 8300000, guid: c7c8be22dbb7ad44d889c66873a5a940, type: 3}
   reloadHappened: 0
   chamber: {fileID: 610974269}
   in1stPos: 0

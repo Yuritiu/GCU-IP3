@@ -183,6 +183,10 @@ public class CardDrawSystem : MonoBehaviour
                         canPlay = false;
                         GameManager.Instance.PlayHand();
 
+                        //Resets to idle if animation is stuck :3
+                        OpponentAnimationController animController = FindAnyObjectByType<OpponentAnimationController>();
+                        animController.IdleTr();
+
                         if (introTutorial != null && !stepCompleted4)
                         {
                             introTutorial.CompleteStep(4);

@@ -628,6 +628,8 @@ public class GameManager : MonoBehaviour
         if (character == 1)
         {
             inKnifeActionPlayerPlayed = false;
+            OpponentAnimationController animController = FindAnyObjectByType<OpponentAnimationController>();
+            animController.KnifeTr();
             aiFingers--;
             aiHand.RemoveFinger(aiFingers);
             SFXManager.instance.PlayRandomSFXClip(aiScreams, transform, 0.15f);

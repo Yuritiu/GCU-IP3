@@ -120,6 +120,8 @@ public class ShootScript : MonoBehaviour
 
     private IEnumerator AiFire(GameObject gun)
     {
+        OpponentAnimationController animController = FindAnyObjectByType<OpponentAnimationController>();
+
         AiShot = true;
         
         int randForBullet = UnityEngine.Random.Range(1, 7);
@@ -127,10 +129,10 @@ public class ShootScript : MonoBehaviour
         AiRandom = randForBullet;
 
         //AiRandom = 8;
-        
+
         //UnityEngine.Debug.Log("bullet " + GameManager.Instance.bullets);
         //UnityEngine.Debug.Log("random " + AiRandom);
-
+        animController.GunTr();
         yield return new WaitForSeconds(1.5f);
         firePressed = true;
         gunAnim.Play("Airecoil");
@@ -174,6 +176,8 @@ public class ShootScript : MonoBehaviour
         {
             GameManager.Instance.inGunAction = false;
         }
+        //Switches opponet back to idle
+        //animController.IdleTr();
         gameObject.SetActive(false);
         gunAnim.Play("GunPause");
         firePressed = false;

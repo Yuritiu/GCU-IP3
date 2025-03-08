@@ -86,6 +86,8 @@ public class Knife : MonoBehaviour
 
     IEnumerator PlayPlayerKnife()
     {
+        //AI knife animation is in Game Manager :3
+
         GameManager.Instance.playerHasKnife = true;
         yield return new WaitForSeconds(0.5f);
 

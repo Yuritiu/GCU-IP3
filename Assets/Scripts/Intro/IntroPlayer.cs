@@ -23,6 +23,7 @@ public class IntroPlayer : MonoBehaviour
     public float stairDelay = 0.5f;
 
     public IntroCamera introCamera;
+    public LoadingManager loadingManager;
 
     private void Update()
     {
@@ -80,6 +81,8 @@ public class IntroPlayer : MonoBehaviour
             transform.position = endPos;
             yield return new WaitForSeconds(stairDelay);
         }
+        yield return new WaitForSeconds(4.5f);
+        loadingManager.LoadScene("Game Scene");
     }
 
 }

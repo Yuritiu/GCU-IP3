@@ -794,6 +794,8 @@ public class GameManager : MonoBehaviour
                 calledCard1 = true;
                 calledCard2 = true;
 
+                
+
                 var cardObject1 = cardsOnTable1.gameObject;
                 var cardObject2 = cardsOnTable2.gameObject;
 
@@ -868,6 +870,8 @@ public class GameManager : MonoBehaviour
         {
             if (cardsOnTable3 != null && cardsOnTable4 != null)
             {
+                
+
                 var cardObject3 = cardsOnTable3.gameObject;
                 var cardObject4 = cardsOnTable4.gameObject;
                 Component aiClonedCard = null;

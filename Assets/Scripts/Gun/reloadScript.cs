@@ -15,13 +15,6 @@ public class reloadScript : MonoBehaviour
     public GameObject gun;
     [SerializeField] ShootScript shootScript;
     private bool isActive = false;
-    public int currentBullets = 0;
-
-    public List<GameObject> PlayerBullets;
-    public List<GameObject> AiBullets;
-    public List<GameObject> TableBullets;
-
-    private GameObject bulletToLoad;
 
     [SerializeField] private AudioClip chamberSpin;
 
@@ -42,9 +35,7 @@ public class reloadScript : MonoBehaviour
     private void Start()
     {
         in1stPos = true;
-        //cameraController = FindFirstObjectByType<CameraController>();
-
-
+        cameraController = FindFirstObjectByType<CameraController>();
     }
 
     public void moveGun()
@@ -90,11 +81,7 @@ public class reloadScript : MonoBehaviour
 
     private void Update()
     {
-        if (GameManager.Instance.bullets > 0 && GameManager.Instance.bullets <= PlayerBullets.Count)
-        {
-            PlayerBullets[GameManager.Instance.bullets - 1].SetActive(true);
-            AiBullets[GameManager.Instance.bullets - 1].SetActive(true);
-        }
+
     }
 
     IEnumerator gunTransition(GameObject Target)
@@ -139,14 +126,12 @@ public class reloadScript : MonoBehaviour
 
     IEnumerator loadWeapon(GameObject chamber)
     {
-
         //Wait Until All Knife/Gun Actions Are Finished
         while (GunActionInProgress())
         {
             Debug.Log("Gun action in progress! Waiting...");
             yield return null;
         }
-        
 
         float x = chamber.transform.position.x;
         SFXManager.instance.PlaySFXClip(chamberSpin, transform, 0.3f);
@@ -168,39 +153,9 @@ public class reloadScript : MonoBehaviour
             }
             yield return null;
         }
-        while(currentBullets < GameManager.Instance.bullets)
-        {
-            float t2 = 0;
-            Vector3 startingpos = bulletToLoad.transform.position;
-
-            //TableBullets[GameManager.Instance.bullets - 1].transform.position = new Vector3(TableBullets[GameManager.Instance.bullets - 1].transform.position.x, TableBullets[GameManager.Instance.bullets - 1].transform.position.y + 3f, TableBullets[GameManager.Instance.bullets - 1].transform.position.z + 1f);
-            //TableBullets[GameManager.Instance.bullets - 1].SetActive(true);
-            if (GameManager.Instance.bullets > 0)
-            {
-                bulletToLoad = TableBullets[currentBullets];
-                startingpos = bulletToLoad.transform.position;
-                bulletToLoad.transform.position = new Vector3(bulletToLoad.transform.position.x, bulletToLoad.transform.position.y + 1, bulletToLoad.transform.position.z + 1);
-                bulletToLoad.SetActive(true);
-
-                while (t2 < 1.0f)
-                {
-                    t2 += Time.deltaTime;
-                    bulletToLoad.transform.position = Vector3.Lerp(TableBullets[GameManager.Instance.bullets - 1].transform.position, startingpos, t2);
-                    yield return null;
-
-                }
-                
-            }
-            currentBullets = currentBullets +1;
-            yield return null;
-
-        }
-       
                
         chamber.transform.position = new Vector3(x, chamber.transform.position.y, chamber.transform.position.z);
         isActive = false;   
-
-
 
         moveGun();
         isActive = false;

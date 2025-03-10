@@ -171,7 +171,7 @@ public class reloadScript : MonoBehaviour
         while(currentBullets < GameManager.Instance.bullets)
         {
             float t2 = 0;
-            Vector3 startingpos = bulletToLoad.transform.position;
+            Vector3 startingpos = chamber.transform.position;
 
             //TableBullets[GameManager.Instance.bullets - 1].transform.position = new Vector3(TableBullets[GameManager.Instance.bullets - 1].transform.position.x, TableBullets[GameManager.Instance.bullets - 1].transform.position.y + 3f, TableBullets[GameManager.Instance.bullets - 1].transform.position.z + 1f);
             //TableBullets[GameManager.Instance.bullets - 1].SetActive(true);
@@ -198,9 +198,9 @@ public class reloadScript : MonoBehaviour
        
                
         chamber.transform.position = new Vector3(x, chamber.transform.position.y, chamber.transform.position.z);
-        isActive = false;   
+        isActive = false;
 
-
+        print("im here");
 
         moveGun();
         isActive = false;

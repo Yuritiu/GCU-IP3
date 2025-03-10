@@ -31132,7 +31132,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &587024170
 Transform:
   m_ObjectHideFlags: 0
@@ -37127,7 +37127,7 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 1
-  m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
+  m_BackGroundColor: {r: 0, g: 0, b: 0, a: 1}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0
@@ -37198,16 +37198,23 @@ MonoBehaviour:
   sensitivity: 300
   enableSmoothing: 1
   smoothing: 5
+  gunInHand: 0
   xClamp: {x: -75, y: 75}
   zClamp: {x: -30, y: 60}
+  gunXClamp: {x: -50, y: 50}
+  gunZClamp: {x: -25, y: 25}
   barTarget: {x: 46, y: -12}
   knifeTarget: {x: -20, y: 42}
+  reloadTarget: {x: 0, y: 0}
   opponentTarget: {x: 0, y: 0}
   positionRotationTarget: {x: 0, y: 80}
   positionTarget: {fileID: 775457605}
+  knifeTargetPoint: {fileID: 0}
   positionLerpSpeed: 8
   rotationLerpSpeed: 4
   positionLerpDuration: 0.5
+  cameraLocked: 0
+  targetLookingPos: {x: 0, y: 0}
 --- !u!1 &683898932
 GameObject:
   m_ObjectHideFlags: 0
@@ -40157,7 +40164,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: b77a89f70e249d4469f932c1d80e5098, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -60808,8 +60815,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -759, y: -315}
-  m_SizeDelta: {x: 400, y: 450}
+  m_AnchoredPosition: {x: -759, y: -350}
+  m_SizeDelta: {x: 500, y: 500}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1135130830
 MonoBehaviour:
@@ -60831,7 +60838,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 97a2a9fdfa54f344d83d31fcf22d292d, type: 3}
+  m_Sprite: {fileID: 21300000, guid: ede178288c7ecda41aa63fbaefe47d6e, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -103235,7 +103242,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1891790438
 MonoBehaviour:
   m_ObjectHideFlags: 0

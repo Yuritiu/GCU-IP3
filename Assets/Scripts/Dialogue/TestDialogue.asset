@@ -22,5 +22,5 @@ MonoBehaviour:
     your drink first. Bloodstains are hell to get outta the floorboards, and the
     boss don\u2019t like a mess."
   linePortraits:
-  - {fileID: 21300000, guid: 97a2a9fdfa54f344d83d31fcf22d292d, type: 3}
-  - {fileID: 21300000, guid: 5c659189ce1e5f24c88a09a67266f846, type: 3}
+  - {fileID: 21300000, guid: 5fac43c9be8194d4fa367bf183f6a2a5, type: 3}
+  - {fileID: 21300000, guid: e7ed200a8b7d2bc49bac28eba3e3a82e, type: 3}

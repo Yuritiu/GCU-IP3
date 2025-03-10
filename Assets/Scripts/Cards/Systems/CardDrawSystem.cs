@@ -911,7 +911,7 @@ public class CardDrawSystem : MonoBehaviour
             else
             {
                 //Playable Rotation
-                StartCoroutine(LerpCardRotation(-90f, 0));
+                StartCoroutine(LerpCardRotation(-90f, 180));
             }
         }
     }

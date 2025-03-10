@@ -228,6 +228,7 @@ public class GameManager : MonoBehaviour
         if(playerSkippedTurns> 0)
         {
             displaySkipTurnText = true;
+            CardDrawSystem.Instance.FlipCards(true);
         }
 
         if (!canPlay)
@@ -870,8 +871,6 @@ public class GameManager : MonoBehaviour
         {
             if (cardsOnTable3 != null && cardsOnTable4 != null)
             {
-                
-
                 var cardObject3 = cardsOnTable3.gameObject;
                 var cardObject4 = cardsOnTable4.gameObject;
                 Component aiClonedCard = null;
@@ -966,7 +965,7 @@ public class GameManager : MonoBehaviour
             freelookEnabled = !crosshairUnlocked;       
         }
 
-        if(Gun.activeInHierarchy == true && ShootScript.instance1 != null && ShootScript.instance2 != null)
+        if (Gun.activeInHierarchy == true && ShootScript.instance1 != null && ShootScript.instance2 != null)
         {
             ShootScript.instance1.clampActivated = false;
             ShootScript.instance2.clampActivated = false;
@@ -1011,6 +1010,7 @@ public class GameManager : MonoBehaviour
         if (playerSkippedTurns == 0 && canPlay)
         {
             displaySkipTurnText = false;
+            CardDrawSystem.Instance.FlipCards(false);
         }
     }
 

@@ -55,7 +55,10 @@ public class TooltipManager : MonoBehaviour
         }
         else if(assistsOn && GameManager.Instance.canPlay)
         {
-            clickToPlayHandText.enabled = true;
+            if(clickToPlayHandText != null)
+            {
+                clickToPlayHandText.enabled = true;
+            }
         }
     }
 

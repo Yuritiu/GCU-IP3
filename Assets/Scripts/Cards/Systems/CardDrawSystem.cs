@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using Unity.Mathematics;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -79,6 +80,7 @@ public class CardDrawSystem : MonoBehaviour
     private PauseMenu pauseMenu;
 
     public LiveDeckGrid liveDeckGrid;
+    bool isFlipped = false;
 
     private void Awake()
     {
@@ -268,6 +270,14 @@ public class CardDrawSystem : MonoBehaviour
 
         card.transform.position = endPosition;
         card.transform.rotation = targetRotation;
+
+        if (GameManager.Instance.playerSkippedTurns > 0)
+        {
+            //If Card Is Added While Turn Is Skipped -> Flip
+            Debug.Log("SHOULD FLIP ADDED CARD");
+            card.transform.rotation = Quaternion.Euler(90, 0, targetRotation.z);
+            Debug.Log("TARGET TOROTOTOT:    " + targetRotation.z + targetRotation.y);
+        }
     }
 
     IEnumerator DelayGameStart()
@@ -310,7 +320,15 @@ public class CardDrawSystem : MonoBehaviour
 
                 //cardsInHand[i] = Instantiate(card, originalPositions[i].position, originalPositions[i].rotation);
                 cardsInHand[i] = Instantiate(card, playingDeckTopLocation, Quaternion.Euler(90,0,0));
-                StartCoroutine(MoveCardToSlot(cardsInHand[i], originalPositions[i].position, originalPositions[i].rotation, 0.5f, i * 0.3f));
+                if (GameManager.Instance.playerSkippedTurns > 0)
+                {
+                    StartCoroutine(MoveCardToSlot(cardsInHand[i], originalPositions[i].position, originalPositions[i].rotation, 0.5f, i * 0.3f));
+                    StartCoroutine(LerpCardRotation(90, cardsInHand[i].transform.rotation.eulerAngles.z - 180));
+                }
+                else
+                {
+                    StartCoroutine(MoveCardToSlot(cardsInHand[i], originalPositions[i].position, originalPositions[i].rotation, 0.5f, i * 0.3f));
+                }
                 cardAdded = true;
 
                 //Debug.Log("Card Added Successfully.");
@@ -481,9 +499,6 @@ public class CardDrawSystem : MonoBehaviour
         //Convert The List To An Array
         cardsToDiscard = foundCards.ToArray();
     }
-
-
-
 
     public void DeleteCardsInHand()
     {
@@ -878,6 +893,70 @@ public class CardDrawSystem : MonoBehaviour
                 cardsInHand[bannedCard2].gameObject.transform.Rotate(0, 180, 0);
             }
             bannedCard2 = -1;
+        }
+    }
+
+    //Called When Skipped Turn
+    public void FlipCards(bool flip)
+    {
+        if (flip != isFlipped)
+        {
+            isFlipped = flip;
+
+            if (flip)
+            {
+                //Skipped Rotation
+                StartCoroutine(LerpCardRotation(90, 0));
+            }
+            else
+            {
+                //Playable Rotation
+                StartCoroutine(LerpCardRotation(-90f, 0));
+            }
+        }
+    }
+
+    private IEnumerator LerpCardRotation(float targetAngle, float targetZAngle)
+    {
+        float timeElapsed = 0f;
+        float duration = 0.1f;
+        Quaternion[] startRotations = new Quaternion[cardsInHand.Length];
+        Quaternion[] targetRotations = new Quaternion[cardsInHand.Length];
+
+        for (int i = 0; i < cardsInHand.Length; i++)
+        {
+            if (cardsInHand[i] != null)
+            {
+                Vector3 currentRotation = cardsInHand[i].transform.rotation.eulerAngles;
+                startRotations[i] = cardsInHand[i].transform.rotation;
+                if(targetZAngle == 0)
+                {
+                    targetZAngle = cardsInHand[i].transform.rotation.z + 180;
+                }
+                targetRotations[i] = Quaternion.Euler(targetAngle, currentRotation.y, targetZAngle);
+            }
+        }
+
+        while (timeElapsed < duration)
+        {
+            for (int i = 0; i < cardsInHand.Length; i++)
+            {
+                if (cardsInHand[i] != null)
+                {
+                    cardsInHand[i].transform.rotation = Quaternion.Lerp(startRotations[i], targetRotations[i], timeElapsed / duration);
+                }
+            }
+            timeElapsed += Time.deltaTime;
+            yield return null;
+        }
+
+        for (int i = 0; i < cardsInHand.Length; i++)
+        {
+            if (cardsInHand[i] != null)
+            {
+                //Check Final Rotation
+                cardsInHand[i].transform.rotation = targetRotations[i];
+            }
         }
     }
 

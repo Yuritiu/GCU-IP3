@@ -10,6 +10,8 @@ public class Armour : MonoBehaviour
     private GameManager gameManager;
     private StatusDropdown statusDropdown;
 
+    [SerializeField] private AudioClip armourEquip;
+
     void Start()
     {
         gameManager = FindAnyObjectByType<GameManager>();
@@ -22,7 +24,7 @@ public class Armour : MonoBehaviour
         float roll = UnityEngine.Random.Range(0f, 100f);
 
         GameManager.Instance.playerArmour++;
-
+        SFXManager.instance.PlaySFXClip(armourEquip, transform, 0.2f);
         if (roll <= chance)
         {
             //Display BACKFIRE! Text
@@ -35,8 +37,8 @@ public class Armour : MonoBehaviour
             //GameManager.Instance.armourBackfire.gameObject.SetActive(true);
             statusDropdown.DisplayStatusEffect(0, 3);
         }
-    } 
-           
+    }
+
     public void PlayCardForAI()
     {
         GameManager.Instance.aiArmour++;

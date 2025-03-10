@@ -63,7 +63,8 @@ public class Knife : MonoBehaviour
             if (AICardDrawSystem.Instance.selectedPosition1.childCount > 0)
             {
                 //print("checking knife 1");
-                if ((AICardDrawSystem.Instance.selectedPosition1.GetChild(0).name.Contains("knife") || AICardDrawSystem.Instance.selectedPosition1.GetChild(0).name.Contains("cigar")) && !GameManager.Instance.knife1used)
+                if ((AICardDrawSystem.Instance.selectedPosition1.GetChild(0).name.Contains("knife") || 
+                    AICardDrawSystem.Instance.selectedPosition1.GetChild(0).name.Contains("cigar")) && !GameManager.Instance.knife1used)
                 {
                     GameManager.Instance.knife1used = true;
                     StartCoroutine(GameManager.Instance.WaitToCompareCards(2, 1));
@@ -72,7 +73,8 @@ public class Knife : MonoBehaviour
             if (AICardDrawSystem.Instance.selectedPosition2.childCount > 0)
             {
                 //print("checking knife 2");
-                if ((AICardDrawSystem.Instance.selectedPosition2.GetChild(0).name.Contains("knife") || AICardDrawSystem.Instance.selectedPosition2.GetChild(0).name.Contains("cigar")) && !GameManager.Instance.knife2used)
+                if ((AICardDrawSystem.Instance.selectedPosition2.GetChild(0).name.Contains("knife") ||
+                    AICardDrawSystem.Instance.selectedPosition2.GetChild(0).name.Contains("cigar")) && !GameManager.Instance.knife2used)
                 {
                     GameManager.Instance.knife2used = true;
                     if (!GameManager.Instance.knife1used)
@@ -93,7 +95,7 @@ public class Knife : MonoBehaviour
 
         float chance = gameManager.statusPercent;
         float roll = UnityEngine.Random.Range(0f, 100f);
-
+         
         if (roll <= chance)
         {
             //Display BACKFIRE! Text

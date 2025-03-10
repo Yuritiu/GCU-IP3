@@ -297,7 +297,6 @@ public class GameManager : MonoBehaviour
         canPlay = false;
 
         CardDrawSystem.Instance.UnbanCards();
-        AICardDrawSystem.Instance.UnbanCards();
         blur.SetActive(false);
 
         //Debug.Log("Played Hand: " + isTutorial);
@@ -314,6 +313,7 @@ public class GameManager : MonoBehaviour
 
     public async void ShowCards()
     {
+        AICardDrawSystem.Instance.UnbanCards();
         CardSelection.ClearAllHovers();
         if (aiSkippedTurns > 0)
         {

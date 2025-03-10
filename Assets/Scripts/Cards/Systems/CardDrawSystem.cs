@@ -466,7 +466,7 @@ public class CardDrawSystem : MonoBehaviour
 
                 //Stop Smoke If Cigar Fails To (Card Destroyed Before Can Call Stop)
                 VisualEffect[] allSmokeVFX = FindObjectsOfType<VisualEffect>();
-                Debug.Log("SMOKE VFX's: " + allSmokeVFX.Length);
+                //Debug.Log("SMOKE VFX's: " + allSmokeVFX.Length);
 
                 foreach (VisualEffect vfx in allSmokeVFX)
                 {

@@ -82,7 +82,7 @@ public class LiveDeckGrid : MonoBehaviour
                     {
                         currentColor.a = 0.25f;
                         image.color = currentColor;
-                        Debug.Log($"Set opacity of {cardName} to 0.25");
+                        //Debug.Log($"Set opacity of {cardName} to 0.25");
                         opacityChanged = true;
                         break; //Exit after change
                     }

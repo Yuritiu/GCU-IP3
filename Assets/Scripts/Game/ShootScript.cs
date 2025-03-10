@@ -36,7 +36,7 @@ public class ShootScript : MonoBehaviour
     [SerializeField] private AudioClip Gunfire;
     [SerializeField] private AudioClip earRinging;
 
-    public CameraController cameraController;
+    //public CameraController cameraController;
 
     private void Start()
     {
@@ -72,7 +72,7 @@ public class ShootScript : MonoBehaviour
         {
             gunAnim = GetComponent<Animator>();
             StartCoroutine(AiFire(gameObject));
-            cameraController.gunInHand = false;
+            //cameraController.gunInHand = false;
         }
     }
    
@@ -238,6 +238,6 @@ public class ShootScript : MonoBehaviour
         gameObject.SetActive(false);
         firePressed = false;
 
-        cameraController.gunInHand = false;
+        //cameraController.gunInHand = false;
     }
 }

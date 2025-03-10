@@ -12,7 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 244e576c963c50c4bb416bb628a9a0e4, type: 3}
   m_Name: TestDialogue
   m_EditorClassIdentifier: 
-  characterName: Bartender
+  initialCharacterName: Bartender
+  initialSprite: {fileID: 21300000, guid: 5fac43c9be8194d4fa367bf183f6a2a5, type: 3}
+  characterLinesName:
+  - Bartender
+  - Bartender
+  - Opponent
+  - Opponent
   textLines:
   - "Listen, pal, I ain't in the business of askin\u2019 too many questions\u2014just
     pourin\u2019 drinks and keepin\u2019 secrets. You want a whiskey neat, I\u2019ll
@@ -21,6 +27,19 @@ MonoBehaviour:
   - "But if you\u2019re bringin\u2019 trouble through that door, do me a favor\u2014finish
     your drink first. Bloodstains are hell to get outta the floorboards, and the
     boss don\u2019t like a mess."
+  - "Rise and shine, pal. Took a little persuadin\u2019 to get you here, but now
+    that you\u2019re awake, let\u2019s deal you in\u2014hope you play better than
+    you fight."
+  - "This joint\u2019s got history, y\u2019know\u2014lotta poor souls lost more than
+    just their wallets at this table. Let\u2019s see if you\u2019re joinin\u2019
+    \u2018em."
   linePortraits:
-  - {fileID: 21300000, guid: 5fac43c9be8194d4fa367bf183f6a2a5, type: 3}
+  - {fileID: 21300000, guid: ede178288c7ecda41aa63fbaefe47d6e, type: 3}
   - {fileID: 21300000, guid: e7ed200a8b7d2bc49bac28eba3e3a82e, type: 3}
+  - {fileID: 21300000, guid: aeca32db79edcbc41918423df1f09e33, type: 3}
+  - {fileID: 21300000, guid: 6b2fa8764a0ef1748b05dca0fc667c07, type: 3}
+  cameraLinesTarget:
+  - Bartender
+  - 
+  - Opponent
+  - 

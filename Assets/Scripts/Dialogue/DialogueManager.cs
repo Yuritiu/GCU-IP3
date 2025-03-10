@@ -27,7 +27,10 @@ public class DialogueManager : MonoBehaviour
     [SerializeField] private bool isTyping = false;
     public float typingSpeed = 0.05f;
 
+    public float targetAlpha = 0.8f;
+
     private string[] currentTextLines;
+    private string[] currentCharacterNames;
     private Sprite[] currentLinePortraits;
     private int currentLineIndex = 0;
 
@@ -38,8 +41,12 @@ public class DialogueManager : MonoBehaviour
     private Vector2 nameTargetPos;
     private Vector2 portraitTargetPos;
 
+    private CameraController cameraController;
+
     private void Awake()
     {
+        cameraController = FindFirstObjectByType<CameraController>();
+
         nameTargetPos = characterNameContainer.anchoredPosition;
         portraitTargetPos = characterPortrait.rectTransform.anchoredPosition;
 
@@ -59,6 +66,8 @@ public class DialogueManager : MonoBehaviour
 
     private IEnumerator AnimateDialogueUI(int dialogueIndex)
     {
+        StartCoroutine(FadeInBackgroundImage(targetAlpha));
+
         float elapsedTime = 0f;
         while (elapsedTime < animationDuration)
         {
@@ -80,6 +89,7 @@ public class DialogueManager : MonoBehaviour
 
     public void StartDialogue(int dialogueIndex)
     {
+
         if (dialogueIndex < 0 || dialogueIndex >= dialogueDatas.Length)
         {
             Debug.LogError("Dialogue index out of range!");
@@ -87,8 +97,14 @@ public class DialogueManager : MonoBehaviour
         }
 
         currentDialogueData = dialogueDatas[dialogueIndex];
-        characterNameText.text = currentDialogueData.characterName;
+
+        // Set initial character name and sprite
+        characterNameText.text = currentDialogueData.initialCharacterName;
+        characterPortrait.sprite = currentDialogueData.initialSprite;
+
+        // Assign arrays
         currentTextLines = currentDialogueData.textLines;
+        currentCharacterNames = currentDialogueData.characterLinesName;
         currentLinePortraits = currentDialogueData.linePortraits;
         currentLineIndex = 0;
 
@@ -103,19 +119,43 @@ public class DialogueManager : MonoBehaviour
         if (currentTextLines == null || currentLineIndex >= currentTextLines.Length)
         {
             StartCoroutine(ReverseAnimateDialogueUI());
+            StartCoroutine(FadeOutBackgroundImage());
             textBox.text = "";
             return;
         }
 
-        StartCoroutine(TypeLine(currentTextLines[currentLineIndex]));
+        if (currentDialogueData.cameraLinesTarget != null && currentLineIndex < currentDialogueData.cameraLinesTarget.Length)
+        {
+            string cameraTarget = currentDialogueData.cameraLinesTarget[currentLineIndex];
 
-        if (currentLinePortraits != null && currentLinePortraits.Length > currentLineIndex)
+            if (!string.IsNullOrEmpty(cameraTarget) && cameraTarget != "None")
+            {
+                if (cameraTarget == "Bar")
+                {
+                    cameraController.SetCameraToBarTarget();
+                }
+                else if (cameraTarget == "Opponent")
+                {
+                    cameraController.SetCameraToOpponentTarget();
+                }
+            }
+        }
+
+        if (currentDialogueData.characterLinesName != null && currentLineIndex < currentDialogueData.characterLinesName.Length)
+        {
+            characterNameText.text = currentDialogueData.characterLinesName[currentLineIndex];
+        }
+
+        if (currentLinePortraits != null && currentLineIndex < currentLinePortraits.Length)
         {
             characterPortrait.sprite = currentLinePortraits[currentLineIndex];
         }
 
+        StartCoroutine(TypeLine(currentTextLines[currentLineIndex]));
+
         currentLineIndex++;
     }
+
 
     private IEnumerator TypeLine(string line)
     {
@@ -178,6 +218,39 @@ public class DialogueManager : MonoBehaviour
 
         characterNameContainer.anchoredPosition = nameStartPos;
         characterPortrait.rectTransform.anchoredPosition = portraitStartPos;
+    }
+
+    private IEnumerator FadeInBackgroundImage(float targetAlpha)
+    {
+        float elapsedTime = 0f;
+        Color startColor = backgroundImage.color;
+        Color targetColor = new Color(startColor.r, startColor.g, startColor.b, targetAlpha);
+
+        while (elapsedTime < continueTextFadeDuration)
+        {
+            elapsedTime += Time.deltaTime;
+            backgroundImage.color = Color.Lerp(startColor, targetColor, elapsedTime / continueTextFadeDuration);
+            yield return null;
+        }
+
+        backgroundImage.color = targetColor;
+    }
+
+
+    private IEnumerator FadeOutBackgroundImage()
+    {
+        float elapsedTime = 0f;
+        Color startColor = backgroundImage.color;
+        Color targetColor = new Color(startColor.r, startColor.g, startColor.b, 0f);
+
+        while (elapsedTime < continueTextFadeDuration)
+        {
+            elapsedTime += Time.deltaTime;
+            backgroundImage.color = Color.Lerp(startColor, targetColor, elapsedTime / continueTextFadeDuration);
+            yield return null;
+        }
+
+        backgroundImage.color = targetColor;
     }
 
     public void SetTypingSpeed(float speed)

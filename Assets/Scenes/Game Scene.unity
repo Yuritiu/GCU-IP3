@@ -383,6 +383,7 @@ MonoBehaviour:
   - {fileID: 1356875175}
   - {fileID: 1822990380}
   chamberSpin: {fileID: 8300000, guid: c7c8be22dbb7ad44d889c66873a5a940, type: 3}
+  bulletLoad: {fileID: 8300000, guid: 2fc6169336cfcd54c8aa9b618397933c, type: 3}
   reloadHappened: 0
   chamber: {fileID: 610974269}
   in1stPos: 0

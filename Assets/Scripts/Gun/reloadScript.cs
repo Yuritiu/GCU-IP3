@@ -180,14 +180,14 @@ public class reloadScript : MonoBehaviour
             {
                 bulletToLoad = TableBullets[currentBullets];
                 startingpos = bulletToLoad.transform.position;
-                bulletToLoad.transform.position = new Vector3(bulletToLoad.transform.position.x, bulletToLoad.transform.position.y + 1, bulletToLoad.transform.position.z + 1);
+                bulletToLoad.transform.position = new Vector3(chamber.transform.position.x, chamber.transform.position.y + 0.06f, chamber.transform.position.z - 0.06f);
                 bulletToLoad.SetActive(true);
                 SFXManager.instance.PlaySFXClip(bulletLoad, transform, 0.7f);
 
                 while (t2 < 1.0f)
                 {
                     t2 += Time.deltaTime;
-                    bulletToLoad.transform.position = Vector3.Lerp(TableBullets[GameManager.Instance.bullets - 1].transform.position, startingpos, t2);
+                    bulletToLoad.transform.position = Vector3.Lerp(bulletToLoad.transform.position, startingpos, t2);
                     yield return null;
 
                 }

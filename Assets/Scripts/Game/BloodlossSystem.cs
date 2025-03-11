@@ -19,7 +19,7 @@ public class BloodlossSystem : MonoBehaviour
     [Header("Countdown References")]
     [SerializeField] Image bloodBlur;
     [SerializeField] Image blackoutBlur;
-    public Image bloodSplatter;
+    public Image[] bloodSplatter;
     
     public GameObject blur;
     public Material blurMat;
@@ -70,7 +70,7 @@ public class BloodlossSystem : MonoBehaviour
     {
         //Normalize The Time To 0-1 Range So It Fits In Image Right
         float fillAmount = Mathf.Clamp01(currentHealth / maxHealth);
-        
+
         //Fill Bar Visual
         //print(currentHealth);
         //print(fillAmount);
@@ -78,12 +78,15 @@ public class BloodlossSystem : MonoBehaviour
         //print(heartbeat.volume);
         //print(heartbeatfast.volume);
 
-        if(bloodSplatter.color.a > 0)
+        for (int i = 0; i < 4; i++)
         {
-            Color splatter = bloodSplatter.color;
-            splatter.a -= 0.01f * Time.deltaTime;
-            bloodSplatter.color = splatter;
-            //print(10 * Time.deltaTime);
+            if (bloodSplatter[i].color.a > 0)
+            {
+                Color splatter = bloodSplatter[i].color;
+                splatter.a -= 0.005f * Time.deltaTime;
+                bloodSplatter[i].color = splatter;
+                //print(10 * Time.deltaTime);
+            }
         }
         
         if (bloodlossEffectsEnabled)

@@ -17,6 +17,7 @@ public class Hand : MonoBehaviour
     public bool sideToHit = false;
     public bool waitingToCut = false;
     public bool bloodSplatterEffect = false;
+    public int bloodSplatterIndex = 0;
     public int phaseOfAction = 1;
     
     private Vector3 knifeDefaultPos;
@@ -72,11 +73,11 @@ public class Hand : MonoBehaviour
     {
         if (bloodSplatterEffect)
         {
-            Color splatter = BloodlossSystem.Instance.bloodSplatter.color;
+            Color splatter = BloodlossSystem.Instance.bloodSplatter[bloodSplatterIndex].color;
             splatter.a += 0.06f;
-            BloodlossSystem.Instance.bloodSplatter.color = splatter;
+            BloodlossSystem.Instance.bloodSplatter[bloodSplatterIndex].color = splatter;
             
-            if(BloodlossSystem.Instance.bloodSplatter.color.a > 0.2f)
+            if(BloodlossSystem.Instance.bloodSplatter[bloodSplatterIndex].color.a > 0.2f)
             {
                 bloodSplatterEffect = false;
             }
@@ -121,8 +122,10 @@ public class Hand : MonoBehaviour
                                 turn.y = 7.5f;
                                 knife.transform.position = new Vector3(knife.transform.position.x, turn.y / 10, knife.transform.position.z);
                                 phaseOfAction = 2;
+
+                                bloodSplatterIndex = UnityEngine.Random.Range(0, 4);
                                 bloodSplatterEffect = true;
-                                
+
                                 SFXManager.instance.PlaySFXClip(knifeInsert, transform, 1f);
                             }
                         }

@@ -90,6 +90,14 @@ public class CameraController : MonoBehaviour
                 HandleFreeMovement();
             }
         }
+        if (!GameManager.Instance.crosshairUnlocked)
+        {
+            cameraLocked = false;
+        }
+        else if (GameManager.Instance.crosshairUnlocked)
+        {
+            cameraLocked = true;
+        }
 
         CheckForKeyPresses();
     }

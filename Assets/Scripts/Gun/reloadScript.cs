@@ -24,6 +24,7 @@ public class reloadScript : MonoBehaviour
     private GameObject bulletToLoad;
 
     [SerializeField] private AudioClip chamberSpin;
+    [SerializeField] private AudioClip bulletLoad;
 
     private CameraController cameraController;
 
@@ -51,8 +52,8 @@ public class reloadScript : MonoBehaviour
     {
         if (in1stPos == true && isActive == false)
         {
-            in2ndPos=true;
-            in1stPos= false;
+            in2ndPos = true;
+            in1stPos = false;
             //shootScript.gunAnim.Play("GunPause");
 
             StartCoroutine(gunTransition(targetPos));
@@ -61,18 +62,18 @@ public class reloadScript : MonoBehaviour
 
         else if (in2ndPos == true)
         {
-            in1stPos=true;
-            in2ndPos=false;
+            in1stPos = true;
+            in2ndPos = false;
             //shootScript.gunAnim.Play("GunPause");
             StartCoroutine(gunTransition(gunPos));
-            
+
             isActive = false;
         }
 
-        if(GameManager.Instance.inGunAction == true)
+        if (GameManager.Instance.inGunAction == true)
         {
-            in1stPos= true;
-            
+            in1stPos = true;
+
             moveGun();
         }
     }
@@ -85,7 +86,7 @@ public class reloadScript : MonoBehaviour
     //Check If Gun Action Is Happening
     private bool GunActionInProgress()
     {
-        return GameManager.Instance.inGunAction|| GameManager.Instance.aiGunCount > 0;
+        return GameManager.Instance.inGunAction || GameManager.Instance.aiGunCount > 0;
     }
 
     private void Update()
@@ -112,7 +113,7 @@ public class reloadScript : MonoBehaviour
         Vector3 startingpos = gun.transform.position;
         bool moveFinished = false;
 
-        while (t < 1.0f && moveFinished == false )
+        while (t < 1.0f && moveFinished == false)
         {
             t += Time.deltaTime * (Time.timeScale * speed);
             gun.transform.position = Vector3.Lerp(startingpos, Target.transform.position, t);
@@ -123,19 +124,19 @@ public class reloadScript : MonoBehaviour
 
             yield return null;
         }
-        
+
         gun.transform.position = Target.transform.position;
         gun.transform.rotation = Target.transform.rotation;
 
-        if(in2ndPos == true)
+        if (in2ndPos == true)
         {
             loadGun();
         }
-            
-        yield return null;    
+
+        yield return null;
     }
 
-   
+
 
     IEnumerator loadWeapon(GameObject chamber)
     {
@@ -146,7 +147,7 @@ public class reloadScript : MonoBehaviour
             Debug.Log("Gun action in progress! Waiting...");
             yield return null;
         }
-        
+
 
         float x = chamber.transform.position.x;
         SFXManager.instance.PlaySFXClip(chamberSpin, transform, 0.3f);
@@ -160,7 +161,7 @@ public class reloadScript : MonoBehaviour
         {
             t += Time.deltaTime;
             chamber.transform.Rotate(0f, 0f, -5f, Space.Self);
-            
+
 
             if (t >= 1.0f)
             {
@@ -168,7 +169,7 @@ public class reloadScript : MonoBehaviour
             }
             yield return null;
         }
-        while(currentBullets < GameManager.Instance.bullets)
+        while (currentBullets < GameManager.Instance.bullets)
         {
             float t2 = 0;
             Vector3 startingpos = chamber.transform.position;
@@ -179,24 +180,25 @@ public class reloadScript : MonoBehaviour
             {
                 bulletToLoad = TableBullets[currentBullets];
                 startingpos = bulletToLoad.transform.position;
-                bulletToLoad.transform.position = new Vector3(chamber.transform.position.x, chamber.transform.position.y + 0.06f, chamber.transform.position.z - 0.06f);
+                bulletToLoad.transform.position = new Vector3(bulletToLoad.transform.position.x, bulletToLoad.transform.position.y + 1, bulletToLoad.transform.position.z + 1);
                 bulletToLoad.SetActive(true);
+                SFXManager.instance.PlaySFXClip(bulletLoad, transform, 0.7f);
 
                 while (t2 < 1.0f)
                 {
                     t2 += Time.deltaTime;
-                    bulletToLoad.transform.position = Vector3.Lerp(bulletToLoad.transform.position, startingpos, t2);
+                    bulletToLoad.transform.position = Vector3.Lerp(TableBullets[GameManager.Instance.bullets - 1].transform.position, startingpos, t2);
                     yield return null;
 
                 }
-                
+
             }
-            currentBullets = currentBullets +1;
+            currentBullets = currentBullets + 1;
             yield return null;
 
         }
-       
-               
+
+
         chamber.transform.position = new Vector3(x, chamber.transform.position.y, chamber.transform.position.z);
         isActive = false;
 
@@ -213,6 +215,6 @@ public class reloadScript : MonoBehaviour
         GameManager.Instance.FinishAIReload();
 
         yield return null;
-    }    
+    }
 }
 

@@ -560,10 +560,13 @@ public class GameManager : MonoBehaviour
         //print(gun.name);
 
         //float t = 0.00f;
-        yield return new WaitForSeconds(3f);
-        
+        yield return new WaitForSeconds(4.5f);
+
+        float speed = 2f;
         bool PlayerShot = false;
-        Gun.SetActive(false);
+        Quaternion startRotation = Gun.transform.rotation;
+        Vector3 startPosition = Gun.transform.position;
+
 
         if (ShootScript.instance2 != null)
         {
@@ -572,21 +575,45 @@ public class GameManager : MonoBehaviour
 
         if (gun.name == "PlayerGun" && !playerGunActive)
         {
+            float t = 0.00f;
+            while (t < 1.00f)
+            {
+                t += Time.deltaTime * (Time.timeScale * speed);
+                Gun.transform.position = Vector3.Lerp(Gun.transform.position, gun.transform.position, t);
+                Gun.transform.rotation = Quaternion.Slerp(Gun.transform.rotation, gun.transform.rotation, speed * Time.deltaTime);
+                yield return null;
+            }
             has2Guns = false;
             playerGunActive = true;
+            Gun.SetActive(false);
+            Gun.transform.rotation = startRotation;
+            Gun.transform.position = startPosition;
             gun.SetActive(true);     
         }
         else if (gun.name == "PlayerGun" && playerGunActive)
         {
+
+
             has2Guns = true;
             PlayerRoulette();
         }
 
         if (gun.name == "AiGun" && !playerGunActive && !aiGunActive)
         {
+            float t = 0.00f;
+            while (t < 1.00f)
+            {
+                t += Time.deltaTime * (Time.timeScale * speed);
+                Gun.transform.position = Vector3.Lerp(Gun.transform.position, gun.transform.position, t);
+                Gun.transform.rotation = Quaternion.Slerp(Gun.transform.rotation, gun.transform.rotation, 6 * Time.deltaTime);
+                yield return null;
+            }
+
             has2Guns = false;
             aiGunActive = true;
-            
+            Gun.SetActive(false);
+            Gun.transform.rotation = startRotation;
+            Gun.transform.position = startPosition;
             gun.SetActive(true);         
         }
 

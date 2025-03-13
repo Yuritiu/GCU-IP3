@@ -1,6 +1,7 @@
 using System.Buffers.Text;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using TMPro;
 using UnityEngine;
 
@@ -98,6 +99,10 @@ public class CardDeck : MonoBehaviour
         }
 
         deck.Clear();
+
+        //Calculate The Total Height Before Stacking
+        float totalHeight = (cardPrefabs.Sum(card => card.quantity) - 1) * cardStackOffset;
+
         foreach (CardPrefab card in cardPrefabs)
         {
             for (int i = 0; i < card.quantity; i++)
@@ -105,7 +110,7 @@ public class CardDeck : MonoBehaviour
                 if (card != null)
                 {
                     //For Each Card In The Deck Instantiate A Visual Card Prefab At The Proper Position
-                    Vector3 playingDeckStackPosition = fanStartPosition.position + new Vector3(90, currentDeckStackHeight + cardStackOffset, 0);
+                    Vector3 playingDeckStackPosition = fanStartPosition.position + new Vector3(90, totalHeight - currentDeckStackHeight, 0);
                     GameObject emptyCard = Instantiate(emptyCardPrefab, playingDeckStackPosition, Quaternion.identity);
 
                     emptyCard.transform.localPosition = new Vector3(fanStartPosition.position.x, playingDeckStackPosition.y, fanStartPosition.position.z);
@@ -226,6 +231,7 @@ public class CardDeck : MonoBehaviour
     {
         //Stack From Bottom Instead Of Top Of Deck
         float baseY = deckPosition.position.y;
+
         List<Coroutine> currentCardMoveCoroutines = new List<Coroutine>();
 
         for (int i = 0; i < visualDeck.Count; i++)

@@ -58203,7 +58203,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Tip: This is a test Text'
+  m_text: 
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 98f44de8edb63f4439463e8c4d09a738, type: 2}
   m_sharedMaterial: {fileID: -5923343289724165877, guid: 98f44de8edb63f4439463e8c4d09a738, type: 2}
@@ -64968,10 +64968,16 @@ MonoBehaviour:
   pauseBetweenLoads: 0.25
   longSpinDuration: 1
   longSpinSpeed: 700
-  tipText: {fileID: 0}
-  tips: []
+  tipText: {fileID: 1857442799}
+  tips:
+  - "A well-timed backfire sends \u2018em sleepin\u2019 with the fishes."
+  - "Luck\u2019s a fickle dame, but strategy gets the job done."
+  - Hold your cards, kid. Timing is everything.
+  - "Burn your best cards too early, you\u2019ll regret it."
+  - Keep your peepers on the deck. Know when to strike.
+  - "Play it smart or you\u2019ll be beggin\u2019 for a new hand."
   tipWaveSpeed: 2
-  tipWaveAmplitude: 10
+  tipWaveAmplitude: 2
 --- !u!114 &1981226065
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -70376,7 +70382,7 @@ MonoBehaviour:
   - cardPrefab: {fileID: 1833519795021809735, guid: 80493192768bbe24a98044b5fa79e23d, type: 3}
     quantity: 9
   - cardPrefab: {fileID: 1833519795021809735, guid: 5483eb8b06d5b644d88d87dbd32457d3, type: 3}
-    quantity: 60
+    quantity: 6
   deck: []
   emptyCardPrefab: {fileID: 1833519795021809735, guid: a90b0b83808e8bd479fa48eecd5fdf3f, type: 3}
   deckPosition: {fileID: 1946011886}

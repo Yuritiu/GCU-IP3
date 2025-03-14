@@ -98253,7 +98253,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Tip: This is a test Text'
+  m_text: 
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 98f44de8edb63f4439463e8c4d09a738, type: 2}
   m_sharedMaterial: {fileID: -5923343289724165877, guid: 98f44de8edb63f4439463e8c4d09a738, type: 2}
@@ -107933,9 +107933,12 @@ MonoBehaviour:
   longSpinSpeed: 700
   tipText: {fileID: 1867172992}
   tips:
-  - This is a test Tip
-  - Dinosaur moment
-  - Strong hand clear
+  - "A well-timed backfire sends \u2018em sleepin\u2019 with the fishes."
+  - "Luck\u2019s a fickle dame, but strategy gets the job done."
+  - Hold your cards, kid. Timing is everything.
+  - "Burn your best cards too early, you\u2019ll regret it."
+  - Keep your peepers on the deck. Know when to strike.
+  - "Play it smart or you\u2019ll be beggin\u2019 for a new hand."
   tipWaveSpeed: 2
   tipWaveAmplitude: 2
 --- !u!114 &2081714344

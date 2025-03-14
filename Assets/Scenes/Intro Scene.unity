@@ -1608,8 +1608,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 85eddf77dbf7b0143bb81d72e92ad240, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sensitivityX: 50
-  sensitivityY: 50
+  sensitivityX: 25
+  sensitivityY: 25
   minXRotation: -50
   maxXRotation: -20
   minYRotation: -60
@@ -4699,7 +4699,7 @@ MonoBehaviour:
   - Keep your peepers on the deck. Know when to strike.
   - "Play it smart or you\u2019ll be beggin\u2019 for a new hand."
   tipWaveSpeed: 2
-  tipWaveAmplitude: 10
+  tipWaveAmplitude: 2
 --- !u!114 &1614751832
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10802,7 +10802,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: b26028e077e1ea64898e69c578400741, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 1
+  m_Volume: 0.7
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -11027,13 +11027,14 @@ MonoBehaviour:
   initialDelay: 2
   dragDistance: -1.4
   dragSpeed: 1
-  pauseDuration: 0.9
+  pauseDuration: 0.825
   playerLocked: 1
   dragCount: 9
   rotationSpeed: 0.5
   stairHeight: 0.25
   stairDepth: 0.5
   stairDelay: 0.5
+  backwardDistance: 3
   introCamera: {fileID: 382931591}
   loadingManager: {fileID: 897878240}
 --- !u!114 &2105075142

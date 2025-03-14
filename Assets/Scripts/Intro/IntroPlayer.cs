@@ -22,6 +22,10 @@ public class IntroPlayer : MonoBehaviour
     public float stairDepth = 0.5f;
     public float stairDelay = 0.5f;
 
+    [Header("Backward Movement Settings")]
+    public float backwardDistance = 1.5f;
+
+    [Header("References")]
     public IntroCamera introCamera;
     public LoadingManager loadingManager;
 
@@ -81,8 +85,26 @@ public class IntroPlayer : MonoBehaviour
             transform.position = endPos;
             yield return new WaitForSeconds(stairDelay);
         }
+        StartCoroutine(MovePlayerBackward());
         yield return new WaitForSeconds(4.5f);
         loadingManager.LoadScene("Game Scene");
     }
 
+    IEnumerator MovePlayerBackward()
+    {
+        Vector3 startPos = transform.position;
+        Vector3 endPos = startPos + new Vector3(0, 0, -backwardDistance);
+
+        float moveTime = 5.5f;
+        float elapsedTime = 0f;
+
+        while (elapsedTime < moveTime)
+        {
+            transform.position = Vector3.Lerp(startPos, endPos, elapsedTime / moveTime);
+            elapsedTime += Time.deltaTime;
+            yield return null;
+        }
+
+        transform.position = endPos;
+    }
 }

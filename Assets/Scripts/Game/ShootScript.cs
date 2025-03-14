@@ -4,6 +4,7 @@ using UnityEngine;
 using System;
 using UnityEngine.UI;
 using TMPro;
+using UnityEngine.VFX;
 
 public class ShootScript : MonoBehaviour
 {
@@ -16,6 +17,11 @@ public class ShootScript : MonoBehaviour
     public bool firePressed;
     public Animator gunAnim;
     public ParticleSystem Flash;
+    public ParticleSystem gunBackfire1;
+    public ParticleSystem gunBackfire2;
+    public ParticleSystem gunBackfire3;
+
+
     public int PRandom;
     public int AiRandom;
     public bool PlayerShot;
@@ -35,6 +41,10 @@ public class ShootScript : MonoBehaviour
     [SerializeField] private AudioClip Gunload;
     [SerializeField] private AudioClip Gunfire;
     [SerializeField] private AudioClip earRinging;
+
+    public VisualEffect emptyGunVFX;
+    
+
 
     //public CameraController cameraController;
 
@@ -209,6 +219,15 @@ public class ShootScript : MonoBehaviour
             Flash.Play();
             SFXManager.instance.PlaySFXClip(Gunfire, transform, 0.3f);
         }
+        else
+        {
+            if (emptyGunVFX != null)
+            {
+                GunBackfire();
+                emptyGunVFX.Play(); // Play the VFX Effect
+            }
+        }
+       
         yield return new WaitForSeconds(delay);
 
         if (rand == 0 && GameManager.Instance.bullets > 0)
@@ -217,7 +236,9 @@ public class ShootScript : MonoBehaviour
                 //Shoots off your own finger
             GameManager.Instance.ReduceHealth(2, 3);
             statusDropdown.DisplayStatusEffect(0, 1);
+            GunBackfire();
             SFXManager.instance.PlaySFXClip(earRinging, transform, 0.3f);
+
         }
         else if (PRandom <= GameManager.Instance.bullets)
         {
@@ -239,5 +260,12 @@ public class ShootScript : MonoBehaviour
         firePressed = false;
 
         //cameraController.gunInHand = false;
+    }
+
+    private void GunBackfire()
+    {
+        gunBackfire1.Play();
+        gunBackfire2.Play();
+        gunBackfire3.Play();
     }
 }

@@ -1,6 +1,7 @@
 using System.Collections;
 using UnityEngine;
 
+
 public class IntroPlayer : MonoBehaviour
 {
     [Header("Drag Settings")]
@@ -28,12 +29,14 @@ public class IntroPlayer : MonoBehaviour
     [Header("References")]
     public IntroCamera introCamera;
     public LoadingManager loadingManager;
+    public GameObject blinkEffect;
 
     private void Update()
     {
         if (!playerLocked && !dragStarted)
         {
             StartCoroutine(StartWithDelay());
+            blinkEffect.SetActive(true);
             dragStarted = true;
         }
     }

@@ -151,6 +151,14 @@ public class ShootScript : MonoBehaviour
             Flash.Play();
             SFXManager.instance.PlaySFXClip(Gunfire, transform, 0.3f);
         }
+        else
+        {
+            if (emptyGunVFX != null)
+            {
+
+                emptyGunVFX.Play();
+            }
+        }
         yield return new WaitForSeconds(delay);
 
         float chance = gameManager.statusPercent;
@@ -161,7 +169,9 @@ public class ShootScript : MonoBehaviour
         {
             //Shoots off your own finger
             GameManager.Instance.ReduceHealth(1, 3);
+            GunBackfire();
             statusDropdown.DisplayStatusEffect(1, 1);
+
             
         }
         else if (AiRandom <= GameManager.Instance.bullets)
@@ -223,7 +233,7 @@ public class ShootScript : MonoBehaviour
         {
             if (emptyGunVFX != null)
             {
-                GunBackfire();
+                
                 emptyGunVFX.Play(); // Play the VFX Effect
             }
         }

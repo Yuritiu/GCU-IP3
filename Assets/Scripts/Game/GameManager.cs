@@ -577,6 +577,7 @@ public class GameManager : MonoBehaviour
 
         if (gun.name == "PlayerGun" && !playerGunActive)
         {
+            playerGunActive = true;
             float t = 0.00f;
             while (t < 1.00f)
             {
@@ -586,7 +587,7 @@ public class GameManager : MonoBehaviour
                 yield return null;
             }
             has2Guns = false;
-            playerGunActive = true;
+            
             Gun.SetActive(false);
             Gun.transform.rotation = startRotation;
             Gun.transform.position = startPosition;
@@ -602,6 +603,7 @@ public class GameManager : MonoBehaviour
 
         if (gun.name == "AiGun" && !playerGunActive && !aiGunActive)
         {
+            aiGunActive = true;
             float t = 0.00f;
             while (t < 1.00f)
             {
@@ -612,7 +614,7 @@ public class GameManager : MonoBehaviour
             }
 
             has2Guns = false;
-            aiGunActive = true;
+            
             Gun.SetActive(false);
             Gun.transform.rotation = startRotation;
             Gun.transform.position = startPosition;

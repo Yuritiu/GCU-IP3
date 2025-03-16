@@ -56,6 +56,7 @@ public class DoubleBullets : MonoBehaviour
 
                 if (reloadScript.Instance.in2ndPos == false)
                 {
+                    reloadScript.Instance.gameObject.SetActive(true);
                     reloadScript.Instance.moveGun();
                 }
 
@@ -86,8 +87,9 @@ public class DoubleBullets : MonoBehaviour
                 float roll = UnityEngine.Random.Range(0f, 100f);
                 //reloadScript.Instance.reloadHappened = false;
 
-                if (reloadScript.Instance.in2ndPos == false)
+                if (reloadScript.Instance.in2ndPos == false  && reloadScript.Instance.gameObject.activeInHierarchy == true)
                 {
+                    reloadScript.Instance.gameObject.SetActive(true);
                     reloadScript.Instance.moveGun();
                 }
                 

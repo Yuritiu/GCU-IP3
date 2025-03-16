@@ -85,7 +85,6 @@ public class CameraDeathEffect : MonoBehaviour
     void EndGameLose()
     {
         deathAudioSource.Play();
-
         LoseScreen.SetActive(true);
         Cursor.visible = true;
         Cursor.lockState = CursorLockMode.Confined;

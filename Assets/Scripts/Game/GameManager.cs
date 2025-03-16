@@ -36,7 +36,7 @@ public class GameManager : MonoBehaviour
     private bool wPressed;
     private bool sPressed;
     private bool pPressed;
-
+    DataGathering dG;
     [SerializeField] public float speed;
 
     public CameraController cameraController;
@@ -168,6 +168,8 @@ public class GameManager : MonoBehaviour
 
     async void Start()
     {
+        dG = gameObject.GetComponent<DataGathering>();
+
         Time.timeScale = 1f;
         originalCameraPosition.transform.position = MainCamera.transform.position;
         //playerSkippedTurnsText.enabled = false;
@@ -800,6 +802,8 @@ public class GameManager : MonoBehaviour
 
     private void FireGun(int character)
     {
+
+        dG.gunLoss = true;
         //GUN WINS GAME
         if (character == 1)
         {
@@ -1069,11 +1073,22 @@ public class GameManager : MonoBehaviour
         Cursor.visible = true;
         Cursor.lockState = CursorLockMode.Confined;
         Time.timeScale = 0f;
+
+        sendData(true);
     }
 
     public void EndGameLose()
     {
+        sendData(false);
         CameraDeathEffect.Instance.TriggerDeathSequence();
+    }
+
+
+    public void sendData(bool won) //bool won = who won? True = Player, False = Ai
+    {
+        dG.fingerslostPlayer = playerFingers + 1;
+        dG.fingerslostOpponent = aiFingers;
+        dG.GamEnded(won);
     }
 
     public void RestartGame()

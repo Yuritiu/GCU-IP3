@@ -185,7 +185,8 @@ public class BloodlossSystem : MonoBehaviour
 
         heartbeatfast.Stop();
         SFXManager.instance.PlaySFXClip(thud, transform, 1f);
-
+        DataGathering dG = FindObjectOfType<DataGathering>();
+        dG.bloodLost = true;
         GameManager.Instance.EndGameLose();
     }
 }

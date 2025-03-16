@@ -18871,6 +18871,35 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   audioMixer: {fileID: 24100000, guid: 4be1357e4a3f2bc428537fed3fbbdcb6, type: 2}
+--- !u!114 &713333287
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 713333282}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 07318246c9c9c02429e44d53db727181, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  won: 0
+  bloodLost: 0
+  fingersLost: 0
+  knifeUsed: 0
+  kinfebackfire: 0
+  oneChamberUsed: 0
+  oneChamberBackfire: 0
+  gunUsed: 0
+  gunBackfire: 0
+  cigarUsed: 0
+  cigarBackfire: 0
+  bottleUsed: 0
+  bottleBackfire: 0
+  armorUsed: 0
+  armorBackfire: 0
+  emptyUsed: 0
+  emptyBackfire: 0
 --- !u!1 &713395347
 GameObject:
   m_ObjectHideFlags: 0
@@ -29879,6 +29908,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 3915920376543808648, guid: 5f30ef53536cc8b4694232906fbc92d4, type: 3}
       insertIndex: -1
       addedObject: {fileID: 713333286}
+    - targetCorrespondingSourceObject: {fileID: 3915920376543808648, guid: 5f30ef53536cc8b4694232906fbc92d4, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 713333287}
   m_SourcePrefab: {fileID: 100100000, guid: 5f30ef53536cc8b4694232906fbc92d4, type: 3}
 --- !u!1 &1157553952
 GameObject:

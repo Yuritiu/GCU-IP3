@@ -17,9 +17,15 @@ public class ShootScript : MonoBehaviour
     public bool firePressed;
     public Animator gunAnim;
     public ParticleSystem Flash;
+
+    //backfire effects
     public ParticleSystem gunBackfire1;
     public ParticleSystem gunBackfire2;
     public ParticleSystem gunBackfire3;
+    public ParticleSystem gunBackfire4;
+    public ParticleSystem gunBackfire5;
+    public ParticleSystem gunBackfire6;
+
 
 
     public int PRandom;
@@ -41,9 +47,11 @@ public class ShootScript : MonoBehaviour
     [SerializeField] private AudioClip Gunload;
     [SerializeField] private AudioClip Gunfire;
     [SerializeField] private AudioClip earRinging;
+    [SerializeField] private AudioClip emptySFX;
 
     public VisualEffect emptyGunVFX;
-    
+    private BackfireFlash backfireFlash;
+
 
 
     //public CameraController cameraController;
@@ -53,7 +61,8 @@ public class ShootScript : MonoBehaviour
         gunAnim = GetComponent<Animator>();
         gameManager = FindAnyObjectByType<GameManager>();
         statusDropdown = FindAnyObjectByType<StatusDropdown>();
-        currentRotation = startingRotation;  
+        currentRotation = startingRotation;
+        backfireFlash = FindObjectOfType<BackfireFlash>();
     }
 
     private void Awake()
@@ -157,6 +166,7 @@ public class ShootScript : MonoBehaviour
             {
 
                 emptyGunVFX.Play();
+                SFXManager.instance.PlaySFXClip(emptySFX, transform, 0.3f);
             }
         }
         yield return new WaitForSeconds(delay);
@@ -170,6 +180,7 @@ public class ShootScript : MonoBehaviour
             //Shoots off your own finger
             GameManager.Instance.ReduceHealth(1, 3);
             GunBackfire();
+            
             statusDropdown.DisplayStatusEffect(1, 1);
 
             
@@ -226,6 +237,7 @@ public class ShootScript : MonoBehaviour
         gunAnim.Play("recoil");
         if (PRandom <= GameManager.Instance.bullets)
         {
+            
             Flash.Play();
             SFXManager.instance.PlaySFXClip(Gunfire, transform, 0.3f);
         }
@@ -234,7 +246,8 @@ public class ShootScript : MonoBehaviour
             if (emptyGunVFX != null)
             {
                 
-                emptyGunVFX.Play(); // Play the VFX Effect
+                emptyGunVFX.Play(); 
+                SFXManager.instance.PlaySFXClip(emptySFX, transform, 0.3f);
             }
         }
        
@@ -247,6 +260,7 @@ public class ShootScript : MonoBehaviour
             GameManager.Instance.ReduceHealth(2, 3);
             statusDropdown.DisplayStatusEffect(0, 1);
             GunBackfire();
+            backfireFlash.BackfireActive();
             SFXManager.instance.PlaySFXClip(earRinging, transform, 0.3f);
 
         }
@@ -277,5 +291,10 @@ public class ShootScript : MonoBehaviour
         gunBackfire1.Play();
         gunBackfire2.Play();
         gunBackfire3.Play();
+        gunBackfire4.Play();
+        gunBackfire5.Play();
+        gunBackfire6.Play();
     }
+    
+   
 }

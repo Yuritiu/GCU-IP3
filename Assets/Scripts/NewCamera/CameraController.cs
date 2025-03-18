@@ -52,6 +52,14 @@ public class CameraController : MonoBehaviour
     private Quaternion originalRotation;
     private Camera mainCamera;
 
+    [Header("Oscilation Variables")]
+    [SerializeField] GameObject[] UICanvas;
+    float oscillationStrength = 0.005f;
+    float oscillationDuration = 2f;
+    float timeElapsed = 0f;
+    bool isOscillating = false;
+    bool uiActive = true;
+
     void Awake()
     {
         Instance = this;
@@ -75,6 +83,48 @@ public class CameraController : MonoBehaviour
 
     private void Update()
     {
+        if (isOscillating)
+        {
+            //Disable HUD
+            foreach (var ui in UICanvas)
+            {
+                ui.SetActive(false);
+            }
+            uiActive = false;
+
+            timeElapsed += Time.deltaTime;
+
+            //Apply Random Oscillation To Position
+            float xOscillation = Random.Range(-oscillationStrength, oscillationStrength);
+            float yOscillation = Random.Range(-oscillationStrength, oscillationStrength);
+            float zOscillation = Random.Range(-oscillationStrength, oscillationStrength);
+
+            //Apply Random Oscillation To Rotation
+            float rotationX = Random.Range(-oscillationStrength, oscillationStrength);
+            float rotationY = Random.Range(-oscillationStrength, oscillationStrength);
+            float rotationZ = Random.Range(-oscillationStrength, oscillationStrength);
+
+            transform.position = originalPosition + new Vector3(xOscillation, yOscillation, zOscillation);
+            transform.rotation = originalRotation * Quaternion.Euler(rotationX, rotationY, rotationZ);
+
+            if (timeElapsed >= oscillationDuration)
+            {
+                isOscillating = false;
+                transform.position = originalPosition;
+                transform.rotation = originalRotation;
+            }
+        }
+        else if(!uiActive)
+        {
+            //Enable HUD
+            foreach (var ui in UICanvas)
+            {
+                ui.SetActive(true);
+            }
+
+            uiActive = true;
+        }
+
         if (gunInHand)
         {
             xClamp = gunXClamp;
@@ -107,6 +157,12 @@ public class CameraController : MonoBehaviour
         }
 
         CheckForKeyPresses();
+    }
+
+    public void StartDrunkEffect()
+    {
+        timeElapsed = 0f;
+        isOscillating = true;
     }
 
     private void CheckForKeyPresses()

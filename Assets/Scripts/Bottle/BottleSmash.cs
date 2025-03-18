@@ -4,12 +4,16 @@ using UnityEngine;
 
 public class BottleSmash : MonoBehaviour
 {
+    [Header("Smash Variables")]
+    GameObject blur;
+
     [Header("Smash Audio Variables")]
     GameObject smashAudioObject;
     AudioSource smashAudioSource;
     AudioClip[] smashAudioClips;
     string playerSmashAudioSourceName = "Player Bottle Smash Audio Source";
     string opponentSmashAudioSourceName = "Opponent Bottle Smash Audio Source";
+    string blurGameObjectName = "Blur";
 
     [Header("Scream Audio Variables")]
     GameObject screamAudioObject;
@@ -40,6 +44,7 @@ public class BottleSmash : MonoBehaviour
     {
         //Hide Bottle Once Hits Player
         gameObject.GetComponent<MeshRenderer>().enabled = false;
+        blur = GameObject.Find(blurGameObjectName);
 
         //Play Smash SFX
         RetrieveAudioSource(isPlayer);
@@ -54,11 +59,22 @@ public class BottleSmash : MonoBehaviour
             //Enable Opponent's Ragdoll
             RagdollToggle.Instance.ragdoll = true;
         }
+        else
+        {
+            blur.GetComponent<MeshRenderer>().enabled = true;
+            //Call Oscillation Effect
+            CameraController.Instance.StartDrunkEffect();
+        }
 
         yield return new WaitForSeconds(1.5f);
 
         //Destroy Bottle
         Destroy(gameObject);
+
+        if (isPlayer)
+        {
+            blur.GetComponent<MeshRenderer>().enabled = false;
+        }
     }
 
     void RetrieveAudioSource(bool isPlayer)

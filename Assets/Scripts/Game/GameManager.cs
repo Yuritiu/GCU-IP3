@@ -981,7 +981,7 @@ public class GameManager : MonoBehaviour
         UpdateAmmoText();
         UpdateSkipTurnText();
 
-        if (Input.GetKeyDown(KeyCode.Tab))
+        if (Input.GetKeyDown(KeyCode.Space))
         {
             crosshairUnlocked = !crosshairUnlocked;
             if (crosshairUnlocked)
@@ -995,7 +995,7 @@ public class GameManager : MonoBehaviour
             Cursor.visible = crosshairUnlocked;
 
             // Only disable camera look when unlocking the cursor
-            freelookEnabled = !crosshairUnlocked;       
+            freelookEnabled = !crosshairUnlocked;
         }
 
         if (Gun.activeInHierarchy == true && ShootScript.instance1 != null && ShootScript.instance2 != null)

@@ -91,6 +91,7 @@ public class BottleCard : MonoBehaviour
         else
         {
             gameManager.FinishBottleTurn();
+            //CameraController.Instance.SetCameraToOpponentTarget();
         }
     }
 
@@ -134,6 +135,8 @@ public class BottleCard : MonoBehaviour
         {
             if (gameManager.inBottleAction)
             {
+                CameraController.Instance.SetCameraToBarTarget();
+
                 //gameManager.inBottleAction = false;
 
                 StartCoroutine(DelayBottleThrow(baseWaitTime, aiTarget, true));
@@ -158,6 +161,8 @@ public class BottleCard : MonoBehaviour
 
             if (gameManager.inAIBottleAction /*&& gameManager.aiSkipCount == 0*/)
             {
+                CameraController.Instance.SetCameraToBarTarget();
+
                 //gameManager.inAIBottleAction = true;
                 playCardForAiCalled = false;
 

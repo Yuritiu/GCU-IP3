@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class CameraController : MonoBehaviour
 {
+    public static CameraController Instance;
+
     [Header("Sensitivity Settings")]
     public float sensitivity = 100f;
 
@@ -22,7 +24,7 @@ public class CameraController : MonoBehaviour
 
 
     [Header("Target Points")]
-    public Vector2 barTarget = new Vector2(0f, 0f);
+    public Vector2 barTarget = new Vector2(3f, 1.8f);
     public Vector2 knifeTarget = new Vector2(0f, 0f);
     public Vector2 reloadTarget = new Vector2(0f, 0f);
     public Vector2 opponentTarget = new Vector2(0f, 0f);
@@ -49,6 +51,11 @@ public class CameraController : MonoBehaviour
     private Vector3 originalPosition;
     private Quaternion originalRotation;
     private Camera mainCamera;
+
+    void Awake()
+    {
+        Instance = this;
+    }
 
     private void Start()
     {
@@ -176,7 +183,6 @@ public class CameraController : MonoBehaviour
             }
         }
     }
-
 
     public void SetCameraToBarTarget()
     {

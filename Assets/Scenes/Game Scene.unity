@@ -1065,6 +1065,37 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 1748101702977828444, guid: 0c2bde1f1322b5f49be953ced4e9337b, type: 3}
   m_PrefabInstance: {fileID: 346987569}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &55042427
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 55042428}
+  m_Layer: 0
+  m_Name: Opponent View
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &55042428
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 55042427}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 1.234, z: 0.922}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &68273389 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 8091761711181309077, guid: d244096c0f24aa644b59352b5c832841, type: 3}
@@ -11164,6 +11195,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 565869794}
+  - component: {fileID: 565869803}
   - component: {fileID: 565869793}
   - component: {fileID: 565869792}
   - component: {fileID: 565869802}
@@ -11808,7 +11840,7 @@ MonoBehaviour:
   zClamp: {x: -75, y: 75}
   gunXClamp: {x: -2, y: 4}
   gunZClamp: {x: 0, y: 18}
-  barTarget: {x: 46, y: -12}
+  barTarget: {x: 3, y: 1.8}
   knifeTarget: {x: -21.8, y: 25.68}
   reloadTarget: {x: 0, y: 17}
   opponentTarget: {x: 0, y: 0}
@@ -11820,6 +11852,20 @@ MonoBehaviour:
   positionLerpDuration: 0.5
   cameraLocked: 0
   targetLookingPos: {x: 0, y: 0}
+--- !u!114 &565869803
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 565869790}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 888f552d514bf2d468f5e82e2d8b4956, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cardView: {fileID: 2046293611}
+  opponentView: {fileID: 55042427}
 --- !u!1 &576021947
 GameObject:
   m_ObjectHideFlags: 0
@@ -13991,7 +14037,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   won: 0
   bloodLost: 0
-  fingersLost: 0
+  fingerslostPlayer: 0
+  fingerslostOpponent: 0
+  gunLoss: 0
   knifeUsed: 0
   kinfebackfire: 0
   oneChamberUsed: 0
@@ -70430,6 +70478,37 @@ MonoBehaviour:
   returnDuration: 1
   pauseDuration: 5
   fanAnimationComplete: 0
+--- !u!1 &2046293611
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2046293612}
+  m_Layer: 0
+  m_Name: Card View
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2046293612
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2046293611}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.793, z: -0.424}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2047707576
 GameObject:
   m_ObjectHideFlags: 0
@@ -171833,6 +171912,8 @@ SceneRoots:
   - {fileID: 694210905}
   - {fileID: 159582003}
   - {fileID: 565869794}
+  - {fileID: 2046293612}
+  - {fileID: 55042428}
   - {fileID: 453174603}
   - {fileID: 139760396}
   - {fileID: 473723190}

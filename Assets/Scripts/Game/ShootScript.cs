@@ -52,9 +52,18 @@ public class ShootScript : MonoBehaviour
     public VisualEffect emptyGunVFX;
     private BackfireFlash backfireFlash;
 
+    private CameraController cameraController;
+    private FovLerp fovLerp;
+    private GunCameraShake gunCameraShake;
+    private GunShake gunShake;
+
+    public float shakeIntensity = 0.05f;
+    private Vector3 originalPosition;
+    private float shakeTime = 0.0f;
+    private bool isShaking = false;
 
 
-    //public CameraController cameraController;
+
 
     private void Start()
     {
@@ -63,13 +72,20 @@ public class ShootScript : MonoBehaviour
         statusDropdown = FindAnyObjectByType<StatusDropdown>();
         currentRotation = startingRotation;
         backfireFlash = FindObjectOfType<BackfireFlash>();
+
+        cameraController = FindFirstObjectByType<CameraController>();
+        fovLerp = FindFirstObjectByType<FovLerp>();
+        gunCameraShake = FindFirstObjectByType<GunCameraShake>();
+        gunShake = FindFirstObjectByType<GunShake>();
+
+        originalPosition = transform.localPosition;
     }
+
 
     private void Awake()
     {
         if (gunName == "PlayerGun")
         {
-            //print("instanceed1");
             instance1 = this;
 
             isPlayer = false;
@@ -85,57 +101,77 @@ public class ShootScript : MonoBehaviour
 
     private void OnEnable()
     {
-        //cameraController.gunInHand = true;
-
         if (gunName == "AiGun")
         {
             gunAnim = GetComponent<Animator>();
             StartCoroutine(AiFire(gameObject));
-            //cameraController.gunInHand = false;
         }
     }
-   
+
 
     private void Update()
     {
-        //Debug.Log("Hey We Got Here!");
-        if (gunName == "PlayerGun" && Input.GetMouseButtonDown(0) && firePressed == false && currentRotation <= 0) //&& !reducedPlayerGunCount)
+        if (gunName == "PlayerGun")
         {
-            gunAnim = GetComponent<Animator>();
-            StartCoroutine(Fire(gameObject));
-            Hammer.transform.Rotate(38f, 0, 0);
-            currentRotation = 38;
+            cameraController.gunInHand = true;
 
-            //reducedPlayerGunCount = true;
-            gameManager.inGunAction = false;
-            hasGunLoaded = false;
-
-            //gameManager.playerGunCount = 0;
-        }
-
-        if (gunName == "PlayerGun" && Input.GetMouseButton(1) && currentRotation > 0)
-        {
-            Hammer.transform.Rotate(-1, 0f, 0f, Space.Self);
-            currentRotation = currentRotation - 1;
-            if (!hasGunLoaded) 
-                                 
+            if (Input.GetMouseButton(1)) //Holding right-click
             {
-                SFXManager.instance.PlaySFXClip(Gunload, transform, 0.15f);
-                hasGunLoaded = true; 
+                fovLerp.StartLerp(); //Start lerping FOV towards the target
+
+                if (currentRotation > 0)
+                {
+                    Hammer.transform.Rotate(-1, 0f, 0f, Space.Self);
+                    gunCameraShake.StartShake();
+                    gunShake.StartShake();
+                    currentRotation = currentRotation - 1;
+
+                    if (!hasGunLoaded)
+                    {
+                        SFXManager.instance.PlaySFXClip(Gunload, transform, 0.15f);
+                        hasGunLoaded = true;
+                    }
+                }
+            }
+            else //Right-click released
+            {
+                fovLerp.StopLerp();
+                gunCameraShake.StopShake();
+                gunShake.StopShake();
+                if (currentRotation < startingRotation)
+                {
+                    Hammer.transform.Rotate(1, 0f, 0f, Space.Self);
+                    currentRotation = Mathf.Min(currentRotation + 1, startingRotation);
+                    hasGunLoaded = false;
+                }
+            }
+
+            if (Input.GetMouseButton(0) && firePressed == false && currentRotation <= 0)
+            {
+                gunCameraShake.StopShake();
+                gunShake.StopShake();
+                gunAnim = GetComponent<Animator>();
+                StartCoroutine(Fire(gameObject));
+                Hammer.transform.Rotate(startingRotation, 0, 0);
+                currentRotation = startingRotation;
+
+                gameManager.inGunAction = false;
+                hasGunLoaded = false;
+            }
+
+            //Update text hints
+            if (currentRotation > 0 && firePressed == false)
+            {
+                textUnderGun.text = "HOLD RMB";
+            }
+            else if (currentRotation <= 0)
+            {
+                textUnderGun.text = "CLICK LMB";
             }
         }
-
-
-        if (currentRotation > 0 && gunName == "PlayerGun" && firePressed ==false) ;
-        {
-            textUnderGun.text = "HOLD RMB";
-        }
-
-        if(currentRotation <= 0 && gunName == "PlayerGun")
-        {
-            textUnderGun.text = "CLICK LMB";
-        }
     }
+
+
 
     private IEnumerator AiFire(GameObject gun)
     {
@@ -282,8 +318,9 @@ public class ShootScript : MonoBehaviour
         gunAnim.Play("GunPause");
         gameObject.SetActive(false);
         firePressed = false;
-
-        //cameraController.gunInHand = false;
+        cameraController.gunInHand = false;
+        gunCameraShake.StopShake();
+        gunShake.StopShake();
     }
 
     private void GunBackfire()

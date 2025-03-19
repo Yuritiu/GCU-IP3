@@ -4,57 +4,41 @@ using UnityEngine;
 
 public class CameraShake : MonoBehaviour
 {
-    [Header("Shake Settings")]
-    public float shakeDuration = 0.5f;
-    public float shakeStrength = 0.05f;
-    public float shakeFrequency = 1.0f;
-    public AnimationCurve shakeAnimCurve = AnimationCurve.EaseInOut(0, 1, 1, 0);
-
-    [Header("Debug - Key: F")]
-    public bool testKey = true;
-
-    private float shakeTimer = 0f;
-    private float initialShakeDuration;
     private Vector3 originalPosition;
+    private float shakeDuration = 0f;
+    private float shakeMagnitude = 0.1f;
+    private float shakeTime = 0f;
 
-    public bool shouldShake = false;
-
-    void Start()
+    // Update is called once per frame
+    void Update()
     {
-        originalPosition = transform.localPosition;
-        initialShakeDuration = shakeDuration;
-    }
-
-    void FixedUpdate()
-    {
-        if (shakeTimer > 0)
+        if (shakeDuration > 0)
         {
-            float normalizedTime = 1 - (shakeTimer / initialShakeDuration);
-            float currentStrength = shakeStrength * shakeAnimCurve.Evaluate(normalizedTime);
+            // Generate a gentle shake
+            float xShake = Random.Range(-1f, 1f) * shakeMagnitude;
+            float yShake = Random.Range(-1f, 1f) * shakeMagnitude;
 
-            transform.localPosition = originalPosition + Random.insideUnitSphere * currentStrength;
-            shakeTimer -= Time.deltaTime * shakeFrequency;
+            // Apply shake to the camera's position
+            transform.position = originalPosition + new Vector3(xShake, yShake, 0);
+
+            // Decrease the shake duration and magnitude
+            shakeTime += Time.deltaTime;
+            shakeMagnitude = Mathf.Lerp(shakeMagnitude, 0, shakeTime / shakeDuration);
+            shakeDuration -= Time.deltaTime;
         }
-
-        //Test when F is pressed
-        //if (testKey)
-        //{
-        //    if (Input.GetKeyDown(KeyCode.F))
-        //    {
-        //        TriggerShake();
-        //    }
-        //}
-
-        //-- EXAMPLE -- HOW TO REFERENCE IN OTHER OBJECTS BELOW
-        //START(): CameraShake cameraShake = Camera.main.GetComponent<CameraShake>();
-        //ANYWHERE(): cameraShake.TriggerShake(1.0f, 1.2f, 1.5f);
+        else
+        {
+            // Reset camera position once shake is finished
+            transform.position = originalPosition;
+        }
     }
 
-    public void TriggerShake(float duration = -1, float strength = -1, float frequency = -1)
+    // Method to start the shake
+    public void StartShake(float duration, float magnitude)
     {
-        shakeTimer = (duration > 0) ? duration : shakeDuration;
-        initialShakeDuration = shakeTimer;
-        shakeStrength = (strength > 0) ? strength : shakeStrength;
-        shakeFrequency = (frequency > 0) ? frequency : shakeFrequency;
+        shakeDuration = duration;
+        shakeMagnitude = magnitude;
+        shakeTime = 0f;
+        originalPosition = transform.position;
     }
 }

@@ -23,23 +23,21 @@ public class RagdollToggle : MonoBehaviour
     {
         Instance = this;
 
-        bloodParticles.Stop();
+        bloodParticles?.Stop();
 
         animator = GetComponentInChildren<Animator>();
-        rootBone = GameObject.FindGameObjectWithTag("RootBone").GetComponent<Transform>();
-        rbs = rootBone.GetComponentsInChildren<Rigidbody>();
-        joints = rootBone.GetComponentsInChildren<CharacterJoint>();
-        colliders = rootBone.GetComponentsInChildren<Collider>();
+        rootBone = GameObject.FindGameObjectWithTag("RootBone")?.GetComponent<Transform>();
 
-        if (ragdoll)
+        if (rootBone != null)
         {
-            EnableRagdoll(true);
+            rbs = rootBone.GetComponentsInChildren<Rigidbody>();
+            joints = rootBone.GetComponentsInChildren<CharacterJoint>();
+            colliders = rootBone.GetComponentsInChildren<Collider>();
         }
-        else
-        {
-            EnableRagdoll(false);
-        }
+
+        EnableRagdoll(ragdoll);
     }
+
 
     void Update()
     {

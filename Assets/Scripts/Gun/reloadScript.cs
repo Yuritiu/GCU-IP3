@@ -43,7 +43,7 @@ public class reloadScript : MonoBehaviour
     private void Start()
     {
         in1stPos = true;
-        //cameraController = FindFirstObjectByType<CameraController>();
+        cameraController = FindFirstObjectByType<CameraController>();
 
 
     }
@@ -100,7 +100,6 @@ public class reloadScript : MonoBehaviour
 
     IEnumerator gunTransition(GameObject Target)
     {
-        //cameraController.SetCameraToReloadTarget();
         if (in2ndPos == true)
         {
             yield return new WaitForSeconds(4f);
@@ -136,85 +135,144 @@ public class reloadScript : MonoBehaviour
         yield return null;
     }
 
-
-
     IEnumerator loadWeapon(GameObject chamber)
     {
+        float speedMultiplier = 1.5f; //Action speed multiplier (as it's done by time.deltatime needed to make one)
 
-        //Wait Until All Knife/Gun Actions Are Finished
+        //Waits till other actions done
         while (GunActionInProgress())
         {
             Debug.Log("Gun action in progress! Waiting...");
             yield return null;
         }
 
+        cameraController.SetCameraToReloadTarget();
 
         float x = chamber.transform.position.x;
+
+        //Step 1: Hinge out the chamber
+        Debug.Log("Hinging chamber out...");
         SFXManager.instance.PlaySFXClip(chamberSpin, transform, 0.3f);
-        yield return new WaitForSeconds(0.3f);
-        //chamber.transform.position = new Vector3(0.003f, chamber.transform.position.y, chamber.transform.position.z);
-        float t = 0.00f;
-        bool moveFinished = false;
-        chamber.transform.position = new Vector3(x - 0.01f, chamber.transform.position.y, chamber.transform.position.z);
 
-        while (t < 1.0f && moveFinished == false)
+        float hingeTime = 0f;
+        float yDelay = 0.2f * speedMultiplier;
+        Quaternion initialRotation = chamber.transform.localRotation;
+        Vector3 initialChamberPosition = chamber.transform.position;
+
+        float spinOutTime = 0f;
+        bool spinOutFinished = false;
+
+        Vector3 initialPosition = chamber.transform.position;
+        Vector3 targetPosition = new Vector3(x - 0.03f, chamber.transform.position.y - 0.02f, chamber.transform.position.z);
+
+        while (hingeTime < 1.0f)
         {
-            t += Time.deltaTime;
-            chamber.transform.Rotate(0f, 0f, -5f, Space.Self);
-
-
-            if (t >= 1.0f)
+            if (!spinOutFinished)
             {
-                moveFinished = true;
+                spinOutTime += Time.deltaTime * speedMultiplier;
+                chamber.transform.Rotate(0f, 0f, +10f, Space.Self);
+
+                if (spinOutTime >= 1.0f)
+                {
+                    spinOutFinished = true;
+                }
             }
+
+            hingeTime += Time.deltaTime * speedMultiplier;
+
+            //Start X movement 
+            float newX = Mathf.Lerp(initialPosition.x, targetPosition.x, hingeTime);
+
+            //Start Y movement with a slight delay
+            float newY = Mathf.Lerp(initialPosition.y, targetPosition.y, Mathf.Max(0, hingeTime - yDelay));
+
+            chamber.transform.position = new Vector3(newX, newY, chamber.transform.position.z);
+
             yield return null;
         }
+
+        yield return new WaitForSeconds(1f);
+
+        //Step 2: Load the bullets
+        Debug.Log("Loading bullets...");
         while (currentBullets < GameManager.Instance.bullets)
         {
             float t2 = 0;
-            Vector3 startingpos = chamber.transform.position;
+            Vector3 startingPos = chamber.transform.position;
 
-            //TableBullets[GameManager.Instance.bullets - 1].transform.position = new Vector3(TableBullets[GameManager.Instance.bullets - 1].transform.position.x, TableBullets[GameManager.Instance.bullets - 1].transform.position.y + 3f, TableBullets[GameManager.Instance.bullets - 1].transform.position.z + 1f);
-            //TableBullets[GameManager.Instance.bullets - 1].SetActive(true);
             if (GameManager.Instance.bullets > 0)
             {
                 bulletToLoad = TableBullets[currentBullets];
-                startingpos = bulletToLoad.transform.position;
+                startingPos = bulletToLoad.transform.position;
                 bulletToLoad.transform.position = new Vector3(chamber.transform.position.x, chamber.transform.position.y + 0.06f, chamber.transform.position.z - 0.06f);
                 bulletToLoad.SetActive(true);
                 SFXManager.instance.PlaySFXClip(bulletLoad, transform, 0.7f);
 
                 while (t2 < 1.0f)
                 {
-                    t2 += Time.deltaTime;
-                    bulletToLoad.transform.position = Vector3.Lerp(bulletToLoad.transform.position, startingpos, t2);
+                    t2 += Time.deltaTime * speedMultiplier;
+                    bulletToLoad.transform.position = Vector3.Lerp(bulletToLoad.transform.position, startingPos, t2);
                     yield return null;
-
                 }
-
             }
-            currentBullets = currentBullets + 1;
-            yield return null;
 
+            currentBullets += 1;
+            yield return new WaitForSeconds(0.1f); //Bullet load delay time
         }
 
 
-        chamber.transform.position = new Vector3(x, chamber.transform.position.y, chamber.transform.position.z);
+        //Step 3: Spin and close at the same time
+        Debug.Log("Spinning and closing chamber...");
+        SFXManager.instance.PlaySFXClip(chamberSpin, transform, 0.3f);
+
+        float spinTime = 0f;
+        float closeTime = 0f;
+        bool spinFinished = false;
+        bool closeFinished = false;
+
+        while (!spinFinished || !closeFinished)
+        {
+            if (!spinFinished)
+            {
+                spinTime += Time.deltaTime * speedMultiplier;
+                chamber.transform.Rotate(0f, 0f, -10f, Space.Self);
+
+                if (spinTime >= 1.0f)
+                {
+                    spinFinished = true;
+                }
+            }
+
+            if (!closeFinished)
+            {
+                closeTime += Time.deltaTime * speedMultiplier;
+
+                float newX = Mathf.Lerp(x - 0.03f, x, closeTime);
+                float newY = Mathf.Lerp(chamber.transform.position.y, initialChamberPosition.y, closeTime);
+
+                chamber.transform.position = new Vector3(newX, newY, chamber.transform.position.z);
+
+                if (closeTime >= 1.0f)
+                {
+                    closeFinished = true;
+                }
+            }
+
+            yield return null;
+        }
+
+        //Step 4: Put down the gun
+        Debug.Log("Putting down the gun...");
         isActive = false;
-
-        print("im here");
-
         moveGun();
-        isActive = false;
 
-        //Wait For Gun To Move Back To Table
+        //Wait for gun to move back to table
         yield return new WaitForSeconds(2f);
-        //cameraController.SetCameraToOpponentTarget();
+        cameraController.SetCameraToOpponentTarget();
 
         GameManager.Instance.FinishPlayerReload();
         GameManager.Instance.FinishAIReload();
-
-        yield return null;
     }
+
 }
 

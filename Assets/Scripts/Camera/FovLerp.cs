@@ -21,7 +21,7 @@ public class FovLerp : MonoBehaviour
     void Start()
     {
         camera = GetComponent<Camera>();
-        originalFov = camera.fieldOfView;
+        originalFov = PlayerPrefs.GetFloat("FOV", 60f);
         targetFov = originalFov + targetFovOffset;
         timeElapsed = 0f;
         lerping = false;
@@ -45,6 +45,9 @@ public class FovLerp : MonoBehaviour
                 lerpingBack = false;
             }
         }
+
+        originalFov = PlayerPrefs.GetFloat("FOV", 50f);
+        targetFov = originalFov + targetFovOffset;
     }
 
     public void StartLerp()

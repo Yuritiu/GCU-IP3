@@ -319,6 +319,8 @@ public class ShootScript : MonoBehaviour
         gameObject.SetActive(false);
         firePressed = false;
         cameraController.gunInHand = false;
+
+        fovLerp.StopLerp();
         gunCameraShake.StopShake();
         gunShake.StopShake();
     }

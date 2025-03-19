@@ -20,6 +20,9 @@ public class Armour : MonoBehaviour
 
     public void PlayCardForPlayer()
     {
+        DataGathering dG = FindObjectOfType<DataGathering>();
+        dG.armorUsed = dG.armorUsed + 1;
+
         float chance = gameManager.statusPercent;
         float roll = UnityEngine.Random.Range(0f, 100f);
 
@@ -27,6 +30,8 @@ public class Armour : MonoBehaviour
         SFXManager.instance.PlaySFXClip(armourEquip, transform, 0.2f);
         if (roll <= chance)
         {
+            dG.armorBackfire = dG.armorBackfire + 1;
+
             //Display BACKFIRE! Text
             TextMeshProUGUI backfireText = GetComponentInChildren<TextMeshProUGUI>();
             backfireText.enabled = true;

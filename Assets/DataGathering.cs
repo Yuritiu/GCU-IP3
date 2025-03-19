@@ -25,7 +25,7 @@ public class DataGathering : MonoBehaviour
     [HideInInspector] public int cigarUsed;
     [HideInInspector] public int cigarBackfire;
     [HideInInspector] public int bottleUsed;
-    [HideInInspector] public int bottleBackfire;
+    //[HideInInspector] public int bottleBackfire;
     [HideInInspector] public int armorUsed;
     [HideInInspector] public int armorBackfire;
     [HideInInspector] public int emptyUsed;
@@ -84,7 +84,44 @@ public class DataGathering : MonoBehaviour
             //FingersLostOpponent
             form.AddField("entry.2044717277", fingerslostOpponent);
 
+            //Knife
+            form.AddField("entry.702118825", knifeUsed);
 
+            //KnifeBackfire
+            form.AddField("entry.1076525665", kinfebackfire);
+
+            //OneCHamber
+            form.AddField("entry.1335241368", oneChamberUsed);
+
+            //OneCHamberBack
+            form.AddField("entry.1511864571", oneChamberBackfire);
+
+            //gun
+            form.AddField("entry.2080031071", gunUsed);
+
+            //gunback
+            form.AddField("entry.2014009783", gunBackfire);
+
+            //Cigar
+            form.AddField("entry.473309497", cigarUsed);
+
+            //CigarBack
+            form.AddField("entry.417711706", cigarBackfire);
+
+            //Bottle
+            form.AddField("entry.1993230955", bottleUsed);
+
+            //Armor
+            form.AddField("entry.1096992637", armorUsed);
+
+            //ArmorBack
+            form.AddField("entry.1577371329", armorBackfire);
+
+            //EmptyUsed
+            form.AddField("entry.1095532774", emptyUsed);
+
+            //EmptyUsedBack
+            form.AddField("entry.268483346", emptyBackfire);
 
             UnityWebRequest www = UnityWebRequest.Post(URL, form);
 

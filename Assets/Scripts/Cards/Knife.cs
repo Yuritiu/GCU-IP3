@@ -88,6 +88,8 @@ public class Knife : MonoBehaviour
 
     IEnumerator PlayPlayerKnife()
     {
+        DataGathering dG = FindObjectOfType<DataGathering>();
+        dG.knifeUsed = dG.knifeUsed + 1;
         //AI knife animation is in Game Manager :3
 
         GameManager.Instance.playerHasKnife = true;
@@ -98,6 +100,8 @@ public class Knife : MonoBehaviour
          
         if (roll <= chance)
         {
+            dG.kinfebackfire = dG.kinfebackfire + 1;
+
             //Display BACKFIRE! Text
             TextMeshProUGUI backfireText = GetComponentInChildren<TextMeshProUGUI>();
             backfireText.enabled = true;

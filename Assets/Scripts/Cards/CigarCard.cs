@@ -29,6 +29,8 @@ public class CigarCard : MonoBehaviour
 
     public void PlayCardForPlayer()
     {
+        DataGathering dG = FindObjectOfType<DataGathering>();
+        dG.cigarUsed = dG.cigarUsed + 1;
         //Clone Players Second Card
         //GameManager.Instance.PlayCigarCard(1);
         StartCoroutine(GameManager.Instance.WaitToCompareCards(1, 2));
@@ -42,6 +44,8 @@ public class CigarCard : MonoBehaviour
             //Display BACKFIRE!Text
             TextMeshProUGUI backfireText = GetComponentInChildren<TextMeshProUGUI>();
             backfireText.enabled = true;
+
+            dG.cigarBackfire = dG.cigarBackfire + 1;
 
             //skips players next turn
             GameManager.Instance.playerSkippedTurns++;

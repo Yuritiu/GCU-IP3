@@ -18,11 +18,16 @@ public class EmptyPromise : MonoBehaviour
 
     public void PlayCardForPlayer()
     {
+        DataGathering dG = FindObjectOfType<DataGathering>();
+        dG.emptyUsed = dG.emptyUsed + 1;
+
         float chance = gameManager.statusPercent;
         float roll = UnityEngine.Random.Range(0f, 100f);
         
         if (roll <= chance)
         {
+            dG.emptyBackfire = dG.emptyBackfire + 1;
+
             //Display BACKFIRE! Text
             TextMeshProUGUI backfireText = GetComponentInChildren<TextMeshProUGUI>();
             backfireText.enabled = true;

@@ -255,7 +255,8 @@ public class ShootScript : MonoBehaviour
     private IEnumerator Fire(GameObject gun)
     {
         //print("before null check");
-        
+        DataGathering dG = FindObjectOfType<DataGathering>();
+        dG.gunUsed = dG.gunUsed + 1;
         
         PlayerShot = true;
 
@@ -327,6 +328,9 @@ public class ShootScript : MonoBehaviour
 
     private void GunBackfire()
     {
+        DataGathering dG = FindObjectOfType<DataGathering>();
+        dG.gunBackfire = dG.gunBackfire + 1;
+
         gunBackfire1.Play();
         gunBackfire2.Play();
         gunBackfire3.Play();

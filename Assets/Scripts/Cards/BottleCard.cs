@@ -135,6 +135,9 @@ public class BottleCard : MonoBehaviour
         {
             if (gameManager.inBottleAction)
             {
+                DataGathering dG = FindObjectOfType<DataGathering>();
+                dG.bottleUsed = dG.bottleUsed + 1;
+
                 CameraController.Instance.SetCameraToBarTarget();
 
                 //gameManager.inBottleAction = false;

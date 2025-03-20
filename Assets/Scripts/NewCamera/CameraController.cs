@@ -45,7 +45,7 @@ public class CameraController : MonoBehaviour
     private Vector2 currentLookingPos;
     public Vector2 targetLookingPos;
     private bool isRotatingToTarget = false;
-    private bool isMovementUnlocked = true;
+    public bool isMovementUnlocked = true;
     public bool isInNewPosition = false;
 
     private Vector3 originalPosition;

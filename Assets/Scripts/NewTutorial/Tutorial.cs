@@ -8,8 +8,12 @@ public class Tutorial : MonoBehaviour
     public bool tutorialEnabled = false;
     public CameraController cameraController;
     public DialogueManager dialogueManager;
+    public ControlsSettingsManager controlsSettingsManager;
+
     private float orgSensitivity;
     private float tutSensitivity = 0f;
+    private bool sensitivityLoaded = false;
+
 
     [SerializeField] private DialogueData[] dialogueDatas;
 
@@ -31,13 +35,20 @@ public class Tutorial : MonoBehaviour
             tutorialEnabled = false;
         }
 
-        if (tutorialEnabled && cameraController != null)
+        if (tutorialEnabled == true)
         {
-            cameraController.sensitivity = tutSensitivity;
+            if(cameraController != null)
+            {
+                cameraController.sensitivity = tutSensitivity;
+            }
         }
         else
         {
-            cameraController.sensitivity = orgSensitivity;
+            if (controlsSettingsManager != null && sensitivityLoaded == false)
+            {
+                controlsSettingsManager.LoadSettings();
+                sensitivityLoaded = true;
+            }
         }
     }
 
@@ -55,6 +66,7 @@ public class Tutorial : MonoBehaviour
     {
         cameraController = FindObjectOfType<CameraController>();
         dialogueManager = FindObjectOfType<DialogueManager>();
+        controlsSettingsManager = FindFirstObjectByType<ControlsSettingsManager>();
 
         if (cameraController == null)
         {
@@ -66,7 +78,10 @@ public class Tutorial : MonoBehaviour
             Debug.LogWarning("DialogueManager not found in the scene.");
         }
 
-        orgSensitivity = cameraController.sensitivity;
+        if (controlsSettingsManager == null)
+        {
+            Debug.LogWarning("controlsSettingsManager not found in the scene."); 
+        }
 
         StartCoroutine(StartTutorial());
     }

@@ -123,10 +123,6 @@ public class DialogueManager : MonoBehaviour
             StartCoroutine(ReverseAnimateDialogueUI());
             StartCoroutine(FadeOutBackgroundImage());
             textBox.text = "";
-
-            cameraController.SetCameraToOpponentTarget();
-            tutorial.tutorialEnabled = false;
-
             return;
         }
 
@@ -225,6 +221,11 @@ public class DialogueManager : MonoBehaviour
 
         characterNameContainer.anchoredPosition = nameStartPos;
         characterPortrait.rectTransform.anchoredPosition = portraitStartPos;
+
+        tutorial.tutorialEnabled = false;
+        cameraController.SetCameraToOpponentTarget();
+        yield return new WaitForSeconds(3f);
+
     }
 
     private IEnumerator FadeInBackgroundImage(float targetAlpha)

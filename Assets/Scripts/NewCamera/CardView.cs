@@ -10,7 +10,7 @@ public class CardView : MonoBehaviour
 
     bool isLerping = false;
     Quaternion lastRotation;
-    bool viewingCard = false;
+    public bool viewingCard = false;
 
     private Tutorial tutorial;
 
@@ -22,8 +22,10 @@ public class CardView : MonoBehaviour
 
     void Update()
     {
-        if (!tutorial.tutorialEnabled)
-        {
+        if (tutorial.tutorialEnabled)
+            return;
+
+
             if (Input.GetKeyDown(KeyCode.Space) && !isLerping)
             {
                 Quaternion targetRotation;
@@ -49,7 +51,6 @@ public class CardView : MonoBehaviour
                 viewingCard = !viewingCard;
             }
         }
-    }
 
     IEnumerator LerpCameraRotation(Quaternion targetRotation)
     {

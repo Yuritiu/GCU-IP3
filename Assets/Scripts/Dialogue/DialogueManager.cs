@@ -123,8 +123,10 @@ public class DialogueManager : MonoBehaviour
             StartCoroutine(ReverseAnimateDialogueUI());
             StartCoroutine(FadeOutBackgroundImage());
             textBox.text = "";
+
             tutorial.tutorialEnabled = false;
             cameraController.SetCameraToOpponentTarget();
+
             return;
         }
 

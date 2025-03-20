@@ -124,8 +124,8 @@ public class DialogueManager : MonoBehaviour
             StartCoroutine(FadeOutBackgroundImage());
             textBox.text = "";
 
-            tutorial.tutorialEnabled = false;
             cameraController.SetCameraToOpponentTarget();
+            tutorial.tutorialEnabled = false;
 
             return;
         }

@@ -240,7 +240,14 @@ public class CameraController : MonoBehaviour
 
             else if (targetLookingPos == opponentTarget)
             {
-                if (!tutorial.tutorialEnabled)
+                if(tutorial = null)
+                {
+                    if (!tutorial.tutorialEnabled)
+                    {
+                        isMovementUnlocked = true;
+                    }
+                } 
+                else
                 {
                     isMovementUnlocked = true;
                 }

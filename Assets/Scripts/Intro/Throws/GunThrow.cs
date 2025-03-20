@@ -52,6 +52,8 @@ public class GunThrow : MonoBehaviour
         gun.transform.position = targetPosition;
         gun.transform.rotation = targetRotation;
 
+        BulletThrow.Instance.StartEjection();
+
         yield return null;  
         //shootScript.gunAnim.enabled = true;
         //shootScript.gunAnim.Play("idle");

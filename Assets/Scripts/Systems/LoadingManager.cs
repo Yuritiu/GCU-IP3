@@ -28,11 +28,6 @@ public class LoadingManager : MonoBehaviour
     {
         Time.timeScale = 1f;
         StartCoroutine(LoadingSceneCoroutine(sceneName));
-
-        if (SceneManager.GetActiveScene().name == "Intro Scene" && tutorialScript != null)
-        {
-            tutorialScript.tutorialEnabled = true;
-        }
     }
 
 

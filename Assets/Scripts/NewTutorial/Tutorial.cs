@@ -21,6 +21,11 @@ public class Tutorial : MonoBehaviour
 
     void Update()
     {
+        if (SceneManager.GetActiveScene().name == "Intro Scene")
+        {
+            tutorialEnabled = true;
+        }
+
         if (tutorialEnabled && cameraController != null)
         {
             cameraController.sensitivity = tutSensitivity;
@@ -57,7 +62,6 @@ public class Tutorial : MonoBehaviour
         }
 
         orgSensitivity = cameraController.sensitivity;
-
 
         StartCoroutine(StartTutorial());
     }

@@ -33,17 +33,22 @@ public class RadialLoad : MonoBehaviour
     {
         if (Input.GetKey(KeyCode.Space))
         {
-            if (currentFill < 1f)
+            if (currentFill < 1f && !actionPerformed)
             {
                 currentFill += fillSpeed * Time.deltaTime;
             }
         }
         else
         {
-            if (currentFill > 0f)
+            if (currentFill > 0f && !actionPerformed)
             {
                 currentFill -= fillSpeed * Time.deltaTime;
             }
+        }
+
+        if (actionPerformed)
+        {
+            currentFill = 1f;
         }
 
         radialImage.fillAmount = currentFill;
@@ -60,9 +65,10 @@ public class RadialLoad : MonoBehaviour
         }
     }
 
+
     private void PerformAction()
     {
         loadingManager.LoadScene("Game Scene");
-        actionPerformed = true; // Set flag to prevent further action
+        actionPerformed = true; //flag so it doesn't try load the scene 30 times
     }
 }

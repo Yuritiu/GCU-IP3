@@ -21,6 +21,8 @@ public class BottleCard : MonoBehaviour
     [HideInInspector] Component cardsOnTable3;
     [HideInInspector] Component cardsOnTable4;
 
+    private CameraController cameraController;
+
     [Header("Cooldown Variables")]
     float baseWaitTime = 4.2f;
 
@@ -33,6 +35,8 @@ public class BottleCard : MonoBehaviour
         playerTarget = GameObject.Find("BOTTLE POSITION PLAYER").transform;
         aiTarget = GameObject.Find("BOTTLE POSITION AI").transform;
         bottleSpawnPoint = GameObject.Find("BOTTLE POSITION BARTENDER").transform;
+
+        cameraController = FindFirstObjectByType<CameraController>();
     }
 
     public void PlayCardForPlayer()
@@ -56,6 +60,10 @@ public class BottleCard : MonoBehaviour
     {
         yield return new WaitForSeconds(timeToDelay);
         //Throw Bottle At AI
+        if(cameraController.isInNewPosition == false)
+        {
+            cameraController.SetCameraToBarTarget();
+        }
         ThrowCube(target);
     }
 
@@ -138,8 +146,6 @@ public class BottleCard : MonoBehaviour
                 DataGathering dG = FindObjectOfType<DataGathering>();
                 dG.bottleUsed = dG.bottleUsed + 1;
 
-                CameraController.Instance.SetCameraToBarTarget();
-
                 //gameManager.inBottleAction = false;
 
                 StartCoroutine(DelayBottleThrow(baseWaitTime, aiTarget, true));
@@ -164,7 +170,6 @@ public class BottleCard : MonoBehaviour
 
             if (gameManager.inAIBottleAction /*&& gameManager.aiSkipCount == 0*/)
             {
-                CameraController.Instance.SetCameraToBarTarget();
 
                 //gameManager.inAIBottleAction = true;
                 playCardForAiCalled = false;

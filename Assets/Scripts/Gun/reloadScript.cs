@@ -44,8 +44,6 @@ public class reloadScript : MonoBehaviour
     {
         in1stPos = true;
         cameraController = FindFirstObjectByType<CameraController>();
-
-
     }
 
     public void moveGun()
@@ -150,6 +148,8 @@ public class reloadScript : MonoBehaviour
 
         float x = chamber.transform.position.x;
 
+        yield return new WaitForSeconds(1f);
+
         //Step 1: Hinge out the chamber
         Debug.Log("Hinging chamber out...");
         SFXManager.instance.PlaySFXClip(chamberSpin, transform, 0.3f);
@@ -190,6 +190,7 @@ public class reloadScript : MonoBehaviour
 
             yield return null;
         }
+
 
         yield return new WaitForSeconds(1f);
 
@@ -261,13 +262,30 @@ public class reloadScript : MonoBehaviour
             yield return null;
         }
 
+        yield return new WaitForSeconds(0.5f);
+
+        // Step 5: Gun spin
+        Debug.Log("Doing Gun Spin...");
+        float revolverSpinTime = 0f;
+
+        while (revolverSpinTime < 0.5f)
+        {
+            revolverSpinTime += Time.deltaTime;
+
+            // Rotate based on the total elapsed time
+            float rotationAmount = -360f * (Time.deltaTime / 0.5f);
+            gun.transform.Rotate(rotationAmount, 0f, 0f, Space.Self);
+
+            yield return null;
+        }
+
         //Step 4: Put down the gun
         Debug.Log("Putting down the gun...");
         isActive = false;
         moveGun();
 
         //Wait for gun to move back to table
-        yield return new WaitForSeconds(2f);
+        yield return new WaitForSeconds(1f);
         cameraController.SetCameraToOpponentTarget();
 
         GameManager.Instance.FinishPlayerReload();

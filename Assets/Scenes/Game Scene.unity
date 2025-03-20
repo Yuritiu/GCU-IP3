@@ -6335,7 +6335,7 @@ MonoBehaviour:
   - {fileID: 21300000, guid: ad80e0fd3574e844b846b394bfc72e85, type: 3}
   cardPrefab: {fileID: 4922742234080591535, guid: 2b6c098fe4bcbf742ad33999d5dd4bb8, type: 3}
   cardCount: 53
-  cardFaceCounts: 09000000080000000500000009000000050000000900000008000000
+  cardFaceCounts: 0c000000060000000600000009000000050000000600000009000000
   grid: {fileID: 1549458198}
   targetGrid: {fileID: 1549458196}
 --- !u!82 &104702542
@@ -31621,7 +31621,7 @@ MonoBehaviour:
   zClamp: {x: -75, y: 75}
   gunXClamp: {x: -2, y: 4}
   gunZClamp: {x: -5, y: 18}
-  barTarget: {x: 3, y: 1.8}
+  barTarget: {x: 45, y: -6}
   knifeTarget: {x: -21.8, y: 25.68}
   reloadTarget: {x: 0, y: 17}
   opponentTarget: {x: 0, y: 0}
@@ -31633,6 +31633,7 @@ MonoBehaviour:
   positionLerpDuration: 0.5
   cameraLocked: 0
   targetLookingPos: {x: 0, y: 0}
+  isInNewPosition: 0
   UICanvas:
   - {fileID: 159581999}
   - {fileID: 1163542273}

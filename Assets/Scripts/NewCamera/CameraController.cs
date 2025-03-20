@@ -46,7 +46,7 @@ public class CameraController : MonoBehaviour
     public Vector2 targetLookingPos;
     private bool isRotatingToTarget = false;
     private bool isMovementUnlocked = true;
-    private bool isInNewPosition = false;
+    public bool isInNewPosition = false;
 
     private Vector3 originalPosition;
     private Quaternion originalRotation;
@@ -94,27 +94,32 @@ public class CameraController : MonoBehaviour
 
             timeElapsed += Time.deltaTime;
 
-            //Apply Random Oscillation To Position
+            //Apply random Oscillation Position
             float xOscillation = Random.Range(-oscillationStrength, oscillationStrength);
             float yOscillation = Random.Range(-oscillationStrength, oscillationStrength);
             float zOscillation = Random.Range(-oscillationStrength, oscillationStrength);
 
-            //Apply Random Oscillation To Rotation
+            //Apply random oscillation to the current rotation
             float rotationX = Random.Range(-oscillationStrength, oscillationStrength);
             float rotationY = Random.Range(-oscillationStrength, oscillationStrength);
             float rotationZ = Random.Range(-oscillationStrength, oscillationStrength);
 
-            transform.position = originalPosition + new Vector3(xOscillation, yOscillation, zOscillation);
-            transform.rotation = originalRotation * Quaternion.Euler(rotationX, rotationY, rotationZ);
+            //Update the camera position and rotation based on the current position/rotation
+            transform.position = transform.position + new Vector3(xOscillation, yOscillation, zOscillation);
+            transform.rotation = transform.rotation * Quaternion.Euler(rotationX, rotationY, rotationZ);
 
             if (timeElapsed >= oscillationDuration)
             {
                 isOscillating = false;
-                transform.position = originalPosition;
-                transform.rotation = originalRotation;
+                //No need to reset to the original position or rotation
+                foreach (var ui in UICanvas)
+                {
+                    ui.SetActive(true); //Re-enable HUD when oscillation ends
+                }
+                uiActive = true;
             }
         }
-        else if(!uiActive)
+        else if (!uiActive)
         {
             //Enable HUD
             foreach (var ui in UICanvas)
@@ -147,6 +152,7 @@ public class CameraController : MonoBehaviour
                 HandleFreeMovement();
             }
         }
+
         if (!GameManager.Instance.crosshairUnlocked)
         {
             cameraLocked = false;
@@ -159,6 +165,8 @@ public class CameraController : MonoBehaviour
         CheckForKeyPresses();
     }
 
+
+
     public void StartDrunkEffect()
     {
         timeElapsed = 0f;
@@ -167,22 +175,22 @@ public class CameraController : MonoBehaviour
 
     private void CheckForKeyPresses()
     {
-        //if (Input.GetKeyDown(KeyCode.Alpha1))
-        //{
-        //    SetCameraToBarTarget();
-        //}
-        //else if (Input.GetKeyDown(KeyCode.Alpha2))
-        //{
-        //    SetCameraToKnifeTarget();
-        //}
-        //else if (Input.GetKeyDown(KeyCode.Alpha3))
-        //{
-        //    SetCameraToOpponentTarget();
-        //}
-        //else if (Input.GetKeyDown(KeyCode.Alpha4))
-        //{
-        //    SetCameraToPositionTarget();
-        //}
+        if (Input.GetKeyDown(KeyCode.Alpha1))
+        {
+            SetCameraToBarTarget();
+        }
+        else if (Input.GetKeyDown(KeyCode.Alpha2))
+        {
+            SetCameraToKnifeTarget();
+        }
+        else if (Input.GetKeyDown(KeyCode.Alpha3))
+        {
+            SetCameraToOpponentTarget();
+        }
+        else if (Input.GetKeyDown(KeyCode.Alpha4))
+        {
+            SetCameraToPositionTarget();
+        }
     }
 
     private void HandleFreeMovement()
@@ -243,6 +251,7 @@ public class CameraController : MonoBehaviour
     public void SetCameraToBarTarget()
     {
         SetCameraTarget(barTarget);
+        isInNewPosition = true;
     }
 
     public void SetCameraToReloadTarget()

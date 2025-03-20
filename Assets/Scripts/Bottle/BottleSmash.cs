@@ -25,6 +25,13 @@ public class BottleSmash : MonoBehaviour
 
     bool calledDestroy = false;
 
+    private CameraController cameraController;
+
+    private void Start()
+    {
+        cameraController = FindFirstObjectByType<CameraController>();
+    }
+
     void OnTriggerEnter(Collider other)
     {
         //Destroy The Bottle When Hits AI/ Player
@@ -51,7 +58,7 @@ public class BottleSmash : MonoBehaviour
         LoadAudioClips();
         PlayRandomClip(isPlayer);
 
-        if(!isPlayer)
+        if (!isPlayer)
         {
             OpponentAnimationController animController = FindAnyObjectByType<OpponentAnimationController>();
             animController.IdleTr();
@@ -66,10 +73,15 @@ public class BottleSmash : MonoBehaviour
             CameraController.Instance.StartDrunkEffect();
         }
 
-        yield return new WaitForSeconds(1.5f);
+        yield return new WaitForSeconds(1f);
+
+        cameraController.SetCameraToOpponentTarget();
+
+        yield return new WaitForSeconds(1f);
 
         //Destroy Bottle
         Destroy(gameObject);
+
 
         if (isPlayer)
         {

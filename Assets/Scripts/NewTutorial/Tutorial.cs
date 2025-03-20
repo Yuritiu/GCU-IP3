@@ -26,6 +26,11 @@ public class Tutorial : MonoBehaviour
             tutorialEnabled = true;
         }
 
+        if (SceneManager.GetActiveScene().name == "Main Menu")
+        {
+            tutorialEnabled = false;
+        }
+
         if (tutorialEnabled && cameraController != null)
         {
             cameraController.sensitivity = tutSensitivity;

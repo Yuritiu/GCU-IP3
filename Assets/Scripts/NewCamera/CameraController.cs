@@ -51,6 +51,7 @@ public class CameraController : MonoBehaviour
     private Vector3 originalPosition;
     private Quaternion originalRotation;
     private Camera mainCamera;
+    private Tutorial tutorial;
 
     [Header("Oscilation Variables")]
     [SerializeField] GameObject[] UICanvas;
@@ -79,6 +80,7 @@ public class CameraController : MonoBehaviour
         originalZClamp = zClamp;
 
         mainCamera = Camera.main;
+        tutorial = FindFirstObjectByType<Tutorial>();
     }
 
     private void Update()
@@ -238,7 +240,11 @@ public class CameraController : MonoBehaviour
 
             else if (targetLookingPos == opponentTarget)
             {
-                isMovementUnlocked = true;
+                if (!tutorial.tutorialEnabled)
+                {
+                    isMovementUnlocked = true;
+                }
+
                 if (isInNewPosition)
                 {
                     MoveCamera(originalPosition);

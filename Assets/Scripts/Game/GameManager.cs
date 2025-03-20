@@ -45,6 +45,8 @@ public class GameManager : MonoBehaviour
     private Quaternion rotation;
     public bool cameraMovement; //used for turning off W S P when using Knife
 
+    private Tutorial tutorial;
+
 
     [Header("camera")]
     [SerializeField] public Camera MainCamera;
@@ -180,6 +182,7 @@ public class GameManager : MonoBehaviour
         rotation = Gun.transform.rotation;
 
         cameraController = FindFirstObjectByType<CameraController>();
+        tutorial = FindFirstObjectByType<Tutorial>();
     }
 
     private void Awake()
@@ -981,21 +984,24 @@ public class GameManager : MonoBehaviour
         UpdateAmmoText();
         UpdateSkipTurnText();
 
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (!tutorial.tutorialEnabled)
         {
-            crosshairUnlocked = !crosshairUnlocked;
-            if (crosshairUnlocked)
+            if (Input.GetKeyDown(KeyCode.Space))
             {
-                Cursor.lockState = CursorLockMode.None;
-            }
-            else
-            {
-                Cursor.lockState = CursorLockMode.Locked;
-            }
-            Cursor.visible = crosshairUnlocked;
+                crosshairUnlocked = !crosshairUnlocked;
+                if (crosshairUnlocked)
+                {
+                    Cursor.lockState = CursorLockMode.None;
+                }
+                else
+                {
+                    Cursor.lockState = CursorLockMode.Locked;
+                }
+                Cursor.visible = crosshairUnlocked;
 
-            // Only disable camera look when unlocking the cursor
-            freelookEnabled = !crosshairUnlocked;
+                // Only disable camera look when unlocking the cursor
+                freelookEnabled = !crosshairUnlocked;
+            }
         }
 
         if (Gun.activeInHierarchy == true && ShootScript.instance1 != null && ShootScript.instance2 != null)

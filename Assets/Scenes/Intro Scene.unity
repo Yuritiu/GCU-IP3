@@ -2802,6 +2802,7 @@ MonoBehaviour:
   loadingFade: {fileID: 1841261251}
   fadeDuration: 1
   fadePrefab: {fileID: 4948472547418611464, guid: 9a1d99949ab205f41959b4866bdbf921, type: 3}
+  tutorialScript: {fileID: 2029902370}
 --- !u!4 &897878241
 Transform:
   m_ObjectHideFlags: 0
@@ -10793,6 +10794,55 @@ Transform:
   m_Children: []
   m_Father: {fileID: 187673548}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &2029902369
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2029902371}
+  - component: {fileID: 2029902370}
+  m_Layer: 0
+  m_Name: --- Tutorial Manager ---
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &2029902370
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2029902369}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2d8670b5486c0874086e88fd907b97ed, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  tutorialEnabled: 0
+  cameraController: {fileID: 0}
+  dialogueManager: {fileID: 0}
+  dialogueDatas:
+  - {fileID: 11400000, guid: 43c737d3c50d9a047b78754bdce3470d, type: 2}
+--- !u!4 &2029902371
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2029902369}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.33684438, y: 0.18692788, z: 9.559335}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2046989728
 GameObject:
   m_ObjectHideFlags: 0
@@ -11432,6 +11482,7 @@ Transform:
 SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
+  - {fileID: 2029902371}
   - {fileID: 74329168}
   - {fileID: 2084097104}
   - {fileID: 959262565}

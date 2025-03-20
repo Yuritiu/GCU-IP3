@@ -13,6 +13,9 @@ public class LoadingManager : MonoBehaviour
     [SerializeField] GameObject fadePrefab;
     GameObject fadeInstance;
 
+    // Reference to the Tutorial script
+    [SerializeField] Tutorial tutorialScript;
+
     void Start()
     {
         if (fadePrefab)
@@ -25,7 +28,13 @@ public class LoadingManager : MonoBehaviour
     {
         Time.timeScale = 1f;
         StartCoroutine(LoadingSceneCoroutine(sceneName));
+
+        if (SceneManager.GetActiveScene().name == "Intro Scene" && tutorialScript != null)
+        {
+            tutorialScript.tutorialEnabled = true;
+        }
     }
+
 
     IEnumerator LoadingSceneCoroutine(string sceneName)
     {
@@ -53,8 +62,8 @@ public class LoadingManager : MonoBehaviour
 
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
-
     }
+
     IEnumerator FadeInBlackScreen()
     {
         Cursor.lockState = CursorLockMode.Locked;
@@ -74,5 +83,4 @@ public class LoadingManager : MonoBehaviour
         fadeColor.a = 1f;
         loadingFade.color = fadeColor;
     }
-
 }

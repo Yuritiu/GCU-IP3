@@ -12,36 +12,42 @@ public class CardView : MonoBehaviour
     Quaternion lastRotation;
     bool viewingCard = false;
 
+    private Tutorial tutorial;
+
     void Start()
     {
         lastRotation = transform.rotation;
+        tutorial = FindFirstObjectByType<Tutorial>();
     }
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space) && !isLerping)
+        if (!tutorial.tutorialEnabled)
         {
-            Quaternion targetRotation;
-
-            if (!viewingCard)
+            if (Input.GetKeyDown(KeyCode.Space) && !isLerping)
             {
-                lastRotation = transform.rotation;
+                Quaternion targetRotation;
 
-                Cursor.lockState = CursorLockMode.None;
-                Cursor.visible = true;
+                if (!viewingCard)
+                {
+                    lastRotation = transform.rotation;
 
-                targetRotation = Quaternion.LookRotation(cardView.transform.position - transform.position);
+                    Cursor.lockState = CursorLockMode.None;
+                    Cursor.visible = true;
+
+                    targetRotation = Quaternion.LookRotation(cardView.transform.position - transform.position);
+                }
+                else
+                {
+                    Cursor.lockState = CursorLockMode.Locked;
+                    Cursor.visible = false;
+
+                    targetRotation = lastRotation;
+                }
+
+                StartCoroutine(LerpCameraRotation(targetRotation));
+                viewingCard = !viewingCard;
             }
-            else
-            {
-                Cursor.lockState = CursorLockMode.Locked;
-                Cursor.visible = false;
-
-                targetRotation = lastRotation;
-            }
-
-            StartCoroutine(LerpCameraRotation(targetRotation));
-            viewingCard = !viewingCard;
         }
     }
 

@@ -39,7 +39,13 @@ public class IntroPlayer : MonoBehaviour
             blinkEffect.SetActive(true);
             dragStarted = true;
         }
+
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            loadingManager.LoadScene("Game Scene");
+        }
     }
+
 
     IEnumerator StartWithDelay()
     {

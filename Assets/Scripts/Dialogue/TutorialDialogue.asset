@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 244e576c963c50c4bb416bb628a9a0e4, type: 3}
-  m_Name: TestDialogue
+  m_Name: TutorialDialogue
   m_EditorClassIdentifier: 
   initialCharacterName: Bartender
   initialSprite: {fileID: 21300000, guid: 5fac43c9be8194d4fa367bf183f6a2a5, type: 3}

@@ -42,10 +42,12 @@ public class DialogueManager : MonoBehaviour
     private Vector2 portraitTargetPos;
 
     private CameraController cameraController;
+    private Tutorial tutorial;
 
     private void Awake()
     {
         cameraController = FindFirstObjectByType<CameraController>();
+        tutorial = FindFirstObjectByType<Tutorial>();
 
         nameTargetPos = characterNameContainer.anchoredPosition;
         portraitTargetPos = characterPortrait.rectTransform.anchoredPosition;
@@ -121,6 +123,8 @@ public class DialogueManager : MonoBehaviour
             StartCoroutine(ReverseAnimateDialogueUI());
             StartCoroutine(FadeOutBackgroundImage());
             textBox.text = "";
+            tutorial.tutorialEnabled = false;
+            cameraController.SetCameraToOpponentTarget();
             return;
         }
 
@@ -130,13 +134,14 @@ public class DialogueManager : MonoBehaviour
 
             if (!string.IsNullOrEmpty(cameraTarget) && cameraTarget != "None")
             {
-                if (cameraTarget == "Bar")
+                if (cameraTarget == "Bartender")
                 {
                     cameraController.SetCameraToBarTarget();
                 }
                 else if (cameraTarget == "Opponent")
                 {
                     cameraController.SetCameraToOpponentTarget();
+
                 }
             }
         }

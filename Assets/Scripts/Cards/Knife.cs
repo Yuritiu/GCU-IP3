@@ -40,6 +40,10 @@ public class Knife : MonoBehaviour
 
     IEnumerator PlayAiKnife()
     {
+
+        DataGathering dG = FindObjectOfType<DataGathering>();
+        dG.knifeUsedAI = dG.knifeUsedAI + 1;
+
         GameManager.Instance.aiHasKnife = true;
         yield return new WaitForSeconds(0.5f);
 
@@ -51,6 +55,7 @@ public class Knife : MonoBehaviour
 
             if (roll <= chance)
             {
+                dG.gunBackfireAI = dG.gunBackfireAI + 1;
                 //Display BACKFIRE! Text
                 TextMeshProUGUI backfireText = GetComponentInChildren<TextMeshProUGUI>();
                 backfireText.enabled = true;

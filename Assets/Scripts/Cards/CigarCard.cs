@@ -59,6 +59,9 @@ public class CigarCard : MonoBehaviour
     }
     public void PlayCardForAI()
     {
+        DataGathering dG = FindObjectOfType<DataGathering>();
+        dG.cigarUsedAI = dG.cigarUsedAI + 1;
+
         OpponentAnimationController animController = FindAnyObjectByType<OpponentAnimationController>();
         animController.CigarTr();
         //Clone AI's Second Card
@@ -70,6 +73,8 @@ public class CigarCard : MonoBehaviour
 
         if (roll <= chance && !backfired)
         {
+
+            dG.cigarBackfireAI = dG.cigarBackfireAI + 1;
             backfired = true;
             //Display BACKFIRE! Text
             TextMeshProUGUI backfireText = GetComponentInChildren<TextMeshProUGUI>();

@@ -42,11 +42,16 @@ public class EmptyPromise : MonoBehaviour
     }
     public void PlayCardForAI()
     {
+        DataGathering dG = FindObjectOfType<DataGathering>();
+        dG.emptyUsedAI = dG.emptyUsedAI + 1;
+
         float chance = gameManager.statusPercent;
         float roll = UnityEngine.Random.Range(0f, 100f);
 
         if (roll <= chance)
         {
+            dG.emptyBackfireAI = dG.emptyBackfireAI + 1;
+
             //Display BACKFIRE! Text
             TextMeshProUGUI backfireText = GetComponentInChildren<TextMeshProUGUI>();
             backfireText.enabled = true;

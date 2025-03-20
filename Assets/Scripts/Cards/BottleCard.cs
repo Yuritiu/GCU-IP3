@@ -160,6 +160,9 @@ public class BottleCard : MonoBehaviour
         //AI Logic
         else
         {
+            DataGathering dG = FindObjectOfType<DataGathering>();
+            dG.bottleUsedAI = dG.bottleUsedAI + 1;
+
             float chance = gameManager.statusPercent;
             float roll = Random.Range(0f, 100f);
 

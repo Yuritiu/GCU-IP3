@@ -175,6 +175,9 @@ public class ShootScript : MonoBehaviour
 
     private IEnumerator AiFire(GameObject gun)
     {
+        DataGathering dG = FindObjectOfType<DataGathering>();
+        dG.gunUsedAI = dG.gunUsedAI + 1;
+
         OpponentAnimationController animController = FindAnyObjectByType<OpponentAnimationController>();
 
         AiShot = true;
@@ -297,6 +300,7 @@ public class ShootScript : MonoBehaviour
             GameManager.Instance.ReduceHealth(2, 3);
             statusDropdown.DisplayStatusEffect(0, 1);
             GunBackfire();
+            dG.gunBackfire = dG.gunBackfire + 1;
             backfireFlash.BackfireActive();
             SFXManager.instance.PlaySFXClip(earRinging, transform, 0.3f);
 
@@ -328,9 +332,6 @@ public class ShootScript : MonoBehaviour
 
     private void GunBackfire()
     {
-        DataGathering dG = FindObjectOfType<DataGathering>();
-        dG.gunBackfire = dG.gunBackfire + 1;
-
         gunBackfire1.Play();
         gunBackfire2.Play();
         gunBackfire3.Play();

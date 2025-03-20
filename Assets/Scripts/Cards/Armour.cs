@@ -46,6 +46,9 @@ public class Armour : MonoBehaviour
 
     public void PlayCardForAI()
     {
+        DataGathering dG = FindObjectOfType<DataGathering>();
+        dG.armorUsedAI = dG.armorUsedAI + 1;
+
         GameManager.Instance.aiArmour++;
     }
 }

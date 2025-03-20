@@ -86,6 +86,8 @@ public class DoubleBullets : MonoBehaviour
         {
             if (gameManager.inAIReloadCalled)
             {
+                DataGathering dG = FindObjectOfType<DataGathering>();
+                dG.oneChamberUsedAI = dG.oneChamberUsedAI + 1;
                 Debug.Log("AI RELOAD CALLED");
                 float chance = gameManager.statusPercent;
                 float roll = UnityEngine.Random.Range(0f, 100f);
@@ -99,6 +101,7 @@ public class DoubleBullets : MonoBehaviour
                 
                 if (roll <= chance)
                 {
+                    dG.oneChamberBackfireAI = dG.oneChamberBackfireAI + 1;
                     //Display BACKFIRE! Text
                     TextMeshProUGUI backfireText = GetComponentInChildren<TextMeshProUGUI>();
                     backfireText.enabled = true;

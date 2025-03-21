@@ -55,7 +55,7 @@ public class Knife : MonoBehaviour
 
             if (roll <= chance)
             {
-                dG.gunBackfireAI = dG.gunBackfireAI + 1;
+                dG.kinfebackfireAI = dG.kinfebackfireAI + 1;
                 //Display BACKFIRE! Text
                 TextMeshProUGUI backfireText = GetComponentInChildren<TextMeshProUGUI>();
                 backfireText.enabled = true;

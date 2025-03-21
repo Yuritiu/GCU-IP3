@@ -13,6 +13,9 @@ public class LoadingManager : MonoBehaviour
     [SerializeField] GameObject fadePrefab;
     GameObject fadeInstance;
 
+    public float startVolume;
+    public float currentVolume;
+
     // Reference to the Tutorial script
     [SerializeField] Tutorial tutorialScript;
 
@@ -22,11 +25,14 @@ public class LoadingManager : MonoBehaviour
         {
             fadeInstance = Instantiate(fadePrefab);
         }
+
+        StartCoroutine(FadeInAudio(1f));
     }
 
     public void LoadScene(string sceneName)
     {
         Time.timeScale = 1f;
+        StartCoroutine(FadeOutAudio(1f));
         StartCoroutine(LoadingSceneCoroutine(sceneName));
     }
 
@@ -54,7 +60,6 @@ public class LoadingManager : MonoBehaviour
 
             yield return null;
         }
-
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
     }
@@ -78,4 +83,33 @@ public class LoadingManager : MonoBehaviour
         fadeColor.a = 1f;
         loadingFade.color = fadeColor;
     }
+
+    private IEnumerator FadeOutAudio(float duration)
+    {
+        startVolume = AudioListener.volume;
+
+        for (float t = 0; t < duration; t += Time.deltaTime)
+        {
+            AudioListener.volume = Mathf.Lerp(startVolume, 0f, t / duration);
+            yield return null;
+        }
+
+        AudioListener.volume = 0f;
+    }
+
+    private IEnumerator FadeInAudio(float duration)
+    {
+        currentVolume = AudioListener.volume;
+
+        for (float t = 0; t < duration; t += Time.deltaTime)
+        {
+            AudioListener.volume = Mathf.Lerp(currentVolume, 1f, t / duration);
+            yield return null;
+        }
+
+        AudioListener.volume = 1f;
+    }
+
 }
+
+

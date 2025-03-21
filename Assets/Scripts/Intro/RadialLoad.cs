@@ -65,10 +65,10 @@ public class RadialLoad : MonoBehaviour
         }
     }
 
-
     private void PerformAction()
     {
         loadingManager.LoadScene("Game Scene");
-        actionPerformed = true; //flag so it doesn't try load the scene 30 times
+        actionPerformed = true;
     }
+
 }

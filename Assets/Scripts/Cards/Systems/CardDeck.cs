@@ -3,7 +3,9 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using TMPro;
+using UnityEditor.SearchService;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class CardDeck : MonoBehaviour
 {
@@ -47,6 +49,7 @@ public class CardDeck : MonoBehaviour
     public bool animateIntro = false;
     public bool startIntro = false;
     bool introCalled = false;
+    private Tutorial tutorialManager;
 
     void Start()
     {
@@ -59,6 +62,13 @@ public class CardDeck : MonoBehaviour
         else
         {
             Debug.LogWarning("CardCount Display Not Found");
+        }
+
+        tutorialManager = FindFirstObjectByType<Tutorial>();
+
+        if(tutorialManager == null )
+        {
+            Debug.LogWarning("Tutorial manager not found");
         }
     }
 
@@ -87,6 +97,11 @@ public class CardDeck : MonoBehaviour
         if (startIntro && !introCalled)
         {
             introCalled = true;
+            CallIntro();
+        }
+
+        if (SceneManager.GetActiveScene().name == "Game Scene" && !introCalled && tutorialManager == null)
+        {
             CallIntro();
         }
 

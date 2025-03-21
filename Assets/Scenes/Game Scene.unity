@@ -31634,6 +31634,7 @@ MonoBehaviour:
   positionLerpDuration: 0.5
   cameraLocked: 0
   targetLookingPos: {x: 0, y: 0}
+  isMovementUnlocked: 1
   isInNewPosition: 0
   UICanvas:
   - {fileID: 159581999}
@@ -31652,6 +31653,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cardView: {fileID: 2046293611}
   opponentView: {fileID: 55042427}
+  viewingCard: 0
 --- !u!114 &565869804
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -33879,6 +33881,18 @@ MonoBehaviour:
   armorBackfire: 0
   emptyUsed: 0
   emptyBackfire: 0
+  knifeUsedAI: 0
+  kinfebackfireAI: 0
+  oneChamberUsedAI: 0
+  oneChamberBackfireAI: 0
+  gunUsedAI: 0
+  gunBackfireAI: 0
+  cigarUsedAI: 0
+  cigarBackfireAI: 0
+  bottleUsedAI: 0
+  armorUsedAI: 0
+  emptyUsedAI: 0
+  emptyBackfireAI: 0
 --- !u!1 &713395347
 GameObject:
   m_ObjectHideFlags: 0
@@ -106591,6 +106605,8 @@ MonoBehaviour:
   returnDuration: 1
   pauseDuration: 5
   fanAnimationComplete: 0
+  animateIntro: 0
+  startIntro: 0
 --- !u!1 &2046293611
 GameObject:
   m_ObjectHideFlags: 0

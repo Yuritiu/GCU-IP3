@@ -13,10 +13,24 @@ public class RuleBookThrow : MonoBehaviour
     [Header("References")]
     [SerializeField] AudioSource rulebookThrowAudioSource;
 
+    bool introStarted = false;
+
     void Start()
     {
         startRotation = transform.rotation;
-        StartCoroutine(ThrowRuleBookToTable(gameObject, targetPosition.transform.position, targetPosition.transform.rotation, throwDuration, throwDelay));
+        if (CardDeck.Instance.animateIntro)
+        {
+            StartCoroutine(ThrowRuleBookToTable(gameObject, targetPosition.transform.position, targetPosition.transform.rotation, throwDuration, throwDelay));
+        }
+    }
+
+    void Update()
+    {
+        if (CardDeck.Instance.startIntro && !introStarted)
+        {
+            introStarted = true;
+            StartCoroutine(ThrowRuleBookToTable(gameObject, targetPosition.transform.position, targetPosition.transform.rotation, throwDuration, throwDelay));
+        }
     }
 
     IEnumerator ThrowRuleBookToTable(GameObject rulebook, Vector3 targetPosition, Quaternion targetRotation, float duration, float delay)

@@ -17,10 +17,24 @@ public class KnifeThrow : MonoBehaviour
     [Header("References")]
     [SerializeField] AudioSource knifeDropAudioSource;
 
+    bool introStarted = false;
+
     void Start()
     {
         startRotation = transform.rotation;
-        StartCoroutine(ThrowKnifeToTable(gameObject, targetPosition.transform.position, targetPosition.transform.rotation, throwDuration, throwDelay));
+        if (CardDeck.Instance.animateIntro)
+        {
+            StartCoroutine(ThrowKnifeToTable(gameObject, targetPosition.transform.position, targetPosition.transform.rotation, throwDuration, throwDelay));
+        }
+    }
+
+    void Update()
+    {
+        if (CardDeck.Instance.startIntro && !introStarted)
+        {
+            introStarted = true;
+            StartCoroutine(ThrowKnifeToTable(gameObject, targetPosition.transform.position, targetPosition.transform.rotation, throwDuration, throwDelay));
+        }
     }
 
     IEnumerator ThrowKnifeToTable(GameObject knife, Vector3 targetPosition, Quaternion targetRotation, float duration, float delay)

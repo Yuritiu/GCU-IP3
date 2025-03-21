@@ -13,12 +13,26 @@ public class GunThrow : MonoBehaviour
     [Header("References")]
     [SerializeField] ShootScript shootScript;
     [SerializeField] AudioSource gunThrowAudioSource;
+    bool introStarted = false;
 
     void Start()
     {
         shootScript.gunAnim.enabled = false;
         startRotation = transform.rotation;
-        StartCoroutine(ThrowGunToTable(gameObject, targetPosition.transform.position, targetPosition.transform.rotation, throwDuration, throwDelay));
+
+        if (CardDeck.Instance.animateIntro)
+        {
+            StartCoroutine(ThrowGunToTable(gameObject, targetPosition.transform.position, targetPosition.transform.rotation, throwDuration, throwDelay));
+        }
+    }
+
+    void Update()
+    {
+        if (CardDeck.Instance.startIntro && !introStarted)
+        {
+            introStarted = true;
+            StartCoroutine(ThrowGunToTable(gameObject, targetPosition.transform.position, targetPosition.transform.rotation, throwDuration, throwDelay));
+        }
     }
 
     IEnumerator ThrowGunToTable(GameObject gun, Vector3 targetPosition, Quaternion targetRotation, float duration, float delay)

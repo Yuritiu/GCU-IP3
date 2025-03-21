@@ -44,6 +44,10 @@ public class CardDeck : MonoBehaviour
     bool calledStartDraw = false;
     [HideInInspector] public bool fanAnimationComplete = false;
 
+    public bool animateIntro = true;
+    public bool startIntro = false;
+    bool introCalled = false;
+
     void Start()
     {
         GameObject cardCountObject = GameObject.Find("CardCount");
@@ -68,11 +72,26 @@ public class CardDeck : MonoBehaviour
             return;
         }
 
+        if (animateIntro)
+        {
+            InitializeDeck();
+        }
+    }
+
+    public void CallIntro()
+    {
+        startIntro = true;
         InitializeDeck();
     }
 
     void Update()
     {
+        if (startIntro && !introCalled)
+        {
+            introCalled = true;
+            CallIntro();
+        }
+
         if (deck.Count == 0 && !GameManager.Instance.showddown)
         {
             GameManager.Instance.Showdown();

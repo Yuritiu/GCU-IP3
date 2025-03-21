@@ -8,7 +8,7 @@ using UnityEngine.Timeline;
 public class DataGathering : MonoBehaviour
 {
     string URL = "https://docs.google.com/forms/u/0/d/e/1FAIpQLSdrKEyYws7DYWxErsqC6T_1GpJ_-JhAjlC6UebcuuBecETt1Q/formResponse";
-
+    [SerializeField] bool InTesting = false;
     //Basic
     [HideInInspector] public bool won; //True = Player, False = Opponent
     [HideInInspector] public bool bloodLost = false;  //True = Yes, False = No
@@ -58,7 +58,7 @@ public class DataGathering : MonoBehaviour
 
     IEnumerator Post()
     {
-        if (!Application.isEditor)
+        if (!Application.isEditor || InTesting)
         {
             WWWForm form = new WWWForm();
 

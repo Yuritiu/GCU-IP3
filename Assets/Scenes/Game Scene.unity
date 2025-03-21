@@ -33863,6 +33863,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 07318246c9c9c02429e44d53db727181, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  InTesting: 0
   won: 0
   bloodLost: 0
   fingerslostPlayer: 0
@@ -45224,6 +45225,10 @@ PrefabInstance:
       propertyPath: armourBackfire
       value: 
       objectReference: {fileID: 1356642036}
+    - target: {fileID: 2229647336694770922, guid: 5f30ef53536cc8b4694232906fbc92d4, type: 3}
+      propertyPath: cameraMovement
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2229647336694770922, guid: 5f30ef53536cc8b4694232906fbc92d4, type: 3}
       propertyPath: PositionForPlayer
       value: 
@@ -106605,7 +106610,7 @@ MonoBehaviour:
   returnDuration: 1
   pauseDuration: 5
   fanAnimationComplete: 0
-  animateIntro: 0
+  animateIntro: 1
   startIntro: 0
 --- !u!1 &2046293611
 GameObject:

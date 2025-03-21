@@ -19022,6 +19022,8 @@ MonoBehaviour:
   loadingFade: {fileID: 814723134}
   fadeDuration: 1
   fadePrefab: {fileID: 4948472547418611464, guid: 9a1d99949ab205f41959b4866bdbf921, type: 3}
+  startVolume: 0
+  currentVolume: 0
   tutorialScript: {fileID: 0}
 --- !u!1 &391179799
 GameObject:
@@ -106610,7 +106612,7 @@ MonoBehaviour:
   returnDuration: 1
   pauseDuration: 5
   fanAnimationComplete: 0
-  animateIntro: 1
+  animateIntro: 0
   startIntro: 0
 --- !u!1 &2046293611
 GameObject:

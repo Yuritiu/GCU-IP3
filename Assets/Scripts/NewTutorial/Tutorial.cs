@@ -9,18 +9,23 @@ public class Tutorial : MonoBehaviour
     public CameraController cameraController;
     public DialogueManager dialogueManager;
     public ControlsSettingsManager controlsSettingsManager;
+    private CardDeck cardDeck;
 
     private float orgSensitivity;
     private float tutSensitivity = 0f;
     private bool sensitivityLoaded = false;
+
+    public bool introCalled = false;
 
 
     [SerializeField] private DialogueData[] dialogueDatas;
 
     void Start()
     {
+        introCalled = false;
         DontDestroyOnLoad(gameObject);
         SceneManager.sceneLoaded += OnSceneLoaded;
+
     }
 
     void Update()
@@ -37,7 +42,7 @@ public class Tutorial : MonoBehaviour
 
         if (tutorialEnabled == true)
         {
-            if(cameraController != null)
+            if (cameraController != null)
             {
                 cameraController.sensitivity = tutSensitivity;
             }
@@ -49,7 +54,18 @@ public class Tutorial : MonoBehaviour
                 controlsSettingsManager.LoadSettings();
                 sensitivityLoaded = true;
             }
+
+            if (introCalled == false)
+            {
+                StartIntro();
+                introCalled = true;
+            }
         }
+    }
+
+    public void StartIntro()
+    {
+        cardDeck.CallIntro();
     }
 
     void OnDestroy()
@@ -67,6 +83,7 @@ public class Tutorial : MonoBehaviour
         cameraController = FindObjectOfType<CameraController>();
         dialogueManager = FindObjectOfType<DialogueManager>();
         controlsSettingsManager = FindFirstObjectByType<ControlsSettingsManager>();
+        cardDeck = FindFirstObjectByType<CardDeck>();
 
         if (cameraController == null)
         {
@@ -80,7 +97,12 @@ public class Tutorial : MonoBehaviour
 
         if (controlsSettingsManager == null)
         {
-            Debug.LogWarning("controlsSettingsManager not found in the scene."); 
+            Debug.LogWarning("controlsSettingsManager not found in the scene.");
+        }
+
+        if (controlsSettingsManager == null)
+        {
+            Debug.LogWarning("controlsSettingsManager not found in the scene.");
         }
 
         StartCoroutine(StartTutorial());

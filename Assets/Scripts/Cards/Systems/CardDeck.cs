@@ -44,7 +44,7 @@ public class CardDeck : MonoBehaviour
     bool calledStartDraw = false;
     [HideInInspector] public bool fanAnimationComplete = false;
 
-    public bool animateIntro = true;
+    public bool animateIntro = false;
     public bool startIntro = false;
     bool introCalled = false;
 
@@ -72,16 +72,14 @@ public class CardDeck : MonoBehaviour
             return;
         }
 
-        if (animateIntro)
-        {
-            InitializeDeck();
-        }
+
     }
 
     public void CallIntro()
     {
         startIntro = true;
         InitializeDeck();
+        introCalled = true;
     }
 
     void Update()

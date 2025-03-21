@@ -95400,7 +95400,7 @@ MonoBehaviour:
   Gunload: {fileID: 8300000, guid: 2fc6169336cfcd54c8aa9b618397933c, type: 3}
   Gunfire: {fileID: 8300000, guid: 9e5e2a20f9f69864883eb994e3fd3848, type: 3}
   earRinging: {fileID: 8300000, guid: 817994af5d119db4099c692f188486f1, type: 3}
-  emptySFX: {fileID: 8300000, guid: 432bec86425ff934fb6375f743706022, type: 3}
+  emptySFX: {fileID: 8300000, guid: 27dd00141830c2d41b66a0e9829871c4, type: 3}
   emptyGunVFX: {fileID: 1354147323}
   shakeIntensity: 0.05
 --- !u!1 &1929588231

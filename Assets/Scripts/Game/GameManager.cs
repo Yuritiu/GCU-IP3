@@ -988,7 +988,6 @@ public class GameManager : MonoBehaviour
         {
             if (!CameraController.Instance.isCameraMovementUnlocked)
             {
-                Debug.Log("OVER HERE");
                 freelookEnabled = false;
             }
 

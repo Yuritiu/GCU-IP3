@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class CardView : MonoBehaviour
 {
+    public static CardView Instance;
+
     [SerializeField] GameObject cardView;
     [SerializeField] GameObject opponentView;
     float lerpDuration = 0.1f;
@@ -13,6 +15,12 @@ public class CardView : MonoBehaviour
     public bool viewingCard = false;
 
     private Tutorial tutorial;
+    public bool canLerp = true;
+
+    void Awake()
+    {
+        Instance = this;
+    }
 
     void Start()
     {
@@ -22,50 +30,64 @@ public class CardView : MonoBehaviour
 
     void Update()
     {
-        if (tutorial.tutorialEnabled)
-            return;
+        if (!CameraController.Instance.isCameraMovementUnlocked)
+        {
+            Cursor.lockState = CursorLockMode.Locked;
+            Cursor.visible = false;
+            CameraController.Instance.cameraLocked = false;
+            //viewingCard = false;
+        }
 
+        if (Input.GetKeyDown(KeyCode.Space) && !isLerping && CameraController.Instance.isCameraMovementUnlocked)
+        {
+            Quaternion targetRotation;
 
-            if (Input.GetKeyDown(KeyCode.Space) && !isLerping)
+            if (!viewingCard)
             {
-                Quaternion targetRotation;
-
-                if (!viewingCard)
+                if (!isLerping)
                 {
                     lastRotation = transform.rotation;
-
-                    Cursor.lockState = CursorLockMode.None;
-                    Cursor.visible = true;
-
-                    targetRotation = Quaternion.LookRotation(cardView.transform.position - transform.position);
-                }
-                else
-                {
-                    Cursor.lockState = CursorLockMode.Locked;
-                    Cursor.visible = false;
-
-                    targetRotation = lastRotation;
                 }
 
-                StartCoroutine(LerpCameraRotation(targetRotation));
-                viewingCard = !viewingCard;
+                Cursor.lockState = CursorLockMode.None;
+                Cursor.visible = true;
+
+                targetRotation = Quaternion.LookRotation(cardView.transform.position - transform.position);
             }
+            else
+            {
+                Cursor.lockState = CursorLockMode.Locked;
+                Cursor.visible = false;
+
+                targetRotation = lastRotation;
+            }
+
+            StartCoroutine(LerpCameraRotation(targetRotation));
+            viewingCard = !viewingCard;
         }
+    }
 
     IEnumerator LerpCameraRotation(Quaternion targetRotation)
     {
         isLerping = true;
-        lastRotation = transform.rotation; 
+        Quaternion startRotation = transform.rotation;
         float timeElapsed = 0f;
 
         while (timeElapsed < lerpDuration)
         {
-            transform.rotation = Quaternion.Lerp(lastRotation, targetRotation, timeElapsed / lerpDuration);
+            float progress = timeElapsed / lerpDuration;
+            transform.rotation = Quaternion.Slerp(startRotation, targetRotation, progress);
             timeElapsed += Time.deltaTime;
             yield return null;
         }
 
         transform.rotation = targetRotation;
         isLerping = false;
+
+        //Update lastRotation ONLY IF Returning To Previous View
+        if (!viewingCard)
+        {
+            lastRotation = transform.rotation;
+        }
     }
 }

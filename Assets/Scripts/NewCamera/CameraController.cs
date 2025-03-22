@@ -46,6 +46,7 @@ public class CameraController : MonoBehaviour
     public Vector2 targetLookingPos;
     private bool isRotatingToTarget = false;
     public bool isMovementUnlocked = true;
+    public bool isCameraMovementUnlocked = true;
     public bool isInNewPosition = false;
 
     private Vector3 originalPosition;
@@ -147,10 +148,13 @@ public class CameraController : MonoBehaviour
         {
             if (isRotatingToTarget)
             {
+                CardView.Instance.canLerp = false;
+                isCameraMovementUnlocked = false;
                 HandleTargetTransition();
             }
             else if (isMovementUnlocked)
             {
+                CardView.Instance.canLerp = true;
                 HandleFreeMovement();
             }
         }
@@ -250,6 +254,7 @@ public class CameraController : MonoBehaviour
                 else
                 {
                     isMovementUnlocked = true;
+                    isCameraMovementUnlocked = true;
                 }
 
                 if (isInNewPosition)
@@ -298,6 +303,7 @@ public class CameraController : MonoBehaviour
     {
         isRotatingToTarget = true;
         isMovementUnlocked = false;
+        isCameraMovementUnlocked = false;
         targetLookingPos = target;
     }
 

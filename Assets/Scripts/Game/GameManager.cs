@@ -986,7 +986,13 @@ public class GameManager : MonoBehaviour
 
         if (!tutorial.tutorialEnabled)
         {
-            if (Input.GetKeyDown(KeyCode.Space))
+            if (!CameraController.Instance.isCameraMovementUnlocked)
+            {
+                Debug.Log("OVER HERE");
+                freelookEnabled = false;
+            }
+
+            if (Input.GetKeyDown(KeyCode.Space) && CameraController.Instance.isCameraMovementUnlocked)
             {
                 crosshairUnlocked = !crosshairUnlocked;
                 if (crosshairUnlocked)

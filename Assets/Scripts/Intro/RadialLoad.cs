@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using Unity.VisualScripting;
 
 public class RadialLoad : MonoBehaviour
 {
@@ -31,7 +32,10 @@ public class RadialLoad : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKey(KeyCode.Space))
+        bool isHoldingSpace = Input.GetKey(KeyCode.Space);
+        bool isClickingMouse = Input.GetMouseButton(0); // Only affects visibility of text
+
+        if (isHoldingSpace)
         {
             if (currentFill < 1f && !actionPerformed)
             {
@@ -56,7 +60,8 @@ public class RadialLoad : MonoBehaviour
 
         if (textLabel != null)
         {
-            textLabel.color = new Color(textLabel.color.r, textLabel.color.g, textLabel.color.b, currentFill);
+            float alpha = isClickingMouse ? 1f : currentFill; // Shows skip text when clicked on
+            textLabel.color = new Color(textLabel.color.r, textLabel.color.g, textLabel.color.b, alpha);
         }
 
         if (currentFill >= actionThreshold && !actionPerformed)

@@ -31637,6 +31637,7 @@ MonoBehaviour:
   cameraLocked: 0
   targetLookingPos: {x: 0, y: 0}
   isMovementUnlocked: 1
+  isCameraMovementUnlocked: 1
   isInNewPosition: 0
   UICanvas:
   - {fileID: 159581999}
@@ -31656,6 +31657,7 @@ MonoBehaviour:
   cardView: {fileID: 2046293611}
   opponentView: {fileID: 55042427}
   viewingCard: 0
+  canLerp: 1
 --- !u!114 &565869804
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -106594,7 +106596,7 @@ MonoBehaviour:
   - cardPrefab: {fileID: 1833519795021809735, guid: 13468f5a105746847b27d9d5496777f7, type: 3}
     quantity: 12
   - cardPrefab: {fileID: 1833519795021809735, guid: 4758c9d31efe1c64994cecb864c3e9bc, type: 3}
-    quantity: 6
+    quantity: 60
   - cardPrefab: {fileID: 1833519795021809735, guid: bf314c8f96af77148b7c787435c1c55e, type: 3}
     quantity: 5
   - cardPrefab: {fileID: 1833519795021809735, guid: 80493192768bbe24a98044b5fa79e23d, type: 3}

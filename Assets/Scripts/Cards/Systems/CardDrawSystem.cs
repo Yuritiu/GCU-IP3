@@ -911,7 +911,7 @@ public class CardDrawSystem : MonoBehaviour
             else
             {
                 //Playable Rotation
-                StartCoroutine(LerpCardRotation(-90f, 0));
+                StartCoroutine(LerpCardRotation(-90f, 180));
             }
         }
     }
@@ -931,7 +931,7 @@ public class CardDrawSystem : MonoBehaviour
                 startRotations[i] = cardsInHand[i].transform.rotation;
                 if(targetZAngle == 0)
                 {
-                    targetRotations[i] = Quaternion.Euler(targetAngle, currentRotation.y, cardsInHand[i].transform.rotation.z);
+                    targetRotations[i] = Quaternion.Euler(targetAngle, currentRotation.y, currentRotation.z);
                 }
                 else
                 {

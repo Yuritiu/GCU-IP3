@@ -320,10 +320,12 @@ public class CardDrawSystem : MonoBehaviour
 
                 //cardsInHand[i] = Instantiate(card, originalPositions[i].position, originalPositions[i].rotation);
                 cardsInHand[i] = Instantiate(card, playingDeckTopLocation, Quaternion.Euler(90,0,0));
-                if (GameManager.Instance.playerSkippedTurns > 0)
+
+
+                if (GameManager.Instance.playerSkippedTurns > 0 )
                 {
                     StartCoroutine(MoveCardToSlot(cardsInHand[i], originalPositions[i].position, originalPositions[i].rotation, 0.5f, i * 0.3f));
-                    StartCoroutine(LerpCardRotation(90, cardsInHand[i].transform.rotation.eulerAngles.z - 180));
+                    StartCoroutine(FlipCardsAfter(cardsInHand[i], i));
                 }
                 else
                 {
@@ -334,7 +336,18 @@ public class CardDrawSystem : MonoBehaviour
                 //Debug.Log("Card Added Successfully.");
                 break;
             }
+
+
         }
+
+    }
+
+    private IEnumerator FlipCardsAfter(GameObject card, int cardIndex)
+    {
+        yield return new WaitForSeconds(cardIndex * 0.3f + 0.5f);
+
+
+        StartCoroutine(LerpCardRotation(90, transform.rotation.eulerAngles.z));
     }
 
     void ToggleCardSelection(int index)
@@ -911,7 +924,7 @@ public class CardDrawSystem : MonoBehaviour
             else
             {
                 //Playable Rotation
-                StartCoroutine(LerpCardRotation(-90f, 180));
+                StartCoroutine(LerpCardRotation(-90f, 0));
             }
         }
     }

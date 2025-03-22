@@ -2233,7 +2233,9 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: SPACE
+  m_text: 'HOLD SPACE
+
+    TO SKIP'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 796410a1da0e8184dbaea9b981e700be, type: 2}
   m_sharedMaterial: {fileID: 7026245715805933036, guid: 796410a1da0e8184dbaea9b981e700be, type: 2}
@@ -2936,6 +2938,8 @@ MonoBehaviour:
   loadingFade: {fileID: 1841261251}
   fadeDuration: 1
   fadePrefab: {fileID: 4948472547418611464, guid: 9a1d99949ab205f41959b4866bdbf921, type: 3}
+  startVolume: 0
+  currentVolume: 0
   tutorialScript: {fileID: 0}
 --- !u!4 &897878241
 Transform:

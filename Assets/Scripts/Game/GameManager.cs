@@ -233,6 +233,7 @@ public class GameManager : MonoBehaviour
         if(playerSkippedTurns> 0)
         {
             displaySkipTurnText = true;
+            CardDrawSystem.Instance.UnbanCards();
             CardDrawSystem.Instance.FlipCards(true);
         }
 

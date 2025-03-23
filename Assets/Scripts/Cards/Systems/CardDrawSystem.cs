@@ -271,13 +271,7 @@ public class CardDrawSystem : MonoBehaviour
         card.transform.position = endPosition;
         card.transform.rotation = targetRotation;
 
-        if (GameManager.Instance.playerSkippedTurns > 0)
-        {
-            //If Card Is Added While Turn Is Skipped -> Flip
-            Debug.Log("SHOULD FLIP ADDED CARD");
-            card.transform.rotation = Quaternion.Euler(90, 0, targetRotation.z);
-            Debug.Log("TARGET TOROTOTOT:    " + targetRotation.z + targetRotation.y);
-        }
+        
     }
 
     IEnumerator DelayGameStart()
@@ -320,7 +314,7 @@ public class CardDrawSystem : MonoBehaviour
 
                 //cardsInHand[i] = Instantiate(card, originalPositions[i].position, originalPositions[i].rotation);
                 Vector3 newCardPosition = new Vector3(playingDeckTopLocation.x, playingDeckTopLocation.y, originalPositions[i].position.z);
-                cardsInHand[i] = Instantiate(card, playingDeckTopLocation, Quaternion.Euler(90,0,180));
+                cardsInHand[i] = Instantiate(card, playingDeckTopLocation, Quaternion.Euler(-90f,0f,180f));
 
 
                 if (GameManager.Instance.playerSkippedTurns > 0 )
@@ -349,7 +343,7 @@ public class CardDrawSystem : MonoBehaviour
 
         yield return new WaitForSeconds(delay);
 
-        StartCoroutine(LerpCardRotation(90, transform.rotation.eulerAngles.z));
+        StartCoroutine(LerpCardRotation(90f, 0f));
     }
 
     void ToggleCardSelection(int index)
@@ -893,19 +887,19 @@ public class CardDrawSystem : MonoBehaviour
 
     public void UnbanCards()
     {
-        if (bannedCard > 0)
+        if (bannedCard >= 0)
         {
             if (cardsInHand[bannedCard] != null)
             {
-                cardsInHand[bannedCard].gameObject.transform.Rotate(0, 180, 0);
+                cardsInHand[bannedCard].gameObject.transform.Rotate(0, -180, 0);
             }
             bannedCard = -1;
         }
-        if (bannedCard2 > 0)
+        if (bannedCard2 >= 0)
         {
             if (cardsInHand[bannedCard2] != null)
             {
-                cardsInHand[bannedCard2].gameObject.transform.Rotate(0, 180, 0);
+                cardsInHand[bannedCard2].gameObject.transform.Rotate(0, -180, 0);
             }
             bannedCard2 = -1;
         }
@@ -916,17 +910,20 @@ public class CardDrawSystem : MonoBehaviour
     {
         if (flip != isFlipped)
         {
+
             isFlipped = flip;
 
             if (flip)
             {
                 //Skipped Rotation
-                StartCoroutine(LerpCardRotation(90, 0));
+                
+                StartCoroutine(LerpCardRotation(90f, 0f));
             }
             else
             {
+                
                 //Playable Rotation
-                StartCoroutine(LerpCardRotation(-90f, 0));
+                StartCoroutine(LerpCardRotation(-90f, 0f));
             }
         }
     }

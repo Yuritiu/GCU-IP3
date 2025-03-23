@@ -319,7 +319,8 @@ public class CardDrawSystem : MonoBehaviour
                 }
 
                 //cardsInHand[i] = Instantiate(card, originalPositions[i].position, originalPositions[i].rotation);
-                cardsInHand[i] = Instantiate(card, playingDeckTopLocation, Quaternion.Euler(90,0,0));
+                Vector3 newCardPosition = new Vector3(playingDeckTopLocation.x, playingDeckTopLocation.y, originalPositions[i].position.z);
+                cardsInHand[i] = Instantiate(card, playingDeckTopLocation, Quaternion.Euler(90,0,180));
 
 
                 if (GameManager.Instance.playerSkippedTurns > 0 )
@@ -344,8 +345,9 @@ public class CardDrawSystem : MonoBehaviour
 
     private IEnumerator FlipCardsAfter(GameObject card, int cardIndex)
     {
-        yield return new WaitForSeconds(cardIndex * 0.3f + 0.5f);
+        float delay = cardIndex * 0.3f + 0.5f;  
 
+        yield return new WaitForSeconds(delay);
 
         StartCoroutine(LerpCardRotation(90, transform.rotation.eulerAngles.z));
     }
@@ -931,6 +933,8 @@ public class CardDrawSystem : MonoBehaviour
 
     private IEnumerator LerpCardRotation(float targetAngle, float targetZAngle)
     {
+
+
         float timeElapsed = 0f;
         float duration = 0.1f;
         Quaternion[] startRotations = new Quaternion[cardsInHand.Length];
@@ -944,7 +948,7 @@ public class CardDrawSystem : MonoBehaviour
                 startRotations[i] = cardsInHand[i].transform.rotation;
                 if(targetZAngle == 0)
                 {
-                    targetRotations[i] = Quaternion.Euler(targetAngle, currentRotation.y, currentRotation.z);
+                    targetRotations[i] = Quaternion.Euler(targetAngle, currentRotation.y, cardsInHand[i].transform.rotation.z);
                 }
                 else
                 {

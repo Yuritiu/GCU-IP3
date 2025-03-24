@@ -170,6 +170,7 @@ public class GameManager : MonoBehaviour
 
     public bool displaySkipTurnText = false;
 
+    bool bloodLossStarted = false;
     async void Start()
     {
         dG = gameObject.GetComponent<DataGathering>();
@@ -683,6 +684,15 @@ public class GameManager : MonoBehaviour
             {
                 //Debug.Log("Countdown Started");
                 BloodlossSystem.Instance.IncreaseBloodloss();
+
+                if (!bloodLossStarted)
+                {
+                    bloodLossStarted = true;
+
+                    DataGathering dG = FindObjectOfType<DataGathering>();
+                    float time = Time.time;
+                    dG.bloodLossStartTime = Time.time;
+                }
 
                 playerHand.RemoveFinger(playerFingers);
                 playerFingers--;

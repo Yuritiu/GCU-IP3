@@ -15,6 +15,10 @@ public class DataGathering : MonoBehaviour
     [HideInInspector] public int fingerslostPlayer;
     [HideInInspector] public int fingerslostOpponent;
     [HideInInspector] public bool gunLoss; //True = Yes, False =No
+    [HideInInspector] public float timeInGame;
+    float endTime;
+    [HideInInspector] public float bloodLossStartTime;
+    float bloodLossEndTime;
 
     //All Card Used + Backfire
     [HideInInspector] public int knifeUsed;
@@ -47,11 +51,13 @@ public class DataGathering : MonoBehaviour
     [HideInInspector] public int emptyBackfireAI;
     public void Start()
     {
-        //Send();
+        timeInGame = Time.time;
     }
 
     public void GamEnded(bool whoWon)
     {
+        bloodLossEndTime = bloodLossStartTime - Time.time;
+        endTime = timeInGame - Time.time;
         won = whoWon;
        StartCoroutine(Post());
     }
@@ -89,10 +95,17 @@ public class DataGathering : MonoBehaviour
         if (bloodLost == true)
         {
             form.AddField("entry.1258567324", "Yes");
+
+            //Bloodloss Time
+            form.AddField("entry.1254953499", bloodLossEndTime.ToString());
+
         }
         else if (bloodLost == false)
         {
             form.AddField("entry.1258567324", "No");
+
+            //BloodlossTime N/A
+            form.AddField("entry.1254953499", "N/A");
         }
 
         //Was it bloodloss?
@@ -110,6 +123,9 @@ public class DataGathering : MonoBehaviour
 
         //FingersLostOpponent
         form.AddField("entry.2044717277", fingerslostOpponent);
+
+        //endTime
+        form.AddField("entry.1116840804", endTime.ToString());
     }
 
     void PlayerCardData(WWWForm form)

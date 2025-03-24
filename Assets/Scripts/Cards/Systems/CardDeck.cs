@@ -3,7 +3,6 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using TMPro;
-using UnityEditor.SearchService;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -105,9 +104,12 @@ public class CardDeck : MonoBehaviour
             CallIntro();
         }
 
-        if (deck.Count == 0 && !GameManager.Instance.showddown)
+        if (!tutorialManager.tutorialEnabled)
         {
-            GameManager.Instance.Showdown();
+            if (deck.Count == 0 && !GameManager.Instance.showddown)
+            {
+                GameManager.Instance.Showdown();
+            }
         }
 
         if (cardCount != null && playerCamera != null)

@@ -28,6 +28,7 @@ public class CameraController : MonoBehaviour
     public Vector2 knifeTarget = new Vector2(0f, 0f);
     public Vector2 reloadTarget = new Vector2(0f, 0f);
     public Vector2 opponentTarget = new Vector2(0f, 0f);
+    public Vector2 opponentLockedTarget = new Vector2(0f, 0f);
     public Vector2 positionRotationTarget = new Vector2(0f, 0f);
 
     [Header("Camera Position Targets")]
@@ -52,7 +53,7 @@ public class CameraController : MonoBehaviour
     private Vector3 originalPosition;
     private Quaternion originalRotation;
     private Camera mainCamera;
-    private Tutorial tutorial;
+    public Tutorial tutorial;
 
     [Header("Oscilation Variables")]
     [SerializeField] GameObject[] UICanvas;
@@ -242,6 +243,14 @@ public class CameraController : MonoBehaviour
                 cameraLocked = true;
             }
 
+            if(targetLookingPos == opponentLockedTarget)
+            {
+                if (!tutorial.tutorialEnabled)
+                {
+                    isMovementUnlocked = true;
+                }
+            }
+
             else if (targetLookingPos == opponentTarget)
             {
                 if(tutorial = null)
@@ -290,6 +299,11 @@ public class CameraController : MonoBehaviour
         MoveCamera(originalPosition);
         SetCameraTarget(opponentTarget);
         isInNewPosition = false;
+    }
+
+    public void SetCameraToOpponentLockedTarget()
+    {
+        SetCameraTarget(opponentLockedTarget);
     }
 
     public void SetCameraToPositionTarget()

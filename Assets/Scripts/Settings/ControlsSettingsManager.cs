@@ -16,6 +16,8 @@ public class ControlsSettingsManager : MonoBehaviour
     {
         LoadSettings();
 
+        cameraController = FindFirstObjectByType<CameraController>();
+
         sensitivitySlider.minValue = 0;
         sensitivitySlider.maxValue = 100;
 
@@ -56,6 +58,10 @@ public class ControlsSettingsManager : MonoBehaviour
             Debug.Log("LOADED SENSITIVITY: " + savedSensitivity);
         }
         sensitivitySlider.value = savedSensitivity;
+
+            // Debugging the updated sensitivity display
+            Debug.Log("Updated Sensitivity Display: " + sensitivitySlider.value);
         UpdateSensitivityDisplay();
     }
+
 }

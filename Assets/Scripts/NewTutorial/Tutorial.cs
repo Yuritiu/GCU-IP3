@@ -12,8 +12,8 @@ public class Tutorial : MonoBehaviour
     private CardDeck cardDeck;
 
     private float orgSensitivity;
-    private float tutSensitivity = 0f;
-    private bool sensitivityLoaded = false;
+    public float tutSensitivity = 0f;
+    public bool sensitivityLoaded = false;
 
     public bool introCalled = false;
 
@@ -38,25 +38,17 @@ public class Tutorial : MonoBehaviour
         if (SceneManager.GetActiveScene().name == "Main Menu")
         {
             tutorialEnabled = false;
+            introCalled = false;
         }
 
         if (tutorialEnabled == true)
         {
-            if (cameraController != null)
-            {
-                cameraController.sensitivity = tutSensitivity;
-            }
+
         }
         else
         {
             if (SceneManager.GetActiveScene().name == "Game Scene")
             {
-                if (controlsSettingsManager != null && sensitivityLoaded == false)
-                {
-                    controlsSettingsManager.LoadSettings();
-                    sensitivityLoaded = true;
-                }
-
                 if (introCalled == false)
                 {
                     StartIntro();

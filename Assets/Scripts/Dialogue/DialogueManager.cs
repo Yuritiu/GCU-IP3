@@ -59,6 +59,7 @@ public class DialogueManager : MonoBehaviour
         characterPortrait.rectTransform.anchoredPosition = portraitStartPos;
 
         textBox.text = "";
+        cameraController.SetCameraToOpponentLockedTarget();
     }
 
     public void TriggerDialogue(int dialogueIndex)
@@ -138,7 +139,7 @@ public class DialogueManager : MonoBehaviour
                 }
                 else if (cameraTarget == "Opponent")
                 {
-                    cameraController.SetCameraToOpponentTarget();
+                    cameraController.SetCameraToOpponentLockedTarget();
 
                 }
             }
@@ -222,8 +223,8 @@ public class DialogueManager : MonoBehaviour
         characterNameContainer.anchoredPosition = nameStartPos;
         characterPortrait.rectTransform.anchoredPosition = portraitStartPos;
 
-        tutorial.tutorialEnabled = false;
         cameraController.SetCameraToOpponentTarget();
+        tutorial.tutorialEnabled = false;
         yield return new WaitForSeconds(3f);
 
     }

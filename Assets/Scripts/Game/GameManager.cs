@@ -125,6 +125,8 @@ public class GameManager : MonoBehaviour
     [HideInInspector] public bool inGunPlayerAction = false;
     [HideInInspector] public bool inBatAction = false;
     [HideInInspector] public bool inBottleAction = false;
+    [HideInInspector] public int playerBottleCount = 0;
+    [HideInInspector] public int aiBottleCount = 0;
     [HideInInspector] public bool inAIBottleAction = false;
     [HideInInspector] public bool inAIBatAction = false;
     [HideInInspector] public bool has2Guns = false;
@@ -1158,6 +1160,8 @@ public class GameManager : MonoBehaviour
                             Debug.Log("ALL ACTIONS DONE");
                             isActionInProgress = false;
                             canMoveOn = false;
+                            playerBottleCount = 0;
+                            aiBottleCount = 0;
 
                             return true;
                         }

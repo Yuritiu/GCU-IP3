@@ -144,8 +144,10 @@ public class BottleCard : MonoBehaviour
         //All Actions Done -> Proceed With The Bottle Action
         if (isPlayer)
         {
-            if (gameManager.inBottleAction)
+            if (gameManager.inBottleAction && gameManager.playerBottleCount <= 0)
             {
+                gameManager.playerBottleCount++;
+
                 DataGathering dG = FindObjectOfType<DataGathering>();
                 dG.bottleUsed = dG.bottleUsed + 1;
 
@@ -161,38 +163,43 @@ public class BottleCard : MonoBehaviour
             }
         }
         //AI Logic
-        else
+        else if(!isPlayer)
         {
-            DataGathering dG = FindObjectOfType<DataGathering>();
-            dG.bottleUsedAI = dG.bottleUsedAI + 1;
-
-            float chance = gameManager.statusPercent;
-            float roll = Random.Range(0f, 100f);
-
-            if (roll <= chance)
+            if(gameManager.inAIBottleAction && gameManager.aiBottleCount <= 0)
             {
-                // Apply status effect logic if necessary
-            }
+                gameManager.aiBottleCount++;
 
-            if (gameManager.inAIBottleAction /*&& gameManager.aiSkipCount == 0*/)
-            {
+                DataGathering dG = FindObjectOfType<DataGathering>();
+                dG.bottleUsedAI = dG.bottleUsedAI + 1;
 
-                //gameManager.inAIBottleAction = true;
-                playCardForAiCalled = false;
+                float chance = gameManager.statusPercent;
+                float roll = Random.Range(0f, 100f);
 
-                if (waitForPlayersThrow)
+                if (roll <= chance)
                 {
-                    //Debug.Log("PLAYER PLAYED SKIP, WAITING");
-                    StartCoroutine(DelayBottleThrow(baseWaitTime + 1f, playerTarget, false));
-                }
-                else
-                {
-                    //Debug.Log("PLAYER DID NOT PLAY SKIP");
-                    StartCoroutine(DelayBottleThrow(baseWaitTime, playerTarget, false));
+                    // Apply status effect logic if necessary
                 }
 
-                gameManager.playerSkipCount++;
-                gameManager.playerSkippedTurns++;
+                if (gameManager.inAIBottleAction /*&& gameManager.aiSkipCount == 0*/)
+                {
+
+                    //gameManager.inAIBottleAction = true;
+                    playCardForAiCalled = false;
+
+                    if (waitForPlayersThrow)
+                    {
+                        //Debug.Log("PLAYER PLAYED SKIP, WAITING");
+                        StartCoroutine(DelayBottleThrow(baseWaitTime + 1f, playerTarget, false));
+                    }
+                    else
+                    {
+                        //Debug.Log("PLAYER DID NOT PLAY SKIP");
+                        StartCoroutine(DelayBottleThrow(baseWaitTime, playerTarget, false));
+                    }
+
+                    gameManager.playerSkipCount++;
+                    gameManager.playerSkippedTurns++;
+                }
             }
         }
     }

@@ -56,8 +56,8 @@ public class DataGathering : MonoBehaviour
 
     public void GamEnded(bool whoWon)
     {
-        bloodLossEndTime = bloodLossStartTime - Time.time;
-        endTime = timeInGame - Time.time;
+        bloodLossEndTime = Time.time - bloodLossStartTime;
+        endTime = Time.time - timeInGame;
         won = whoWon;
        StartCoroutine(Post());
     }

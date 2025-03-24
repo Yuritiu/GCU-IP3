@@ -33890,7 +33890,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 07318246c9c9c02429e44d53db727181, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  InTesting: 0
+  InTesting: 1
   won: 0
   bloodLost: 0
   fingerslostPlayer: 0

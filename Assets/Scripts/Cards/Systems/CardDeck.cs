@@ -127,12 +127,16 @@ public class CardDeck : MonoBehaviour
 
     void InitializeDeck()
     {
+        if (deck.Count > 0)
+            return;
+
+        deck.Clear();
+
         if (deck.Count == 0 && reshuffling == true)
         {
             GameManager.Instance.Showdown();
         }
 
-        deck.Clear();
 
         //Calculate The Total Height Before Stacking
         float totalHeight = (cardPrefabs.Sum(card => card.quantity) - 1) * cardStackOffset;

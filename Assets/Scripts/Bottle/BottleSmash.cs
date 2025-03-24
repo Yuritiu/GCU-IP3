@@ -61,7 +61,8 @@ public class BottleSmash : MonoBehaviour
         if (!isPlayer)
         {
             OpponentAnimationController animController = FindAnyObjectByType<OpponentAnimationController>();
-            animController.IdleTr();
+            //animController.IdleTr();
+            Debug.Log("HIT BOTTLE");
 
             //Enable Opponent's Ragdoll
             RagdollToggle.Instance.ragdoll = true;

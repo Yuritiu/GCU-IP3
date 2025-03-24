@@ -5,11 +5,14 @@ using UnityEngine;
 public class OpponentAnimationController : MonoBehaviour
 {
     [SerializeField] private Animator animator;
+    [SerializeField] private RagdollToggle ragdoll;
 
     // Start is called before the first frame update
     void Start()
     {
         animator = gameObject.GetComponent<Animator>();
+        ragdoll = gameObject.GetComponent<RagdollToggle>();
+        ragdoll.enabled = true;
         IdleTr();
     }
 

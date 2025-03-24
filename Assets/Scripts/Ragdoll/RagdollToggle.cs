@@ -38,7 +38,6 @@ public class RagdollToggle : MonoBehaviour
         EnableRagdoll(ragdoll);
     }
 
-
     void Update()
     {
         if (ragdoll)
@@ -68,7 +67,7 @@ public class RagdollToggle : MonoBehaviour
     {
         animator.enabled = !enabled;
 
-        foreach (Collider collider in colliders) 
+        foreach (Collider collider in colliders)
         {
             if(collider.name == "spine" || collider.tag == "OpponentHead")
             {
@@ -97,6 +96,13 @@ public class RagdollToggle : MonoBehaviour
                 rb.detectCollisions = enabled;
                 //rb.velocity = Vector3.zero;
             }
+
+            //Apply Downward Force To The Head
+            //if (rb.name == "head")
+            //{
+            //    Debug.Log("HIT HEAD");
+            //    rb.AddForce(Vector3.back * 2f, ForceMode.Acceleration);
+            //}
         }
     }
 

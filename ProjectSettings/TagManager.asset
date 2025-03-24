@@ -24,6 +24,7 @@ TagManager:
   - BloodParticles3
   - BloodParticles4
   - BloodParticles5
+  - head
   layers:
   - Default
   - TransparentFX

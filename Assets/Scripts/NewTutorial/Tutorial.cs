@@ -49,16 +49,19 @@ public class Tutorial : MonoBehaviour
         }
         else
         {
-            if (controlsSettingsManager != null && sensitivityLoaded == false)
+            if (SceneManager.GetActiveScene().name == "Game Scene")
             {
-                controlsSettingsManager.LoadSettings();
-                sensitivityLoaded = true;
-            }
+                if (controlsSettingsManager != null && sensitivityLoaded == false)
+                {
+                    controlsSettingsManager.LoadSettings();
+                    sensitivityLoaded = true;
+                }
 
-            if (introCalled == false)
-            {
-                StartIntro();
-                introCalled = true;
+                if (introCalled == false)
+                {
+                    StartIntro();
+                    introCalled = true;
+                }
             }
         }
     }

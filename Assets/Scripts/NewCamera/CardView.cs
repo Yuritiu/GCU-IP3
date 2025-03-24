@@ -30,40 +30,43 @@ public class CardView : MonoBehaviour
 
     void Update()
     {
-        if (!CameraController.Instance.isCameraMovementUnlocked)
+        if (!tutorial.tutorialEnabled)
         {
-            Cursor.lockState = CursorLockMode.Locked;
-            Cursor.visible = false;
-            CameraController.Instance.cameraLocked = false;
-            //viewingCard = false;
-        }
-
-        if (Input.GetKeyDown(KeyCode.Space) && !isLerping && CameraController.Instance.isCameraMovementUnlocked)
-        {
-            Quaternion targetRotation;
-
-            if (!viewingCard)
-            {
-                if (!isLerping)
-                {
-                    lastRotation = transform.rotation;
-                }
-
-                Cursor.lockState = CursorLockMode.None;
-                Cursor.visible = true;
-
-                targetRotation = Quaternion.LookRotation(cardView.transform.position - transform.position);
-            }
-            else
+            if (!CameraController.Instance.isCameraMovementUnlocked)
             {
                 Cursor.lockState = CursorLockMode.Locked;
                 Cursor.visible = false;
-
-                targetRotation = lastRotation;
+                CameraController.Instance.cameraLocked = false;
+                //viewingCard = false;
             }
 
-            StartCoroutine(LerpCameraRotation(targetRotation));
-            viewingCard = !viewingCard;
+            if (Input.GetKeyDown(KeyCode.Space) && !isLerping && CameraController.Instance.isCameraMovementUnlocked)
+            {
+                Quaternion targetRotation;
+
+                if (!viewingCard)
+                {
+                    if (!isLerping)
+                    {
+                        lastRotation = transform.rotation;
+                    }
+
+                    Cursor.lockState = CursorLockMode.None;
+                    Cursor.visible = true;
+
+                    targetRotation = Quaternion.LookRotation(cardView.transform.position - transform.position);
+                }
+                else
+                {
+                    Cursor.lockState = CursorLockMode.Locked;
+                    Cursor.visible = false;
+
+                    targetRotation = lastRotation;
+                }
+
+                StartCoroutine(LerpCameraRotation(targetRotation));
+                viewingCard = !viewingCard;
+            }
         }
     }
 

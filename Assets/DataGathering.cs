@@ -49,6 +49,8 @@ public class DataGathering : MonoBehaviour
     // [HideInInspector] public int armorBackfireAI; //armorBackfire commented out for when added bloodloss
     [HideInInspector] public int emptyUsedAI;
     [HideInInspector] public int emptyBackfireAI;
+    public int turnsPlayed;
+    bool sent = false;
     public void Start()
     {
         timeInGame = Time.time;
@@ -56,10 +58,13 @@ public class DataGathering : MonoBehaviour
 
     public void GamEnded(bool whoWon)
     {
-        bloodLossEndTime = Time.time - bloodLossStartTime;
-        endTime = Time.time - timeInGame;
-        won = whoWon;
-       StartCoroutine(Post());
+        if (!sent)
+        {
+            endTime = Time.time - timeInGame;
+            bloodLossEndTime = endTime - bloodLossStartTime;
+            won = whoWon;
+            StartCoroutine(Post());
+        }
     }
 
     IEnumerator Post()
@@ -126,6 +131,8 @@ public class DataGathering : MonoBehaviour
 
         //endTime
         form.AddField("entry.1116840804", endTime.ToString());
+
+        form.AddField("entry.1207750087", turnsPlayed);
     }
 
     void PlayerCardData(WWWForm form)

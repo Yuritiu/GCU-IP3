@@ -184,7 +184,8 @@ public class CardDrawSystem : MonoBehaviour
                         //Check If It's The Players Turn And Atleast 1 Card Is Selected
                         canPlay = false;
                         GameManager.Instance.PlayHand();
-
+                        DataGathering dG = FindObjectOfType<DataGathering>();
+                        dG.turnsPlayed = dG.turnsPlayed + 1;
                         //Resets to idle if animation is stuck :3
                         OpponentAnimationController animController = FindAnyObjectByType<OpponentAnimationController>();
                         animController.IdleTr();

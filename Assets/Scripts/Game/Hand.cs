@@ -288,7 +288,12 @@ public class Hand : MonoBehaviour
     public void RemoveFinger(int num)
     {
         movedKnifeEnough = 0;
-        Destroy(fingers[num]);
+
+        //to be taken out
+
+        //Destroy(fingers[num]);
+        
+        fingers[num].SetActive(false);
         fingers.Remove(fingers[num]);
 
         GameManager.Instance.CheckFingers();

@@ -12355,7 +12355,7 @@ CharacterJoint:
   m_Anchor: {x: 0, y: 0, z: 0}
   m_Axis: {x: 0, y: 0, z: 1}
   m_AutoConfigureConnectedAnchor: 1
-  m_ConnectedAnchor: {x: -0.26636788, y: -0.045868326, z: -0.00691252}
+  m_ConnectedAnchor: {x: -0.26636785, y: -0.045868352, z: -0.006912402}
   serializedVersion: 2
   m_SwingAxis: {x: 0, y: 1, z: 0}
   m_TwistLimitSpring:
@@ -12993,6 +12993,71 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   animator: {fileID: 0}
+--- !u!1 &275568722 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: -8021310117907898980, guid: 8d44be47578450a488fd64554476b2d4, type: 3}
+  m_PrefabInstance: {fileID: 671873477}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &275568723 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6596209117972632397, guid: 8d44be47578450a488fd64554476b2d4, type: 3}
+  m_PrefabInstance: {fileID: 671873477}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &275568724 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: -1163221084950560712, guid: 8d44be47578450a488fd64554476b2d4, type: 3}
+  m_PrefabInstance: {fileID: 671873477}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &275568725 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: -2499053295980920076, guid: 8d44be47578450a488fd64554476b2d4, type: 3}
+  m_PrefabInstance: {fileID: 671873477}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &275568726 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: -3663949803233804572, guid: 8d44be47578450a488fd64554476b2d4, type: 3}
+  m_PrefabInstance: {fileID: 671873477}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &275568727
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 275568726}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8038ccc5ebbeee74497e182ae137f77f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  fingers:
+  - {fileID: 275568722}
+  - {fileID: 671873480}
+  - {fileID: 275568723}
+  - {fileID: 275568724}
+  - {fileID: 275568725}
+  knife: {fileID: 0}
+  turn: {x: 0, y: 0}
+  sensitivity: 0.5
+  sideToHit: 0
+  waitingToCut: 0
+  bloodSplatterEffect: 0
+  secondAction: 0
+  bloodSplatterIndex: 0
+  phaseOfAction: 1
+  actionUI: {fileID: 0}
+  Cutting:
+  - {fileID: 8300000, guid: 17a012fb6920e8c49a34e67d5cdc789c, type: 3}
+  - {fileID: 8300000, guid: 825084563607aa84cb15f02a0b7352b2, type: 3}
+  - {fileID: 8300000, guid: 923ac9b33142c814abbc5eee3896689e, type: 3}
+  playerScreams: []
+  knifeInsert: {fileID: 0}
+  bloodParticleSystem1: {fileID: 0}
+  bloodParticleSystem2: {fileID: 0}
+  bloodParticleSystem3: {fileID: 0}
+  bloodParticleSystem4: {fileID: 0}
+  bloodParticleSystem5: {fileID: 0}
+  cameraController: {fileID: 0}
 --- !u!1 &290757432
 GameObject:
   m_ObjectHideFlags: 0
@@ -19395,17 +19460,6 @@ Canvas:
   m_SortingLayerID: 0
   m_SortingOrder: 1
   m_TargetDisplay: 0
---- !u!114 &392746608 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 1148584488116116778, guid: 51b7432981d42044aab0051738de45d3, type: 3}
-  m_PrefabInstance: {fileID: 599809044}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8038ccc5ebbeee74497e182ae137f77f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &393023230
 GameObject:
   m_ObjectHideFlags: 0
@@ -20069,6 +20123,38 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 3973064453176785697, guid: 24c94e7929bad4b408a3c87aac8caa73, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5128300180416186954, guid: 24c94e7929bad4b408a3c87aac8caa73, type: 3}
+      propertyPath: Gunfire
+      value: 
+      objectReference: {fileID: 8300000, guid: 9e5e2a20f9f69864883eb994e3fd3848, type: 3}
+    - target: {fileID: 5128300180416186954, guid: 24c94e7929bad4b408a3c87aac8caa73, type: 3}
+      propertyPath: Gunload
+      value: 
+      objectReference: {fileID: 8300000, guid: 27dd00141830c2d41b66a0e9829871c4, type: 3}
+    - target: {fileID: 5128300180416186954, guid: 24c94e7929bad4b408a3c87aac8caa73, type: 3}
+      propertyPath: gunName
+      value: AiGun
+      objectReference: {fileID: 0}
+    - target: {fileID: 5128300180416186954, guid: 24c94e7929bad4b408a3c87aac8caa73, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5128300180416186954, guid: 24c94e7929bad4b408a3c87aac8caa73, type: 3}
+      propertyPath: earRinging
+      value: 
+      objectReference: {fileID: 8300000, guid: 817994af5d119db4099c692f188486f1, type: 3}
+    - target: {fileID: 5128300180416186954, guid: 24c94e7929bad4b408a3c87aac8caa73, type: 3}
+      propertyPath: cameraController
+      value: 
+      objectReference: {fileID: 565869802}
+    - target: {fileID: 6364199873939054069, guid: 24c94e7929bad4b408a3c87aac8caa73, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 27125771797673925, guid: d244096c0f24aa644b59352b5c832841, type: 3}
       propertyPath: m_IsActive
       value: 0
@@ -20152,38 +20238,6 @@ PrefabInstance:
     - target: {fileID: 8933423101490784877, guid: d244096c0f24aa644b59352b5c832841, type: 3}
       propertyPath: m_Name
       value: AiGun
-      objectReference: {fileID: 0}
-    - target: {fileID: 3973064453176785697, guid: 24c94e7929bad4b408a3c87aac8caa73, type: 3}
-      propertyPath: m_Enabled
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5128300180416186954, guid: 24c94e7929bad4b408a3c87aac8caa73, type: 3}
-      propertyPath: Gunfire
-      value: 
-      objectReference: {fileID: 8300000, guid: 9e5e2a20f9f69864883eb994e3fd3848, type: 3}
-    - target: {fileID: 5128300180416186954, guid: 24c94e7929bad4b408a3c87aac8caa73, type: 3}
-      propertyPath: Gunload
-      value: 
-      objectReference: {fileID: 8300000, guid: 27dd00141830c2d41b66a0e9829871c4, type: 3}
-    - target: {fileID: 5128300180416186954, guid: 24c94e7929bad4b408a3c87aac8caa73, type: 3}
-      propertyPath: gunName
-      value: AiGun
-      objectReference: {fileID: 0}
-    - target: {fileID: 5128300180416186954, guid: 24c94e7929bad4b408a3c87aac8caa73, type: 3}
-      propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5128300180416186954, guid: 24c94e7929bad4b408a3c87aac8caa73, type: 3}
-      propertyPath: earRinging
-      value: 
-      objectReference: {fileID: 8300000, guid: 817994af5d119db4099c692f188486f1, type: 3}
-    - target: {fileID: 5128300180416186954, guid: 24c94e7929bad4b408a3c87aac8caa73, type: 3}
-      propertyPath: cameraController
-      value: 
-      objectReference: {fileID: 565869802}
-    - target: {fileID: 6364199873939054069, guid: 24c94e7929bad4b408a3c87aac8caa73, type: 3}
-      propertyPath: m_Enabled
-      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -32560,7 +32614,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5720598291271363683, guid: 51b7432981d42044aab0051738de45d3, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7069703205338382025, guid: 51b7432981d42044aab0051738de45d3, type: 3}
       propertyPath: m_Materials.Array.data[0]
@@ -33492,6 +33546,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 8d44be47578450a488fd64554476b2d4, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1793007633}
+    - targetCorrespondingSourceObject: {fileID: -3663949803233804572, guid: 8d44be47578450a488fd64554476b2d4, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 275568727}
     - targetCorrespondingSourceObject: {fileID: -1258627388040350859, guid: 8d44be47578450a488fd64554476b2d4, type: 3}
       insertIndex: -1
       addedObject: {fileID: 492368473}
@@ -33605,6 +33662,11 @@ Transform:
   m_CorrespondingSourceObject: {fileID: -1751679090618669471, guid: 8d44be47578450a488fd64554476b2d4, type: 3}
   m_PrefabInstance: {fileID: 671873477}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &671873480 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: -3098720889654739054, guid: 8d44be47578450a488fd64554476b2d4, type: 3}
+  m_PrefabInstance: {fileID: 671873477}
+  m_PrefabAsset: {fileID: 0}
 --- !u!114 &671873481
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -33686,7 +33748,7 @@ CharacterJoint:
   m_Anchor: {x: 0, y: 0, z: 0}
   m_Axis: {x: 0, y: 0, z: -1}
   m_AutoConfigureConnectedAnchor: 1
-  m_ConnectedAnchor: {x: 0.2663675, y: 0.04586658, z: 0.0069125243}
+  m_ConnectedAnchor: {x: 0.2663675, y: 0.0458667, z: 0.0069124205}
   serializedVersion: 2
   m_SwingAxis: {x: 0, y: -1, z: 0}
   m_TwistLimitSpring:
@@ -33809,7 +33871,7 @@ CharacterJoint:
   m_Anchor: {x: 0, y: 0, z: 0}
   m_Axis: {x: 0, y: -1, z: 0}
   m_AutoConfigureConnectedAnchor: 1
-  m_ConnectedAnchor: {x: -0.3552002, y: 0.22637148, z: -0.0034032464}
+  m_ConnectedAnchor: {x: -0.35520032, y: 0.22637147, z: -0.0034031987}
   serializedVersion: 2
   m_SwingAxis: {x: 0, y: 0, z: -1}
   m_TwistLimitSpring:
@@ -45163,6 +45225,38 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 3973064453176785697, guid: 24c94e7929bad4b408a3c87aac8caa73, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5128300180416186954, guid: 24c94e7929bad4b408a3c87aac8caa73, type: 3}
+      propertyPath: Gunfire
+      value: 
+      objectReference: {fileID: 8300000, guid: 9e5e2a20f9f69864883eb994e3fd3848, type: 3}
+    - target: {fileID: 5128300180416186954, guid: 24c94e7929bad4b408a3c87aac8caa73, type: 3}
+      propertyPath: Gunload
+      value: 
+      objectReference: {fileID: 8300000, guid: 27dd00141830c2d41b66a0e9829871c4, type: 3}
+    - target: {fileID: 5128300180416186954, guid: 24c94e7929bad4b408a3c87aac8caa73, type: 3}
+      propertyPath: gunName
+      value: TableGun
+      objectReference: {fileID: 0}
+    - target: {fileID: 5128300180416186954, guid: 24c94e7929bad4b408a3c87aac8caa73, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5128300180416186954, guid: 24c94e7929bad4b408a3c87aac8caa73, type: 3}
+      propertyPath: earRinging
+      value: 
+      objectReference: {fileID: 8300000, guid: 817994af5d119db4099c692f188486f1, type: 3}
+    - target: {fileID: 5128300180416186954, guid: 24c94e7929bad4b408a3c87aac8caa73, type: 3}
+      propertyPath: cameraController
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 6364199873939054069, guid: 24c94e7929bad4b408a3c87aac8caa73, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 27125771797673925, guid: d244096c0f24aa644b59352b5c832841, type: 3}
       propertyPath: m_IsActive
       value: 0
@@ -45258,38 +45352,6 @@ PrefabInstance:
     - target: {fileID: 8933423101490784877, guid: d244096c0f24aa644b59352b5c832841, type: 3}
       propertyPath: m_Name
       value: TableGun
-      objectReference: {fileID: 0}
-    - target: {fileID: 3973064453176785697, guid: 24c94e7929bad4b408a3c87aac8caa73, type: 3}
-      propertyPath: m_Enabled
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5128300180416186954, guid: 24c94e7929bad4b408a3c87aac8caa73, type: 3}
-      propertyPath: Gunfire
-      value: 
-      objectReference: {fileID: 8300000, guid: 9e5e2a20f9f69864883eb994e3fd3848, type: 3}
-    - target: {fileID: 5128300180416186954, guid: 24c94e7929bad4b408a3c87aac8caa73, type: 3}
-      propertyPath: Gunload
-      value: 
-      objectReference: {fileID: 8300000, guid: 27dd00141830c2d41b66a0e9829871c4, type: 3}
-    - target: {fileID: 5128300180416186954, guid: 24c94e7929bad4b408a3c87aac8caa73, type: 3}
-      propertyPath: gunName
-      value: TableGun
-      objectReference: {fileID: 0}
-    - target: {fileID: 5128300180416186954, guid: 24c94e7929bad4b408a3c87aac8caa73, type: 3}
-      propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5128300180416186954, guid: 24c94e7929bad4b408a3c87aac8caa73, type: 3}
-      propertyPath: earRinging
-      value: 
-      objectReference: {fileID: 8300000, guid: 817994af5d119db4099c692f188486f1, type: 3}
-    - target: {fileID: 5128300180416186954, guid: 24c94e7929bad4b408a3c87aac8caa73, type: 3}
-      propertyPath: cameraController
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 6364199873939054069, guid: 24c94e7929bad4b408a3c87aac8caa73, type: 3}
-      propertyPath: m_Enabled
-      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -45960,7 +46022,7 @@ PrefabInstance:
     - target: {fileID: 2229647336694770922, guid: 5f30ef53536cc8b4694232906fbc92d4, type: 3}
       propertyPath: aiHand
       value: 
-      objectReference: {fileID: 392746608}
+      objectReference: {fileID: 275568727}
     - target: {fileID: 2229647336694770922, guid: 5f30ef53536cc8b4694232906fbc92d4, type: 3}
       propertyPath: Target1
       value: 
@@ -80557,6 +80619,38 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 906723580}
     m_Modifications:
+    - target: {fileID: 3973064453176785697, guid: 24c94e7929bad4b408a3c87aac8caa73, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5128300180416186954, guid: 24c94e7929bad4b408a3c87aac8caa73, type: 3}
+      propertyPath: Gunfire
+      value: 
+      objectReference: {fileID: 8300000, guid: 9e5e2a20f9f69864883eb994e3fd3848, type: 3}
+    - target: {fileID: 5128300180416186954, guid: 24c94e7929bad4b408a3c87aac8caa73, type: 3}
+      propertyPath: Gunload
+      value: 
+      objectReference: {fileID: 8300000, guid: 27dd00141830c2d41b66a0e9829871c4, type: 3}
+    - target: {fileID: 5128300180416186954, guid: 24c94e7929bad4b408a3c87aac8caa73, type: 3}
+      propertyPath: gunName
+      value: PlayerGun
+      objectReference: {fileID: 0}
+    - target: {fileID: 5128300180416186954, guid: 24c94e7929bad4b408a3c87aac8caa73, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5128300180416186954, guid: 24c94e7929bad4b408a3c87aac8caa73, type: 3}
+      propertyPath: earRinging
+      value: 
+      objectReference: {fileID: 8300000, guid: 817994af5d119db4099c692f188486f1, type: 3}
+    - target: {fileID: 5128300180416186954, guid: 24c94e7929bad4b408a3c87aac8caa73, type: 3}
+      propertyPath: cameraController
+      value: 
+      objectReference: {fileID: 565869802}
+    - target: {fileID: 6364199873939054069, guid: 24c94e7929bad4b408a3c87aac8caa73, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 27125771797673925, guid: d244096c0f24aa644b59352b5c832841, type: 3}
       propertyPath: m_IsActive
       value: 0
@@ -80660,38 +80754,6 @@ PrefabInstance:
     - target: {fileID: 8933423101490784877, guid: d244096c0f24aa644b59352b5c832841, type: 3}
       propertyPath: m_Name
       value: PlayerGun
-      objectReference: {fileID: 0}
-    - target: {fileID: 3973064453176785697, guid: 24c94e7929bad4b408a3c87aac8caa73, type: 3}
-      propertyPath: m_Enabled
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5128300180416186954, guid: 24c94e7929bad4b408a3c87aac8caa73, type: 3}
-      propertyPath: Gunfire
-      value: 
-      objectReference: {fileID: 8300000, guid: 9e5e2a20f9f69864883eb994e3fd3848, type: 3}
-    - target: {fileID: 5128300180416186954, guid: 24c94e7929bad4b408a3c87aac8caa73, type: 3}
-      propertyPath: Gunload
-      value: 
-      objectReference: {fileID: 8300000, guid: 27dd00141830c2d41b66a0e9829871c4, type: 3}
-    - target: {fileID: 5128300180416186954, guid: 24c94e7929bad4b408a3c87aac8caa73, type: 3}
-      propertyPath: gunName
-      value: PlayerGun
-      objectReference: {fileID: 0}
-    - target: {fileID: 5128300180416186954, guid: 24c94e7929bad4b408a3c87aac8caa73, type: 3}
-      propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5128300180416186954, guid: 24c94e7929bad4b408a3c87aac8caa73, type: 3}
-      propertyPath: earRinging
-      value: 
-      objectReference: {fileID: 8300000, guid: 817994af5d119db4099c692f188486f1, type: 3}
-    - target: {fileID: 5128300180416186954, guid: 24c94e7929bad4b408a3c87aac8caa73, type: 3}
-      propertyPath: cameraController
-      value: 
-      objectReference: {fileID: 565869802}
-    - target: {fileID: 6364199873939054069, guid: 24c94e7929bad4b408a3c87aac8caa73, type: 3}
-      propertyPath: m_Enabled
-      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -87644,7 +87706,7 @@ CharacterJoint:
   m_Anchor: {x: 0, y: 0, z: 0}
   m_Axis: {x: 0, y: 0, z: 1}
   m_AutoConfigureConnectedAnchor: 1
-  m_ConnectedAnchor: {x: -0.46397096, y: -0.0000001522967, z: -0.0044417977}
+  m_ConnectedAnchor: {x: -0.46397117, y: -0.00000011920908, z: -0.0044417726}
   serializedVersion: 2
   m_SwingAxis: {x: 0, y: -1, z: 0}
   m_TwistLimitSpring:
@@ -123729,7 +123791,7 @@ CharacterJoint:
   m_Anchor: {x: 0, y: 0, z: 0}
   m_Axis: {x: 0, y: 1, z: 0}
   m_AutoConfigureConnectedAnchor: 1
-  m_ConnectedAnchor: {x: -0.35519966, y: -0.22637135, z: -0.0034030676}
+  m_ConnectedAnchor: {x: -0.3551995, y: -0.22637135, z: -0.0034028857}
   serializedVersion: 2
   m_SwingAxis: {x: 0, y: 0, z: 1}
   m_TwistLimitSpring:

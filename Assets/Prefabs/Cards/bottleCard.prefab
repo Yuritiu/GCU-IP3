@@ -337,7 +337,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 828b38ef3bf5a7a48b0249bb37b383da, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bottlePrefab: {fileID: 7720495024072242587, guid: 61eb907abec811b46857187937407feb, type: 3}
+  bottlePrefab: {fileID: 4597021991206472532, guid: 2db6ad477cabceb4b9f05dbe90e5de1e, type: 3}
   waitForPlayersThrow: 0
 --- !u!114 &1320790179904903671
 MonoBehaviour:

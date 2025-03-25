@@ -296,6 +296,8 @@ public class Hand : MonoBehaviour
         fingers[num].SetActive(false);
         fingers.Remove(fingers[num]);
 
+        //start  bloodpool 
+
         GameManager.Instance.CheckFingers();
     }
 

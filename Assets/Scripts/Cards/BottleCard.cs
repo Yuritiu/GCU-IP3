@@ -41,11 +41,13 @@ public class BottleCard : MonoBehaviour
 
     public void PlayCardForPlayer()
     {
+        GameManager.Instance.bottleBackfirePlayer = false;
         StartCoroutine(WaitForActionsAndPlayBottle(true));
     }
 
     public void PlayCardForAI()
     {
+        GameManager.Instance.bottleBackfireAI = false;
         StartCoroutine(WaitForActionsAndPlayBottle(false));
     }
 
@@ -151,14 +153,28 @@ public class BottleCard : MonoBehaviour
                 DataGathering dG = FindObjectOfType<DataGathering>();
                 dG.bottleUsed = dG.bottleUsed + 1;
 
+                float chance = gameManager.statusPercent;
+                float roll = Random.Range(0f, 100f);
+
+                roll = chance;
+
+                if (roll <= chance)
+                {
+                    // Apply status effect logic if necessary
+                    GameManager.Instance.bottleBackfirePlayer = true;
+                }
+
                 //gameManager.inBottleAction = false;
 
                 StartCoroutine(DelayBottleThrow(baseWaitTime, aiTarget, true));
 
                 //Skip AI Turn
-                gameManager.aiSkipCount++;
-                gameManager.aiSkippedTurns++;
-
+                
+                if(!GameManager.Instance.bottleBackfirePlayer)
+                {
+                    gameManager.aiSkipCount++;
+                    gameManager.aiSkippedTurns++;
+                }
                 playCardForPlayerCalled = false;
             }
         }
@@ -175,9 +191,13 @@ public class BottleCard : MonoBehaviour
                 float chance = gameManager.statusPercent;
                 float roll = Random.Range(0f, 100f);
 
+                roll = chance;
+
                 if (roll <= chance)
                 {
+                    print("backfired");
                     // Apply status effect logic if necessary
+                    GameManager.Instance.bottleBackfireAI = true;
                 }
 
                 if (gameManager.inAIBottleAction /*&& gameManager.aiSkipCount == 0*/)
@@ -197,8 +217,11 @@ public class BottleCard : MonoBehaviour
                         StartCoroutine(DelayBottleThrow(baseWaitTime, playerTarget, false));
                     }
 
-                    gameManager.playerSkipCount++;
-                    gameManager.playerSkippedTurns++;
+                    if(!GameManager.Instance.bottleBackfireAI)
+                    {
+                        gameManager.playerSkipCount++;
+                        gameManager.playerSkippedTurns++;
+                    }
                 }
             }
         }

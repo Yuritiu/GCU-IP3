@@ -95,7 +95,10 @@ public class BottleSmash : MonoBehaviour
 
         if (isPlayer)
         {
-            blur.GetComponent<MeshRenderer>().enabled = false;
+            if (!GameManager.Instance.bottleBackfireAI)
+            {
+                blur.GetComponent<MeshRenderer>().enabled = false;
+            }
         }
     }
 

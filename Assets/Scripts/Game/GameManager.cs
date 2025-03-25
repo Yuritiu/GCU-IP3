@@ -107,6 +107,8 @@ public class GameManager : MonoBehaviour
 
     [Header("Blur")]
     [SerializeField] public GameObject blur;
+    GameObject bottleBlur;
+    string blurGameObjectName = "Blur";
 
     [HideInInspector] public bool canPlay = true;
     [HideInInspector] public bool isTutorial = false;
@@ -149,6 +151,8 @@ public class GameManager : MonoBehaviour
     [HideInInspector] public bool increaseCard4SkipCalled = false;
     [HideInInspector] public bool increaseCard3GunCalled = false;
     [HideInInspector] public bool increaseCard4GunCalled = false;
+    [HideInInspector] public bool bottleBackfirePlayer = false;
+    [HideInInspector] public bool bottleBackfireAI = false;
 
     [Header("One In The Chamber Variables")]
     [HideInInspector] public bool inPlayerReloadCalled = false;
@@ -213,6 +217,8 @@ public class GameManager : MonoBehaviour
         DisableAllBackfires();
 
         blur.SetActive(false);
+        bottleBlur = GameObject.Find(blurGameObjectName);
+
     }
 
     public void addBullet()
@@ -307,6 +313,9 @@ public class GameManager : MonoBehaviour
 
         CardDrawSystem.Instance.UnbanCards();
         blur.SetActive(false);
+        bottleBlur.GetComponent<MeshRenderer>().enabled = false;
+
+
 
         //Debug.Log("Played Hand: " + isTutorial);
 
@@ -857,7 +866,7 @@ public class GameManager : MonoBehaviour
 
     public bool CheckKnifeAI()
     {
-        print("checking knife cards");
+        //print("checking knife cards");
         if (cardsOnTable3 != null && cardsOnTable4 != null)
         {
             print("cards on table");
@@ -1160,7 +1169,7 @@ public class GameManager : MonoBehaviour
         SceneManager.LoadScene(activeScene);
     }
 
-    public void FinishBottleTurn()
+    public void  FinishBottleTurn()
     {
         if(inBottleAction || inAIBottleAction)
         {
@@ -1192,13 +1201,13 @@ public class GameManager : MonoBehaviour
             //Debug.Log("Can move on");
             if (!inKnifeActionAiPlayed && !inKnifeActionPlayerPlayed)
             {
-                Debug.Log("No knife in action");
+                //Debug.Log("No knife in action");
                 if (!inGunAction)
                 {
-                    Debug.Log("No gun in action");
+                    //Debug.Log("No gun in action");
                     if (!inBottleAction && !inAIBottleAction)
                     {
-                        Debug.Log("No bottle in action");
+                        //Debug.Log("No bottle in action");
                         if (!inPlayerReloadCalled && !inAIReloadCalled)
                         {
                             Debug.Log("ALL ACTIONS DONE");

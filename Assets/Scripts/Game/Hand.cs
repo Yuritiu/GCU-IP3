@@ -17,6 +17,7 @@ public class Hand : MonoBehaviour
     public bool sideToHit = false;
     public bool waitingToCut = false;
     public bool bloodSplatterEffect = false;
+    public bool secondAction = false;
     public int bloodSplatterIndex = 0;
     public int phaseOfAction = 1;
     
@@ -242,13 +243,15 @@ public class Hand : MonoBehaviour
         if (this.gameObject.tag == "Player")
         {
             GameManager.Instance.numberOfKnifeCardsAI--;
-            if (GameManager.Instance.numberOfKnifeCardsAI >= 1 && GameManager.Instance.playerFingers > 0)
+            if (GameManager.Instance.CheckKnifeAI() && GameManager.Instance.playerFingers > 0 && !secondAction)
             {
+                secondAction = true;
                 StartOfAction();
                 GameManager.Instance.numberOfKnifeCardsAI = 0;
             }
             else
             {
+                secondAction = false;
                 GameManager.Instance.knife1used = false;
                 GameManager.Instance.knife2used = false;
                 GameManager.Instance.aiHasKnife = false;
@@ -258,17 +261,19 @@ public class Hand : MonoBehaviour
                 DisableCamera();
             }
         }
-
+         
         else
         {
             GameManager.Instance.numberOfKnifeCardsPlayer--;
-            if (GameManager.Instance.numberOfKnifeCardsPlayer >= 1 && GameManager.Instance.playerFingers > 0)
+            if (GameManager.Instance.CheckKnifePlayer() && GameManager.Instance.playerFingers > 0 && !secondAction)
             {
+                secondAction = true;
                 StartOfAction();
                 GameManager.Instance.numberOfKnifeCardsPlayer = 0;
             }
             else
             {
+                secondAction = false;
                 GameManager.Instance.knife1used = false;
                 GameManager.Instance.knife2used = false;
                 GameManager.Instance.aiHasKnife = false;

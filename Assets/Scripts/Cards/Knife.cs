@@ -32,6 +32,7 @@ public class Knife : MonoBehaviour
     }
     public void PlayCardForAI()
     {
+        //print("playing knife card");
         GameManager.Instance.numberOfKnifeCardsAI++;
         GameManager.Instance.inKnifeActionAiPlayed = true;
         StartCoroutine(PlayAiKnife());

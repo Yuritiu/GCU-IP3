@@ -834,6 +834,50 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    public bool CheckKnifePlayer()
+    {
+        if (cardsOnTable1 != null && cardsOnTable2 != null)
+        {
+            if (cardsOnTable1.name.Contains("knife") && cardsOnTable2.name.Contains("knife"))
+            {
+                return true;
+            }
+            if (cardsOnTable1.name.Contains("cigar") && cardsOnTable2.name.Contains("knife"))
+            {
+                return true;
+            }
+            if (cardsOnTable1.name.Contains("knife") && cardsOnTable2.name.Contains("cigar"))
+            {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    public bool CheckKnifeAI()
+    {
+        print("checking knife cards");
+        if (cardsOnTable3 != null && cardsOnTable4 != null)
+        {
+            print("cards on table");
+            if (cardsOnTable3.name.Contains("knife") && cardsOnTable4.name.Contains("knife"))
+            {
+                print("knife repeat");
+                return true;
+            }
+            if (cardsOnTable3.name.Contains("cigar") && cardsOnTable4.name.Contains("knife"))
+            {
+                return true;
+            }
+            if (cardsOnTable3.name.Contains("knife") && cardsOnTable4.name.Contains("cigar"))
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+
     public void PlayCigarCard(int player)
     {
         //Player Functions
@@ -1149,23 +1193,20 @@ public class GameManager : MonoBehaviour
 
     private bool allActionsDone()
     {
-        //print(inKnifeActionAiPlayed);
-        //print(inKnifeActionPlayerPlayed);
-        //print(inGunAction);
-        //print(canMoveOn);
-
+        //print("checking if can move on");
         if (canMoveOn)
         {
             //Debug.Log("Can move on");
             if (!inKnifeActionAiPlayed && !inKnifeActionPlayerPlayed)
             {
-                //Debug.Log("No knife in action");
+                Debug.Log("No knife in action");
                 if (!inGunAction)
                 {
-                    //Debug.Log("No gun in action");
+                    Debug.Log("No gun in action");
                     if (!inBottleAction && !inAIBottleAction)
                     {
-                        if(!inPlayerReloadCalled && !inAIReloadCalled)
+                        Debug.Log("No bottle in action");
+                        if (!inPlayerReloadCalled && !inAIReloadCalled)
                         {
                             Debug.Log("ALL ACTIONS DONE");
                             isActionInProgress = false;

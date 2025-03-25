@@ -156,7 +156,7 @@ public class BottleCard : MonoBehaviour
                 float chance = gameManager.statusPercent;
                 float roll = Random.Range(0f, 100f);
 
-                roll = chance;
+                //roll = chance;
 
                 if (roll <= chance)
                 {

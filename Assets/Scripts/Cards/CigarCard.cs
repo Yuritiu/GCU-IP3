@@ -19,12 +19,19 @@ public class CigarCard : MonoBehaviour
     VisualEffect smokeVFX;
     bool backfired = false;
 
+    private BackfireGlow backfireGlow;
+
     void Start()
     {
         gameManager = FindAnyObjectByType<GameManager>();
         statusDropdown = FindAnyObjectByType<StatusDropdown>();
 
         smokeVFX = GetComponent<VisualEffect>();
+
+        if (backfireGlow == null)
+        {
+            backfireGlow = GetComponent<BackfireGlow>();
+        }
     }
 
     public void PlayCardForPlayer()
@@ -44,6 +51,11 @@ public class CigarCard : MonoBehaviour
             //Display BACKFIRE!Text
             TextMeshProUGUI backfireText = GetComponentInChildren<TextMeshProUGUI>();
             backfireText.enabled = true;
+
+            if (backfireGlow != null)
+            {
+                backfireGlow.GlowActive(); // Calls the method to start the glow effect
+            }
 
             dG.cigarBackfire = dG.cigarBackfire + 1;
 
@@ -79,6 +91,11 @@ public class CigarCard : MonoBehaviour
             //Display BACKFIRE! Text
             TextMeshProUGUI backfireText = GetComponentInChildren<TextMeshProUGUI>();
             backfireText.enabled = true;
+
+            if (backfireGlow != null)
+            {
+                backfireGlow.GlowActive(); // Calls the method to start the glow effect
+            }
 
             //skips Ais next turn
             GameManager.Instance.aiSkippedTurns++;

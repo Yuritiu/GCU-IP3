@@ -12,10 +12,17 @@ public class Armour : MonoBehaviour
 
     [SerializeField] private AudioClip armourEquip;
 
+    private BackfireGlow backfireGlow;
+
     void Start()
     {
         gameManager = FindAnyObjectByType<GameManager>();
         statusDropdown = FindAnyObjectByType<StatusDropdown>();
+
+        if (backfireGlow == null)
+        {
+            backfireGlow = GetComponent<BackfireGlow>();
+        }
     }
 
     public void PlayCardForPlayer()
@@ -35,6 +42,12 @@ public class Armour : MonoBehaviour
             //Display BACKFIRE! Text
             TextMeshProUGUI backfireText = GetComponentInChildren<TextMeshProUGUI>();
             backfireText.enabled = true;
+
+            if (backfireGlow != null)
+            {
+                backfireGlow.GlowActive(); // Calls the method to start the glow effect
+            }
+
 
             // Slow bloodloss
             BloodlossSystem.Instance.bloodlossTime -= BloodlossSystem.Instance.shieldBloodlossReduce;

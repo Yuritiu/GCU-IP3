@@ -10,10 +10,18 @@ public class EmptyPromise : MonoBehaviour
     private GameManager gameManager;
     private StatusDropdown statusDropdown;
 
+    private BackfireGlow backfireGlow;
+
     void Start()
     {
         gameManager = FindAnyObjectByType<GameManager>();
         statusDropdown = FindAnyObjectByType<StatusDropdown>();
+
+        if (backfireGlow == null)
+        {
+            backfireGlow = GetComponent<BackfireGlow>();
+        }
+
     }
 
     public void PlayCardForPlayer()
@@ -28,15 +36,21 @@ public class EmptyPromise : MonoBehaviour
         {
             dG.emptyBackfire = dG.emptyBackfire + 1;
 
+
             //Display BACKFIRE! Text
             TextMeshProUGUI backfireText = GetComponentInChildren<TextMeshProUGUI>();
             backfireText.enabled = true;
+            if (backfireGlow != null)
+            {
+                backfireGlow.GlowActive(); // Calls the method to start the glow effect
+            }
 
             //draw 2 cards
             GameManager.Instance.playerDraw2Cards = true;
 
             //GameManager.Instance.emptyPromiseBackfire.gameObject.SetActive(true);
             statusDropdown.DisplayStatusEffect(0, 6);
+
         }
         return;
     }
@@ -55,6 +69,10 @@ public class EmptyPromise : MonoBehaviour
             //Display BACKFIRE! Text
             TextMeshProUGUI backfireText = GetComponentInChildren<TextMeshProUGUI>();
             backfireText.enabled = true;
+            if (backfireGlow != null)
+            {
+                backfireGlow.GlowActive(); // Calls the method to start the glow effect
+            }
 
             //draw 2 cards
             GameManager.Instance.aiDraw2Cards = true;

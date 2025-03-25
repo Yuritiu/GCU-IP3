@@ -10,10 +10,17 @@ public class DoubleBullets : MonoBehaviour
     private GameManager gameManager;
     private StatusDropdown statusDropdown;
 
+    private BackfireGlow backfireGlow;
+
     void Start()
     {
         gameManager = FindAnyObjectByType<GameManager>();
         statusDropdown = FindAnyObjectByType<StatusDropdown>();
+
+        if (backfireGlow == null)
+        {
+            backfireGlow = GetComponent<BackfireGlow>();
+        }
     }
 
     public void PlayCardForPlayer()
@@ -70,6 +77,12 @@ public class DoubleBullets : MonoBehaviour
                     TextMeshProUGUI backfireText = GetComponentInChildren<TextMeshProUGUI>();
                     backfireText.enabled = true;
 
+                    if (backfireGlow != null)
+                    {
+                        backfireGlow.GlowActive(); // Calls the method to start the glow effect
+                    }
+
+
                     //loads blank (does nothing)
                     statusDropdown.DisplayStatusEffect(0, 2);
                     //return;
@@ -105,6 +118,11 @@ public class DoubleBullets : MonoBehaviour
                     //Display BACKFIRE! Text
                     TextMeshProUGUI backfireText = GetComponentInChildren<TextMeshProUGUI>();
                     backfireText.enabled = true;
+
+                    if (backfireGlow != null)
+                    {
+                        backfireGlow = GetComponent<BackfireGlow>();
+                    }
 
                     //loads blank (does nothing)
                     statusDropdown.DisplayStatusEffect(1, 2);

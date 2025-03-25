@@ -50,7 +50,16 @@ public class BottleSmash : MonoBehaviour
     IEnumerator DestroyBottle(bool isPlayer)
     {
         //Hide Bottle Once Hits Player
-        gameObject.GetComponent<MeshRenderer>().enabled = false;
+        /*
+        GameObject[] children = gameObject.GetComponentsInChildren<GameObject>();
+
+        for (int i = 0; i < children.Length; i++)
+        {
+            children[i].GetComponent<MeshRenderer>().enabled = false;
+        }
+        */
+
+        //gameObject.GetComponent<MeshRenderer>().enabled = false;
         blur = GameObject.Find(blurGameObjectName);
 
         //Play Smash SFX

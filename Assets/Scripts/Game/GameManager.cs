@@ -1074,10 +1074,7 @@ public class GameManager : MonoBehaviour
 
         //print(playerFingers);
 
-        if (showddown == true && ShootScript.instance1.AiShot == false && ShootScript.instance2.PlayerShot == false)
-        {
-            GameManager.Instance.Showdown();
-        }
+        
 
         if (PlayerGun.activeInHierarchy == true)
         {
@@ -1115,16 +1112,12 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    public void Showdown()
-    {
-        int randForBullet = UnityEngine.Random.Range(1, 7);
-        ShootScript.instance2.PRandom = randForBullet;
-        randForBullet = UnityEngine.Random.Range(1, 7);
-        ShootScript.instance1.AiRandom = randForBullet;
-        showddown = true;
-        AiRoulette();
-        PlayerRoulette();
-    }
+    //public void Showdown()
+    //{
+        //showddown = true;
+        //AiRoulette();
+        //PlayerRoulette();
+    //}
     private void DisableAllBackfires()
     {
         emptyPromiseBackfire.gameObject.SetActive(false);

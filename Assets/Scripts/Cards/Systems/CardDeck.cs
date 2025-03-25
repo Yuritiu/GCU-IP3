@@ -106,9 +106,9 @@ public class CardDeck : MonoBehaviour
 
         if (!tutorialManager.tutorialEnabled)
         {
-            if (deck.Count == 0 && !GameManager.Instance.showddown)
+            if (deck.Count == 0 && !ShowDown.instance.showdown)
             {
-                GameManager.Instance.Showdown();
+                ShowDown.instance.ActivateShowdown();
             }
         }
 
@@ -134,7 +134,7 @@ public class CardDeck : MonoBehaviour
 
         if (deck.Count == 0 && reshuffling == true)
         {
-            GameManager.Instance.Showdown();
+            ShowDown.instance.ActivateShowdown();
         }
 
 

@@ -245,6 +245,7 @@ public class ShootScript : MonoBehaviour
         if (GameManager.Instance.has2Guns == false)
         {
             GameManager.Instance.inGunAction = false;
+            AiShot = false;
         }
         //Switches opponet back to idle
         //animController.IdleTr();
@@ -324,6 +325,7 @@ public class ShootScript : MonoBehaviour
         gameObject.SetActive(false);
         firePressed = false;
         cameraController.gunInHand = false;
+        PlayerShot = false;
 
         fovLerp.StopLerp();
         gunCameraShake.StopShake();

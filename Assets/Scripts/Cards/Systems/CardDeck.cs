@@ -80,8 +80,6 @@ public class CardDeck : MonoBehaviour
             Destroy(gameObject);
             return;
         }
-
-
     }
 
     public void CallIntro()
@@ -267,8 +265,8 @@ public class CardDeck : MonoBehaviour
 
     IEnumerator AnimateFanIn()
     {
-        //Stack From Bottom Instead Of Top Of Deck
-        float baseY = deckPosition.position.y;
+        //Stack From Top Instead Of Bottom Of Deck
+        float baseY = deckPosition.position.y + ((visualDeck.Count - 1) * cardStackOffset);
 
         List<Coroutine> currentCardMoveCoroutines = new List<Coroutine>();
 

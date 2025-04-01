@@ -180,6 +180,8 @@ public class GameManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI timerText;
 
     bool bloodLossStarted = false;
+
+    public Image filler;
     async void Start()
     {
         dG = gameObject.GetComponent<DataGathering>();
@@ -356,7 +358,8 @@ public class GameManager : MonoBehaviour
             yield return null;
 
             float remainingTime = maxTurnTime - timer;
-            timerText.text = "Time Left: " + (remainingTime).ToString() + "s";
+            filler.fillAmount = remainingTime / 30;
+            //timerText.text = "Time Left: " + (remainingTime).ToString() + "s";
         }
 
         

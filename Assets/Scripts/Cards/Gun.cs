@@ -7,6 +7,9 @@ public class Gun : MonoBehaviour
 {
     public void PlayCardForPlayer()
     {
+        //Save To Stat Tracker
+        StatTracker.Instance.UpdateStat("GunCardsPlayed", 1);
+
         GameManager.Instance.inGunAction = true;
 
         GameManager.Instance.playerHasGun = true;

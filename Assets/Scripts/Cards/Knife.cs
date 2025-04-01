@@ -26,6 +26,9 @@ public class Knife : MonoBehaviour
 
     public void PlayCardForPlayer()
     {
+        //Save To Stat Tracker
+        StatTracker.Instance.UpdateStat("KnifeCardsPlayed", 1);
+
         GameManager.Instance.numberOfKnifeCardsPlayer++;
         GameManager.Instance.inKnifeActionPlayerPlayed = true;
         StartCoroutine(PlayPlayerKnife());

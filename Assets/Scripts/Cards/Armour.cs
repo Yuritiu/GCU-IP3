@@ -27,6 +27,9 @@ public class Armour : MonoBehaviour
 
     public void PlayCardForPlayer()
     {
+        //Save To Stat Tracker
+        StatTracker.Instance.UpdateStat("ArmourCardsPlayed", 1);
+
         DataGathering dG = FindObjectOfType<DataGathering>();
         dG.armorUsed = dG.armorUsed + 1;
 

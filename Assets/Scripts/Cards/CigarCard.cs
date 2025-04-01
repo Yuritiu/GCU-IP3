@@ -36,6 +36,9 @@ public class CigarCard : MonoBehaviour
 
     public void PlayCardForPlayer()
     {
+        //Save To Stat Tracker
+        StatTracker.Instance.UpdateStat("CigarCardsPlayed", 1);
+
         DataGathering dG = FindObjectOfType<DataGathering>();
         dG.cigarUsed = dG.cigarUsed + 1;
         //Clone Players Second Card

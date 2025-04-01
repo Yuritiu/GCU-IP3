@@ -26,6 +26,9 @@ public class EmptyPromise : MonoBehaviour
 
     public void PlayCardForPlayer()
     {
+        //Save To Stat Tracker
+        StatTracker.Instance.UpdateStat("EmptyPromiseCardsPlayed", 1);
+
         DataGathering dG = FindObjectOfType<DataGathering>();
         dG.emptyUsed = dG.emptyUsed + 1;
 

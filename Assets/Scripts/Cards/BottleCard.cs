@@ -41,6 +41,9 @@ public class BottleCard : MonoBehaviour
 
     public void PlayCardForPlayer()
     {
+        //Save To Stat Tracker
+        StatTracker.Instance.UpdateStat("BottleCardsPlayed", 1);
+
         GameManager.Instance.bottleBackfirePlayer = false;
         StartCoroutine(WaitForActionsAndPlayBottle(true));
     }

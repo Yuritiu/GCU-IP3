@@ -1181,6 +1181,9 @@ public class GameManager : MonoBehaviour
 
     public void EndGameWin()
     {
+        //Save To Stat Tracker
+        StatTracker.Instance.UpdateStat("Wins", 1);
+
         gameEnded = true;
         WinScreen.SetActive(true);
         Cursor.visible = true;
@@ -1192,6 +1195,9 @@ public class GameManager : MonoBehaviour
 
     public void EndGameLose()
     {
+        //Save To Stat Tracker
+        StatTracker.Instance.UpdateStat("Deaths", 1);
+
         sendData(false);
         CameraDeathEffect.Instance.TriggerDeathSequence();
     }

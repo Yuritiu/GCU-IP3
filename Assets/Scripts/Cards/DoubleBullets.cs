@@ -25,6 +25,9 @@ public class DoubleBullets : MonoBehaviour
 
     public void PlayCardForPlayer()
     {
+        //Save To Stat Tracker
+        StatTracker.Instance.UpdateStat("OneInTheChamberCardsPlayed", 1);
+
         StartCoroutine(WaitForActionsAndPlayChamber(true));
     }
 

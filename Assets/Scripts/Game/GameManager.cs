@@ -174,6 +174,11 @@ public class GameManager : MonoBehaviour
 
     public bool displaySkipTurnText = false;
 
+    [Header("Turn Timer")]
+    [SerializeField] private float maxTurnTime = 30f; // seconds before skipping
+    private Coroutine turnTimerCoroutine;
+    [SerializeField] private TextMeshProUGUI timerText;
+
     bool bloodLossStarted = false;
     async void Start()
     {
@@ -190,6 +195,8 @@ public class GameManager : MonoBehaviour
 
         cameraController = FindFirstObjectByType<CameraController>();
         tutorial = FindFirstObjectByType<Tutorial>();
+
+        
     }
 
     private void Awake()
@@ -299,6 +306,11 @@ public class GameManager : MonoBehaviour
         {
             CardDrawSystem.Instance.isPlayersTurn = true;
 
+            if (turnTimerCoroutine != null)
+                StopCoroutine(turnTimerCoroutine);
+            turnTimerCoroutine = StartCoroutine(StartPlayerTurnTimer());
+
+
             //Debug
             CardDrawSystem.Instance.debugCurrentTurnText.text = ("Play Time");
 
@@ -326,7 +338,30 @@ public class GameManager : MonoBehaviour
         else
         {
             ShowCards();
+
+            if (turnTimerCoroutine != null)
+            {
+              StopCoroutine(turnTimerCoroutine);
+              turnTimerCoroutine = null;
+            }       
         }
+    }
+    private IEnumerator StartPlayerTurnTimer()
+    {
+        float timer = 0f;
+
+        while (timer < maxTurnTime)
+        {
+            timer += Time.deltaTime;
+            yield return null;
+
+            float remainingTime = maxTurnTime - timer;
+            timerText.text = "Time Left: " + (remainingTime).ToString() + "s";
+        }
+
+        
+        // Moves to ais 
+        PlayHand();
     }
 
     public async void ShowCards()
@@ -336,6 +371,11 @@ public class GameManager : MonoBehaviour
         if (aiSkippedTurns > 0)
         {
             aiSkippedTurns--;
+        }
+        if (turnTimerCoroutine != null)
+        {
+            StopCoroutine(turnTimerCoroutine);
+            turnTimerCoroutine = null;
         }
 
         //DELAY FOR CARDS TO HAVE TIME TO BE PLACED ON TABLE TO BE COMPARED AGAINST PROPERLY (particularly for bottle cards)
@@ -523,6 +563,7 @@ public class GameManager : MonoBehaviour
         yield return new WaitForSeconds(0.3f);
 
         ShowCards();
+
     }
 
     IEnumerator MoveCamera()

@@ -175,13 +175,15 @@ public class GameManager : MonoBehaviour
     public bool displaySkipTurnText = false;
 
     [Header("Turn Timer")]
-    [SerializeField] private float maxTurnTime = 30f; // seconds before skipping
-    private Coroutine turnTimerCoroutine;
+    [SerializeField] private float maxTurnTime = 30f; //Seconds before skipping
     [SerializeField] private TextMeshProUGUI timerText;
+    [SerializeField] private Image innerFiller;
+    [SerializeField] private GameObject[] timerObjectsToEnable;
+    private Coroutine turnTimerCoroutine;
 
     bool bloodLossStarted = false;
 
-    public Image filler;
+
     async void Start()
     {
         dG = gameObject.GetComponent<DataGathering>();
@@ -198,7 +200,10 @@ public class GameManager : MonoBehaviour
         cameraController = FindFirstObjectByType<CameraController>();
         tutorial = FindFirstObjectByType<Tutorial>();
 
-        
+        foreach (GameObject obj in timerObjectsToEnable)
+        {
+            obj.SetActive(false);
+        }
     }
 
     private void Awake()
@@ -350,6 +355,11 @@ public class GameManager : MonoBehaviour
     }
     private IEnumerator StartPlayerTurnTimer()
     {
+        foreach (GameObject obj in timerObjectsToEnable)
+        {
+            obj.SetActive(true);
+        }
+
         float timer = 0f;
 
         while (timer < maxTurnTime)
@@ -358,14 +368,14 @@ public class GameManager : MonoBehaviour
             yield return null;
 
             float remainingTime = maxTurnTime - timer;
-            filler.fillAmount = remainingTime / 30;
-            //timerText.text = "Time Left: " + (remainingTime).ToString() + "s";
+            innerFiller.fillAmount = remainingTime / 30f;
+            timerText.text = Mathf.Round(remainingTime).ToString();
         }
 
-        
-        // Moves to ais 
+        //Moves to AI's turn
         PlayHand();
     }
+
 
     public async void ShowCards()
     {

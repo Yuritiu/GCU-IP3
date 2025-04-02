@@ -45442,10 +45442,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "Listen, pal, I ain't in the business of askin\u2019 too many questions\u2014just
-    pourin\u2019 drinks and keepin\u2019 secrets. You want a whiskey neat, I\u2019ll
-    slide it your way. You want somethin\u2019 a little stronger, well\u2026 let\u2019s
-    just say I know a guy. "
+  m_text: 
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}

@@ -10082,7 +10082,7 @@ MonoBehaviour:
   - Now, they've come to collect.
   - '`But first... They''ll have you for one last game.'
   initialPauseTime: 0
-  preFadePauseTime: 0.5
+  preFadePauseTime: 0.25
   pauseTimes:
   - 0
   - 0
@@ -11711,7 +11711,7 @@ MonoBehaviour:
   stairHeight: 0.25
   stairDepth: 0.5
   stairDelay: 0.5
-  backwardDistance: 3
+  backwardDistance: 2
   introCamera: {fileID: 382931591}
   loadingManager: {fileID: 897878240}
   blinkEffect: {fileID: 864387129}

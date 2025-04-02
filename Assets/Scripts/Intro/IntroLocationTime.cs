@@ -46,7 +46,7 @@ public class IntroLocationTime : MonoBehaviour
 
         yield return new WaitForSeconds(1f);
 
-        yield return StartCoroutine(TypeText(locationText, " 1932", 0.5f));
+        yield return StartCoroutine(TypeText(locationText, " 1928", 0.5f));
 
         yield return new WaitForSeconds(2f);
 

@@ -39,6 +39,9 @@ public class Hand : MonoBehaviour
 
     public CameraController cameraController;
 
+    [SerializeField] private List<GameObject> handModels; 
+    private int currentHand = 0; 
+
     private void Awake()
     {
         Instance = this;
@@ -287,18 +290,16 @@ public class Hand : MonoBehaviour
     
     public void RemoveFinger(int num)
     {
-        movedKnifeEnough = 0;
+         movedKnifeEnough = 0;
 
-        //to be taken out
+    if (currentHand < handModels.Count - 1)
+    {
+        handModels[currentHand].SetActive(false); 
+        currentHand++; 
+        handModels[currentHand].SetActive(true); 
+    }
 
-        //Destroy(fingers[num]);
-        
-        fingers[num].SetActive(false);
-        fingers.Remove(fingers[num]);
-
-        //start  bloodpool 
-
-        GameManager.Instance.CheckFingers();
+    GameManager.Instance.CheckFingers();
     }
 
     IEnumerator WaitToStart()

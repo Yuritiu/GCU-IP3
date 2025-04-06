@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class BarTenderAnimation : MonoBehaviour
 {
-    [SerializeField] private Animator animator;
+    public Animator animator;
     private float danceCount = 120f;
     private float timeStore;
 

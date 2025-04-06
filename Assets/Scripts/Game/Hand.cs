@@ -290,34 +290,16 @@ public class Hand : MonoBehaviour
     
     public void RemoveFinger(int num)
     {
-        if (this.gameObject.tag == "Player")
+        movedKnifeEnough = 0;
+
+        if (currentHand < handModels.Count - 1)
         {
-            movedKnifeEnough = 0;
-
-            if (currentHand < handModels.Count - 1)
-            {
-                handModels[currentHand].SetActive(false);
-                currentHand++;
-                handModels[currentHand].SetActive(true);
-            }
-
-            GameManager.Instance.CheckFingers();
+            handModels[currentHand].SetActive(false);
+            currentHand++;
+            handModels[currentHand].SetActive(true);
         }
 
-        else if (this.gameObject.tag == "Opponent")
-        {
-            movedKnifeEnough = 0;
-
-            //to be taken out
-
-            //Destroy(fingers[num]);
-
-            fingers[num].SetActive(false);
-            fingers.Remove(fingers[num]);
-
-
-            GameManager.Instance.CheckFingers();
-        }
+        GameManager.Instance.CheckFingers();
     }
 
     IEnumerator WaitToStart()

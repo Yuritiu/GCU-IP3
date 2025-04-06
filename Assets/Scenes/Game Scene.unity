@@ -33743,6 +33743,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -3663949803233804572, guid: 8d44be47578450a488fd64554476b2d4, type: 3}
+      propertyPath: m_TagString
+      value: Opponent
+      objectReference: {fileID: 0}
     - target: {fileID: -1258627388040350859, guid: 8d44be47578450a488fd64554476b2d4, type: 3}
       propertyPath: m_TagString
       value: RootBone
@@ -33754,6 +33758,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 8d44be47578450a488fd64554476b2d4, type: 3}
       propertyPath: m_Name
       value: OPPONENT
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 8d44be47578450a488fd64554476b2d4, type: 3}
+      propertyPath: m_TagString
+      value: Opponent
       objectReference: {fileID: 0}
     - target: {fileID: 5866666021909216657, guid: 8d44be47578450a488fd64554476b2d4, type: 3}
       propertyPath: m_Controller

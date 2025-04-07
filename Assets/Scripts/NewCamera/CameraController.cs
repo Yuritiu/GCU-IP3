@@ -63,6 +63,9 @@ public class CameraController : MonoBehaviour
     bool isOscillating = false;
     bool uiActive = true;
 
+    public bool overrideCameraLock = false;
+
+
     void Awake()
     {
         Instance = this;
@@ -160,14 +163,18 @@ public class CameraController : MonoBehaviour
             }
         }
 
-        if (!GameManager.Instance.crosshairUnlocked)
+        if (!overrideCameraLock)
         {
-            cameraLocked = false;
+            if (!GameManager.Instance.crosshairUnlocked)
+            {
+                cameraLocked = false;
+            }
+            else if (GameManager.Instance.crosshairUnlocked)
+            {
+                cameraLocked = true;
+            }
         }
-        else if (GameManager.Instance.crosshairUnlocked)
-        {
-            cameraLocked = true;
-        }
+
 
         CheckForKeyPresses();
     }
@@ -253,7 +260,7 @@ public class CameraController : MonoBehaviour
 
             else if (targetLookingPos == opponentTarget)
             {
-                if(tutorial = null)
+                if(tutorial == null)
                 {
                     if (!tutorial.tutorialEnabled)
                     {

@@ -1201,7 +1201,7 @@ public class GameManager : MonoBehaviour
         gameEnded = true;
         WinScreen.SetActive(true);
         Cursor.visible = true;
-        Cursor.lockState = CursorLockMode.Confined;
+        Cursor.lockState = CursorLockMode.None;
         Time.timeScale = 0f;
 
         sendData(true);

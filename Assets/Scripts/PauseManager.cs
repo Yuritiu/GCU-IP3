@@ -2,6 +2,7 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using Unity.VisualScripting;
 
 public class PauseMenu : MonoBehaviour
 {
@@ -31,8 +32,11 @@ public class PauseMenu : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Escape))
-        {
+        if (gameManager.gameEnded)
+            return;
+
+            if (Input.GetKeyDown(KeyCode.Escape))
+            {
             if (isPaused && !settingsMenu.activeSelf)
             {
                 ResumeGame();
@@ -52,29 +56,21 @@ public class PauseMenu : MonoBehaviour
 
     private void PauseGame()
     {
-        //If the game has eneded the player won't be able to pause anymore (Fixing bug that resumed the game)
-        if (!gameManager.gameEnded)
-        {
-            isPaused = true;
-            Time.timeScale = 0f;
-            Cursor.visible = true;
-            Cursor.lockState = CursorLockMode.None;
-            pauseCanvas.SetActive(true);
-        }
+        isPaused = true;
+        Time.timeScale = 0f;
+        Cursor.visible = true;
+        Cursor.lockState = CursorLockMode.None;
+        pauseCanvas.SetActive(true);
     }
 
 
     private void ResumeGame()
     {
-        if (!gameManager.gameEnded)
-        {
-            isPaused = false;
-            Time.timeScale = 1f;
-            Cursor.visible = false;
-            Cursor.lockState = CursorLockMode.Locked;
-            pauseCanvas.SetActive(false);
-
-        }
+        isPaused = false;
+        Time.timeScale = 1f;
+        Cursor.visible = false;
+        Cursor.lockState = CursorLockMode.Locked;
+        pauseCanvas.SetActive(false);
     }
 
     private void OpenSettingsMenu()

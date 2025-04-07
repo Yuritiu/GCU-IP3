@@ -1198,6 +1198,18 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 1748101702977828444, guid: 0c2bde1f1322b5f49be953ced4e9337b, type: 3}
   m_PrefabInstance: {fileID: 346987569}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &47169818
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 47169814}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ec0eaa49ed212244981a67a72c1b735f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &47611136 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 6605223622351246318, guid: f14002e9ac1d76a41865912fd05ad70b, type: 3}
@@ -14049,6 +14061,12 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 225540592615205930, guid: 0c2bde1f1322b5f49be953ced4e9337b, type: 3}
       insertIndex: -1
       addedObject: {fileID: 346987571}
+    - targetCorrespondingSourceObject: {fileID: 5430551511503090811, guid: 0c2bde1f1322b5f49be953ced4e9337b, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2112440556}
+    - targetCorrespondingSourceObject: {fileID: 1748101702977828444, guid: 0c2bde1f1322b5f49be953ced4e9337b, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 47169818}
   m_SourcePrefab: {fileID: 100100000, guid: 0c2bde1f1322b5f49be953ced4e9337b, type: 3}
 --- !u!1 &346987570 stripped
 GameObject:
@@ -14071,6 +14089,7 @@ MonoBehaviour:
   tableHit: {fileID: 1743987030}
   fadeImage: {fileID: 776200894}
   LoseScreen: {fileID: 47169814}
+  gameManager: {fileID: 0}
   deathAudioSource: {fileID: 565869798}
   tableHitAudioSource1: {fileID: 565869800}
   tableHitAudioSource2: {fileID: 565869801}
@@ -32221,6 +32240,7 @@ MonoBehaviour:
   UICanvas:
   - {fileID: 159581999}
   - {fileID: 1163542273}
+  overrideCameraLock: 0
 --- !u!114 &565869803
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -88833,6 +88853,7 @@ GameObject:
   - component: {fileID: 1648486051}
   - component: {fileID: 1648486050}
   - component: {fileID: 1648486049}
+  - component: {fileID: 1648486053}
   m_Layer: 0
   m_Name: Pause Canvas
   m_TagString: Untagged
@@ -88927,6 +88948,18 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!114 &1648486053
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1648486048}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ec0eaa49ed212244981a67a72c1b735f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1659659342
 GameObject:
   m_ObjectHideFlags: 0
@@ -114746,6 +114779,18 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 5430551511503090811, guid: 0c2bde1f1322b5f49be953ced4e9337b, type: 3}
   m_PrefabInstance: {fileID: 346987569}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &2112440556
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2112440552}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ec0eaa49ed212244981a67a72c1b735f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2115869009
 GameObject:
   m_ObjectHideFlags: 0

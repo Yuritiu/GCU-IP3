@@ -15,6 +15,8 @@ public class CameraDeathEffect : MonoBehaviour
     [SerializeField] Image fadeImage;
     [SerializeField] GameObject LoseScreen;
 
+    public GameManager gameManager;
+
     [Header("Audio Sources")]
     [SerializeField] AudioSource deathAudioSource;
     [SerializeField] AudioSource tableHitAudioSource1;
@@ -29,6 +31,8 @@ public class CameraDeathEffect : MonoBehaviour
     void Awake()
     {
         Instance = this;
+        gameManager = FindFirstObjectByType<GameManager>();
+
     }
 
     public void TriggerDeathSequence()
@@ -40,6 +44,15 @@ public class CameraDeathEffect : MonoBehaviour
             StartCoroutine(DeathSequence());
         }
     }
+
+    void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.F))
+        {
+            EndGameLose();
+        }
+    }
+
 
     IEnumerator DeathSequence()
     {
@@ -84,10 +97,14 @@ public class CameraDeathEffect : MonoBehaviour
 
     void EndGameLose()
     {
+        gameManager.gameEnded = true;
         deathAudioSource.Play();
         LoseScreen.SetActive(true);
+
         Cursor.visible = true;
-        Cursor.lockState = CursorLockMode.Confined;
+        Cursor.lockState = CursorLockMode.None;
+
         Time.timeScale = 0f;
     }
+
 }

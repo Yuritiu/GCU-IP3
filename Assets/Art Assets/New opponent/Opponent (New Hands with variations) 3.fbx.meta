@@ -29,6 +29,36 @@ ModelImporter:
       assembly: UnityEngine.CoreModule
       name: Tie1
     second: {fileID: 2100000, guid: 31511c620435ebb40ae1deed4f5a94b7, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Whole_Hands
+    second: {fileID: 2100000, guid: ea418fc1ce300f54caf27abc25607091, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: l_fingers_0
+    second: {fileID: 2100000, guid: ea418fc1ce300f54caf27abc25607091, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: l_fingers_1
+    second: {fileID: 2100000, guid: ea418fc1ce300f54caf27abc25607091, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: l_fingers_2
+    second: {fileID: 2100000, guid: ea418fc1ce300f54caf27abc25607091, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: l_fingers_3
+    second: {fileID: 2100000, guid: ea418fc1ce300f54caf27abc25607091, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: l_fingers_4
+    second: {fileID: 2100000, guid: ea418fc1ce300f54caf27abc25607091, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
@@ -41,8 +71,7 @@ ModelImporter:
     optimizeGameObjects: 0
     removeConstantScaleCurves: 0
     motionNodeName: 
-    rigImportErrors: "Invalid Avatar Rig Configuration. Missing or invalid transform:\n\tRequired
-      human bone 'LeftLowerLeg' not found\n"
+    rigImportErrors: 
     rigImportWarnings: 
     animationImportErrors: 
     animationImportWarnings: 

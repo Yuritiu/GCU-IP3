@@ -182,6 +182,7 @@ public class GameManager : MonoBehaviour
     private Coroutine turnTimerCoroutine;
 
     bool bloodLossStarted = false;
+    bool AIbloodLossStarted = false;
 
 
     async void Start()
@@ -733,6 +734,12 @@ public class GameManager : MonoBehaviour
             OpponentAnimationController animController = FindAnyObjectByType<OpponentAnimationController>();
             animController.KnifeTr();
             BloodlossSystemAI.Instance.IncreaseBloodloss();
+            if (!AIbloodLossStarted)
+            {
+                AIbloodLossStarted = true;
+
+               
+            }
             aiFingers--;
             aiHand.RemoveFinger(aiFingers);
             SFXManager.instance.PlayRandomSFXClip(aiScreams, transform, 0.15f);

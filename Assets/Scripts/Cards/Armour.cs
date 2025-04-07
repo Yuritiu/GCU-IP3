@@ -66,6 +66,6 @@ public class Armour : MonoBehaviour
         dG.armorUsedAI = dG.armorUsedAI + 1;
 
         GameManager.Instance.aiArmour++;
-        BloodlossSystemAI.Instance.bloodlossTime -= BloodlossSystemAI.Instance.shieldBloodlossReduce;
+        BloodlossSystemAI.Instance.AIbloodlossTime -= BloodlossSystemAI.Instance.shieldAIBloodlossReduce;
     }
 }

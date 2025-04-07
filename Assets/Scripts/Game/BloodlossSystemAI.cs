@@ -14,22 +14,16 @@ public class BloodlossSystemAI : MonoBehaviour
     public static BloodlossSystemAI Instance;
 
     int difficulty;
-
-   
-
-    
-
-   
     [SerializeField] private AudioClip thud;
     
 
     public float maxAIHealth = 350;
     [HideInInspector] public float currentAIHealth;
-    bool isCountingDown = false;
-    bool bloodlossEffectsEnabled;
-    [HideInInspector] public float bloodlossTime = 0f;
-    [SerializeField] private float knifeBloodlossAdd = 0.05f;
-    public float shieldBloodlossReduce = 0.025f;
+    bool isAICountingDown = false;
+    bool AIbloodlossEffectsEnabled;
+    [HideInInspector] public float AIbloodlossTime = 0f;
+    [SerializeField] private float knifeAIBloodlossAdd = 0.05f;
+    public float shieldAIBloodlossReduce = 0.025f;
 
     private void Awake()
     {
@@ -47,7 +41,7 @@ public class BloodlossSystemAI : MonoBehaviour
             difficulty = 1;
         }
 
-        bloodlossEffectsEnabled = true;
+        AIbloodlossEffectsEnabled = true;
 
         
 
@@ -62,16 +56,16 @@ public class BloodlossSystemAI : MonoBehaviour
 
     void FixedUpdate()
     {
-        if (isCountingDown)
+        if (isAICountingDown)
         {
             //Decrease Time
-            currentAIHealth -= bloodlossTime;
+            currentAIHealth -= AIbloodlossTime;
 
             if (currentAIHealth <= 0f)
             {
                 //Ended Countdown, Die
                 currentAIHealth = 0f;
-                isCountingDown = false;
+                isAICountingDown = false;
                 CountdownFinished();
             }
         }
@@ -80,13 +74,13 @@ public class BloodlossSystemAI : MonoBehaviour
     public void IncreaseBloodloss()
     {
         //increases the speed of bloodloss
-        isCountingDown = true;
-        bloodlossTime += knifeBloodlossAdd;
+        isAICountingDown = true;
+        AIbloodlossTime += knifeAIBloodlossAdd;
     }
 
     void CountdownFinished()
     {
-        Debug.Log("You Lost All Your Blood :(");
+        Debug.Log("Ai Has Died");
 
        
         SFXManager.instance.PlaySFXClip(thud, transform, 1f);

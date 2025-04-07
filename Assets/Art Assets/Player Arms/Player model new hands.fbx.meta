@@ -9,6 +9,36 @@ ModelImporter:
       assembly: UnityEngine.CoreModule
       name: Jacket1
     second: {fileID: 2100000, guid: 016655b5b7b5a8f479212c092c3007ce, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Whole_Hands
+    second: {fileID: 2100000, guid: 79e072e223415fe4b9e63cd662be3c42, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: l_fingers_0
+    second: {fileID: 2100000, guid: 79e072e223415fe4b9e63cd662be3c42, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: l_fingers_1
+    second: {fileID: 2100000, guid: 79e072e223415fe4b9e63cd662be3c42, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: l_fingers_2
+    second: {fileID: 2100000, guid: 79e072e223415fe4b9e63cd662be3c42, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: l_fingers_3
+    second: {fileID: 2100000, guid: 79e072e223415fe4b9e63cd662be3c42, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: l_fingers_4
+    second: {fileID: 2100000, guid: 79e072e223415fe4b9e63cd662be3c42, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
@@ -95,7 +125,7 @@ ModelImporter:
     armStretch: 0.05
     legStretch: 0.05
     feetSpacing: 0
-    globalScale: 0.39999998
+    globalScale: 40
     rootMotionBoneName: 
     hasTranslationDoF: 0
     hasExtraRoot: 0

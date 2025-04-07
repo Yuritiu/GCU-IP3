@@ -71,6 +71,14 @@ public class Tutorial : MonoBehaviour
     void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
         FindReferences();
+
+        if (scene.name == "Game Scene")
+        {
+            if (introCalled == true)
+            {
+                introCalled = false;
+            }
+        }
     }
 
     void FindReferences()

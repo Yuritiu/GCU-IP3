@@ -8,6 +8,7 @@ public class WinLoss : MonoBehaviour
 {
     [Header("Buttons")]
     public Button[] restartButtons;
+    public Tutorial tutorialManager;
    // public Button[] feedbackButtons;
    // public Button[] mainMenuButtons;
 
@@ -20,6 +21,8 @@ public class WinLoss : MonoBehaviour
         {
             restartButton.onClick.AddListener(RestartGame);
         }
+
+        tutorialManager = FindFirstObjectByType<Tutorial>();
 
         //foreach (Button feedbackButton in feedbackButtons)
         //{
@@ -35,7 +38,9 @@ public class WinLoss : MonoBehaviour
     private void RestartGame()
     {
         Time.timeScale = 1f;
+        tutorialManager.introCalled = false;
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+
     }
 
     //private void OpenFeedbackLink()

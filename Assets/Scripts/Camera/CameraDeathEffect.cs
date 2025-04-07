@@ -51,6 +51,11 @@ public class CameraDeathEffect : MonoBehaviour
         {
             EndGameLose();
         }
+
+        if (Input.GetKeyDown(KeyCode.G))
+        {
+            gameManager.EndGameWin();
+        }
     }
 
 

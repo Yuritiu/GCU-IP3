@@ -29,6 +29,8 @@ public class BottleCard : MonoBehaviour
     public bool waitForPlayersThrow;
     bool checkedPlayersCards = false;
 
+    private BackfireGlow backfireGlow;
+
     void Awake()
     {
         gameManager = FindAnyObjectByType<GameManager>();
@@ -37,6 +39,11 @@ public class BottleCard : MonoBehaviour
         bottleSpawnPoint = GameObject.Find("BOTTLE POSITION BARTENDER").transform;
 
         cameraController = FindFirstObjectByType<CameraController>();
+
+        if (backfireGlow == null)
+        {
+            backfireGlow = GetComponent<BackfireGlow>();
+        }
     }
 
     public void PlayCardForPlayer()
@@ -195,13 +202,17 @@ public class BottleCard : MonoBehaviour
                 float chance = gameManager.statusPercent;
                 float roll = Random.Range(0f, 100f);
 
-                roll = chance;
+                //roll = chance;
 
                 if (roll <= chance)
                 {
                     print("backfired");
                     // Apply status effect logic if necessary
                     GameManager.Instance.bottleBackfireAI = true;
+                    if (backfireGlow != null)
+                    {
+                        backfireGlow.GlowActive(); // Calls the method to start the glow effect
+                    }
                 }
 
                 if (gameManager.inAIBottleAction /*&& gameManager.aiSkipCount == 0*/)

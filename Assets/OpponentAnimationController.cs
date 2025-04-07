@@ -15,7 +15,7 @@ public class OpponentAnimationController : MonoBehaviour
         if (gameObject.GetComponent<RagdollToggle>() != null)
         {
             ragdoll = gameObject.GetComponent<RagdollToggle>();
-            ragdoll.enabled = true;
+          //  ragdoll.enabled = true;
         }
         IdleTr();
     }
@@ -27,16 +27,17 @@ public class OpponentAnimationController : MonoBehaviour
 
     public void CigarTr()
     {
-        animator.SetTrigger("TrCigar");
+       // animator.SetTrigger("TrCigar");
     }
 
     public void KnifeTr()
     {
-        animator.SetTrigger("TrKnife");
+       // Debug.Log("HE'S DOING IT!");
+      //  animator.SetTrigger("TrKnife");
     }
 
     public void GunTr()
     {
-        animator.SetTrigger("TrGun");
+       // animator.SetTrigger("TrGun");
     }
 }

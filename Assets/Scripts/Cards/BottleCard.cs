@@ -178,6 +178,7 @@ public class BottleCard : MonoBehaviour
                     gameManager.aiSkipCount++;
                     gameManager.aiSkippedTurns++;
                 }
+
                 playCardForPlayerCalled = false;
             }
         }

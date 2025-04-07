@@ -81,7 +81,6 @@ public class CameraController : MonoBehaviour
         originalRotation = transform.rotation;
 
         originalXClamp = xClamp;
-        zClamp = new Vector2(-75f, 75f);
         originalZClamp = zClamp;
 
         mainCamera = Camera.main;

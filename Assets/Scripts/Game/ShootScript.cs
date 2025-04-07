@@ -1,4 +1,4 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System;
@@ -62,6 +62,7 @@ public class ShootScript : MonoBehaviour
     private float shakeTime = 0.0f;
     private bool isShaking = false;
 
+  
 
 
 
@@ -186,6 +187,8 @@ public class ShootScript : MonoBehaviour
 
         AiRandom = randForBullet;
 
+        
+
         //AiRandom = 8;
 
         //UnityEngine.Debug.Log("bullet " + GameManager.Instance.bullets);
@@ -194,21 +197,6 @@ public class ShootScript : MonoBehaviour
         yield return new WaitForSeconds(1.5f);
         firePressed = true;
         gunAnim.Play("Airecoil");
-        if (AiRandom <= GameManager.Instance.bullets)
-        {
-            Flash.Play();
-            SFXManager.instance.PlaySFXClip(Gunfire, transform, 0.3f);
-        }
-        else
-        {
-            if (emptyGunVFX != null)
-            {
-
-                emptyGunVFX.Play();
-                SFXManager.instance.PlaySFXClip(emptySFX, transform, 0.3f);
-            }
-        }
-        yield return new WaitForSeconds(delay);
 
         float chance = gameManager.statusPercent;
         float roll = UnityEngine.Random.Range(0f, 100f);
@@ -219,23 +207,37 @@ public class ShootScript : MonoBehaviour
             //Shoots off your own finger
             GameManager.Instance.ReduceHealth(1, 3);
             GunBackfire();
-            
+
             statusDropdown.DisplayStatusEffect(1, 1);
 
-            
+
         }
-        else if (AiRandom <= GameManager.Instance.bullets)
+        else
         {
-            GameManager.Instance.CheckArmour(2, 3);
-            GameManager.Instance.bullets--;
-            
+            if (AiRandom <= GameManager.Instance.bullets)
+            {
+                Flash.Play();
+                SFXManager.instance.PlaySFXClip(Gunfire, transform, 0.3f);
+                GameManager.Instance.CheckArmour(2, 3);
+                GameManager.Instance.bullets--;
+            }
+            else
+            {
+                if (emptyGunVFX != null)
+                {
+
+                    emptyGunVFX.Play();
+                    SFXManager.instance.PlaySFXClip(emptySFX, transform, 0.3f);
+
+                }
+            }
         }
+        
+        yield return new WaitForSeconds(delay);
 
         GameManager.Instance.Gun.SetActive(true);
         GameManager.Instance.aiGunActive = false;
         GameManager.Instance.isAiGun = false;
-
-
        
         gameManager.inGunAction = false;
 
@@ -261,43 +263,27 @@ public class ShootScript : MonoBehaviour
         //print("before null check");
         DataGathering dG = FindObjectOfType<DataGathering>();
         dG.gunUsed = dG.gunUsed + 1;
-        
+
         PlayerShot = true;
 
         //print("not null");
         int rand = UnityEngine.Random.Range(0, 5);
-            
+
         int randForBullet = UnityEngine.Random.Range(1, 7);
 
         PRandom = randForBullet;
-        
+
         //rand = 1;
         //PRandom = 1;
-        
+
         firePressed = true;
         gunAnim.Play("recoil");
-        if (PRandom <= GameManager.Instance.bullets)
-        {
-            
-            Flash.Play();
-            SFXManager.instance.PlaySFXClip(Gunfire, transform, 0.3f);
-        }
-        else
-        {
-            if (emptyGunVFX != null)
-            {
-                
-                emptyGunVFX.Play(); 
-                SFXManager.instance.PlaySFXClip(emptySFX, transform, 0.3f);
-            }
-        }
-       
-        yield return new WaitForSeconds(delay);
+
 
         if (rand == 0 && GameManager.Instance.bullets > 0)
 
         {
-                //Shoots off your own finger
+            //Shoots off your own finger
             GameManager.Instance.ReduceHealth(2, 3);
             statusDropdown.DisplayStatusEffect(0, 1);
             GunBackfire();
@@ -306,21 +292,44 @@ public class ShootScript : MonoBehaviour
             SFXManager.instance.PlaySFXClip(earRinging, transform, 0.3f);
 
         }
-        else if (PRandom <= GameManager.Instance.bullets)
+        else
         {
-            GameManager.Instance.CheckArmour(1, 3);
-            GameManager.Instance.bullets--;
+            if (PRandom <= GameManager.Instance.bullets)
+            {
+
+                Flash.Play();
+                SFXManager.instance.PlaySFXClip(Gunfire, transform, 0.3f);
+                GameManager.Instance.CheckArmour(1, 3);
+                GameManager.Instance.bullets--;
+            }
+            else
+            {
+                if (emptyGunVFX != null)
+                {
+
+                    emptyGunVFX.Play();
+                    SFXManager.instance.PlaySFXClip(emptySFX, transform, 0.3f);
+                }
+            }
         }
+
+    
+
+        yield return new WaitForSeconds(delay);
+
+        
 
         GameManager.Instance.playerGunActive = false;
         GameManager.Instance.Gun.SetActive(true);
         GameManager.Instance.playerGunActive = false;
         GameManager.Instance.isPlayerGun = false;
+
         if (GameManager.Instance.has2Guns == false)
         {
             GameManager.Instance.inGunAction = false;
             PlayerShot = false;
         }
+
         gunAnim.Play("GunPause");
         gameObject.SetActive(false);
         firePressed = false;

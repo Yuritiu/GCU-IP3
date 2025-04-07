@@ -732,6 +732,7 @@ public class GameManager : MonoBehaviour
             inKnifeActionPlayerPlayed = false;
             OpponentAnimationController animController = FindAnyObjectByType<OpponentAnimationController>();
             animController.KnifeTr();
+            BloodlossSystemAI.Instance.IncreaseBloodloss();
             aiFingers--;
             aiHand.RemoveFinger(aiFingers);
             SFXManager.instance.PlayRandomSFXClip(aiScreams, transform, 0.15f);

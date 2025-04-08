@@ -295,7 +295,7 @@ public class Hand : MonoBehaviour
 
         if (currentHand < handModels.Count - 1)
         {
-            fingerModels[currentHand].SetActive(true);
+           // fingerModels[currentHand].SetActive(true);
             handModels[currentHand].SetActive(false);
             currentHand++;
             handModels[currentHand].SetActive(true);

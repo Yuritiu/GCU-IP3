@@ -29,7 +29,10 @@ public class BottleCard : MonoBehaviour
     public bool waitForPlayersThrow;
     bool checkedPlayersCards = false;
 
+    [Header("Backfire Variables")]
     private BackfireGlow backfireGlow;
+    GameObject blur;
+    string blurGameObjectName = "Blur";
 
     void Awake()
     {
@@ -46,19 +49,55 @@ public class BottleCard : MonoBehaviour
         }
     }
 
+    void FixedUpdate()
+    {
+        if (disableUI.Instance.uiDisabled)
+        {
+            var cardMaterial = GetComponent<CardMaterialChanger>();
+            cardMaterial.SetCardToCardBack();
+        }
+        else
+        {
+            var cardMaterial = GetComponent<CardMaterialChanger>();
+            cardMaterial.SetCardToOriginalMaterial();
+        }
+    }
+
     public void PlayCardForPlayer()
     {
         //Save To Stat Tracker
         StatTracker.Instance.UpdateStat("BottleCardsPlayed", 1);
 
-        GameManager.Instance.bottleBackfirePlayer = false;
-        StartCoroutine(WaitForActionsAndPlayBottle(true));
+        float chance = gameManager.statusPercent;
+        float roll = UnityEngine.Random.Range(0f, 100f);
+
+        if (roll <= chance)
+        {
+            disableUI.Instance.DisableAllText();
+            blur = GameObject.Find("Blur");
+            blur.GetComponent<MeshRenderer>().enabled = true;
+        }
+        else
+        {
+            GameManager.Instance.bottleBackfirePlayer = false;
+            StartCoroutine(WaitForActionsAndPlayBottle(true));
+        }
     }
 
     public void PlayCardForAI()
     {
-        GameManager.Instance.bottleBackfireAI = false;
-        StartCoroutine(WaitForActionsAndPlayBottle(false));
+        float chance = gameManager.statusPercent;
+        float roll = UnityEngine.Random.Range(0f, 100f);
+
+        if (roll <= 100)
+        {
+            return;
+        }
+        else
+        {
+            GameManager.Instance.bottleBackfireAI = false;
+            StartCoroutine(WaitForActionsAndPlayBottle(false));
+        }
     }
 
     public void PlayDelayCardForAI()

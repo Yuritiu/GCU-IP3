@@ -32,7 +32,6 @@ public class BackfireGlow : MonoBehaviour
             yield return null;
         }
 
-        
         rend.material.color = endColor;
     }
 }

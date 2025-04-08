@@ -268,6 +268,7 @@ GameObject:
   - component: {fileID: 8505111521942810756}
   - component: {fileID: 3526422650120115900}
   - component: {fileID: 3980971794050199584}
+  - component: {fileID: 173085805206213126}
   m_Layer: 6
   m_Name: armourCard
   m_TagString: Card
@@ -406,6 +407,20 @@ MonoBehaviour:
   startColor: {r: 0.20542552, g: 0.7169812, b: 0.050729793, a: 0}
   endColor: {r: 1, g: 1, b: 1, a: 0}
   duration: 1
+--- !u!114 &173085805206213126
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1833519795021809735}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2b480df8a2a1eea4e9c684ac152b0388, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cardBackMaterial: {fileID: 2100000, guid: 37b0a564444b66744a82caf1afcd96c1, type: 2}
+  originalCardMaterial: {fileID: 2100000, guid: 9289efc4c74f6a542b5691c054e5961b, type: 2}
 --- !u!1 &2014995029074108775
 GameObject:
   m_ObjectHideFlags: 0

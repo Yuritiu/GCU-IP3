@@ -51,7 +51,7 @@ public class CardSelection : MonoBehaviour
             hovering = false;
         }
 
-        if (tooltipManager.assistsOn == true)
+        if (tooltipManager.assistsOn == true && !disableUI.Instance.uiDisabled)
         {
             cardInfoText.gameObject.SetActive(hovering);
         }

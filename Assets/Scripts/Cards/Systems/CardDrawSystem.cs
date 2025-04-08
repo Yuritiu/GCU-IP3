@@ -911,13 +911,11 @@ public class CardDrawSystem : MonoBehaviour
     {
         if (flip != isFlipped)
         {
-
             isFlipped = flip;
 
             if (flip)
             {
                 //Skipped Rotation
-                
                 StartCoroutine(LerpCardRotation(90f, 0f));
             }
             else
@@ -931,8 +929,6 @@ public class CardDrawSystem : MonoBehaviour
 
     private IEnumerator LerpCardRotation(float targetAngle, float targetZAngle)
     {
-
-
         float timeElapsed = 0f;
         float duration = 0.1f;
         Quaternion[] startRotations = new Quaternion[cardsInHand.Length];

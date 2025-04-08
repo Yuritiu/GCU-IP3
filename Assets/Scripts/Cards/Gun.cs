@@ -5,6 +5,20 @@ using System;
 
 public class Gun : MonoBehaviour
 {
+    void FixedUpdate()
+    {
+        if (disableUI.Instance.uiDisabled)
+        {
+            var cardMaterial = GetComponent<CardMaterialChanger>();
+            cardMaterial.SetCardToCardBack();
+        }
+        else
+        {
+            var cardMaterial = GetComponent<CardMaterialChanger>();
+            cardMaterial.SetCardToOriginalMaterial();
+        }
+    }
+
     public void PlayCardForPlayer()
     {
         //Save To Stat Tracker

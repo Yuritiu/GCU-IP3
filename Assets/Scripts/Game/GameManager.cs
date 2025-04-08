@@ -334,8 +334,7 @@ public class GameManager : MonoBehaviour
         CardDrawSystem.Instance.UnbanCards();
         blur.SetActive(false);
         bottleBlur.GetComponent<MeshRenderer>().enabled = false;
-
-
+        disableUI.Instance.EnableAllText();
 
         //Debug.Log("Played Hand: " + isTutorial);
 
@@ -1176,7 +1175,7 @@ public class GameManager : MonoBehaviour
 
     void UpdateSkipTurnText()
     {
-        if (playerSkippedTurns == 0 && canPlay)
+        if (playerSkippedTurns == 0 && canPlay && !disableUI.Instance.uiDisabled)
         {
             displaySkipTurnText = false;
             CardDrawSystem.Instance.FlipCards(false);

@@ -22,7 +22,7 @@ public class OpponentAnimationController : MonoBehaviour
 
     public void IdleTr()
     {
-        animator.SetTrigger("TrIdle");
+        //animator.SetTrigger("TrIdle");
     }
 
     public void CigarTr()

@@ -22,8 +22,8 @@ public class BloodlossSystemAI : MonoBehaviour
     bool isAICountingDown = false;
     bool AIbloodlossEffectsEnabled;
     [HideInInspector] public float AIbloodlossTime = 0f;
-    [SerializeField] private float knifeAIBloodlossAdd = 0.05f;
-    public float shieldAIBloodlossReduce = 0.025f;
+    [SerializeField] private float knifeAIBloodlossAdd = 0.0225f;
+    public float shieldAIBloodlossReduce = 0.01125f;
 
     private void Awake()
     {

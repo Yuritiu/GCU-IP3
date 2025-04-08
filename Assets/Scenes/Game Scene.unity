@@ -34903,8 +34903,8 @@ MonoBehaviour:
   maxAIHealth: 350
   currentAIHealth: 0
   AIbloodlossTime: 0
-  knifeAIBloodlossAdd: 0.05
-  shieldAIBloodlossReduce: 0.025
+  knifeAIBloodlossAdd: 0.0225
+  shieldAIBloodlossReduce: 0.01125
 --- !u!1 &713395347
 GameObject:
   m_ObjectHideFlags: 0

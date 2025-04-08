@@ -40,6 +40,7 @@ public class Hand : MonoBehaviour
     public CameraController cameraController;
 
     [SerializeField] private List<GameObject> handModels; 
+    [SerializeField] private List<GameObject> fingerModels; 
     private int currentHand = 0; 
 
     private void Awake()
@@ -294,6 +295,7 @@ public class Hand : MonoBehaviour
 
         if (currentHand < handModels.Count - 1)
         {
+            fingerModels[currentHand].SetActive(true);
             handModels[currentHand].SetActive(false);
             currentHand++;
             handModels[currentHand].SetActive(true);

@@ -733,7 +733,6 @@ GameObject:
   - component: {fileID: 24045910}
   - component: {fileID: 24045913}
   - component: {fileID: 24045912}
-  - component: {fileID: 24045911}
   m_Layer: 0
   m_Name: Finger3
   m_TagString: Untagged
@@ -756,27 +755,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 2055331617}
   m_LocalEulerAnglesHint: {x: 0, y: 101.03, z: 0}
---- !u!65 &24045911
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 24045909}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!23 &24045912
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -14357,7 +14335,6 @@ GameObject:
   - component: {fileID: 352531942}
   - component: {fileID: 352531945}
   - component: {fileID: 352531944}
-  - component: {fileID: 352531943}
   m_Layer: 0
   m_Name: Finger5
   m_TagString: Untagged
@@ -14380,27 +14357,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 2055331617}
   m_LocalEulerAnglesHint: {x: 8.29, y: 142.53, z: -25.71}
---- !u!65 &352531943
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 352531941}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!23 &352531944
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -33716,7 +33672,6 @@ GameObject:
   - component: {fileID: 659647966}
   - component: {fileID: 659647969}
   - component: {fileID: 659647968}
-  - component: {fileID: 659647967}
   m_Layer: 0
   m_Name: Finger4
   m_TagString: Untagged
@@ -33739,27 +33694,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 2055331617}
   m_LocalEulerAnglesHint: {x: 0, y: 106.58, z: 0}
---- !u!65 &659647967
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 659647965}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!23 &659647968
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -109907,7 +109841,6 @@ GameObject:
   - component: {fileID: 1977765512}
   - component: {fileID: 1977765515}
   - component: {fileID: 1977765514}
-  - component: {fileID: 1977765513}
   m_Layer: 0
   m_Name: Finger1
   m_TagString: Untagged
@@ -109930,27 +109863,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 2055331617}
   m_LocalEulerAnglesHint: {x: 0, y: 87.02, z: 0}
---- !u!65 &1977765513
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1977765511}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!23 &1977765514
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -120949,7 +120861,8 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: 5279446a990aee84d915fc5dfacc087d, type: 2}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 73350577646941389, guid: 51b7432981d42044aab0051738de45d3, type: 3}
     m_RemovedGameObjects:
     - {fileID: 4056593797219450526, guid: 51b7432981d42044aab0051738de45d3, type: 3}
     - {fileID: 1579051938548258989, guid: 51b7432981d42044aab0051738de45d3, type: 3}

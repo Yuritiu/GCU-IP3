@@ -54,6 +54,7 @@ public class reloadScript : MonoBehaviour
             in1stPos = false;
             //shootScript.gunAnim.Play("GunPause");
 
+            StartCoroutine(FinishReloads());
             StartCoroutine(gunTransition(targetPos));
             isActive = true;
         }
@@ -291,6 +292,14 @@ public class reloadScript : MonoBehaviour
         GameManager.Instance.FinishPlayerReload();
         GameManager.Instance.FinishAIReload();
     }
+    IEnumerator FinishReloads()
+    {
+        yield return new WaitForSeconds(9f);
 
+        GameManager.Instance.FinishPlayerReload();
+        GameManager.Instance.FinishAIReload();
+
+        yield return null;
+    }
 }
 

@@ -102,13 +102,6 @@ public class CardDeck : MonoBehaviour
             CallIntro();
         }
 
-        if (!tutorialManager.tutorialEnabled)
-        {
-            if (deck.Count == 0 && !ShowDown.instance.showdown)
-            {
-                ShowDown.instance.ActivateShowdown();
-            }
-        }
 
         if (cardCount != null && playerCamera != null)
         {
@@ -130,10 +123,7 @@ public class CardDeck : MonoBehaviour
 
         deck.Clear();
 
-        if (deck.Count == 0 && reshuffling == true)
-        {
-            ShowDown.instance.ActivateShowdown();
-        }
+        
 
 
         //Calculate The Total Height Before Stacking

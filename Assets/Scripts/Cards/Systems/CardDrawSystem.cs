@@ -28,7 +28,7 @@ public class CardDrawSystem : MonoBehaviour
     //Original Positions For The Cards
     [SerializeField] Transform[] originalPositions;
     //Array For Actual Card GameObjects
-    [SerializeField] GameObject[] cardsInHand;
+    [SerializeField] public GameObject[] cardsInHand;
     [SerializeField] public GameObject currentCardInHand;
     //Selected Positions For The Cards
     [SerializeField] public Transform selectedPosition1;

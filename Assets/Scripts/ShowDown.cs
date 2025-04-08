@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System;
+using System.Linq;
 
 
 public class ShowDown : MonoBehaviour
@@ -26,7 +27,13 @@ public class ShowDown : MonoBehaviour
         playShowDown();
     }
 
-
+    private void Update()
+    {
+        if (CardDeck.Instance.deck.Count == 0 && AICardDrawSystem.Instance.cardsInHand.Length == 0 && CardDrawSystem.Instance.cardsInHand.Length == 0)
+        {
+            ActivateShowdown();
+        }    
+    }
 
 
     public IEnumerator playShowDown()

@@ -416,6 +416,7 @@ public class GameManager : MonoBehaviour
                 {
                     //Wait For One In The Chamber Reload
                     inPlayerReloadCalled = true;
+                    StartCoroutine(FinishReloads());
                     Debug.Log("One In Chamber In Slot 1");
                 }
             }
@@ -444,6 +445,7 @@ public class GameManager : MonoBehaviour
                 {
                     //Wait For One In The Chamber Reload
                     inPlayerReloadCalled = true;
+                    StartCoroutine(FinishReloads());
                     Debug.Log("One In Chamber In Slot 2");
                 }
             }
@@ -477,6 +479,7 @@ public class GameManager : MonoBehaviour
                     else if(cardsOnTable3.name.Contains("Chamber") && !inAIReloadCalled)
                     {
                         inAIReloadCalled = true;
+                        StartCoroutine(FinishReloads());
                         Debug.Log("One In Chamber In Slot 3");
                         cardsOnTable3.SendMessage("PlayCardForAI");
                     }
@@ -522,6 +525,7 @@ public class GameManager : MonoBehaviour
                     {
                         Debug.Log("One In Chamber In Slot 4");
                         inAIReloadCalled = true;
+                        StartCoroutine(FinishReloads());
                         cardsOnTable4.SendMessage("PlayCardForAI");
                     }
                     else
@@ -623,6 +627,16 @@ public class GameManager : MonoBehaviour
         inGunAction = true;
         StartCoroutine(WaitForGun(AiGun));
         isAiGun = true;
+    }
+
+    IEnumerator FinishReloads()
+    {
+        yield return new WaitForSeconds(15f);
+
+        FinishPlayerReload();
+        FinishAIReload();
+
+        yield return null;
     }
 
     IEnumerator WaitForGun(GameObject gun)

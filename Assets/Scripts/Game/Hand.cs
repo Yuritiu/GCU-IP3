@@ -11,6 +11,7 @@ public class Hand : MonoBehaviour
 
     [SerializeField] List<GameObject> fingers;
     [SerializeField] GameObject knife;
+    [SerializeField] GameObject arm;
     private int movedKnifeEnough = 0;
     public Vector2 turn;
     public float sensitivity = .5f;
@@ -202,13 +203,14 @@ public class Hand : MonoBehaviour
             waitingToCut = false;
             phaseOfAction = 1;
             GameManager.Instance.inKnifeActionAiPlayed = true;
+
             //move knife into finger
             Transform knifeGameObject = knife.gameObject.transform;
             actionUI.SetActive(true);
+
             //move camera infront of hand
             GameManager.Instance.cameraMovement = false; //disables W S P Camera controls
             cameraController.SetCameraToKnifeTarget();
-
 
             turn.y = 9;
 
@@ -216,6 +218,12 @@ public class Hand : MonoBehaviour
             knifeGameObject.SetPositionAndRotation(fingers[GameManager.Instance.playerFingers].gameObject.transform.position, Quaternion.Euler(0, 0, 0));
             knifeGameObject.SetPositionAndRotation(new Vector3(knifeGameObject.transform.position.x, knifeGameObject.transform.position.y + 0.1f, knifeGameObject.transform.position.z), Quaternion.Euler(0, 0, 0));
             GameManager.Instance.canCutFinger = true;
+
+            //activate arm
+            if (arm != null)
+            {
+                arm.SetActive(true);
+            }
         }
         else
         {
@@ -229,6 +237,14 @@ public class Hand : MonoBehaviour
         //Debug.Log("Countdown Started");
         BloodlossSystem.Instance.IncreaseBloodloss();
         knife.gameObject.transform.SetPositionAndRotation(knifeDefaultPos,knifeRot);
+        
+
+        //deactivate arm
+        if (arm != null)
+        {
+            arm.SetActive(false);
+        }
+        
         actionUI.SetActive(false);
 
         GameManager.Instance.playerFingers--;

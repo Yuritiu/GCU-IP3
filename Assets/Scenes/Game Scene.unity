@@ -13893,6 +13893,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: death (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: da20dc649b048524e8e1b7ac6fd02b86, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2526218701033655201, guid: da20dc649b048524e8e1b7ac6fd02b86, type: 3}
       propertyPath: m_LocalRotation.w
       value: -0.719313
@@ -14052,6 +14056,11 @@ PrefabInstance:
       addedObject: {fileID: 142428207}
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: da20dc649b048524e8e1b7ac6fd02b86, type: 3}
+--- !u!1 &255774847 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: da20dc649b048524e8e1b7ac6fd02b86, type: 3}
+  m_PrefabInstance: {fileID: 255774846}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &265966041
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -34989,6 +34998,7 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   knife: {fileID: 0}
+  arm: {fileID: 0}
   turn: {x: 0, y: 0}
   sensitivity: 0.5
   sideToHit: 0
@@ -35553,6 +35563,7 @@ MonoBehaviour:
   - {fileID: 1195125339}
   - {fileID: 1286002074}
   knife: {fileID: 2064874318}
+  arm: {fileID: 255774847}
   turn: {x: 0, y: 0}
   sensitivity: 0.5
   sideToHit: 0

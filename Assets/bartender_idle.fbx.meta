@@ -24,7 +24,7 @@ ModelImporter:
     animationDoRetargetingWarnings: 0
     importAnimatedCustomProperties: 0
     importConstraints: 0
-    animationCompression: 1
+    animationCompression: 3
     animationRotationError: 0.5
     animationPositionError: 0.5
     animationScaleError: 0.5
@@ -82,7 +82,727 @@ ModelImporter:
   humanDescription:
     serializedVersion: 3
     human: []
-    skeleton: []
+    skeleton:
+    - name: bartender_idle(Clone)
+      parentName: 
+      position: {x: 0, y: 0, z: 0}
+      rotation: {x: 0, y: 0, z: 0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Bartender
+      parentName: bartender_idle(Clone)
+      position: {x: -0.0024296665, y: 0.035289288, z: -0.00006721854}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: New_hands
+      parentName: Bartender
+      position: {x: -0, y: 0.010733455, z: -0.004517265}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: group
+      parentName: New_hands
+      position: {x: 0.12713213, y: -0.060484152, z: 0.007279673}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Hands
+      parentName: group
+      position: {x: -0.0005056387, y: 0.000635133, z: -0.0013883015}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: l_hand
+      parentName: Hands
+      position: {x: -0.014948794, y: 0, z: 1.110223e-18}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: polySurface25
+      parentName: l_hand
+      position: {x: 0.014948794, y: -0.0095833605, z: 0.0007544184}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: r_hand
+      parentName: Hands
+      position: {x: 0.014948794, y: 0, z: -8.3266725e-19}
+      rotation: {x: 6.123234e-17, y: 1, z: -6.123234e-17, w: -6.123234e-17}
+      scale: {x: 1, y: 1, z: -1}
+    - name: polySurface25
+      parentName: r_hand
+      position: {x: 0.014948794, y: -0.0095833605, z: 0.0007544184}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Tie
+      parentName: Bartender
+      position: {x: 0.15263695, y: -0.035289288, z: 0.00006721854}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Vest
+      parentName: Bartender
+      position: {x: 0.15263695, y: -0.035289288, z: 0.00006721854}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Main_body
+      parentName: Bartender
+      position: {x: 0.15263695, y: -0.035289288, z: 0.00006721854}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Facial_features
+      parentName: Bartender
+      position: {x: -0.00020274572, y: 0.04623737, z: -0.0016868367}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Mustache
+      parentName: Facial_features
+      position: {x: 0.15283969, y: -0.08152666, z: 0.0017540553}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Monocle
+      parentName: Facial_features
+      position: {x: 0.15283969, y: -0.08152666, z: 0.0017540553}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: hair
+      parentName: Facial_features
+      position: {x: 0.15283969, y: -0.08152666, z: 0.0017540553}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Eyebrows
+      parentName: Facial_features
+      position: {x: 0.00058422564, y: 0.004304073, z: 0.008542306}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: polySurface19
+      parentName: Eyebrows
+      position: {x: 0.15225546, y: -0.085830726, z: -0.0067882515}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: polySurface18
+      parentName: Eyebrows
+      position: {x: 0.15225546, y: -0.085830726, z: -0.0067882515}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Mono_string
+      parentName: Facial_features
+      position: {x: 0.15283969, y: -0.08152666, z: 0.0017540553}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: group
+      parentName: bartender_idle(Clone)
+      position: {x: 0.00048075675, y: 0.013461487, z: 0.000019627065}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 5.637777, y: 5.637777, z: 5.637777}
+    - name: Base_rig_new_hands_export:Master
+      parentName: group
+      position: {x: -0.00050563813, y: -0.0037857688, z: -0.00007685244}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Base_rig_new_hands_export:Skeleton
+      parentName: Base_rig_new_hands_export:Master
+      position: {x: 0.00050563633, y: 0.0037857692, z: 0.00007685243}
+      rotation: {x: 0.1454536, y: -0, z: -0.956985, w: 0.25104377}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Base_rig_new_hands_export:root
+      parentName: Base_rig_new_hands_export:Skeleton
+      position: {x: -0.00050563633, y: -0.0037857692, z: -0.00007685243}
+      rotation: {x: -0.09568949, y: -0.09568959, z: 0.3221924, w: 0.936952}
+      scale: {x: 1.0000001, y: 1.0000001, z: 1}
+    - name: Base_rig_new_hands_export:Pelvis
+      parentName: Base_rig_new_hands_export:root
+      position: {x: -0, y: 0, z: 2.7755575e-19}
+      rotation: {x: 0.0012493132, y: -0.7071057, z: 0.7071057, w: 0.0012493132}
+      scale: {x: 1.0000002, y: 1.0000001, z: 1}
+    - name: Base_rig_new_hands_export:Pelvis_end
+      parentName: Base_rig_new_hands_export:Pelvis
+      position: {x: -0.0026299926, y: -0.0000023634768, z: 0}
+      rotation: {x: 0.49911582, y: 0.5008826, z: -0.49911582, w: 0.5008826}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Base_rig_new_hands_export:r_thigh
+      parentName: Base_rig_new_hands_export:Pelvis
+      position: {x: -0.000000023766448, y: -6.550345e-10, z: -0.0021532376}
+      rotation: {x: 0.055212945, y: -0.9981314, z: 0.001353527, w: -0.026141945}
+      scale: {x: 0.9999999, y: 1, z: 1}
+    - name: Base_rig_new_hands_export:r_knee
+      parentName: Base_rig_new_hands_export:r_thigh
+      position: {x: 0.008492845, y: 0.0008617244, z: -0.0000056333465}
+      rotation: {x: 0.99498314, y: 0.10004289, z: 0.0000000010541228, w: 0.000000010483851}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Base_rig_new_hands_export:r_foot
+      parentName: Base_rig_new_hands_export:r_knee
+      position: {x: 0.009555344, y: 0.00023905358, z: 0.0000000040408334}
+      rotation: {x: 0.47610435, y: 0.5228046, z: -0.47610432, w: 0.5228046}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Base_rig_new_hands_export:l_thigh
+      parentName: Base_rig_new_hands_export:Pelvis
+      position: {x: 0.000000024123278, y: 7.1206435e-10, z: 0.0021532376}
+      rotation: {x: 0.99813145, y: 0.055212993, z: -0.026141908, w: -0.0013536811}
+      scale: {x: 0.99999994, y: 0.9999999, z: 0.99999976}
+    - name: Base_rig_new_hands_export:l_knee
+      parentName: Base_rig_new_hands_export:l_thigh
+      position: {x: -0.008492923, y: -0.00086172647, z: 0.0000056327035}
+      rotation: {x: 0.99498314, y: 0.10004289, z: 1.6664356e-17, w: 5.986553e-17}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Base_rig_new_hands_export:l_foot
+      parentName: Base_rig_new_hands_export:l_knee
+      position: {x: -0.009555353, y: -0.00023905092, z: 3.3687243e-18}
+      rotation: {x: 0.47610432, y: 0.5228046, z: -0.47610432, w: 0.5228046}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Base_rig_new_hands_export:back
+      parentName: Base_rig_new_hands_export:root
+      position: {x: -0.0058825747, y: -3.4628371e-15, z: 5.7105065e-10}
+      rotation: {x: -0, y: -0, z: -0, w: 1}
+      scale: {x: 1.0000005, y: 1.0000005, z: 1}
+    - name: Base_rig_new_hands_export:chest
+      parentName: Base_rig_new_hands_export:back
+      position: {x: -0.004413608, y: -2.646978e-25, z: -0.00006961814}
+      rotation: {x: -0, y: -0, z: -0, w: 1}
+      scale: {x: 1.0000005, y: 1.0000005, z: 1}
+    - name: Base_rig_new_hands_export:neck
+      parentName: Base_rig_new_hands_export:chest
+      position: {x: -0.0023986306, y: 3.4628371e-15, z: -0.000007826103}
+      rotation: {x: -0, y: -0, z: 0.7071068, w: 0.7071068}
+      scale: {x: 0.9999999, y: 0.9999999, z: 1}
+    - name: Base_rig_new_hands_export:head
+      parentName: Base_rig_new_hands_export:neck
+      position: {x: -0.0000000023488034, y: 0.000920608, z: 0.0000034151813}
+      rotation: {x: -0.4840783, y: 0.51543003, z: -0.48407832, w: 0.51543015}
+      scale: {x: 1.0000011, y: 1.0000013, z: 1.000002}
+    - name: Base_rig_new_hands_export:end_head
+      parentName: Base_rig_new_hands_export:head
+      position: {x: -0.0033436124, y: -0.000003696241, z: 0}
+      rotation: {x: 0.4840783, y: -0.51543003, z: 0.48407832, w: 0.51543015}
+      scale: {x: 0.9999995, y: 0.9999993, z: 0.9999996}
+    - name: Base_rig_new_hands_export:l_clavicle
+      parentName: Base_rig_new_hands_export:chest
+      position: {x: -0.0019091619, y: -0.0010886688, z: -0.000011928994}
+      rotation: {x: 0.004682251, y: -0.0054397793, z: 0.75788724, w: 0.6523461}
+      scale: {x: 1.0000002, y: 0.99999976, z: 1}
+    - name: Base_rig_new_hands_export:l_end_clavicle
+      parentName: Base_rig_new_hands_export:l_clavicle
+      position: {x: -0.0027136113, y: 0.0000011423001, z: 0.00006335909}
+      rotation: {x: -0.014112176, y: 0.056218453, z: -0.009861605, w: 0.9982701}
+      scale: {x: 0.9999999, y: 1.0000001, z: 1}
+    - name: Base_rig_new_hands_export:l_shoulder
+      parentName: Base_rig_new_hands_export:l_end_clavicle
+      position: {x: 4.2829077e-11, y: 3.5085698e-10, z: 2.884911e-11}
+      rotation: {x: 0.0050366567, y: -0.056103572, z: 0.013315545, w: 0.99832344}
+      scale: {x: 1, y: 1, z: 0.9999998}
+    - name: Base_rig_new_hands_export:l_forearm
+      parentName: Base_rig_new_hands_export:l_shoulder
+      position: {x: -0.004439463, y: -0.0007644752, z: -0.000115206734}
+      rotation: {x: 0.0024641252, y: 0.013210666, z: 0.08624914, w: 0.99618304}
+      scale: {x: 0.9999994, y: 0.9999999, z: 1.0000011}
+    - name: Base_rig_new_hands_export:l_end_wrist
+      parentName: Base_rig_new_hands_export:l_forearm
+      position: {x: -0.005283682, y: 0.00010554847, z: 0.00010869985}
+      rotation: {x: -0.0024099632, y: 0.03883931, z: -0.086927764, w: 0.9954544}
+      scale: {x: 0.9999999, y: 1, z: 1.0000002}
+    - name: Base_rig_new_hands_export:joint25
+      parentName: Base_rig_new_hands_export:l_end_wrist
+      position: {x: -0.0010868962, y: -0.00027210417, z: 0.00068602856}
+      rotation: {x: 0.0054576057, y: 0.36208186, z: 0.058807205, w: 0.93027353}
+      scale: {x: 1, y: 1, z: 1.0000002}
+    - name: Base_rig_new_hands_export:joint26
+      parentName: Base_rig_new_hands_export:joint25
+      position: {x: -0.0008446092, y: 1.8585227e-19, z: -4.064821e-19}
+      rotation: {x: -0.1402061, y: -0.025857108, z: 0.014708148, w: 0.98967534}
+      scale: {x: 1.0000004, y: 1, z: 0.99999976}
+    - name: Base_rig_new_hands_export:joint27
+      parentName: Base_rig_new_hands_export:joint26
+      position: {x: -0.00061619334, y: 9.80174e-19, z: 8.0993023e-19}
+      rotation: {x: -0.08168527, y: -0.036603455, z: -0.009690223, w: 0.9959387}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Base_rig_new_hands_export:joint28
+      parentName: Base_rig_new_hands_export:joint27
+      position: {x: -0.00066279044, y: -1.664589e-19, z: -1.0581813e-18}
+      rotation: {x: 0.94965315, y: -0.29537225, z: -0.09975674, w: -0.031027507}
+      scale: {x: 1.0000002, y: 1, z: 1.0000002}
+    - name: Base_rig_new_hands_export:joint29
+      parentName: Base_rig_new_hands_export:l_end_wrist
+      position: {x: -0.0026031253, y: 0.000013125634, z: 0.00050440826}
+      rotation: {x: -0.0024719664, y: -0.0054626972, z: 0.08322459, w: 0.99651283}
+      scale: {x: 1.0000002, y: 0.99999976, z: 1}
+    - name: Base_rig_new_hands_export:joint30
+      parentName: Base_rig_new_hands_export:joint29
+      position: {x: -0.0007509274, y: -6.660361e-19, z: -3.203333e-20}
+      rotation: {x: -0.030016024, y: -0.016207896, z: 0.031856794, w: 0.9989102}
+      scale: {x: 1.0000002, y: 1.0000002, z: 1}
+    - name: Base_rig_new_hands_export:joint31
+      parentName: Base_rig_new_hands_export:joint30
+      position: {x: -0.00046088634, y: -2.7053697e-18, z: 1.1281618e-19}
+      rotation: {x: 0.059493817, y: 0.030220605, z: 0.023335043, w: 0.9974983}
+      scale: {x: 1.0000002, y: 1.0000005, z: 0.9999999}
+    - name: Base_rig_new_hands_export:joint32
+      parentName: Base_rig_new_hands_export:joint31
+      position: {x: -0.0006081726, y: 2.7922234e-18, z: 5.781496e-19}
+      rotation: {x: 0.94419724, y: -0.32913205, z: 0.012081238, w: 0.0042113145}
+      scale: {x: 0.99999994, y: 1.0000002, z: 1.0000004}
+    - name: Base_rig_new_hands_export:joint33
+      parentName: Base_rig_new_hands_export:l_end_wrist
+      position: {x: -0.002444293, y: -0.000019674331, z: 0.000052519328}
+      rotation: {x: -0.015789231, y: -0.022707716, z: 0.073714, w: 0.99689585}
+      scale: {x: 1.0000002, y: 0.9999999, z: 0.9999999}
+    - name: Base_rig_new_hands_export:joint34
+      parentName: Base_rig_new_hands_export:joint33
+      position: {x: -0.00079166045, y: -1.9331073e-19, z: -7.8459206e-20}
+      rotation: {x: 0.029163133, y: 0.007187796, z: 0.032379173, w: 0.9990243}
+      scale: {x: 1.0000002, y: 1.0000002, z: 1}
+    - name: Base_rig_new_hands_export:joint35
+      parentName: Base_rig_new_hands_export:joint34
+      position: {x: -0.0006036029, y: 1.7263601e-18, z: -5.823563e-19}
+      rotation: {x: 0.02943246, y: 0.005434473, z: 0.035755347, w: 0.99891233}
+      scale: {x: 0.99999994, y: 1.0000001, z: 1.0000001}
+    - name: Base_rig_new_hands_export:joint36
+      parentName: Base_rig_new_hands_export:joint35
+      position: {x: -0.0006510523, y: 2.6848744e-18, z: 1.8826048e-19}
+      rotation: {x: 0.86111224, y: -0.50825924, z: 0.010839855, w: 0.006398083}
+      scale: {x: 1, y: 0.99999994, z: 0.9999999}
+    - name: Base_rig_new_hands_export:joint37
+      parentName: Base_rig_new_hands_export:l_end_wrist
+      position: {x: -0.0023644068, y: -0.00019092431, z: -0.00036581064}
+      rotation: {x: -0.02296171, y: -0.022016859, z: 0.071918756, w: 0.9969031}
+      scale: {x: 1.0000001, y: 0.9999999, z: 1}
+    - name: Base_rig_new_hands_export:joint38
+      parentName: Base_rig_new_hands_export:joint37
+      position: {x: -0.0005422897, y: 1.7414997e-19, z: 0}
+      rotation: {x: 0.036878936, y: 0.010148917, z: 0.033093628, w: 0.99872005}
+      scale: {x: 1, y: 1.0000004, z: 1.0000002}
+    - name: Base_rig_new_hands_export:joint39
+      parentName: Base_rig_new_hands_export:joint38
+      position: {x: -0.0005308034, y: 2.5103515e-19, z: 5.1499603e-20}
+      rotation: {x: 0.076547, y: 0.019506995, z: 0.032114737, w: 0.9963577}
+      scale: {x: 1.0000002, y: 1, z: 0.9999999}
+    - name: Base_rig_new_hands_export:joint40
+      parentName: Base_rig_new_hands_export:joint39
+      position: {x: -0.00054385833, y: -1.7954387e-18, z: 5.854692e-19}
+      rotation: {x: 0.8785155, y: -0.4727178, z: 0.061161622, w: 0.03174373}
+      scale: {x: 1.0000002, y: 1.0000005, z: 1.0000005}
+    - name: Base_rig_new_hands_export:joint21
+      parentName: Base_rig_new_hands_export:l_end_wrist
+      position: {x: -0.0021990137, y: -0.00038054428, z: -0.0007137206}
+      rotation: {x: -0.01704814, y: -0.016473658, z: 0.07504718, w: 0.9968982}
+      scale: {x: 1.0000005, y: 0.99999976, z: 1.0000001}
+    - name: Base_rig_new_hands_export:joint22
+      parentName: Base_rig_new_hands_export:joint21
+      position: {x: -0.00047188989, y: 4.631576e-19, z: -8.2399364e-20}
+      rotation: {x: 0.03380983, y: 0.010582234, z: 0.033560812, w: 0.99880856}
+      scale: {x: 1, y: 1.0000001, z: 1.0000002}
+    - name: Base_rig_new_hands_export:joint23
+      parentName: Base_rig_new_hands_export:joint22
+      position: {x: -0.00037948633, y: 4.1091262e-19, z: -3.122502e-19}
+      rotation: {x: 0.009449258, y: 0.0059862225, z: 0.04012634, w: 0.99913204}
+      scale: {x: 1.0000002, y: 1.0000002, z: 1}
+    - name: Base_rig_new_hands_export:joint24
+      parentName: Base_rig_new_hands_export:joint23
+      position: {x: -0.0003688443, y: -9.542125e-20, z: -5.4474806e-20}
+      rotation: {x: 0.90722793, y: -0.42063102, z: 0.002398252, w: 0.0011119519}
+      scale: {x: 1.0000001, y: 1.0000005, z: 1.0000008}
+    - name: Base_rig_new_hands_export:r_clavicle
+      parentName: Base_rig_new_hands_export:chest
+      position: {x: -0.0019091932, y: 0.0010886677, z: -0.000011931862}
+      rotation: {x: 0.6839108, y: 0.7294783, z: -0.006465063, w: 0.009256148}
+      scale: {x: 1.0000001, y: 1.0000005, z: 1.0000006}
+    - name: Base_rig_new_hands_export:r_end_clavicle
+      parentName: Base_rig_new_hands_export:r_clavicle
+      position: {x: 0.002713618, y: -0.0000011220657, z: -0.0000633573}
+      rotation: {x: 0.013886018, y: 0.062210035, z: -0.22553101, w: 0.97214866}
+      scale: {x: 0.99999994, y: 1.000001, z: 1.0000011}
+    - name: Base_rig_new_hands_export:r_shoulder
+      parentName: Base_rig_new_hands_export:r_end_clavicle
+      position: {x: -0, y: 4.440892e-18, z: -2.7755575e-19}
+      rotation: {x: 0.004971401, y: -0.056114163, z: 0.013312959, w: 0.9983232}
+      scale: {x: 1.0000005, y: 0.9999995, z: 1}
+    - name: Base_rig_new_hands_export:r_forearm
+      parentName: Base_rig_new_hands_export:r_shoulder
+      position: {x: 0.004439458, y: 0.00076444563, z: 0.00011520708}
+      rotation: {x: 0.0017515777, y: 0.017485833, z: 0.073584445, w: 0.99713415}
+      scale: {x: 1.0000002, y: 1.0000007, z: 1.0000014}
+    - name: Base_rig_new_hands_export:r_end_wrist
+      parentName: Base_rig_new_hands_export:r_forearm
+      position: {x: 0.0052837017, y: -0.00010551283, z: -0.000108704255}
+      rotation: {x: -0.002344204, y: 0.03884498, z: -0.08692415, w: 0.99545455}
+      scale: {x: 1.0000002, y: 0.9999999, z: 0.99999964}
+    - name: Base_rig_new_hands_export:joint1
+      parentName: Base_rig_new_hands_export:r_end_wrist
+      position: {x: 0.0010859116, y: 0.00027224206, z: -0.0006857759}
+      rotation: {x: -0.36335996, y: 0.0022579562, z: -0.9303309, w: 0.049485672}
+      scale: {x: 1.0000001, y: 0.99999994, z: 1.0000002}
+    - name: Base_rig_new_hands_export:joint2
+      parentName: Base_rig_new_hands_export:joint1
+      position: {x: -0.00084460847, y: 0, z: 2.220446e-18}
+      rotation: {x: 0.14020777, y: 0.025858758, z: 0.014709318, w: 0.9896751}
+      scale: {x: 1.0000002, y: 1.0000002, z: 0.99999994}
+    - name: Base_rig_new_hands_export:joint3
+      parentName: Base_rig_new_hands_export:joint2
+      position: {x: -0.0006161981, y: 2.220446e-18, z: -4.0245583e-18}
+      rotation: {x: 0.07425165, y: 0.032654308, z: -0.06574283, w: 0.99453425}
+      scale: {x: 1.0000002, y: 0.9999999, z: 0.99999994}
+    - name: Base_rig_new_hands_export:joint4
+      parentName: Base_rig_new_hands_export:joint3
+      position: {x: -0.0006585647, y: -0.00007388623, z: 0.0000109052635}
+      rotation: {x: -0.24217217, y: -0.96561724, z: 0.022995608, w: -0.09169083}
+      scale: {x: 1, y: 0.99999964, z: 0.99999994}
+    - name: Base_rig_new_hands_export:joint5
+      parentName: Base_rig_new_hands_export:r_end_wrist
+      position: {x: 0.002602141, y: -0.000012978311, z: -0.00050413935}
+      rotation: {x: 0.005488672, y: -0.0024696728, z: -0.9965099, w: 0.08325849}
+      scale: {x: 1.0000005, y: 0.99999887, z: 0.9999999}
+    - name: Base_rig_new_hands_export:joint6
+      parentName: Base_rig_new_hands_export:joint5
+      position: {x: -0.0007509299, y: -2.220446e-18, z: -2.0979311e-19}
+      rotation: {x: 0.030015597, y: 0.01621001, z: 0.031864807, w: 0.99890995}
+      scale: {x: 1.0000004, y: 1.0000002, z: 1.0000002}
+    - name: Base_rig_new_hands_export:joint7
+      parentName: Base_rig_new_hands_export:joint6
+      position: {x: -0.0004608842, y: 4.440892e-18, z: -1.110223e-18}
+      rotation: {x: -0.05949258, y: -0.0302213, z: 0.023336586, w: 0.9974983}
+      scale: {x: 1.0000002, y: 1.0000005, z: 1.0000005}
+    - name: Base_rig_new_hands_export:joint8
+      parentName: Base_rig_new_hands_export:joint7
+      position: {x: -0.0006081652, y: 4.440892e-18, z: 9.714452e-19}
+      rotation: {x: -0.329131, y: -0.9441976, z: -0.004211287, w: 0.012081173}
+      scale: {x: 0.99999946, y: 1.0000001, z: 0.99999994}
+    - name: Base_rig_new_hands_export:joint9
+      parentName: Base_rig_new_hands_export:r_end_wrist
+      position: {x: 0.0024433038, y: 0.000019811601, z: -0.000052252322}
+      rotation: {x: 0.022747355, y: -0.015785253, z: -0.9968925, w: 0.07374877}
+      scale: {x: 1.0000007, y: 0.9999989, z: 1.0000002}
+    - name: Base_rig_new_hands_export:joint10
+      parentName: Base_rig_new_hands_export:joint9
+      position: {x: -0.00079166493, y: -4.440892e-18, z: -2.7755575e-19}
+      rotation: {x: -0.02916494, y: -0.007189244, z: 0.032383475, w: 0.99902403}
+      scale: {x: 1, y: 1.0000005, z: 1}
+    - name: Base_rig_new_hands_export:joint11
+      parentName: Base_rig_new_hands_export:joint10
+      position: {x: -0.0006036012, y: 0, z: 8.6736174e-19}
+      rotation: {x: -0.029424075, y: -0.0054326383, z: 0.03575444, w: 0.99891263}
+      scale: {x: 1.0000001, y: 0.99999994, z: 1.0000004}
+    - name: Base_rig_new_hands_export:joint12
+      parentName: Base_rig_new_hands_export:joint11
+      position: {x: -0.00065104803, y: 0, z: 5.551115e-19}
+      rotation: {x: -0.5082576, y: -0.8611132, z: -0.0063943393, w: 0.010833721}
+      scale: {x: 1.0000001, y: 1.0000006, z: 1.0000005}
+    - name: Base_rig_new_hands_export:joint13
+      parentName: Base_rig_new_hands_export:r_end_wrist
+      position: {x: 0.0023634112, y: 0.00019106948, z: 0.0003660722}
+      rotation: {x: 0.053365003, y: -0.034813646, z: -0.9955057, w: 0.07006114}
+      scale: {x: 1.0000008, y: 0.99999946, z: 1.0000002}
+    - name: Base_rig_new_hands_export:joint14
+      parentName: Base_rig_new_hands_export:joint13
+      position: {x: -0.00054128835, y: -0.0000028948973, z: -0.000032853197}
+      rotation: {x: -0.055981826, y: -0.04497565, z: 0.028898695, w: 0.99699956}
+      scale: {x: 1.0000002, y: 1.0000006, z: 1.000001}
+    - name: Base_rig_new_hands_export:joint15
+      parentName: Base_rig_new_hands_export:joint14
+      position: {x: -0.0005307493, y: -0.0000058703513, z: 0.000004740648}
+      rotation: {x: -0.112527, y: -0.04458125, z: 0.04030129, w: 0.99182963}
+      scale: {x: 1.0000002, y: 1.0000002, z: 1.0000007}
+    - name: Base_rig_new_hands_export:joint16
+      parentName: Base_rig_new_hands_export:joint15
+      position: {x: -0.00054302893, y: -2.220446e-18, z: 0.000030036243}
+      rotation: {x: -0.4714555, y: -0.873844, z: -0.055522624, w: 0.10508846}
+      scale: {x: 1.0000001, y: 1.0000002, z: 0.9999997}
+    - name: Base_rig_new_hands_export:joint17
+      parentName: Base_rig_new_hands_export:r_end_wrist
+      position: {x: 0.0021980135, y: 0.00038069193, z: 0.00071398256}
+      rotation: {x: -0.008831825, y: -0.007721103, z: -0.9971204, w: 0.074922286}
+      scale: {x: 1.0000008, y: 0.99999934, z: 1.0000002}
+    - name: Base_rig_new_hands_export:joint18
+      parentName: Base_rig_new_hands_export:joint17
+      position: {x: -0.00047132248, y: -0.00000016256354, z: 0.000023186705}
+      rotation: {x: 0.005515634, y: 0.045098305, z: 0.033926573, w: 0.9983911}
+      scale: {x: 0.99999994, y: 1.0000002, z: 1.0000004}
+    - name: Base_rig_new_hands_export:joint19
+      parentName: Base_rig_new_hands_export:joint18
+      position: {x: -0.00037877104, y: 0, z: -0.000023190018}
+      rotation: {x: -0.038982984, y: -0.035350587, z: 0.039096326, w: 0.99784875}
+      scale: {x: 1.0000005, y: 1.0000002, z: 1.0000006}
+    - name: Base_rig_new_hands_export:joint20
+      parentName: Base_rig_new_hands_export:joint19
+      position: {x: -0.0003688503, y: 0, z: 1.3877787e-18}
+      rotation: {x: -0.42063734, y: -0.9072251, z: -0.001106478, w: 0.0023864429}
+      scale: {x: 0.99999976, y: 0.99999994, z: 0.9999997}
+    - name: Base_rig_new_hands_export:IK_handles
+      parentName: Base_rig_new_hands_export:Master
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Base_rig_new_hands_export:ikHandle2
+      parentName: Base_rig_new_hands_export:IK_handles
+      position: {x: -0.0005390056, y: 0.009783523, z: 0.002767204}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Base_rig_new_hands_export:ikHandle1
+      parentName: Base_rig_new_hands_export:IK_handles
+      position: {x: 0.0004261639, y: 0.01018317, z: 0.0034417172}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Base_rig_new_hands_export:Controllers
+      parentName: Base_rig_new_hands_export:Master
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Base_rig_new_hands_export:Root_COG
+      parentName: Base_rig_new_hands_export:Controllers
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Base_rig_new_hands_export:Back
+      parentName: Base_rig_new_hands_export:Root_COG
+      position: {x: 0.0000000023488, y: 0.0058825747, z: 5.7105065e-10}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Base_rig_new_hands_export:Chest
+      parentName: Base_rig_new_hands_export:Back
+      position: {x: -0, y: 0.0044136075, z: -0.00006961814}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Base_rig_new_hands_export:r_clavicle
+      parentName: Base_rig_new_hands_export:Chest
+      position: {x: 0.001088664, y: 0.001909163, z: -0.000011928994}
+      rotation: {x: 0, y: 0, z: 0.05921693, w: 0.9982451}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Base_rig_new_hands_export:l_clavicle
+      parentName: Base_rig_new_hands_export:Chest
+      position: {x: -0.0010886688, y: 0.001909163, z: -0.000011928994}
+      rotation: {x: 0, y: -0, z: -0.07807712, w: 0.99694735}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Base_rig_new_hands_export:Neck
+      parentName: Base_rig_new_hands_export:Chest
+      position: {x: -0.0000000023488, y: 0.003853838, z: -0.000004410925}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Base_rig_new_hands_export:Head
+      parentName: Base_rig_new_hands_export:Neck
+      position: {x: 1.9428903e-18, y: 0.0009421698, z: -8.326672e-18}
+      rotation: {x: 0.08208849, y: -0.029974125, z: 0.04059315, w: 0.9953468}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Base_rig_new_hands_export:Pelvis
+      parentName: Base_rig_new_hands_export:Root_COG
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Base_rig_new_hands_export:r_arm
+      parentName: Base_rig_new_hands_export:Controllers
+      position: {x: -0.00053900597, y: 0.009783523, z: 0.002767204}
+      rotation: {x: 0.115195975, y: 0.8480311, z: 0.5155778, w: 0.041866355}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Base_rig_new_hands_export:r_Thumb
+      parentName: Base_rig_new_hands_export:r_arm
+      position: {x: -0.013363683, y: -0.010113475, z: 0.0009782481}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Base_rig_new_hands_export:nurbsCircle22
+      parentName: Base_rig_new_hands_export:r_Thumb
+      position: {x: 0.014449614, y: 0.0098412745, z: -0.0002924012}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Base_rig_new_hands_export:nurbsCircle21
+      parentName: Base_rig_new_hands_export:nurbsCircle22
+      position: {x: 0.0006401074, y: -0.00031724272, z: 0.00045053655}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Base_rig_new_hands_export:nurbsCircle20
+      parentName: Base_rig_new_hands_export:nurbsCircle21
+      position: {x: 0.00048485398, y: -0.0003789234, z: 0.00003214633}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Base_rig_new_hands_export:r_pinky
+      parentName: Base_rig_new_hands_export:r_arm
+      position: {x: -0.013363683, y: -0.010113475, z: 0.0009782481}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Base_rig_new_hands_export:nurbsCircle17
+      parentName: Base_rig_new_hands_export:r_pinky
+      position: {x: 0.0155617315, y: 0.009732829, z: -0.0016921469}
+      rotation: {x: -0.027869537, y: -0.07909111, z: -0.3977244, w: 0.9136647}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Base_rig_new_hands_export:nurbsCircle18
+      parentName: Base_rig_new_hands_export:nurbsCircle17
+      position: {x: 0.00042515396, y: -0.00019562304, z: -0.000060486196}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Base_rig_new_hands_export:nurbsCircle19
+      parentName: Base_rig_new_hands_export:nurbsCircle18
+      position: {x: 0.00027833224, y: -0.00025788188, z: -0.0000057922302}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Base_rig_new_hands_export:r_ring
+      parentName: Base_rig_new_hands_export:r_arm
+      position: {x: -0.013363683, y: -0.010113475, z: 0.0009782481}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Base_rig_new_hands_export:nurbsCircle16
+      parentName: Base_rig_new_hands_export:r_ring
+      position: {x: 0.015727125, y: 0.009922453, z: -0.001344235}
+      rotation: {x: 0.00633511, y: -0.05749443, z: -0.40089828, w: 0.9142947}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Base_rig_new_hands_export:nurbsCircle15
+      parentName: Base_rig_new_hands_export:nurbsCircle16
+      position: {x: 0.0004822409, y: -0.00023025215, z: -0.000092236995}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Base_rig_new_hands_export:nurbsCircle14
+      parentName: Base_rig_new_hands_export:nurbsCircle15
+      position: {x: 0.00037656544, y: -0.00037337004, z: -0.000023363084}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Base_rig_new_hands_export:r_middle
+      parentName: Base_rig_new_hands_export:r_arm
+      position: {x: -0.013363683, y: -0.010113475, z: 0.0009782481}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Base_rig_new_hands_export:nurbsCircle11
+      parentName: Base_rig_new_hands_export:r_middle
+      position: {x: 0.015807012, y: 0.010093712, z: -0.00092590984}
+      rotation: {x: 0.0023290452, y: -0.04430193, z: -0.47255427, w: 0.8801843}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Base_rig_new_hands_export:nurbsCircle12
+      parentName: Base_rig_new_hands_export:nurbsCircle11
+      position: {x: 0.0007294488, y: -0.0002861148, z: -0.000113028735}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Base_rig_new_hands_export:nurbsCircle13
+      parentName: Base_rig_new_hands_export:nurbsCircle12
+      position: {x: 0.0004314804, y: -0.00042157827, z: -0.000020757243}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Base_rig_new_hands_export:r_index
+      parentName: Base_rig_new_hands_export:r_arm
+      position: {x: -0.013363683, y: -0.010113475, z: 0.0009782481}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Base_rig_new_hands_export:nurbsCircle8
+      parentName: Base_rig_new_hands_export:r_index
+      position: {x: 0.015965844, y: 0.010126503, z: -0.0004740211}
+      rotation: {x: 0.015477415, y: 0.0746715, z: -0.50949025, w: 0.8570906}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Base_rig_new_hands_export:nurbsCircle9
+      parentName: Base_rig_new_hands_export:nurbsCircle8
+      position: {x: 0.00072565913, y: -0.0001919484, z: -0.0000217133}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Base_rig_new_hands_export:nurbsCircle10
+      parentName: Base_rig_new_hands_export:nurbsCircle9
+      position: {x: 0.0003892517, y: -0.00023600638, z: -0.000072099116}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Base_rig_new_hands_export:group1
+      parentName: Base_rig_new_hands_export:r_arm
+      position: {x: -0.013363683, y: -0.010113475, z: 0.0009782481}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: -1, y: 1, z: 1}
+    - name: Base_rig_new_hands_export:l_elbow
+      parentName: Base_rig_new_hands_export:Controllers
+      position: {x: -0.007492895, y: 0.008495407, z: -0.005303684}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Base_rig_new_hands_export:l_arm
+      parentName: Base_rig_new_hands_export:Controllers
+      position: {x: 0.00042616366, y: 0.01018317, z: 0.0034417172}
+      rotation: {x: 0.09352996, y: 0.89248604, z: 0.43348595, w: -0.08252771}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Base_rig_new_hands_export:l_index5
+      parentName: Base_rig_new_hands_export:l_arm
+      position: {x: 0.013363683, y: -0.010113475, z: 0.0009782481}
+      rotation: {x: 6.123234e-17, y: 1, z: -6.123234e-17, w: -6.123234e-17}
+      scale: {x: 1, y: 1, z: -1}
+    - name: Base_rig_new_hands_export:nurbsCircle8
+      parentName: Base_rig_new_hands_export:l_index5
+      position: {x: 0.015966808, y: 0.010126601, z: -0.00047383795}
+      rotation: {x: 0, y: -0, z: -0.32796398, w: 0.9446902}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Base_rig_new_hands_export:nurbsCircle9
+      parentName: Base_rig_new_hands_export:nurbsCircle8
+      position: {x: 0.0007256579, y: -0.00019193947, z: -0.000021713004}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Base_rig_new_hands_export:nurbsCircle10
+      parentName: Base_rig_new_hands_export:nurbsCircle9
+      position: {x: 0.0003892517, y: -0.00023600995, z: -0.000072099974}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Base_rig_new_hands_export:l_middle5
+      parentName: Base_rig_new_hands_export:l_arm
+      position: {x: 0.013363683, y: -0.010113475, z: 0.0009782481}
+      rotation: {x: 6.123234e-17, y: 1, z: -6.123234e-17, w: -6.123234e-17}
+      scale: {x: 1, y: 1, z: -1}
+    - name: Base_rig_new_hands_export:nurbsCircle11
+      parentName: Base_rig_new_hands_export:l_middle5
+      position: {x: 0.015807977, y: 0.010093802, z: -0.00092572696}
+      rotation: {x: -0.008814115, y: -0.059198957, z: -0.25480092, w: 0.9651395}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Base_rig_new_hands_export:nurbsCircle12
+      parentName: Base_rig_new_hands_export:nurbsCircle11
+      position: {x: 0.00072944997, y: -0.0002860999, z: -0.00011303}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Base_rig_new_hands_export:nurbsCircle13
+      parentName: Base_rig_new_hands_export:nurbsCircle12
+      position: {x: 0.0004314816, y: -0.00042158007, z: -0.000020759999}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Base_rig_new_hands_export:l_ring5
+      parentName: Base_rig_new_hands_export:l_arm
+      position: {x: 0.013363683, y: -0.010113475, z: 0.0009782481}
+      rotation: {x: 6.123234e-17, y: 1, z: -6.123234e-17, w: -6.123234e-17}
+      scale: {x: 1, y: 1, z: -1}
+    - name: Base_rig_new_hands_export:nurbsCircle16
+      parentName: Base_rig_new_hands_export:l_ring5
+      position: {x: 0.01572809, y: 0.009922552, z: -0.001344057}
+      rotation: {x: -0.07240709, y: -0.053967934, z: -0.14862768, w: 0.9847612}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Base_rig_new_hands_export:nurbsCircle15
+      parentName: Base_rig_new_hands_export:nurbsCircle16
+      position: {x: 0.0004822409, y: -0.00023025036, z: -0.00009222999}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Base_rig_new_hands_export:nurbsCircle14
+      parentName: Base_rig_new_hands_export:nurbsCircle15
+      position: {x: 0.00037656544, y: -0.00037336946, z: -0.000023369937}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Base_rig_new_hands_export:l_pinky5
+      parentName: Base_rig_new_hands_export:l_arm
+      position: {x: 0.013363683, y: -0.010113475, z: 0.0009782481}
+      rotation: {x: 6.123234e-17, y: 1, z: -6.123234e-17, w: -6.123234e-17}
+      scale: {x: 1, y: 1, z: -1}
+    - name: Base_rig_new_hands_export:nurbsCircle17
+      parentName: Base_rig_new_hands_export:l_pinky5
+      position: {x: 0.015562697, y: 0.009732932, z: -0.0016919669}
+      rotation: {x: 0, y: -0, z: -0.41945118, w: 0.9077779}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Base_rig_new_hands_export:nurbsCircle18
+      parentName: Base_rig_new_hands_export:nurbsCircle17
+      position: {x: 0.00042515277, y: -0.00019562006, z: -0.00006047994}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Base_rig_new_hands_export:nurbsCircle19
+      parentName: Base_rig_new_hands_export:nurbsCircle18
+      position: {x: 0.0002783334, y: -0.00025788962, z: -0.000005800128}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Base_rig_new_hands_export:l_Thumb1
+      parentName: Base_rig_new_hands_export:l_arm
+      position: {x: 0.013363683, y: -0.010113475, z: 0.0009782481}
+      rotation: {x: 6.123234e-17, y: 1, z: -6.123234e-17, w: -6.123234e-17}
+      scale: {x: 1, y: 1, z: -1}
+    - name: Base_rig_new_hands_export:nurbsCircle22
+      parentName: Base_rig_new_hands_export:l_Thumb1
+      position: {x: 0.01445058, y: 0.009841371, z: -0.00029221794}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Base_rig_new_hands_export:nurbsCircle21
+      parentName: Base_rig_new_hands_export:nurbsCircle22
+      position: {x: 0.00064010976, y: -0.00031723976, z: 0.000450536}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Base_rig_new_hands_export:nurbsCircle20
+      parentName: Base_rig_new_hands_export:nurbsCircle21
+      position: {x: 0.0004848516, y: -0.00037891982, z: 0.000032147}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Base_rig_new_hands_export:r_elbow
+      parentName: Base_rig_new_hands_export:Controllers
+      position: {x: 0.007492895, y: 0.008495407, z: -0.005303684}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
     armTwist: 0.5
     foreArmTwist: 0.5
     upperLegTwist: 0.5
@@ -93,13 +813,13 @@ ModelImporter:
     globalScale: 1
     rootMotionBoneName: 
     hasTranslationDoF: 0
-    hasExtraRoot: 0
+    hasExtraRoot: 1
     skeletonHasParents: 1
   lastHumanDescriptionAvatarSource: {instanceID: 0}
   autoGenerateAvatarMappingIfUnspecified: 1
-  animationType: 2
+  animationType: 3
   humanoidOversampling: 1
-  avatarSetup: 0
+  avatarSetup: 1
   addHumanoidExtraRootOnlyWhenUsingAvatar: 1
   importBlendShapeDeformPercent: 1
   remapMaterialsIfMaterialImportModeIsNone: 0

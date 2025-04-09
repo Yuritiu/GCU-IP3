@@ -121,13 +121,13 @@ public class BottleCard : MonoBehaviour
     void ThrowCube(Transform target)
     {
         BarTenderAnimation barTenderAnimation = FindAnyObjectByType<BarTenderAnimation>();
-
+        barTenderAnimation.BottleTr();
         GameObject bottle = Instantiate(bottlePrefab, bottleSpawnPoint.position, Quaternion.identity);
 
         //Align Bottle To Target Direction
         Vector3 direction = (target.position - bottleSpawnPoint.position).normalized;
         bottle.transform.rotation = Quaternion.LookRotation(direction);
-        barTenderAnimation.BottleTr();
+        
 
         Rigidbody rb = bottle.GetComponent<Rigidbody>();
         if (rb == null)

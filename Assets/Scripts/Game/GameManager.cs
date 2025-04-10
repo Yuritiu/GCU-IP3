@@ -335,6 +335,7 @@ public class GameManager : MonoBehaviour
         blur.SetActive(false);
         bottleBlur.GetComponent<MeshRenderer>().enabled = false;
         disableUI.Instance.EnableAllText();
+        //StartCoroutine(SoftLockStopper());
 
         //Debug.Log("Played Hand: " + isTutorial);
 
@@ -1291,7 +1292,9 @@ public class GameManager : MonoBehaviour
                         //Debug.Log("No bottle in action");
                         if (!inPlayerReloadCalled && !inAIReloadCalled)
                         {
-                            Debug.Log("ALL ACTIONS DONE");
+                            //Debug.Log("ALL ACTIONS DONE");
+
+                            //StopCoroutine(SoftLockStopper());
                             isActionInProgress = false;
                             canMoveOn = false;
                             playerBottleCount = 0;
@@ -1304,5 +1307,17 @@ public class GameManager : MonoBehaviour
             }
         }
         return false;
+    }
+
+    IEnumerator SoftLockStopper()
+    {
+        yield return new WaitForSeconds(25f);
+        inKnifeActionAiPlayed = false;
+        inKnifeActionPlayerPlayed = false;
+        inGunAction = false;
+        inBottleAction = false;
+        inAIBottleAction = false;
+        inPlayerReloadCalled = false;
+        inAIReloadCalled = false;
     }
 }

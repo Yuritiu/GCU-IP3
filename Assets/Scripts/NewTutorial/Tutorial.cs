@@ -16,6 +16,7 @@ public class Tutorial : MonoBehaviour
     public bool sensitivityLoaded = false;
 
     public bool introCalled = false;
+    private IntroTutorial introTutorial;
 
 
     [SerializeField] private DialogueData[] dialogueDatas;
@@ -61,6 +62,7 @@ public class Tutorial : MonoBehaviour
     public void StartIntro()
     {
         cardDeck.CallIntro();
+        introTutorial.EnableTutorialUI();
     }
 
     void OnDestroy()
@@ -87,6 +89,7 @@ public class Tutorial : MonoBehaviour
         dialogueManager = FindObjectOfType<DialogueManager>();
         controlsSettingsManager = FindFirstObjectByType<ControlsSettingsManager>();
         cardDeck = FindFirstObjectByType<CardDeck>();
+        introTutorial = FindFirstObjectByType<IntroTutorial>();
 
         if (cameraController == null)
         {

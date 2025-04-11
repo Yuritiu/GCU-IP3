@@ -21,22 +21,22 @@ public class IntroTutorial : MonoBehaviour
     private GameManager gameManager;
     private bool isFadingOut = false;
 
+    private Tutorial tutorialManager;
+
     void Start()
     {
         gameManager = FindFirstObjectByType<GameManager>();
+        tutorialManager = FindFirstObjectByType<Tutorial>();
 
-        if (gameManager.firstStepsTutorial == false && TooltipManager.Instance.assistsOn)
+        canvasGroup = GetComponent<CanvasGroup>();
+        if (canvasGroup == null) canvasGroup = gameObject.AddComponent<CanvasGroup>();
+
+        if ((gameManager.firstStepsTutorial == false && TooltipManager.Instance.assistsOn) && !tutorialManager.tutorialEnabled)
         {
-            canvasGroup = GetComponent<CanvasGroup>();
-            if (canvasGroup == null) canvasGroup = gameObject.AddComponent<CanvasGroup>();
-
             StartCoroutine(SafetyTimer());
         }
         else
         {
-            canvasGroup = GetComponent<CanvasGroup>();
-            if (canvasGroup == null) canvasGroup = gameObject.AddComponent<CanvasGroup>();
-
             canvasGroup.alpha = 0f;
         }
     }
@@ -99,4 +99,11 @@ public class IntroTutorial : MonoBehaviour
         gameManager.firstStepsTutorial = true;
         Destroy(gameObject);
     }
+
+    public void EnableTutorialUI()
+    {
+        canvasGroup.alpha = 1f;
+        StartCoroutine(SafetyTimer());
+    }
+
 }

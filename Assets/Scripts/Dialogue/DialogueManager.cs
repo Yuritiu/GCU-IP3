@@ -155,7 +155,9 @@ public class DialogueManager : MonoBehaviour
             characterPortrait.sprite = currentLinePortraits[currentLineIndex];
         }
 
+        isTyping = true;
         StartCoroutine(TypeLine(currentTextLines[currentLineIndex]));
+
 
         currentLineIndex++;
     }

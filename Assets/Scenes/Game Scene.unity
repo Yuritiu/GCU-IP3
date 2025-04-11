@@ -6978,6 +6978,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: -81.755
       objectReference: {fileID: 0}
+    - target: {fileID: -7702464604253465016, guid: da20dc649b048524e8e1b7ac6fd02b86, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: -6488671445279638182, guid: da20dc649b048524e8e1b7ac6fd02b86, type: 3}
       propertyPath: m_LocalRotation.w
       value: -0.7479656
@@ -7005,6 +7009,10 @@ PrefabInstance:
     - target: {fileID: -6488671445279638182, guid: da20dc649b048524e8e1b7ac6fd02b86, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: -82.264
+      objectReference: {fileID: 0}
+    - target: {fileID: -5878035735956192243, guid: da20dc649b048524e8e1b7ac6fd02b86, type: 3}
+      propertyPath: m_ConstrainProportionsScale
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: -5826734391327800496, guid: da20dc649b048524e8e1b7ac6fd02b86, type: 3}
       propertyPath: m_LocalRotation.w
@@ -7202,6 +7210,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 2.983
       objectReference: {fileID: 0}
+    - target: {fileID: -2025768430932192457, guid: da20dc649b048524e8e1b7ac6fd02b86, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -1309926388407115467, guid: da20dc649b048524e8e1b7ac6fd02b86, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: -521902199566804985, guid: da20dc649b048524e8e1b7ac6fd02b86, type: 3}
       propertyPath: m_LocalRotation.w
       value: 0.112842165
@@ -7326,6 +7342,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: -172.042
       objectReference: {fileID: 0}
+    - target: {fileID: 6571321039589811538, guid: da20dc649b048524e8e1b7ac6fd02b86, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: f06f4496ecf6edb44acc1353c4939d97, type: 2}
     - target: {fileID: 8225756479638892608, guid: da20dc649b048524e8e1b7ac6fd02b86, type: 3}
       propertyPath: m_LocalRotation.w
       value: 0.9457061
@@ -53332,6 +53352,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: --- Game Manager ---
       objectReference: {fileID: 0}
+    - target: {fileID: 3915920376543808648, guid: 5f30ef53536cc8b4694232906fbc92d4, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -98390,6 +98414,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: --- Status Dropdown Manager ---
       objectReference: {fileID: 0}
+    - target: {fileID: 4574398515334988046, guid: 4b07c6008ede1a64ba31574467b42611, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4738679367870847535, guid: 4b07c6008ede1a64ba31574467b42611, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -99416,6 +99444,10 @@ PrefabInstance:
     - target: {fileID: 5952886995423525959, guid: aeab583e2f65a324ebc2beb81559d797, type: 3}
       propertyPath: m_Name
       value: GunSmokeGraph AI
+      objectReference: {fileID: 0}
+    - target: {fileID: 6133228347570313428, guid: aeab583e2f65a324ebc2beb81559d797, type: 3}
+      propertyPath: m_Enabled
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6318053447999268679, guid: aeab583e2f65a324ebc2beb81559d797, type: 3}
       propertyPath: m_LocalScale.x
@@ -115537,6 +115569,10 @@ PrefabInstance:
     - target: {fileID: 5952886995423525959, guid: aeab583e2f65a324ebc2beb81559d797, type: 3}
       propertyPath: m_Name
       value: GunSmokeGraph
+      objectReference: {fileID: 0}
+    - target: {fileID: 6133228347570313428, guid: aeab583e2f65a324ebc2beb81559d797, type: 3}
+      propertyPath: m_Enabled
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6318053447999268679, guid: aeab583e2f65a324ebc2beb81559d797, type: 3}
       propertyPath: m_LocalScale.x

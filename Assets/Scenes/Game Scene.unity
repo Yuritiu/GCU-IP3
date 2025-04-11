@@ -26492,6 +26492,38 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 3973064453176785697, guid: 24c94e7929bad4b408a3c87aac8caa73, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5128300180416186954, guid: 24c94e7929bad4b408a3c87aac8caa73, type: 3}
+      propertyPath: Gunfire
+      value: 
+      objectReference: {fileID: 8300000, guid: 9e5e2a20f9f69864883eb994e3fd3848, type: 3}
+    - target: {fileID: 5128300180416186954, guid: 24c94e7929bad4b408a3c87aac8caa73, type: 3}
+      propertyPath: Gunload
+      value: 
+      objectReference: {fileID: 8300000, guid: 27dd00141830c2d41b66a0e9829871c4, type: 3}
+    - target: {fileID: 5128300180416186954, guid: 24c94e7929bad4b408a3c87aac8caa73, type: 3}
+      propertyPath: gunName
+      value: AiGun
+      objectReference: {fileID: 0}
+    - target: {fileID: 5128300180416186954, guid: 24c94e7929bad4b408a3c87aac8caa73, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5128300180416186954, guid: 24c94e7929bad4b408a3c87aac8caa73, type: 3}
+      propertyPath: earRinging
+      value: 
+      objectReference: {fileID: 8300000, guid: 817994af5d119db4099c692f188486f1, type: 3}
+    - target: {fileID: 5128300180416186954, guid: 24c94e7929bad4b408a3c87aac8caa73, type: 3}
+      propertyPath: cameraController
+      value: 
+      objectReference: {fileID: 565869802}
+    - target: {fileID: 6364199873939054069, guid: 24c94e7929bad4b408a3c87aac8caa73, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 27125771797673925, guid: d244096c0f24aa644b59352b5c832841, type: 3}
       propertyPath: m_IsActive
       value: 0
@@ -26575,38 +26607,6 @@ PrefabInstance:
     - target: {fileID: 8933423101490784877, guid: d244096c0f24aa644b59352b5c832841, type: 3}
       propertyPath: m_Name
       value: AiGun
-      objectReference: {fileID: 0}
-    - target: {fileID: 3973064453176785697, guid: 24c94e7929bad4b408a3c87aac8caa73, type: 3}
-      propertyPath: m_Enabled
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5128300180416186954, guid: 24c94e7929bad4b408a3c87aac8caa73, type: 3}
-      propertyPath: Gunfire
-      value: 
-      objectReference: {fileID: 8300000, guid: 9e5e2a20f9f69864883eb994e3fd3848, type: 3}
-    - target: {fileID: 5128300180416186954, guid: 24c94e7929bad4b408a3c87aac8caa73, type: 3}
-      propertyPath: Gunload
-      value: 
-      objectReference: {fileID: 8300000, guid: 27dd00141830c2d41b66a0e9829871c4, type: 3}
-    - target: {fileID: 5128300180416186954, guid: 24c94e7929bad4b408a3c87aac8caa73, type: 3}
-      propertyPath: gunName
-      value: AiGun
-      objectReference: {fileID: 0}
-    - target: {fileID: 5128300180416186954, guid: 24c94e7929bad4b408a3c87aac8caa73, type: 3}
-      propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5128300180416186954, guid: 24c94e7929bad4b408a3c87aac8caa73, type: 3}
-      propertyPath: earRinging
-      value: 
-      objectReference: {fileID: 8300000, guid: 817994af5d119db4099c692f188486f1, type: 3}
-    - target: {fileID: 5128300180416186954, guid: 24c94e7929bad4b408a3c87aac8caa73, type: 3}
-      propertyPath: cameraController
-      value: 
-      objectReference: {fileID: 565869802}
-    - target: {fileID: 6364199873939054069, guid: 24c94e7929bad4b408a3c87aac8caa73, type: 3}
-      propertyPath: m_Enabled
-      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -52453,6 +52453,38 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 3973064453176785697, guid: 24c94e7929bad4b408a3c87aac8caa73, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5128300180416186954, guid: 24c94e7929bad4b408a3c87aac8caa73, type: 3}
+      propertyPath: Gunfire
+      value: 
+      objectReference: {fileID: 8300000, guid: 9e5e2a20f9f69864883eb994e3fd3848, type: 3}
+    - target: {fileID: 5128300180416186954, guid: 24c94e7929bad4b408a3c87aac8caa73, type: 3}
+      propertyPath: Gunload
+      value: 
+      objectReference: {fileID: 8300000, guid: 27dd00141830c2d41b66a0e9829871c4, type: 3}
+    - target: {fileID: 5128300180416186954, guid: 24c94e7929bad4b408a3c87aac8caa73, type: 3}
+      propertyPath: gunName
+      value: TableGun
+      objectReference: {fileID: 0}
+    - target: {fileID: 5128300180416186954, guid: 24c94e7929bad4b408a3c87aac8caa73, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5128300180416186954, guid: 24c94e7929bad4b408a3c87aac8caa73, type: 3}
+      propertyPath: earRinging
+      value: 
+      objectReference: {fileID: 8300000, guid: 817994af5d119db4099c692f188486f1, type: 3}
+    - target: {fileID: 5128300180416186954, guid: 24c94e7929bad4b408a3c87aac8caa73, type: 3}
+      propertyPath: cameraController
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 6364199873939054069, guid: 24c94e7929bad4b408a3c87aac8caa73, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 27125771797673925, guid: d244096c0f24aa644b59352b5c832841, type: 3}
       propertyPath: m_IsActive
       value: 0
@@ -52548,38 +52580,6 @@ PrefabInstance:
     - target: {fileID: 8933423101490784877, guid: d244096c0f24aa644b59352b5c832841, type: 3}
       propertyPath: m_Name
       value: TableGun
-      objectReference: {fileID: 0}
-    - target: {fileID: 3973064453176785697, guid: 24c94e7929bad4b408a3c87aac8caa73, type: 3}
-      propertyPath: m_Enabled
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5128300180416186954, guid: 24c94e7929bad4b408a3c87aac8caa73, type: 3}
-      propertyPath: Gunfire
-      value: 
-      objectReference: {fileID: 8300000, guid: 9e5e2a20f9f69864883eb994e3fd3848, type: 3}
-    - target: {fileID: 5128300180416186954, guid: 24c94e7929bad4b408a3c87aac8caa73, type: 3}
-      propertyPath: Gunload
-      value: 
-      objectReference: {fileID: 8300000, guid: 27dd00141830c2d41b66a0e9829871c4, type: 3}
-    - target: {fileID: 5128300180416186954, guid: 24c94e7929bad4b408a3c87aac8caa73, type: 3}
-      propertyPath: gunName
-      value: TableGun
-      objectReference: {fileID: 0}
-    - target: {fileID: 5128300180416186954, guid: 24c94e7929bad4b408a3c87aac8caa73, type: 3}
-      propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5128300180416186954, guid: 24c94e7929bad4b408a3c87aac8caa73, type: 3}
-      propertyPath: earRinging
-      value: 
-      objectReference: {fileID: 8300000, guid: 817994af5d119db4099c692f188486f1, type: 3}
-    - target: {fileID: 5128300180416186954, guid: 24c94e7929bad4b408a3c87aac8caa73, type: 3}
-      propertyPath: cameraController
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 6364199873939054069, guid: 24c94e7929bad4b408a3c87aac8caa73, type: 3}
-      propertyPath: m_Enabled
-      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -98347,7 +98347,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 8d44be47578450a488fd64554476b2d4, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3413067209983608939, guid: 8d44be47578450a488fd64554476b2d4, type: 3}
       propertyPath: m_LocalRotation.x
@@ -98662,6 +98662,38 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 906723580}
     m_Modifications:
+    - target: {fileID: 3973064453176785697, guid: 24c94e7929bad4b408a3c87aac8caa73, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5128300180416186954, guid: 24c94e7929bad4b408a3c87aac8caa73, type: 3}
+      propertyPath: Gunfire
+      value: 
+      objectReference: {fileID: 8300000, guid: 9e5e2a20f9f69864883eb994e3fd3848, type: 3}
+    - target: {fileID: 5128300180416186954, guid: 24c94e7929bad4b408a3c87aac8caa73, type: 3}
+      propertyPath: Gunload
+      value: 
+      objectReference: {fileID: 8300000, guid: 27dd00141830c2d41b66a0e9829871c4, type: 3}
+    - target: {fileID: 5128300180416186954, guid: 24c94e7929bad4b408a3c87aac8caa73, type: 3}
+      propertyPath: gunName
+      value: PlayerGun
+      objectReference: {fileID: 0}
+    - target: {fileID: 5128300180416186954, guid: 24c94e7929bad4b408a3c87aac8caa73, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5128300180416186954, guid: 24c94e7929bad4b408a3c87aac8caa73, type: 3}
+      propertyPath: earRinging
+      value: 
+      objectReference: {fileID: 8300000, guid: 817994af5d119db4099c692f188486f1, type: 3}
+    - target: {fileID: 5128300180416186954, guid: 24c94e7929bad4b408a3c87aac8caa73, type: 3}
+      propertyPath: cameraController
+      value: 
+      objectReference: {fileID: 565869802}
+    - target: {fileID: 6364199873939054069, guid: 24c94e7929bad4b408a3c87aac8caa73, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 27125771797673925, guid: d244096c0f24aa644b59352b5c832841, type: 3}
       propertyPath: m_IsActive
       value: 0
@@ -98765,38 +98797,6 @@ PrefabInstance:
     - target: {fileID: 8933423101490784877, guid: d244096c0f24aa644b59352b5c832841, type: 3}
       propertyPath: m_Name
       value: PlayerGun
-      objectReference: {fileID: 0}
-    - target: {fileID: 3973064453176785697, guid: 24c94e7929bad4b408a3c87aac8caa73, type: 3}
-      propertyPath: m_Enabled
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5128300180416186954, guid: 24c94e7929bad4b408a3c87aac8caa73, type: 3}
-      propertyPath: Gunfire
-      value: 
-      objectReference: {fileID: 8300000, guid: 9e5e2a20f9f69864883eb994e3fd3848, type: 3}
-    - target: {fileID: 5128300180416186954, guid: 24c94e7929bad4b408a3c87aac8caa73, type: 3}
-      propertyPath: Gunload
-      value: 
-      objectReference: {fileID: 8300000, guid: 27dd00141830c2d41b66a0e9829871c4, type: 3}
-    - target: {fileID: 5128300180416186954, guid: 24c94e7929bad4b408a3c87aac8caa73, type: 3}
-      propertyPath: gunName
-      value: PlayerGun
-      objectReference: {fileID: 0}
-    - target: {fileID: 5128300180416186954, guid: 24c94e7929bad4b408a3c87aac8caa73, type: 3}
-      propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5128300180416186954, guid: 24c94e7929bad4b408a3c87aac8caa73, type: 3}
-      propertyPath: earRinging
-      value: 
-      objectReference: {fileID: 8300000, guid: 817994af5d119db4099c692f188486f1, type: 3}
-    - target: {fileID: 5128300180416186954, guid: 24c94e7929bad4b408a3c87aac8caa73, type: 3}
-      propertyPath: cameraController
-      value: 
-      objectReference: {fileID: 565869802}
-    - target: {fileID: 6364199873939054069, guid: 24c94e7929bad4b408a3c87aac8caa73, type: 3}
-      propertyPath: m_Enabled
-      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -121995,7 +121995,7 @@ MonoBehaviour:
   - cardPrefab: {fileID: 1833519795021809735, guid: 13468f5a105746847b27d9d5496777f7, type: 3}
     quantity: 12
   - cardPrefab: {fileID: 1833519795021809735, guid: 4758c9d31efe1c64994cecb864c3e9bc, type: 3}
-    quantity: 66
+    quantity: 6
   - cardPrefab: {fileID: 1833519795021809735, guid: bf314c8f96af77148b7c787435c1c55e, type: 3}
     quantity: 5
   - cardPrefab: {fileID: 1833519795021809735, guid: 80493192768bbe24a98044b5fa79e23d, type: 3}

@@ -188,22 +188,22 @@ public class CameraController : MonoBehaviour
 
     private void CheckForKeyPresses()
     {
-        if (Input.GetKeyDown(KeyCode.Alpha1))
-        {
-            SetCameraToBarTarget();
-        }
-        else if (Input.GetKeyDown(KeyCode.Alpha2))
-        {
-            SetCameraToKnifeTarget();
-        }
-        else if (Input.GetKeyDown(KeyCode.Alpha3))
-        {
-            SetCameraToOpponentTarget();
-        }
-        else if (Input.GetKeyDown(KeyCode.Alpha4))
-        {
-            SetCameraToPositionTarget();
-        }
+        //if (Input.GetKeyDown(KeyCode.Alpha1))
+        //{
+        //    SetCameraToBarTarget();
+        //}
+        //else if (Input.GetKeyDown(KeyCode.Alpha2))
+        //{
+        //    SetCameraToKnifeTarget();
+        //}
+        //else if (Input.GetKeyDown(KeyCode.Alpha3))
+        //{
+        //    SetCameraToOpponentTarget();
+        //}
+        //else if (Input.GetKeyDown(KeyCode.Alpha4))
+        //{
+        //    SetCameraToPositionTarget();
+        //}
     }
 
     private void HandleFreeMovement()

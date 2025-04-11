@@ -6,6 +6,7 @@ using UnityEngine;
 public class disableUI : MonoBehaviour
 {
     public static disableUI Instance;
+    [SerializeField] GameObject bottleBackfireText;
 
     TextMeshProUGUI[] allText;
     public bool uiDisabled;
@@ -23,6 +24,8 @@ public class disableUI : MonoBehaviour
 
     public void DisableAllText()
     {
+        StartCoroutine(bottleTextHide());
+
         foreach (var tmpText in allText)
         {
             if (tmpText != null)
@@ -43,5 +46,12 @@ public class disableUI : MonoBehaviour
                 uiDisabled = false;
             }
         }
+    }
+
+    IEnumerator bottleTextHide()
+    {
+        bottleBackfireText.SetActive(true);
+        yield return new WaitForSeconds(5f);
+        bottleBackfireText.SetActive(false);
     }
 }

@@ -71,7 +71,7 @@ public class BottleCard : MonoBehaviour
         float chance = gameManager.statusPercent;
         float roll = UnityEngine.Random.Range(0f, 100f);
 
-        if (roll <= chance)
+        if (roll <= 100)
         {
             disableUI.Instance.DisableAllText();
             blur = GameObject.Find("Blur");

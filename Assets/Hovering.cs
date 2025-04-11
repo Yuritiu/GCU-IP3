@@ -13,7 +13,11 @@ public class HoverText : MonoBehaviour
 
     void OnMouseEnter()
     {
-        hoverText.gameObject.SetActive(true); // Show text when hovering
+        if (GameManager.Instance.canPlay)
+        {
+            hoverText.gameObject.SetActive(true); // Show text when hovering
+        }
+        
     }
 
     void OnMouseExit()

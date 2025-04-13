@@ -33,9 +33,10 @@ public class BottleCard : MonoBehaviour
     private BackfireGlow backfireGlow;
     GameObject blur;
     string blurGameObjectName = "Blur";
-
+    StatusDropdown statusDropdown;
     void Awake()
     {
+        statusDropdown = FindAnyObjectByType<StatusDropdown>();
         gameManager = FindAnyObjectByType<GameManager>();
         playerTarget = GameObject.Find("BOTTLE POSITION PLAYER").transform;
         aiTarget = GameObject.Find("BOTTLE POSITION AI").transform;
@@ -211,6 +212,7 @@ public class BottleCard : MonoBehaviour
                 {
                     // Apply status effect logic if necessary
                     GameManager.Instance.bottleBackfirePlayer = true;
+                    statusDropdown.DisplayStatusEffect(5, 5);
                 }
 
                 //gameManager.inBottleAction = false;

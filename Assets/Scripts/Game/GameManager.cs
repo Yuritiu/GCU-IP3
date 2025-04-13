@@ -1237,7 +1237,6 @@ public class GameManager : MonoBehaviour
         CameraDeathEffect.Instance.TriggerDeathSequence();
     }
 
-
     public void sendData(bool won) //bool won = who won? True = Player, False = Ai
     {
         dG.fingerslostPlayer = playerFingers + 1;

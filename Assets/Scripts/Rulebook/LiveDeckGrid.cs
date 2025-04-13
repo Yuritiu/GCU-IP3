@@ -64,12 +64,12 @@ public class LiveDeckGrid : MonoBehaviour
 
     private void FindAndSetCardOpacity(string cardName)
     {
-        Debug.Log("Searching for card with name: " + cardName);
+        //Debug.Log("Searching for card with name: " + cardName);
         bool opacityChanged = false;
 
         foreach (Transform card in transform)
         {
-            Debug.Log("Checking card: " + card.name);
+            //Debug.Log("Checking card: " + card.name);
             if (card.name.Contains(cardName))
             {
                 //Find image comp on object

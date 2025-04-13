@@ -1016,7 +1016,7 @@ public class GameManager : MonoBehaviour
                 if (cardObject2.name.Contains("cigar") && (!cardObject1.name.Contains("cigar") && !cardObject1.name.Contains("bottle")))
                 {
                     //Debug.Log("Called Function 2");
-                    cardObject2.SendMessage("PlayCardForPlayer");
+                    cardObject1.SendMessage("PlayCardForPlayer");
 
                     //Play Smoke VFX
                     if (cardObject1.name.Contains("knife"))

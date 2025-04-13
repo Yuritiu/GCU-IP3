@@ -138,7 +138,7 @@ public class DoubleBullets : MonoBehaviour
 
                     if (backfireGlow != null)
                     {
-                        backfireGlow = GetComponent<BackfireGlow>();
+                        backfireGlow.GlowActive();
                     }
 
                     //loads blank (does nothing)

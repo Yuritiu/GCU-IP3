@@ -89,7 +89,7 @@ public class BottleCard : MonoBehaviour
         float chance = gameManager.statusPercent;
         float roll = UnityEngine.Random.Range(0f, 100f);
 
-        if (roll <= 100)
+        if (roll <= chance)
         {
             return;
         }

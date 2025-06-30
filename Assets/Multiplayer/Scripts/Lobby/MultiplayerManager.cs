@@ -292,11 +292,8 @@ public class MultiplayerManager : MonoBehaviour
 
             if (!isHost)
             {
-                //Update Join Code Text On Client
-                if (currentLobby.Data.TryGetValue("joinCode", out var joinCodeData))
-                {
-                    joinCodeText.text = joinCodeData.Value;
-                }
+                //Display Join Code For Client Too
+                joinCodeText.text = currentLobby.LobbyCode.Trim().ToUpper();
             }
         }
         catch (Exception e)

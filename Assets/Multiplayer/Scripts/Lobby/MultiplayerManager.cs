@@ -39,16 +39,19 @@ public class MultiplayerManager : MonoBehaviour
 
     [Header("Network")]
     [SerializeField] private NetworkManager networkManager;
-    //Dictionary synced across network: clientId -> playerName
+    //Dictionary Synced Across Network: clientId -> playerName
     [SerializeField] private NetworkVariable<FixedString128Bytes> syncedPlayerNames = new();
 
-    //Local dictionary parsed from syncedPlayerNames NetworkVariable
+    //Local Dictionary Parsed From syncedPlayerNames NetworkVariable
     Dictionary<string, string> playerNamesDict = new Dictionary<string, string>();
 
     [Header("Lobby Variables")]
     Lobby currentLobby;
     bool isHost;
-    const int maxPlayers = 2;
+    float lobbyRefreshInterval = 2f;
+    float lobbyRefreshTimer = 0f;
+    const int minPlayersToStart = 2;
+    const int maxPlayers = 4;
 
     void Start()
     {
@@ -97,14 +100,14 @@ public class MultiplayerManager : MonoBehaviour
                 },
                 Data = new Dictionary<string, DataObject>
                 {
-            { "joinCode", new DataObject(DataObject.VisibilityOptions.Public, joinCode) }
+                    { "joinCode", new DataObject(DataObject.VisibilityOptions.Public, joinCode.Trim().ToUpper()) }
                 }
             };
 
             currentLobby = await LobbyService.Instance.CreateLobbyAsync("MyLobby", maxPlayers, options);
+            //Display Join Code From Official LobbyCode Property For Consistency
+            joinCodeText.text = currentLobby.LobbyCode.Trim().ToUpper();
 
-            //Show Join Code In UI For The Host To Share
-            joinCodeText.text = currentLobby.LobbyCode;
             copyButton.onClick.RemoveAllListeners();
             copyButton.onClick.AddListener(() => CopyToClipboard(currentLobby.LobbyCode));
 
@@ -139,7 +142,6 @@ public class MultiplayerManager : MonoBehaviour
             }
         }
     }
-
 
     public async void OnJoinGameButtonPressed()
     {
@@ -176,7 +178,7 @@ public class MultiplayerManager : MonoBehaviour
                 throw new Exception("Join code missing from lobby.");
             }
 
-            string relayJoinCode = joinCodeData.Value;
+            string relayJoinCode = joinCodeData.Value.Trim().ToUpper();
             var joinAllocation = await RelayService.Instance.JoinAllocationAsync(relayJoinCode);
             var relayServerData = new RelayServerData(joinAllocation, "dtls");
             unityTransport.SetRelayServerData(relayServerData);
@@ -200,7 +202,10 @@ public class MultiplayerManager : MonoBehaviour
             lobbyScreen.SetActive(true);
             loadingScreen.SetActive(false);
 
-            // Force UI update after join
+            //Display Join Code For Client Too
+            joinCodeText.text = currentLobby.LobbyCode.Trim().ToUpper();
+            
+            //Force UI update after join
             Invoke(nameof(UpdatePlayerListUI), 1f);
 
             Debug.Log("Client Joined Lobby With Code: " + codeFromUI);
@@ -231,6 +236,17 @@ public class MultiplayerManager : MonoBehaviour
         }
     }
 
+    public void OnStartGameButtonPressed()
+    {
+        if (!isHost) return;
+
+        if (networkManager.IsServer)
+        {
+            //Load Game Scene
+            networkManager.SceneManager.LoadScene("Multiplayer Game Scene", UnityEngine.SceneManagement.LoadSceneMode.Single);
+        }
+    }
+
     #endregion
 
     void Update()
@@ -240,12 +256,23 @@ public class MultiplayerManager : MonoBehaviour
             int playerCount = networkManager.ConnectedClientsList.Count;
             playersWaitingText.text = $"Players Waiting: {playerCount} / {maxPlayers}";
 
-            startGameButton.interactable = playerCount >= maxPlayers;
+            //Enable Start Game Button When Minimum Players Joined
+            startGameButton.interactable = playerCount >= minPlayersToStart;
         }
         else
         {
-            playersWaitingText.text = "Waiting For Host...";
+            playersWaitingText.text = "Waiting For Host To Start...";
             startGameButton.interactable = false;
+        }
+
+        if (currentLobby != null)
+        {
+            lobbyRefreshTimer += Time.deltaTime;
+            if (lobbyRefreshTimer >= lobbyRefreshInterval)
+            {
+                lobbyRefreshTimer = 0f;
+                RefreshLobbyDataAsync();
+            }
         }
     }
 
@@ -254,7 +281,29 @@ public class MultiplayerManager : MonoBehaviour
         GUIUtility.systemCopyBuffer = text;
     }
 
-    #region Networking and Lobby Helpers
+    #region Networking Lobby Data
+
+    async void RefreshLobbyDataAsync()
+    {
+        try
+        {
+            currentLobby = await LobbyService.Instance.GetLobbyAsync(currentLobby.Id);
+            UpdatePlayerNamesFromLobby();
+
+            if (!isHost)
+            {
+                //Update Join Code Text On Client
+                if (currentLobby.Data.TryGetValue("joinCode", out var joinCodeData))
+                {
+                    joinCodeText.text = joinCodeData.Value;
+                }
+            }
+        }
+        catch (Exception e)
+        {
+            Debug.LogWarning("Failed to refresh lobby data: " + e.Message);
+        }
+    }
 
     void UpdatePlayerNamesFromLobby()
     {

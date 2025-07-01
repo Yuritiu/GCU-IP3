@@ -50,7 +50,7 @@ public class MultiplayerManager : MonoBehaviour
     bool isHost;
     float lobbyRefreshInterval = 2f;
     float lobbyRefreshTimer = 0f;
-    const int minPlayersToStart = 2;
+    const int minPlayersToStart = 1;
     const int maxPlayers = 4;
 
     void Start()

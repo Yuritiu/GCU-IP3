@@ -24,6 +24,15 @@ public class PlayerClass : MonoBehaviour
         
     }
 
+    public void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Space) && !MultiplayerGameManager.Instance.calledSpace)
+        {
+            MultiplayerGameManager.Instance.calledSpace = true;
+            MultiplayerGameManager.Instance.CheckPlayerCards();
+        }
+    }
+
     public void CheckCards()
     {
         //Loop Through Placed Cards To Be Played

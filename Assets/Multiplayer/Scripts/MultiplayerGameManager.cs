@@ -1,8 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Netcode;
 using UnityEngine;
 
-public class MultiplayerGameManager : MonoBehaviour
+public class MultiplayerGameManager : NetworkBehaviour
 {
     public static MultiplayerGameManager Instance;
 
@@ -11,28 +12,80 @@ public class MultiplayerGameManager : MonoBehaviour
 
     bool comparingFinished = false;
 
+    //DELETE THIS
+    [HideInInspector] public bool calledSpace = false;
+
     void Awake()
     {
         Instance = this;
     }
 
-    void Start()
+    public override void OnNetworkSpawn()
     {
-        //playerCount = //GETPLAYERCOUNT
-        //GET PLAYER CLASSES AT RUNTIME
-        //MAKE SURE PLAYERS ARE SET 1 -> PLAYER COUNT
-    }
-
-    public void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (IsServer) // Only the server should do the player class collection
         {
-            CheckPlayerCards();
+            InitializePlayers();
         }
     }
 
-    void CheckPlayerCards()
+    void InitializePlayers()
     {
+        //Count Connected Players
+        playerCount = NetworkManager.Singleton.ConnectedClients.Count;
+        playerClass = new PlayerClass[playerCount];
+
+        Debug.Log($"Connected Players: {playerCount}");
+
+        int index = 0;
+
+        foreach (var client in NetworkManager.Singleton.ConnectedClientsList)
+        {
+            var playerObject = client.PlayerObject;
+            Debug.Log("PLAYER OBJECT: " + playerObject);
+            //--------------------------------------------------------------------------------------------------------------------------------
+            //TODO: MAKE SURE PLAYERCLASS NUMBERS GO UP 1,2,3,4 SO THEY ALL HAVE UNIUE NUMBER GOING IN ORDER UPTO PLAYERCOUNT
+            // SPAWN PLAYER PREFAB USING NETWORK TO SEE IF PLAYER OBJECT IS NO LONGER NULL
+            //--------------------------------------------------------------------------------------------------------------------------------
+
+            if (playerObject != null)
+            {
+                PlayerClass playerClassScript = playerObject.GetComponent<PlayerClass>();
+
+                if (playerClassScript == null)
+                {
+                    playerClassScript = playerObject.gameObject.AddComponent<PlayerClass>();
+                    Debug.Log($"PlayerClass Script Added To Player {client.ClientId}");
+                }
+
+                if (playerClassScript != null)
+                {
+                    playerClass[index] = playerClassScript;
+                }
+                else
+                {
+                    Debug.LogError($"Player {client.ClientId} Doesn't Have A PlayerClass Component!");
+                }
+            }
+            else
+            {
+                Debug.LogError($"PlayerObject Not Found For ClientID {client.ClientId}");
+            }
+
+            index++;
+        }
+
+        //foreach (var playerClass in playerClass)
+        //{
+        //    playerClass.CheckCards();
+        //}
+
+        Debug.Log("Initialized Players!");
+    }
+
+    public void CheckPlayerCards()
+    {
+        Debug.Log("Checking Player Cards...");
+
         for (int player = 0; player < playerCount - 1; player++)
         {
             for (int cardHand = 0; cardHand < playerCount * 6 - 2; cardHand++)

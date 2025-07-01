@@ -32,4 +32,7 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/Scenes/Dev Environments/Josh.unity
     guid: f72472e8b7b13304b988301fbc3b466c
+  - enabled: 1
+    path: Assets/Multiplayer/Scenes/Multiplayer Game Scene.unity
+    guid: bd4acb8dd4c0ae34baf2eaa3cfe45df7
   m_configObjects: {}

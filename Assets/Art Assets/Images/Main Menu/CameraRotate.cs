@@ -13,6 +13,8 @@ public class CameraRotate : MonoBehaviour
 
     private float directionMultiplier;
 
+    public bool canRotate = true;
+
     void Start()
     {
         directionMultiplier = Random.value < 0.5f ? -1f : 1f;
@@ -24,6 +26,9 @@ public class CameraRotate : MonoBehaviour
 
     void Update()
     {
+        if (!canRotate)
+            return;
+
         transform.RotateAround(target.position, Vector3.up, rotationSpeed * Time.deltaTime * directionMultiplier);
 
         transform.LookAt(target.position + Vector3.down * Mathf.Tan(angle * Mathf.Deg2Rad) * distance);

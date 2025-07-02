@@ -28,9 +28,9 @@ public class MultiplayerManager : MonoBehaviour
     [SerializeField] NetworkPlayerName networkPlayerName;
 
     [Header("UI References")]
-    [SerializeField] public GameObject lobbyScreen;
+    [SerializeField] public GameObject lobbyRulebookUI;
     [SerializeField] public GameObject loadingScreen;
-    [SerializeField] public GameObject preMultiplayerScreen;
+    [SerializeField] public GameObject connectRulebookUI;
     [SerializeField] public TextMeshProUGUI playersWaitingText;
     [SerializeField] public TextMeshProUGUI joinCodeText;
     [SerializeField] private TMP_InputField joinCodeInputField;
@@ -121,8 +121,8 @@ public class MultiplayerManager : MonoBehaviour
 
             UpdatePlayerNamesFromLobby();
 
-            preMultiplayerScreen.SetActive(false);
-            lobbyScreen.SetActive(true);
+            connectRulebookUI.SetActive(false);
+            lobbyRulebookUI.SetActive(true);
             loadingScreen.SetActive(false);
 
             Debug.Log("Host Started With Join Code: " + joinCode);
@@ -131,8 +131,8 @@ public class MultiplayerManager : MonoBehaviour
         {
             Debug.LogError("Create Game Failed: " + e.Message);
 
-            preMultiplayerScreen.SetActive(true);
-            lobbyScreen.SetActive(false);
+            connectRulebookUI.SetActive(true);
+            lobbyRulebookUI.SetActive(false);
             loadingScreen.SetActive(false);
 
             //Disable NetworkManager
@@ -198,8 +198,8 @@ public class MultiplayerManager : MonoBehaviour
 
             UpdatePlayerNamesFromLobby();
 
-            preMultiplayerScreen.SetActive(false);
-            lobbyScreen.SetActive(true);
+            connectRulebookUI.SetActive(false);
+            lobbyRulebookUI.SetActive(true);
             loadingScreen.SetActive(false);
 
             //Display Join Code For Client Too
@@ -214,24 +214,24 @@ public class MultiplayerManager : MonoBehaviour
         {
             Debug.LogError($"[LOBBY ERROR] {lse.Message} | Reason: {lse.Reason} | Code: {lse.ErrorCode}");
 
-            preMultiplayerScreen.SetActive(true);
-            lobbyScreen.SetActive(false);
+            connectRulebookUI.SetActive(true);
+            lobbyRulebookUI.SetActive(false);
             loadingScreen.SetActive(false);
         }
         catch (RelayServiceException rse)
         {
             Debug.LogError($"[CLIENT] RelayServiceException: {rse.Message}");
 
-            preMultiplayerScreen.SetActive(true);
-            lobbyScreen.SetActive(false);
+            connectRulebookUI.SetActive(true);
+            lobbyRulebookUI.SetActive(false);
             loadingScreen.SetActive(false);
         }
         catch (Exception e)
         {
             Debug.LogError($"Failed To Join Lobby With Code '{codeFromUI}': {e.Message}\n{e.StackTrace}");
 
-            preMultiplayerScreen.SetActive(true);
-            lobbyScreen.SetActive(false);
+            connectRulebookUI.SetActive(true);
+            lobbyRulebookUI.SetActive(false);
             loadingScreen.SetActive(false);
         }
     }

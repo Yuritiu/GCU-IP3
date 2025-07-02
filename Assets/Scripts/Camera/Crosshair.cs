@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class Crosshair : MonoBehaviour
@@ -34,52 +35,61 @@ public class Crosshair : MonoBehaviour
         RaycastHit hit;
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 
-        //Raycast To Mouse Position
-        if (Physics.Raycast(ray, out hit))
+        string currentScene = SceneManager.GetActiveScene().name;
+
+        if (currentScene == "GameScene")
         {
-            if ((hit.transform.CompareTag("Opponent") && GameManager.Instance.canPlay) ||
-                (hit.transform.CompareTag("Card") && GameManager.Instance.canPlay) ||
-                (hit.transform.CompareTag("Rulebook") && GameManager.Instance.canPlay))
+            //Raycast To Mouse Position
+            if (Physics.Raycast(ray, out hit))
             {
-                HoverScale(true);
+                if ((hit.transform.CompareTag("Opponent") && GameManager.Instance.canPlay) ||
+                    (hit.transform.CompareTag("Card") && GameManager.Instance.canPlay) ||
+                    (hit.transform.CompareTag("Rulebook") && GameManager.Instance.canPlay))
+                {
+                    HoverScale(true);
+                }
+                else
+                {
+                    HoverScale(false);
+                }
             }
             else
             {
                 HoverScale(false);
             }
-        }
-        else
-        {
-            HoverScale(false);
-        }
 
-        scaleTimer += Time.deltaTime / tweenDuration;
-        crosshairOuter.localScale = Vector3.Lerp(crosshairOuter.localScale, targetScale, scaleTimer);
+            scaleTimer += Time.deltaTime / tweenDuration;
+            crosshairOuter.localScale = Vector3.Lerp(crosshairOuter.localScale, targetScale, scaleTimer);
 
-        if (!GameManager.Instance.canPlay)
-        {
-            //Disables Inner Crosshair When Not Players Turn
-            HoverScale(false);
-            return;
-        }
-
-        else if (GameManager.Instance.crosshairUnlocked)
-        {
-
-            Vector3 mousePosition = Input.mousePosition;
-            crosshairInner.position = new Vector2(mousePosition.x, mousePosition.y);
-            crosshairOuter.position = new Vector2(mousePosition.x, mousePosition.y);
-
-        }
-        else
-        {
-            // When the mouse is locked, move the crosshair to the center of the screen
-            if (crosshairInner != null && crosshairOuter != null)
+            if (!GameManager.Instance.canPlay)
             {
-                Vector2 centerPosition = new Vector2(Screen.width / 2f, Screen.height / 2f);
-                crosshairInner.position = centerPosition;
-                crosshairOuter.position = centerPosition;
+                //Disables Inner Crosshair When Not Players Turn
+                HoverScale(false);
+                return;
             }
+
+            else if (GameManager.Instance.crosshairUnlocked)
+            {
+
+                Vector3 mousePosition = Input.mousePosition;
+                crosshairInner.position = new Vector2(mousePosition.x, mousePosition.y);
+                crosshairOuter.position = new Vector2(mousePosition.x, mousePosition.y);
+
+            }
+            else
+            {
+                // When the mouse is locked, move the crosshair to the center of the screen
+                if (crosshairInner != null && crosshairOuter != null)
+                {
+                    Vector2 centerPosition = new Vector2(Screen.width / 2f, Screen.height / 2f);
+                    crosshairInner.position = centerPosition;
+                    crosshairOuter.position = centerPosition;
+                }
+            }
+        }
+        else if (currentScene == "MultiplayerGameScene")
+        {
+            //TODO: FIGURE OUT CARD HOVERING IN MULTIPLAYER
         }
     }
 

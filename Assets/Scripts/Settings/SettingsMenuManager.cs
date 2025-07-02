@@ -5,6 +5,9 @@ using UnityEngine.SceneManagement;
 
 public class SettingsMenuManager : MonoBehaviour
 {
+    [Header("References")]
+    MultiplayerCameraController multiplayerCameraController = null;
+
     [Header("Menus")]
     public GameObject mainMenuParent;
     public GameObject settingsMenuParent;
@@ -33,6 +36,9 @@ public class SettingsMenuManager : MonoBehaviour
 
     private string mainMenuSceneName = "Main Menu";
     private string gameSceneName = "Game Scene";
+    private string multiplayerGameSceneName = "Multiplayer Game Scene";
+
+    bool canUseMenu = false;
 
     void Start()
     {
@@ -42,19 +48,60 @@ public class SettingsMenuManager : MonoBehaviour
         controlsButton.onClick.AddListener(() => ShowSubMenu(controlsSubMenu));
         videoButton.onClick.AddListener(() => ShowSubMenu(videoSubMenu));
         audioButton.onClick.AddListener(() => ShowSubMenu(audioSubMenu));
+
+        string currentScene = SceneManager.GetActiveScene().name;
+
+        if (currentScene == "Game Scene")
+        {
+            canUseMenu = true;
+        }
+        else if(currentScene == "Multiplayer Game Scene")
+        {
+            canUseMenu = true;
+            multiplayerCameraController = GetComponentInParent<MultiplayerCameraController>();
+            Debug.Log("Retrieved Client's Camera Controller: " + multiplayerCameraController);
+        }
     }
 
     void Update()
     {
         //Stop Leaving By Esc Key Once Connected To Network
-        if (LobbyState.InLobby) return;
-
-        if (MenuCameraController.Instance.currentMode != MenuCameraController.CameraMode.Rulebook && !MenuCameraController.Instance.isTransitioning)
+        if (!canUseMenu)
         {
-            if (Input.GetKeyDown(KeyCode.Escape))
-            {
-                string currentScene = SceneManager.GetActiveScene().name;
+            if (LobbyState.InLobby) return;
+        }
 
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            string currentScene = SceneManager.GetActiveScene().name;
+
+            if (currentScene == multiplayerGameSceneName)
+            {
+                if (settingsMenuParent.activeSelf)
+                {
+                    //Close Menu & Save Settings
+                    multiplayerCameraController.cameraLocked = false;
+                    Cursor.visible = false;
+                    Cursor.lockState = CursorLockMode.Locked;
+
+                    ToggleSettingsMenuFromMultiplayer();
+                    videoSettingsManager.SaveSettings();
+                    audioSettingsManager.SaveAudioSettings();
+                    controlsSettingsManager.SaveSettings();
+                    gameSettingsManager.SaveSettings();
+                }
+                else
+                {
+                    //Open Menu
+                    multiplayerCameraController.cameraLocked = true;
+                    Cursor.visible = true;
+                    Cursor.lockState = CursorLockMode.None;
+
+                    ToggleSettingsMenuFromMultiplayer();
+                }
+            }
+            else if (currentScene == gameSceneName)
+            {
                 if (currentScene == mainMenuSceneName && settingsMenuParent.activeSelf)
                 {
                     ToggleSettingsMenuFromMainMenu();
@@ -77,8 +124,22 @@ public class SettingsMenuManager : MonoBehaviour
                     audioSettingsManager.SaveAudioSettings();
                     controlsSettingsManager.SaveSettings();
                     gameSettingsManager.SaveSettings();
+
                     CloseSettingsAndOpenPauseMenu();
                 }
+                else if (currentScene == multiplayerGameSceneName)
+                {
+                    videoSettingsManager.SaveSettings();
+                    audioSettingsManager.SaveAudioSettings();
+                    controlsSettingsManager.SaveSettings();
+                    gameSettingsManager.SaveSettings();
+
+                    CloseSettingsAndOpenPauseMenuMultiplayer();
+                }
+            }
+            else if ((MenuCameraController.Instance != null && (MenuCameraController.Instance.currentMode != MenuCameraController.CameraMode.Rulebook && !MenuCameraController.Instance.isTransitioning)))
+            {
+                return;
             }
         }
     }
@@ -89,6 +150,11 @@ public class SettingsMenuManager : MonoBehaviour
         mainMenuParent.SetActive(!settingsMenuParent.activeSelf);
     }
 
+    void ToggleSettingsMenuFromMultiplayer()
+    {
+        settingsMenuParent.SetActive(!settingsMenuParent.activeSelf);
+    }
+
     void CloseSettingsAndOpenPauseMenu()
     {
         settingsMenuParent.SetActive(false);
@@ -96,6 +162,11 @@ public class SettingsMenuManager : MonoBehaviour
         {
             pauseMenu.ShowPauseMenu();
         }
+    }
+
+    void CloseSettingsAndOpenPauseMenuMultiplayer()
+    {
+        settingsMenuParent.SetActive(false);
     }
 
     void CloseStatsAndOpenMenu()

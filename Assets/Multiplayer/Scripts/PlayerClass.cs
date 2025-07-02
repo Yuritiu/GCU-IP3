@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class PlayerClass : MonoBehaviour
 {
+    [Header("Spawn Logic")]
+    public int playerNumber;
+
     //2 Cards In Each Hand
     [SerializeField] public GameObject[] card1;
     [SerializeField] public GameObject[] card2;

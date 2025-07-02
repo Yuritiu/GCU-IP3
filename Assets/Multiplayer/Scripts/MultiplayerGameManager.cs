@@ -22,7 +22,8 @@ public class MultiplayerGameManager : NetworkBehaviour
 
     public override void OnNetworkSpawn()
     {
-        if (IsServer) // Only the server should do the player class collection
+        //Only The Server Should Do The Player Class Collection
+        if (IsServer)
         {
             InitializePlayers();
         }
@@ -41,9 +42,9 @@ public class MultiplayerGameManager : NetworkBehaviour
         foreach (var client in NetworkManager.Singleton.ConnectedClientsList)
         {
             var playerObject = client.PlayerObject;
-            Debug.Log("PLAYER OBJECT: " + playerObject);
+            Debug.Log($"PLAYER OBJECT For ClientID {client.ClientId}: {playerObject}");
             //--------------------------------------------------------------------------------------------------------------------------------
-            //TODO: MAKE SURE PLAYERCLASS NUMBERS GO UP 1,2,3,4 SO THEY ALL HAVE UNIUE NUMBER GOING IN ORDER UPTO PLAYERCOUNT
+            // TODO:
             // SPAWN PLAYER PREFAB USING NETWORK TO SEE IF PLAYER OBJECT IS NO LONGER NULL
             //--------------------------------------------------------------------------------------------------------------------------------
 
@@ -59,7 +60,13 @@ public class MultiplayerGameManager : NetworkBehaviour
 
                 if (playerClassScript != null)
                 {
+                    //Assign Unique playerNumber To Each Connected Player
+                    int playerNum = index + 1;
+                    playerClassScript.playerNumber = playerNum;
+
                     playerClass[index] = playerClassScript;
+
+                    Debug.Log($"Assigned Player {client.ClientId} => PlayerNumber: {playerNum}");
                 }
                 else
                 {

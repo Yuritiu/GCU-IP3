@@ -8,6 +8,7 @@ public class ControlsSettingsManager : MonoBehaviour
     [SerializeField] private Slider sensitivitySlider;
     [SerializeField] private TextMeshProUGUI sensitivityValueText;
     [SerializeField] private CameraController cameraController;
+    [SerializeField] private MultiplayerCameraController multiplayerCameraController;
 
     private const string MouseSensitivityKey = "MouseSensitivity";
     const int sensMultiplier = 3;
@@ -17,6 +18,7 @@ public class ControlsSettingsManager : MonoBehaviour
         LoadSettings();
 
         cameraController = FindFirstObjectByType<CameraController>();
+        multiplayerCameraController = FindFirstObjectByType<MultiplayerCameraController>();
 
         sensitivitySlider.minValue = 0;
         sensitivitySlider.maxValue = 100;
@@ -29,7 +31,13 @@ public class ControlsSettingsManager : MonoBehaviour
         if(cameraController != null)
         {
             cameraController.sensitivity = value * sensMultiplier;
-            
+            Debug.Log("Changed Singleplayer Camera Sens");
+        }
+
+        if(multiplayerCameraController != null)
+        {
+            multiplayerCameraController.sensitivity = value * sensMultiplier;
+            Debug.Log("Changed Multiplayer Camera Sens");
         }
 
         UpdateSensitivityDisplay();
@@ -55,13 +63,17 @@ public class ControlsSettingsManager : MonoBehaviour
         if (cameraController != null)
         {
             cameraController.sensitivity = savedSensitivity * sensMultiplier;
-            Debug.Log("LOADED SENSITIVITY: " + savedSensitivity);
+            Debug.Log("LOADED SINGLE PLAYER SENSITIVITY: " + savedSensitivity);
+        }
+        if (multiplayerCameraController != null)
+        {
+            multiplayerCameraController.sensitivity = savedSensitivity * sensMultiplier;
+            Debug.Log("LOADED MULTIPLAYER SENSITIVITY: " + savedSensitivity);
         }
         sensitivitySlider.value = savedSensitivity;
 
-            // Debugging the updated sensitivity display
-            Debug.Log("Updated Sensitivity Display: " + sensitivitySlider.value);
+        // Debugging the updated sensitivity display
+        Debug.Log("Updated Sensitivity Display: " + sensitivitySlider.value);
         UpdateSensitivityDisplay();
     }
-
 }

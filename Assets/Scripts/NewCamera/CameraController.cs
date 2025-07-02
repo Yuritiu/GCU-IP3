@@ -10,8 +10,8 @@ public class CameraController : MonoBehaviour
     public float sensitivity = 100f;
 
     [Header("Smoothing Settings")]
-    public bool enableSmoothing = true;
-    public float smoothing = 3f;
+    //public bool enableSmoothing = true;
+    //public float smoothing = 3f;
 
     [Header("Look Boundaries")]
     public bool gunInHand = false;
@@ -151,13 +151,13 @@ public class CameraController : MonoBehaviour
         {
             if (isRotatingToTarget)
             {
-                CardView.Instance.canLerp = false;
+                //CardView.Instance.canLerp = false;
                 isCameraMovementUnlocked = false;
                 HandleTargetTransition();
             }
             else if (isMovementUnlocked)
             {
-                CardView.Instance.canLerp = true;
+                //CardView.Instance.canLerp = true;
                 HandleFreeMovement();
             }
         }
@@ -211,18 +211,18 @@ public class CameraController : MonoBehaviour
         float mouseX = Input.GetAxisRaw("Mouse X") * sensitivity * Time.deltaTime;
         float mouseZ = Input.GetAxisRaw("Mouse Y") * sensitivity * Time.deltaTime;
 
-        if (enableSmoothing)
-        {
-            smoothedVelocity.x = Mathf.Lerp(smoothedVelocity.x, mouseX, 1f / smoothing);
-            smoothedVelocity.y = Mathf.Lerp(smoothedVelocity.y, mouseZ, 1f / smoothing);
-            currentLookingPos.x += smoothedVelocity.x;
-            currentLookingPos.y -= smoothedVelocity.y;
-        }
-        else
-        {
+        //if (enableSmoothing)
+        //{
+        //    smoothedVelocity.x = Mathf.Lerp(smoothedVelocity.x, mouseX, 1f / smoothing);
+        //    smoothedVelocity.y = Mathf.Lerp(smoothedVelocity.y, mouseZ, 1f / smoothing);
+        //    currentLookingPos.x += smoothedVelocity.x;
+        //    currentLookingPos.y -= smoothedVelocity.y;
+        //}
+        //else
+        //{
             currentLookingPos.x += mouseX;
             currentLookingPos.y -= mouseZ;
-        }
+        //}
 
         currentLookingPos.x = Mathf.Clamp(currentLookingPos.x, xClamp.x, xClamp.y);
         currentLookingPos.y = Mathf.Clamp(currentLookingPos.y, zClamp.x, zClamp.y);

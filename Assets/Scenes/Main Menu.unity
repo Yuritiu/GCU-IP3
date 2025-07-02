@@ -51040,8 +51040,6 @@ MonoBehaviour:
   rulebookTargetViewPoint: {fileID: 43567990}
   customiseTargetViewPoint: {fileID: 429432348}
   transitionDuration: 0.5
-  handheldIntensity: 0.7
-  handheldFrequency: 1
   orbitScript: {fileID: 921669826}
   mainMenuCanvas: {fileID: 487192320}
   rulebookConnectPage: {fileID: 1147704706}
@@ -116658,7 +116656,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1276322511300739946, guid: 5213701ca0a20e14f970ed250f6b113b, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 1471.3341
+      value: 1318.5312
       objectReference: {fileID: 0}
     - target: {fileID: 1276322511300739946, guid: 5213701ca0a20e14f970ed250f6b113b, type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -116942,7 +116940,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4952646664996158757, guid: 5213701ca0a20e14f970ed250f6b113b, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 754.3341
+      value: 601.5313
       objectReference: {fileID: 0}
     - target: {fileID: 4952646664996158757, guid: 5213701ca0a20e14f970ed250f6b113b, type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -117034,7 +117032,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5605288242178501965, guid: 5213701ca0a20e14f970ed250f6b113b, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 1232.3341
+      value: 1079.5312
       objectReference: {fileID: 0}
     - target: {fileID: 5605288242178501965, guid: 5213701ca0a20e14f970ed250f6b113b, type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -117326,7 +117324,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7642346751597633226, guid: 5213701ca0a20e14f970ed250f6b113b, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 993.3341
+      value: 840.5313
       objectReference: {fileID: 0}
     - target: {fileID: 7642346751597633226, guid: 5213701ca0a20e14f970ed250f6b113b, type: 3}
       propertyPath: m_AnchoredPosition.y

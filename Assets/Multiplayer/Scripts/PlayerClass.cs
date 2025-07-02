@@ -1,8 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Globalization;
+using Unity.Netcode;
 using UnityEngine;
 
-public class PlayerClass : MonoBehaviour
+public class PlayerClass : NetworkBehaviour
 {
     [Header("Spawn Logic")]
     public int playerNumber;
@@ -22,18 +24,44 @@ public class PlayerClass : MonoBehaviour
     int oneinthechamber;
     int dud;
 
-    void Start()
+    public override void OnNetworkSpawn()
     {
-        
+        //Runs For The Client
+        if (IsOwner)
+        {
+            
+        }
+        //Runs For The Server
+        if (IsServer)
+        {
+            //Assign Unique Player Numbers Via The Server
+            int index = -1;
+            var clients = NetworkManager.Singleton.ConnectedClientsList;
+
+            for (int i = 0; i < clients.Count; i++)
+            {
+                if (clients[i].ClientId == OwnerClientId)
+                {
+                    index = i;
+                    break;
+                }
+            }
+
+            playerNumber = index + 1;
+
+            Debug.Log($"[Server] Assigned PlayerNumber: {playerNumber} to ClientID {OwnerClientId}");
+        }
     }
 
     public void Update()
     {
+        //-------------------------------------------- REMOVE AFTER TESTING -------------------------------------------
         if (Input.GetKeyDown(KeyCode.Space) && !MultiplayerGameManager.Instance.calledSpace)
         {
             MultiplayerGameManager.Instance.calledSpace = true;
             MultiplayerGameManager.Instance.CheckPlayerCards();
         }
+        //-------------------------------------------- REMOVE AFTER TESTING -------------------------------------------
     }
 
     public void CheckCards()

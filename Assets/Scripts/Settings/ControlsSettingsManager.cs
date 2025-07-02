@@ -52,7 +52,7 @@ public class ControlsSettingsManager : MonoBehaviour
     public void SaveSettings()
     {
         int savedSensitivity = Mathf.RoundToInt(sensitivitySlider.value);
-        Debug.Log("SENSITIVITY: " + savedSensitivity);
+        Debug.Log("Sensitivity Saved: " + savedSensitivity);
         PlayerPrefs.SetInt(MouseSensitivityKey, savedSensitivity);
         PlayerPrefs.Save();
     }

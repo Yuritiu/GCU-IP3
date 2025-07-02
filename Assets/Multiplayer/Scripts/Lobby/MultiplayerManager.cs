@@ -16,14 +16,10 @@ using UnityEngine.UI;
 using Unity.Collections;
 using Unity.Networking.Transport.Relay;
 using System.Runtime.CompilerServices;
+using UnityEngine.SceneManagement;
 
 public class MultiplayerManager : MonoBehaviour
 {
-    //---------------------------------------------------------------------------------
-    //TODO: REFRESH PLAYER LIST TEXT ON HOST MACHINE WHEN PLAYER JOINS,
-    // FOR PLAYER THAT JOINED, FILL THE JOIN TEXT WITH THE CODE,
-    // ADD LEAVING & AUTOMATIC DISCONNECTING IN UI
-    //---------------------------------------------------------------------------------
     [SerializeField] UnityTransport unityTransport;
     [SerializeField] NetworkPlayerName networkPlayerName;
 
@@ -49,9 +45,9 @@ public class MultiplayerManager : MonoBehaviour
 
     [Header("Lobby Variables")]
     Lobby currentLobby;
-    bool isHost;
     float lobbyRefreshInterval = 2f;
     float lobbyRefreshTimer = 0f;
+    //CHANGE TO 2
     const int minPlayersToStart = 1;
     const int maxPlayers = 4;
 
@@ -123,19 +119,17 @@ public class MultiplayerManager : MonoBehaviour
                 networkManager.StartHost();
             }
 
-            isHost = true;
-
             UpdatePlayerNamesFromLobby();
 
             connectRulebookUI.SetActive(false);
             lobbyRulebookUI.SetActive(true);
             loadingScreen.SetActive(false);
 
-            Debug.Log("Host Started With Join Code: " + joinCode);
+            Debug.Log("[MULTIPLAYER MANAGER] Host Started With Join Code: " + joinCode);
         }
         catch (Exception e)
         {
-            Debug.LogError("Create Game Failed: " + e.Message);
+            Debug.LogError("[MULTIPLAYER MANAGER] Create Game Failed: " + e.Message);
 
             connectRulebookUI.SetActive(true);
             lobbyRulebookUI.SetActive(false);
@@ -162,13 +156,11 @@ public class MultiplayerManager : MonoBehaviour
 
         string playerName = GenerateRandomPlayerName();
 
-        isHost = false;
-
         string codeFromUI = joinCodeInputField.text;
 
         try
         {
-            Debug.Log("[CLIENT] Trying to join lobby...");
+            Debug.Log("[MULTIPLAYER MANAGER] [CLIENT] Trying to join lobby...");
             //Join The Lobby Using The Code And Add Player Data
             currentLobby = await LobbyService.Instance.JoinLobbyByCodeAsync(codeFromUI, new JoinLobbyByCodeOptions
             {
@@ -180,11 +172,11 @@ public class MultiplayerManager : MonoBehaviour
                 }
                 }
             });
-            Debug.Log($"[CLIENT] Joined lobby successfully: {currentLobby.Id}");
+            Debug.Log($"[MULTIPLAYER MANAGER] [CLIENT] Joined lobby successfully: {currentLobby.Id}");
 
             if (!currentLobby.Data.TryGetValue("joinCode", out var joinCodeData))
             {
-                Debug.LogError("Join code not found in lobby data.");
+                Debug.LogError("[MULTIPLAYER MANAGER] Join Code Not Found In Lobby Data!");
                 throw new Exception("Join code missing from lobby.");
             }
 
@@ -204,8 +196,6 @@ public class MultiplayerManager : MonoBehaviour
                 networkManager.StartClient();
             }
 
-            isHost = false;
-
             UpdatePlayerNamesFromLobby();
 
             connectRulebookUI.SetActive(false);
@@ -218,11 +208,11 @@ public class MultiplayerManager : MonoBehaviour
             //Force UI update after join
             Invoke(nameof(UpdatePlayerListUI), 1f);
 
-            Debug.Log("Client Joined Lobby With Code: " + codeFromUI);
+            Debug.Log("[MULTIPLAYER MANAGER] Client Joined Lobby With Code: " + codeFromUI);
         }
         catch (LobbyServiceException lse)
         {
-            Debug.LogError($"[LOBBY ERROR] {lse.Message} | Reason: {lse.Reason} | Code: {lse.ErrorCode}");
+            Debug.LogError($"[MULTIPLAYER MANAGER] [LOBBY ERROR] {lse.Message} | Reason: {lse.Reason} | Code: {lse.ErrorCode}");
 
             connectRulebookUI.SetActive(true);
             lobbyRulebookUI.SetActive(false);
@@ -232,7 +222,7 @@ public class MultiplayerManager : MonoBehaviour
         }
         catch (RelayServiceException rse)
         {
-            Debug.LogError($"[CLIENT] RelayServiceException: {rse.Message}");
+            Debug.LogError($"[MULTIPLAYER MANAGER] [CLIENT] RelayServiceException: {rse.Message}");
 
             connectRulebookUI.SetActive(true);
             lobbyRulebookUI.SetActive(false);
@@ -242,7 +232,7 @@ public class MultiplayerManager : MonoBehaviour
         }
         catch (Exception e)
         {
-            Debug.LogError($"Failed To Join Lobby With Code '{codeFromUI}': {e.Message}\n{e.StackTrace}");
+            Debug.LogError($"[MULTIPLAYER MANAGER] Failed To Join Lobby With Code '{codeFromUI}': {e.Message}\n{e.StackTrace}");
 
             connectRulebookUI.SetActive(true);
             lobbyRulebookUI.SetActive(false);
@@ -254,26 +244,29 @@ public class MultiplayerManager : MonoBehaviour
 
     public void OnStartGameButtonPressed()
     {
-        if (!isHost) return;
+        if (!NetworkManager.Singleton.IsHost) return;
 
-        if (networkManager.IsServer)
+        if (!NetworkManager.Singleton.IsListening)
         {
-            //Load Game Scene
-            networkManager.SceneManager.LoadScene("Multiplayer Game Scene", UnityEngine.SceneManagement.LoadSceneMode.Single);
+            NetworkManager.Singleton.StartHost();
+            Debug.Log("Host Started Game");
         }
+
+        //Load The Multiplayer Game Scene For All Clients
+        NetworkManager.Singleton.SceneManager.LoadScene("Multiplayer Game Scene", UnityEngine.SceneManagement.LoadSceneMode.Single);
     }
 
     #endregion
 
     void Update()
     {
-        if (networkManager != null && networkManager.IsServer && networkManager.ConnectedClientsList != null)
+        if (NetworkManager.Singleton != null && NetworkManager.Singleton.IsServer && NetworkManager.Singleton.ConnectedClientsList != null)
         {
-            int playerCount = networkManager.ConnectedClientsList.Count;
+            int playerCount = NetworkManager.Singleton.ConnectedClientsList.Count;
             playersWaitingText.text = $"Players Waiting: {playerCount} / {maxPlayers}";
 
             //Enable Start Game Button When Minimum Players Joined
-            startGameButton.interactable = playerCount >= minPlayersToStart;
+            startGameButton.interactable = NetworkManager.Singleton.IsHost && playerCount >= minPlayersToStart;
         }
         else
         {
@@ -306,7 +299,7 @@ public class MultiplayerManager : MonoBehaviour
             currentLobby = await LobbyService.Instance.GetLobbyAsync(currentLobby.Id);
             UpdatePlayerNamesFromLobby();
 
-            if (!isHost)
+            if (!NetworkManager.Singleton.IsHost)
             {
                 //Display Join Code For Client Too
                 joinCodeText.text = currentLobby.LobbyCode.Trim().ToUpper();
@@ -314,7 +307,7 @@ public class MultiplayerManager : MonoBehaviour
         }
         catch (Exception e)
         {
-            Debug.LogWarning("Failed to refresh lobby data: " + e.Message);
+            Debug.LogError("[MULTIPLAYER MANAGER] Failed to Refresh Lobby Data: " + e.Message);
         }
     }
 
@@ -349,23 +342,23 @@ public class MultiplayerManager : MonoBehaviour
         {
             if (currentLobby != null)
             {
-                if (isHost)
+                if (NetworkManager.Singleton.IsHost || NetworkManager.Singleton.IsServer)
                 {
                     //Host Deletes The Lobby
-                    await LobbyService.Instance.DeleteLobbyAsync(currentLobby.Id);
-                    Debug.Log("[LOBBY] Host Deleted The Lobby");
+                    Debug.Log("[MULTIPLAYER MANAGER] [SERVER] Host/ Server Shutting Down...");
+                    NetworkManager.Singleton.Shutdown();
                 }
-                else
+                else if(NetworkManager.Singleton.IsClient)
                 {
-                    // Client leaves the lobby
-                    await LobbyService.Instance.RemovePlayerAsync(currentLobby.Id, AuthenticationService.Instance.PlayerId);
-                    Debug.Log("[LOBBY] Client Left The Lobby");
+                    //Client Leaves
+                    Debug.Log("[MULTIPLAYER MANAGER] [SERVER] Client Disconnecting...");
+                    NetworkManager.Singleton.Shutdown();
                 }
             }
         }
         catch (Exception e)
         {
-            Debug.LogWarning("Error While Leaving The Lobby: " + e.Message);
+            Debug.LogWarning("[MULTIPLAYER MANAGER] Error While Leaving The Lobby: " + e.Message);
         }
 
         //Shutdown The Network Manager
@@ -375,7 +368,6 @@ public class MultiplayerManager : MonoBehaviour
             networkManager.Shutdown();
 
         currentLobby = null;
-        isHost = false;
 
         //Reset UI
         lobbyRulebookUI.SetActive(false);
@@ -390,7 +382,7 @@ public class MultiplayerManager : MonoBehaviour
 
         loadingScreen.SetActive(false);
 
-        Debug.Log("[NETWORK] Left Lobby And Shut Down Networking.");
+        Debug.Log("[MULTIPLAYER MANAGER] [NETWORK] Left Lobby And Shut Down Networking.");
 
         LobbyState.InLobby = false;
     }
@@ -407,7 +399,7 @@ public class MultiplayerManager : MonoBehaviour
         }
         catch (Exception e)
         {
-            Debug.LogWarning($"Unity Services already initialized or failed to initialize: {e.Message}");
+            Debug.LogWarning($"[MULTIPLAYER MANAGER] Unity Services Already Initialized or Failed to Initialize: {e.Message}");
         }
     }
 
@@ -416,7 +408,7 @@ public class MultiplayerManager : MonoBehaviour
         if (!AuthenticationService.Instance.IsSignedIn)
         {
             await AuthenticationService.Instance.SignInAnonymouslyAsync();
-            Debug.Log($"Signed in anonymously as {AuthenticationService.Instance.PlayerId}");
+            Debug.Log($"Signed in Anonymously as {AuthenticationService.Instance.PlayerId}");
         }
     }
 

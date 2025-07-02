@@ -8,6 +8,7 @@ using UnityEngine.UI;
 
 public class DifficultyManager : MonoBehaviour
 {
+    //TODO: ONLY CARRY OVER INTO GAME SCENE NOT MULTIPLAYER GAME SCENE
     //!- Coded By Charlie -!
 
     public static DifficultyManager Instance;

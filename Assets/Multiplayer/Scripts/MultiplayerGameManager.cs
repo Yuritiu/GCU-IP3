@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using Unity.Netcode;
 using UnityEngine;
 
@@ -25,8 +26,42 @@ public class MultiplayerGameManager : NetworkBehaviour
         //Only The Server Should Do The Player Class Collection
         if (IsServer)
         {
-            InitializePlayers();
+            Debug.Log("[SERVER] Waiting For All Players To Connect...");
+            StartCoroutine(WaitAndInitializePlayers());
         }
+    }
+
+    IEnumerator WaitAndInitializePlayers()
+    {
+        Debug.Log("[SERVER] Waiting for all player objects to be assigned...");
+
+        while (true)
+        {
+            bool allPlayersReady = true;
+
+            foreach (var client in NetworkManager.Singleton.ConnectedClientsList)
+            {
+                if (client.PlayerObject == null)
+                {
+                    Debug.LogError($"PlayerObject is NULL For ClientID {client.ClientId}");
+                    allPlayersReady = false;
+                }
+                else
+                {
+                    Debug.Log($"PlayerObject Assigned For ClientID {client.ClientId}: {client.PlayerObject.name}");
+                }
+            }
+
+            if (allPlayersReady)
+            {
+                Debug.Log("[SERVER] All player Objects Assigned");
+                break;
+            }
+
+            yield return null;
+        }
+
+        InitializePlayers();
     }
 
     void InitializePlayers()
@@ -35,14 +70,14 @@ public class MultiplayerGameManager : NetworkBehaviour
         playerCount = NetworkManager.Singleton.ConnectedClients.Count;
         playerClass = new PlayerClass[playerCount];
 
-        Debug.Log($"Connected Players: {playerCount}");
+        Debug.Log($"[MULTIPLAYER GAME MANAGER] Connected Players: {playerCount}");
 
         int index = 0;
 
         foreach (var client in NetworkManager.Singleton.ConnectedClientsList)
         {
             var playerObject = client.PlayerObject;
-            Debug.Log($"PLAYER OBJECT For ClientID {client.ClientId}: {playerObject}");
+            Debug.Log($"[MULTIPLAYER GAME MANAGER] PlayerObject For ClientID {client.ClientId}: {playerObject}");
             //--------------------------------------------------------------------------------------------------------------------------------
             // TODO:
             // SPAWN PLAYER PREFAB USING NETWORK TO SEE IF PLAYER OBJECT IS NO LONGER NULL
@@ -55,7 +90,7 @@ public class MultiplayerGameManager : NetworkBehaviour
                 if (playerClassScript == null)
                 {
                     playerClassScript = playerObject.gameObject.AddComponent<PlayerClass>();
-                    Debug.Log($"PlayerClass Script Added To Player {client.ClientId}");
+                    Debug.Log($"[MULTIPLAYER GAME MANAGER] PlayerClass Script Added To Player {client.ClientId}");
                 }
 
                 if (playerClassScript != null)
@@ -66,16 +101,16 @@ public class MultiplayerGameManager : NetworkBehaviour
 
                     playerClass[index] = playerClassScript;
 
-                    Debug.Log($"Assigned Player {client.ClientId} => PlayerNumber: {playerNum}");
+                    Debug.Log($"[MULTIPLAYER GAME MANAGER] Assigned Player {client.ClientId} => PlayerNumber: {playerNum}");
                 }
                 else
                 {
-                    Debug.LogError($"Player {client.ClientId} Doesn't Have A PlayerClass Component!");
+                    Debug.LogError($"[MULTIPLAYER GAME MANAGER] Player {client.ClientId} Doesn't Have A PlayerClass Component!");
                 }
             }
             else
             {
-                Debug.LogError($"PlayerObject Not Found For ClientID {client.ClientId}");
+                Debug.LogError($"[MULTIPLAYER GAME MANAGER] PlayerObject Not Found For ClientID {client.ClientId}");
             }
 
             index++;
@@ -86,12 +121,12 @@ public class MultiplayerGameManager : NetworkBehaviour
         //    playerClass.CheckCards();
         //}
 
-        Debug.Log("Initialized Players!");
+        Debug.Log("[MULTIPLAYER GAME MANAGER] Initialized Players");
     }
 
     public void CheckPlayerCards()
     {
-        Debug.Log("Checking Player Cards...");
+        Debug.Log("[MULTIPLAYER GAME MANAGER] Checking Player Cards...");
 
         for (int player = 0; player < playerCount - 1; player++)
         {

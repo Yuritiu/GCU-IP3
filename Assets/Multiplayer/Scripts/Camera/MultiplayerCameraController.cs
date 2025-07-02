@@ -1,8 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Netcode;
 using UnityEngine;
 
-public class MultiplayerCameraController : MonoBehaviour
+public class MultiplayerCameraController : NetworkBehaviour
 {
     [Header("Sensitivity Settings")]
     public float sensitivity = 100f;
@@ -12,7 +13,7 @@ public class MultiplayerCameraController : MonoBehaviour
     //public float smoothing = 3f;
 
     [Header("Look Boundaries")]
-    public Vector2 xClamp = new Vector2(-135f, 135f);
+    public Vector2 xClamp = new Vector2(-115f, 115f);
     public Vector2 zClamp = new Vector2(-75f, 75f);
     private Vector2 originalXClamp;
     private Vector2 originalZClamp;
@@ -29,6 +30,16 @@ public class MultiplayerCameraController : MonoBehaviour
 
     void Start()
     {
+        if (!IsOwner)
+        {
+            //Disable Camera & Input if This is Not The Local Player
+            if (Camera.main != null && Camera.main.gameObject == this.gameObject)
+                Camera.main.enabled = false;
+
+            this.enabled = false;
+            return;
+        }
+
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
 

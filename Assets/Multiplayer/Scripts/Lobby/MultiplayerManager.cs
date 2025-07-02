@@ -34,8 +34,10 @@ public class MultiplayerManager : MonoBehaviour
     [SerializeField] public TextMeshProUGUI playersWaitingText;
     [SerializeField] public TextMeshProUGUI joinCodeText;
     [SerializeField] private TMP_InputField joinCodeInputField;
+    [Header("UI Button References")]
     [SerializeField] Button copyButton;
     [SerializeField] Button startGameButton;
+    [SerializeField] Button leaveGameButton;
 
     [Header("Network")]
     [SerializeField] private NetworkManager networkManager;
@@ -56,12 +58,16 @@ public class MultiplayerManager : MonoBehaviour
     void Start()
     {
         startGameButton.interactable = false;
+
+        leaveGameButton.onClick.AddListener(LeaveLobby);
     }
 
     #region UI Button Methods
 
     public async void OnCreateGameButtonPressed()
     {
+        LobbyState.InLobby = true;
+
         loadingScreen.SetActive(true);
 
         await InitializeServicesAsync();
@@ -140,11 +146,15 @@ public class MultiplayerManager : MonoBehaviour
             {
                 networkManager.gameObject.SetActive(false);
             }
+
+            LobbyState.InLobby = false;
         }
     }
 
     public async void OnJoinGameButtonPressed()
     {
+        LobbyState.InLobby = true;
+
         loadingScreen.SetActive(true);
 
         await InitializeServicesAsync();
@@ -217,6 +227,8 @@ public class MultiplayerManager : MonoBehaviour
             connectRulebookUI.SetActive(true);
             lobbyRulebookUI.SetActive(false);
             loadingScreen.SetActive(false);
+
+            LobbyState.InLobby = false;
         }
         catch (RelayServiceException rse)
         {
@@ -225,6 +237,8 @@ public class MultiplayerManager : MonoBehaviour
             connectRulebookUI.SetActive(true);
             lobbyRulebookUI.SetActive(false);
             loadingScreen.SetActive(false);
+
+            LobbyState.InLobby = false;
         }
         catch (Exception e)
         {
@@ -233,6 +247,8 @@ public class MultiplayerManager : MonoBehaviour
             connectRulebookUI.SetActive(true);
             lobbyRulebookUI.SetActive(false);
             loadingScreen.SetActive(false);
+
+            LobbyState.InLobby = false;
         }
     }
 
@@ -323,6 +339,60 @@ public class MultiplayerManager : MonoBehaviour
             sb.AppendLine(name);
 
         networkPlayerName.playerListText.text = sb.ToString();
+    }
+
+    public async void LeaveLobby()
+    {
+        loadingScreen.SetActive(true);
+
+        try
+        {
+            if (currentLobby != null)
+            {
+                if (isHost)
+                {
+                    //Host Deletes The Lobby
+                    await LobbyService.Instance.DeleteLobbyAsync(currentLobby.Id);
+                    Debug.Log("[LOBBY] Host Deleted The Lobby");
+                }
+                else
+                {
+                    // Client leaves the lobby
+                    await LobbyService.Instance.RemovePlayerAsync(currentLobby.Id, AuthenticationService.Instance.PlayerId);
+                    Debug.Log("[LOBBY] Client Left The Lobby");
+                }
+            }
+        }
+        catch (Exception e)
+        {
+            Debug.LogWarning("Error While Leaving The Lobby: " + e.Message);
+        }
+
+        //Shutdown The Network Manager
+        if (networkManager.IsHost || networkManager.IsServer)
+            networkManager.Shutdown();
+        else if (networkManager.IsClient)
+            networkManager.Shutdown();
+
+        currentLobby = null;
+        isHost = false;
+
+        //Reset UI
+        lobbyRulebookUI.SetActive(false);
+        connectRulebookUI.SetActive(true);
+        joinCodeText.text = "";
+        playersWaitingText.text = "";
+        playerNamesDict.Clear();
+        networkPlayerName.playerListText.text = "";
+
+        //Reset Camera
+        MenuCameraController.Instance.ReturnToOrbit();
+
+        loadingScreen.SetActive(false);
+
+        Debug.Log("[NETWORK] Left Lobby And Shut Down Networking.");
+
+        LobbyState.InLobby = false;
     }
 
     #endregion

@@ -6,6 +6,8 @@ using UnityEngine.SceneManagement;
 
 public class MainMenuManager : MonoBehaviour
 {
+    public static MainMenuManager Instance;
+
     [Header("Main Menu Buttons")]
     //public Button startGameButton;
     public Button settingsButton;
@@ -35,6 +37,11 @@ public class MainMenuManager : MonoBehaviour
     public VideoSettingsManager videoSettingsManager;
     public AudioSettingsManager audioSettingsManager;
     public ControlsSettingsManager controlsSettingsManager;
+
+    void Awake()
+    {
+        Instance = this;
+    }
 
     private void Start()
     {
@@ -68,8 +75,11 @@ public class MainMenuManager : MonoBehaviour
 
     private void OpenSettings()
     {
-        mainMenuParent.SetActive(false);
-        settingsMenuParent.SetActive(true);
+        if(MenuCameraController.Instance.currentMode != MenuCameraController.CameraMode.Rulebook && !MenuCameraController.Instance.isTransitioning)
+        {
+            mainMenuParent.SetActive(false);
+            settingsMenuParent.SetActive(true);
+        }
     }
 
     private void OpenStats()

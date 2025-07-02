@@ -177,6 +177,4 @@ public class LoadingChamber : MonoBehaviour
             yield return null;
         }
     }
-
-
 }

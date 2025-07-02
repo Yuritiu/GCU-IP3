@@ -4,6 +4,11 @@ using UnityEngine;
 
 public class MenuCameraController : MonoBehaviour
 {
+    public static MenuCameraController Instance;
+
+    [Header("References")]
+    [SerializeField] MultiplayerManager multiplayerManager;
+
     [Header("Target References")]
     public Transform rulebookTargetViewPoint;
     public Transform customiseTargetViewPoint;
@@ -11,14 +16,11 @@ public class MenuCameraController : MonoBehaviour
     [Header("Transition Settings")]
     public float transitionDuration = 0.5f;
 
-    [Header("Handheld Motion")]
-    public float handheldIntensity = 0.3f;
-    public float handheldFrequency = 1f;
-
     [Header("Orbit Camera Script")]
     public CameraRotate orbitScript;
 
     [Header("UI Panels")]
+    public GameObject mainMenuCanvas;
     public GameObject rulebookConnectPage;
     public GameObject rulebookLobbyPage;
     public GameObject rulebookConnectUI;
@@ -27,10 +29,15 @@ public class MenuCameraController : MonoBehaviour
     private Vector3 originalPosition;
     private Quaternion originalRotation;
 
-    private bool isTransitioning = false;
+    public bool isTransitioning = false;
 
-    private enum CameraMode { Orbit, Rulebook, Customise }
-    private CameraMode currentMode = CameraMode.Orbit;
+    public enum CameraMode { Orbit, Rulebook, Customise }
+    public CameraMode currentMode = CameraMode.Orbit;
+
+    void Awake()
+    {
+        Instance = this;
+    }
 
     void Start()
     {
@@ -42,17 +49,20 @@ public class MenuCameraController : MonoBehaviour
         originalRotation = transform.rotation;
     }
 
-    public void LockCursor(bool locked)
+    void Update()
     {
-        if (locked)
+        if (LobbyState.InLobby) return;
+
+        if (Input.GetKeyDown(KeyCode.Escape) && !isTransitioning)
         {
-            Cursor.visible = false;
-            Cursor.lockState = CursorLockMode.Locked;
-        }
-        else
-        {
-            Cursor.visible = true;
-            Cursor.lockState = CursorLockMode.None;
+            if (currentMode == CameraMode.Rulebook)
+            {
+                if (rulebookConnectPage)
+                {
+                    rulebookConnectUI.SetActive(false);
+                    ReturnToOrbit();
+                }
+            }
         }
     }
 
@@ -60,7 +70,6 @@ public class MenuCameraController : MonoBehaviour
     {
         if (!isTransitioning)
         {
-            LockCursor(false);
             StartCoroutine(LerpToTarget(rulebookTargetViewPoint.position, rulebookTargetViewPoint.rotation, CameraMode.Rulebook));
         }
     }
@@ -69,7 +78,6 @@ public class MenuCameraController : MonoBehaviour
     {
         if (!isTransitioning)
         {
-            LockCursor(false);
             StartCoroutine(LerpToTarget(customiseTargetViewPoint.position, customiseTargetViewPoint.rotation, CameraMode.Customise));
         }
     }
@@ -79,7 +87,6 @@ public class MenuCameraController : MonoBehaviour
         if (!isTransitioning)
         {
             rulebookConnectUI.SetActive(false);
-            LockCursor(true);
             StartCoroutine(ReturnToOrbitRoutine());
         }
     }
@@ -101,12 +108,8 @@ public class MenuCameraController : MonoBehaviour
             Vector3 interpolatedPos = Vector3.Lerp(startPos, endPos, t);
             Quaternion interpolatedRot = Quaternion.Slerp(startRot, endRot, t);
 
-            //Add Handheld Shake Effect
-            float offsetX = (Mathf.PerlinNoise(Time.time * handheldFrequency, 0f) - 0.5f) * handheldIntensity;
-            float offsetY = (Mathf.PerlinNoise(0f, Time.time * handheldFrequency) - 0.5f) * handheldIntensity;
-
             transform.position = interpolatedPos;
-            transform.rotation = interpolatedRot * Quaternion.Euler(offsetY, offsetX, 0f);
+            transform.rotation = interpolatedRot;
 
             timer += Time.deltaTime;
             yield return null;
@@ -132,28 +135,38 @@ public class MenuCameraController : MonoBehaviour
         Vector3 startPos = transform.position;
         Quaternion startRot = transform.rotation;
 
+        // --- Calculate correct orbit position & rotation manually ---
+        Transform orbitTarget = orbitScript.target;
+        float distance = orbitScript.distance;
+        float height = orbitScript.height;
+        float angle = orbitScript.angle;
+
+        Vector3 offset = new Vector3(0f, height, -distance);
+        Vector3 endPos = orbitTarget.position + offset;
+        Quaternion endRot = Quaternion.LookRotation(
+            orbitTarget.position + Vector3.down * Mathf.Tan(angle * Mathf.Deg2Rad) * distance - endPos
+        );
+
         float timer = 0f;
 
         while (timer < transitionDuration)
         {
             float t = timer / transitionDuration;
 
-            Vector3 interpolatedPos = Vector3.Lerp(startPos, originalPosition, t);
-            Quaternion interpolatedRot = Quaternion.Slerp(startRot, originalRotation, t);
-
-            //Add Handheld Shake Effect
-            float offsetX = (Mathf.PerlinNoise(Time.time * handheldFrequency, 0f) - 0.5f) * handheldIntensity;
-            float offsetY = (Mathf.PerlinNoise(0f, Time.time * handheldFrequency) - 0.5f) * handheldIntensity;
+            Vector3 interpolatedPos = Vector3.Lerp(startPos, endPos, t);
+            Quaternion interpolatedRot = Quaternion.Slerp(startRot, endRot, t);
 
             transform.position = interpolatedPos;
-            transform.rotation = interpolatedRot * Quaternion.Euler(offsetY, offsetX, 0f);
+            transform.rotation = interpolatedRot;
 
             timer += Time.deltaTime;
             yield return null;
         }
 
-        transform.position = originalPosition;
-        transform.rotation = originalRotation;
+        transform.position = endPos;
+        transform.rotation = endRot;
+
+        mainMenuCanvas.SetActive(true);
 
         currentMode = CameraMode.Orbit;
         orbitScript.canRotate = true;

@@ -46,33 +46,39 @@ public class SettingsMenuManager : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Escape))
-        {
-            string currentScene = SceneManager.GetActiveScene().name;
+        //Stop Leaving By Esc Key Once Connected To Network
+        if (LobbyState.InLobby) return;
 
-            if (currentScene == mainMenuSceneName && settingsMenuParent.activeSelf)
+        if (MenuCameraController.Instance.currentMode != MenuCameraController.CameraMode.Rulebook && !MenuCameraController.Instance.isTransitioning)
+        {
+            if (Input.GetKeyDown(KeyCode.Escape))
             {
-                ToggleSettingsMenuFromMainMenu();
-                videoSettingsManager.SaveSettings();
-                audioSettingsManager.SaveAudioSettings();
-                controlsSettingsManager.SaveSettings();
-                gameSettingsManager.SaveSettings();
-            }
-            else if (currentScene == mainMenuSceneName && !settingsMenuParent.activeSelf && !statsMenuParent.activeSelf)
-            {
-                ToggleSettingsMenuFromMainMenu();
-            }
-            else if (currentScene == mainMenuSceneName && !settingsMenuParent.activeSelf && statsMenuParent.activeSelf)
-            {
-                CloseStatsAndOpenMenu();
-            }
-            else if (currentScene == gameSceneName && settingsMenuParent.activeSelf)
-            {
-                videoSettingsManager.SaveSettings();
-                audioSettingsManager.SaveAudioSettings();
-                controlsSettingsManager.SaveSettings();
-                gameSettingsManager.SaveSettings();
-                CloseSettingsAndOpenPauseMenu();
+                string currentScene = SceneManager.GetActiveScene().name;
+
+                if (currentScene == mainMenuSceneName && settingsMenuParent.activeSelf)
+                {
+                    ToggleSettingsMenuFromMainMenu();
+                    videoSettingsManager.SaveSettings();
+                    audioSettingsManager.SaveAudioSettings();
+                    controlsSettingsManager.SaveSettings();
+                    gameSettingsManager.SaveSettings();
+                }
+                else if (currentScene == mainMenuSceneName && !settingsMenuParent.activeSelf && !statsMenuParent.activeSelf)
+                {
+                    ToggleSettingsMenuFromMainMenu();
+                }
+                else if (currentScene == mainMenuSceneName && !settingsMenuParent.activeSelf && statsMenuParent.activeSelf)
+                {
+                    CloseStatsAndOpenMenu();
+                }
+                else if (currentScene == gameSceneName && settingsMenuParent.activeSelf)
+                {
+                    videoSettingsManager.SaveSettings();
+                    audioSettingsManager.SaveAudioSettings();
+                    controlsSettingsManager.SaveSettings();
+                    gameSettingsManager.SaveSettings();
+                    CloseSettingsAndOpenPauseMenu();
+                }
             }
         }
     }

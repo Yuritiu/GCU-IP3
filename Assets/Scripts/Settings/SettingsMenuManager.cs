@@ -58,8 +58,13 @@ public class SettingsMenuManager : MonoBehaviour
         else if(currentScene == "Multiplayer Game Scene")
         {
             canUseMenu = true;
-            multiplayerCameraController = GetComponentInParent<MultiplayerCameraController>();
-            Debug.Log("Retrieved Client's Camera Controller: " + multiplayerCameraController);
+            //Retrieve Camera
+            Transform cameraHolder = transform.root.Find("Camera");
+            if (cameraHolder != null)
+            {
+                multiplayerCameraController = cameraHolder.GetComponent<MultiplayerCameraController>();
+            }
+            Debug.Log("[SETTINGS MENU MANAGER] Retrieved Client's Camera Controller: " + multiplayerCameraController);
         }
     }
 

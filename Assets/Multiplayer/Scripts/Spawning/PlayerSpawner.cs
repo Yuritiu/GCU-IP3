@@ -55,33 +55,33 @@ public class PlayerSpawner : MonoBehaviour
 
     void SpawnPlayer(ulong clientId)
     {
+        if (!NetworkManager.Singleton.IsServer) return;
+
         if (playerPrefab == null)
         {
             Debug.LogError("[PLAYER SPAWNER] Player Prefab Not Assigned!");
             return;
         }
 
-        Vector3 spawnPos = GetNextSpawnPosition();
-
-        GameObject playerObj = Instantiate(playerPrefab, spawnPos, Quaternion.identity);
+        //Spawn Player Using The Spawn Point Rotation & Position
+        var (spawnPos, spawnRot) = GetNextSpawnPosition();
+        GameObject playerObj = Instantiate(playerPrefab, spawnPos, spawnRot);
         playerObj.GetComponent<NetworkObject>().SpawnAsPlayerObject(clientId, true);
 
         Debug.Log($"[PLAYER SPAWNER] Spawned Player {clientId} at Spawn Point Index {nextSpawnIndex - 1}");
     }
 
-    Vector3 GetNextSpawnPosition()
+    (Vector3 position, Quaternion rotation) GetNextSpawnPosition()
     {
         if (spawnPoints == null || spawnPoints.Count == 0)
         {
             Debug.LogError("[PLAYER SPAWNER] No Spawn Points Assigned!");
-            return Vector3.zero;
+            return (Vector3.zero, Quaternion.identity);
         }
 
-        //Loop Through Spawn Points in Order
-        Vector3 spawnPosition = spawnPoints[nextSpawnIndex].position;
-
+        Transform spawnPoint = spawnPoints[nextSpawnIndex];
         nextSpawnIndex = (nextSpawnIndex + 1) % spawnPoints.Count;
 
-        return spawnPosition;
+        return (spawnPoint.position, spawnPoint.rotation);
     }
 }

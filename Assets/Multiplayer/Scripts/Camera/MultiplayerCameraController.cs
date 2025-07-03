@@ -26,34 +26,58 @@ public class MultiplayerCameraController : NetworkBehaviour
 
     private Vector3 originalPosition;
     private Quaternion originalRotation;
-    private Camera mainCamera;
+    private Camera playerCamera;
 
     void Start()
     {
+        playerCamera = GetComponent<Camera>();
+
         if (!IsOwner)
         {
-            //Disable Camera & Input if This is Not The Local Player
-            if (Camera.main != null && Camera.main.gameObject == this.gameObject)
-                Camera.main.enabled = false;
+            //Disable Camera For Non Owners
+            if (playerCamera != null)
+            {
+                playerCamera.enabled = false;
+                AudioListener listener = playerCamera.GetComponent<AudioListener>();
+                if (listener != null) listener.enabled = false;
+            }
 
             this.enabled = false;
             return;
         }
 
+        //Set as MainCamera Only For The Owner
+        if (playerCamera != null)
+        {
+            playerCamera.enabled = true;
+            playerCamera.tag = "MainCamera";
+        }
+
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
+
+        //------------ Camera Logic START ------------
+        //Make Camera Look in The Direction The Player is Facing
+        Vector3 forward = transform.forward;
+        float initialYaw = Mathf.Atan2(forward.x, forward.z) * Mathf.Rad2Deg;
+
+        currentLookingPos.x = initialYaw;
+        currentLookingPos.y = 0f;
+
+        transform.localRotation = Quaternion.Euler(currentLookingPos.y, currentLookingPos.x, 0f);
 
         originalPosition = transform.position;
         originalRotation = transform.rotation;
 
         originalXClamp = xClamp;
         originalZClamp = zClamp;
-
-        mainCamera = Camera.main;
+        //------------ Camera Logic END ------------
     }
 
     void Update()
-    {   
+    {
+        if (!IsOwner || !isMovementUnlocked) return;
+
         if (!cameraLocked)
         {
             if (isMovementUnlocked)

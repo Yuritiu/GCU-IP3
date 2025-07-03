@@ -21635,11 +21635,6 @@ PrefabInstance:
       addedObject: {fileID: 2048772191}
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0021b7efc53c5484fbe99272c98ba447, type: 3}
---- !u!198 &480290802 stripped
-ParticleSystem:
-  m_CorrespondingSourceObject: {fileID: 1495927241759409020, guid: c81c5650f434e1e44882fd497862a57c, type: 3}
-  m_PrefabInstance: {fileID: 4835430602519242974}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &487793000
 GameObject:
   m_ObjectHideFlags: 0
@@ -25338,11 +25333,11 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 1f1377ba115cce34682a4f06e4abec4e, type: 3}
   - {fileID: 8300000, guid: 829574d5cac983b42b6b3d7f488f4cd1, type: 3}
   knifeInsert: {fileID: 8300000, guid: e1abe14dde0f19a44b27e963f967e296, type: 3}
-  bloodParticleSystem1: {fileID: 2047707578}
-  bloodParticleSystem2: {fileID: 1952925931}
-  bloodParticleSystem3: {fileID: 1268815440}
-  bloodParticleSystem4: {fileID: 480290802}
-  bloodParticleSystem5: {fileID: 1992235896}
+  bloodParticleSystem1: {fileID: 0}
+  bloodParticleSystem2: {fileID: 0}
+  bloodParticleSystem3: {fileID: 0}
+  bloodParticleSystem4: {fileID: 0}
+  bloodParticleSystem5: {fileID: 0}
   cameraController: {fileID: 0}
   handModels:
   - {fileID: 134763701}
@@ -32824,7 +32819,7 @@ PrefabInstance:
     - target: {fileID: 2229647336694770922, guid: 5f30ef53536cc8b4694232906fbc92d4, type: 3}
       propertyPath: blur
       value: 
-      objectReference: {fileID: 1576286833}
+      objectReference: {fileID: 0}
     - target: {fileID: 2229647336694770922, guid: 5f30ef53536cc8b4694232906fbc92d4, type: 3}
       propertyPath: AIGun
       value: 
@@ -33020,7 +33015,7 @@ PrefabInstance:
     - target: {fileID: 2981733723500107123, guid: 5f30ef53536cc8b4694232906fbc92d4, type: 3}
       propertyPath: blur
       value: 
-      objectReference: {fileID: 1576286833}
+      objectReference: {fileID: 0}
     - target: {fileID: 2981733723500107123, guid: 5f30ef53536cc8b4694232906fbc92d4, type: 3}
       propertyPath: thud
       value: 
@@ -44271,11 +44266,6 @@ PrefabInstance:
 Transform:
   m_CorrespondingSourceObject: {fileID: 6318053447999268679, guid: aeab583e2f65a324ebc2beb81559d797, type: 3}
   m_PrefabInstance: {fileID: 1263244602}
-  m_PrefabAsset: {fileID: 0}
---- !u!198 &1268815440 stripped
-ParticleSystem:
-  m_CorrespondingSourceObject: {fileID: 9078698252576421583, guid: c81c5650f434e1e44882fd497862a57c, type: 3}
-  m_PrefabInstance: {fileID: 4835430602519242974}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &1274262901
 GameObject:
@@ -64891,11 +64881,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &1576286833 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 5221160093989466216, guid: c81c5650f434e1e44882fd497862a57c, type: 3}
-  m_PrefabInstance: {fileID: 4835430602519242974}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1578980072
 GameObject:
   m_ObjectHideFlags: 0
@@ -70624,11 +70609,6 @@ Transform:
   - {fileID: 926432172}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!198 &1952925931 stripped
-ParticleSystem:
-  m_CorrespondingSourceObject: {fileID: 4221267649119290254, guid: c81c5650f434e1e44882fd497862a57c, type: 3}
-  m_PrefabInstance: {fileID: 4835430602519242974}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1958683436
 GameObject:
   m_ObjectHideFlags: 0
@@ -71519,11 +71499,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: da20dc649b048524e8e1b7ac6fd02b86, type: 3}
   m_PrefabInstance: {fileID: 255774846}
   m_PrefabAsset: {fileID: 0}
---- !u!198 &1992235896 stripped
-ParticleSystem:
-  m_CorrespondingSourceObject: {fileID: 7813987133729106809, guid: c81c5650f434e1e44882fd497862a57c, type: 3}
-  m_PrefabInstance: {fileID: 4835430602519242974}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1998261913
 GameObject:
   m_ObjectHideFlags: 0
@@ -72201,11 +72176,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!198 &2047707578 stripped
-ParticleSystem:
-  m_CorrespondingSourceObject: {fileID: 3357846932830633135, guid: c81c5650f434e1e44882fd497862a57c, type: 3}
-  m_PrefabInstance: {fileID: 4835430602519242974}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &2048772190
 GameObject:
   m_ObjectHideFlags: 0
@@ -133934,6 +133904,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1736810983151079509, guid: c81c5650f434e1e44882fd497862a57c, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2153559489824297224, guid: c81c5650f434e1e44882fd497862a57c, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -133985,6 +133959,10 @@ PrefabInstance:
     - target: {fileID: 2913074644696710052, guid: c81c5650f434e1e44882fd497862a57c, type: 3}
       propertyPath: m_Name
       value: Player Camera
+      objectReference: {fileID: 0}
+    - target: {fileID: 5943664337197328413, guid: c81c5650f434e1e44882fd497862a57c, type: 3}
+      propertyPath: m_RenderPostProcessing
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7747888153071682806, guid: c81c5650f434e1e44882fd497862a57c, type: 3}
       propertyPath: cardView

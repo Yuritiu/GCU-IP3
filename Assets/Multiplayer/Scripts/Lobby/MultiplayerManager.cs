@@ -17,6 +17,7 @@ using Unity.Collections;
 using Unity.Networking.Transport.Relay;
 using System.Runtime.CompilerServices;
 using UnityEngine.SceneManagement;
+using System.Collections;
 
 public class MultiplayerManager : MonoBehaviour
 {
@@ -34,6 +35,9 @@ public class MultiplayerManager : MonoBehaviour
     [SerializeField] Button copyButton;
     [SerializeField] Button startGameButton;
     [SerializeField] Button leaveGameButton;
+    [Header("Specific UI Cases")]
+    [SerializeField] GameObject startGameText;
+    [SerializeField] GameObject leaveButtonOutline;
 
     [Header("Network")]
     [SerializeField] private NetworkManager networkManager;
@@ -57,6 +61,53 @@ public class MultiplayerManager : MonoBehaviour
 
         leaveGameButton.onClick.AddListener(LeaveLobby);
     }
+
+    #region Handle Client Disconnects When Host Leaves
+
+    void OnEnable()
+    {
+        StartCoroutine(SubscribeWhenNetworkManagerReady());
+    }
+
+    void OnDisable()
+    {
+        if (NetworkManager.Singleton != null)
+        {
+            NetworkManager.Singleton.OnClientDisconnectCallback -= HandleClientDisconnected;
+        }
+    }
+
+    IEnumerator SubscribeWhenNetworkManagerReady()
+    {
+        while (NetworkManager.Singleton == null)
+        {
+            //Wait For NetworkManager.Singleton to Exist
+            yield return null;
+        }
+
+        NetworkManager.Singleton.OnClientDisconnectCallback += HandleClientDisconnected;
+        Debug.Log("[CLIENT] Subscribed to OnClientDisconnectCallback");
+    }
+
+    void HandleClientDisconnected(ulong clientId)
+    {
+        ulong myClientId = NetworkManager.Singleton.LocalClientId;
+
+        if (clientId == myClientId)
+        {
+            Debug.Log($"[CLIENT] I Got Disconnected From The Server. ClientId: {clientId}");
+
+            ResetUI();
+            currentLobby = null;
+            LobbyState.InLobby = false;
+        }
+        else
+        {
+            Debug.Log($"[CLIENT] Another Client Disconnected From The Server (ClientId: {clientId})");
+        }
+    }
+
+    #endregion
 
     #region UI Button Methods
 
@@ -260,18 +311,28 @@ public class MultiplayerManager : MonoBehaviour
 
     void Update()
     {
-        if (NetworkManager.Singleton != null && NetworkManager.Singleton.IsServer && NetworkManager.Singleton.ConnectedClientsList != null)
-        {
-            int playerCount = NetworkManager.Singleton.ConnectedClientsList.Count;
-            playersWaitingText.text = $"Players Waiting: {playerCount} / {maxPlayers}";
+        if (NetworkManager.Singleton == null) return;
 
-            //Enable Start Game Button When Minimum Players Joined
-            startGameButton.interactable = NetworkManager.Singleton.IsHost && playerCount >= minPlayersToStart;
-        }
-        else
+        if (NetworkManager.Singleton.IsHost)
         {
-            playersWaitingText.text = "Waiting For Host To Start...";
+            //HOST UI Logic
+            if (NetworkManager.Singleton.ConnectedClientsList != null)
+            {
+                int playerCount = NetworkManager.Singleton.ConnectedClientsList.Count;
+                playersWaitingText.text = $"Players Waiting: {playerCount} / {maxPlayers}";
+
+                startGameButton.interactable = playerCount >= minPlayersToStart;
+                startGameButton.enabled = playerCount >= minPlayersToStart;
+                startGameText.SetActive(playerCount >= minPlayersToStart);
+            }
+        }
+        else if (NetworkManager.Singleton.IsClient)
+        {
+            //CLIENT UI Logic
+            playersWaitingText.text = "Waiting for host to start...";
+            startGameText.SetActive(false);
             startGameButton.interactable = false;
+            startGameButton.enabled = false;
         }
 
         if (currentLobby != null)
@@ -342,17 +403,21 @@ public class MultiplayerManager : MonoBehaviour
         {
             if (currentLobby != null)
             {
-                if (NetworkManager.Singleton.IsHost || NetworkManager.Singleton.IsServer)
+                if (NetworkManager.Singleton.IsHost)
                 {
-                    //Host Deletes The Lobby
-                    Debug.Log("[MULTIPLAYER MANAGER] [SERVER] Host/ Server Shutting Down...");
+                    //Host Deletes The Lobby on The Backend
+                    await LobbyService.Instance.DeleteLobbyAsync(currentLobby.Id);
                     NetworkManager.Singleton.Shutdown();
+
+                    Debug.Log("[MULTIPLAYER MANAGER] Host deleted the lobby.");
                 }
-                else if(NetworkManager.Singleton.IsClient)
+                else if (NetworkManager.Singleton.IsClient)
                 {
-                    //Client Leaves
-                    Debug.Log("[MULTIPLAYER MANAGER] [SERVER] Client Disconnecting...");
+                    //Client Removes Themselves From The Lobby on The Backend
+                    await LobbyService.Instance.RemovePlayerAsync(currentLobby.Id, AuthenticationService.Instance.PlayerId);
                     NetworkManager.Singleton.Shutdown();
+
+                    Debug.Log("[MULTIPLAYER MANAGER] Client removed from lobby.");
                 }
             }
         }
@@ -361,17 +426,27 @@ public class MultiplayerManager : MonoBehaviour
             Debug.LogWarning("[MULTIPLAYER MANAGER] Error While Leaving The Lobby: " + e.Message);
         }
 
-        //Shutdown The Network Manager
-        if (networkManager.IsHost || networkManager.IsServer)
-            networkManager.Shutdown();
-        else if (networkManager.IsClient)
-            networkManager.Shutdown();
+        //currentLobby = null;
 
-        currentLobby = null;
+        //ResetUI();
 
+        //LobbyState.InLobby = false;
+
+        Debug.Log("[MULTIPLAYER MANAGER] [NETWORK] Left Lobby And Shut Down Networking.");
+    }
+
+    #endregion
+
+    #region UI Functions
+
+    void ResetUI()
+    {
         //Reset UI
         lobbyRulebookUI.SetActive(false);
         connectRulebookUI.SetActive(true);
+        leaveButtonOutline.SetActive(false);
+
+
         joinCodeText.text = "";
         playersWaitingText.text = "";
         playerNamesDict.Clear();
@@ -381,10 +456,6 @@ public class MultiplayerManager : MonoBehaviour
         MenuCameraController.Instance.ReturnToOrbit();
 
         loadingScreen.SetActive(false);
-
-        Debug.Log("[MULTIPLAYER MANAGER] [NETWORK] Left Lobby And Shut Down Networking.");
-
-        LobbyState.InLobby = false;
     }
 
     #endregion

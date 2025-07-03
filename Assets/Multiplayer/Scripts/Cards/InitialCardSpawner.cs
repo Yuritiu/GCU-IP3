@@ -110,7 +110,7 @@ public class InitialCardSpawner : NetworkBehaviour
                 deck.Add(card.cardPrefab);
         }
 
-        // Shuffle deck
+        //Shuffle Deck
         System.Random rng = new System.Random();
         int n = deck.Count;
         while (n > 1)
@@ -122,10 +122,10 @@ public class InitialCardSpawner : NetworkBehaviour
             deck[n] = temp;
         }
 
-        //Instantiate Deck Stacked Face Down (all cards face down and unowned)
+        //Spawn Cards Face Down (server owned)
         List<GameObject> deckInstances = new List<GameObject>();
         float yOffset = 0.002f;
-        Quaternion faceDownRotation = Quaternion.Euler(90f, 0, 0f);
+        Quaternion faceDownRotation = Quaternion.Euler(90f, 0f, 0f);
 
         for (int i = 0; i < deck.Count; i++)
         {
@@ -134,7 +134,7 @@ public class InitialCardSpawner : NetworkBehaviour
 
             var netObj = cardInstance.GetComponent<NetworkObject>();
             if (netObj != null)
-                //Spawn Without Ownership
+                //Spawn Cards With Server as Owner
                 netObj.Spawn();
 
             deckInstances.Add(cardInstance);
@@ -155,7 +155,6 @@ public class InitialCardSpawner : NetworkBehaviour
             {
                 ulong clientId = pair.Key;
                 Transform[] handSlots = pair.Value;
-
                 int cardIndex = cardsDealt / playerCount;
 
                 if (cardIndex < maxCardsPerPlayer && cardsDealt < deckInstances.Count)
@@ -166,66 +165,30 @@ public class InitialCardSpawner : NetworkBehaviour
                     var netObj = card.GetComponent<NetworkObject>();
                     var cardVisual = card.GetComponent<NetworkCardVisual>();
 
-                    if (netObj != null && cardVisual != null)
-                    {
-                        netObj.ChangeOwnership(clientId);
-
-                        if (playerZRotations.TryGetValue(clientId, out float zRot))
-                        {
-                            cardVisual.ownerZRotation.Value = zRot;
-                        }
-                        else
-                        {
-                            cardVisual.ownerZRotation.Value = 0f;
-                        }
-                    }
-
+                    //Move Card From Deck to Hand Slot (face down during lerp)
                     Quaternion targetRotation = Quaternion.Euler(90f, 0f, 0f);
-
-                    //Lerps Card to Target Slot Face Down
-                    yield return StartCoroutine(LerpCardToSlot(card.transform, targetSlot.position, Quaternion.Euler(90f, 0f, 0f), 0.2f));
-
-                    //Flip Face up ONLY on The Owner Client
                     if (netObj != null && netObj.IsOwner)
                     {
-                        cardVisual.FlipFaceUp();
+                        StartCoroutine(LerpCardToSlot(card.transform, targetSlot.position, targetRotation, 0.5f));
                     }
 
-                    //Ask The Client to Flip Their Own Card Using ClientRpc
+                    //Assign Ownership
                     if (netObj != null)
                     {
-                        //Target Owner Client to Flip Card
-                        FlipCardClientRpc(clientId, netObj.NetworkObjectId, new ClientRpcParams
-                        {
-                            Send = new ClientRpcSendParams
-                            {
-                                TargetClientIds = new ulong[] { clientId }
-                            }
-                        });
+                        netObj.ChangeOwnership(clientId);
+                    }
+
+                    //Allow Card Visual to Flip Locally on That Client
+                    if (cardVisual != null)
+                    {
+                        //Delay Flip Slightly to Allow Ownership Sync to Propagate
+                        cardVisual.Invoke(nameof(cardVisual.TryFlipBasedOnOwnership), 0.05f);
                     }
 
                     cardsDealt++;
                 }
             }
             yield return new WaitForSeconds(0.1f);
-        }
-    }
-
-    [ClientRpc]
-    void FlipCardClientRpc(ulong clientId, ulong cardNetworkObjectId, ClientRpcParams clientRpcParams = default)
-    {
-        //Only Run on The Client That Owns This Card
-        if (NetworkManager.Singleton.LocalClientId != clientId)
-            return;
-
-        NetworkObject netObj = NetworkManager.Singleton.SpawnManager.SpawnedObjects[cardNetworkObjectId];
-        if (netObj != null)
-        {
-            NetworkCardVisual cardVisual = netObj.GetComponent<NetworkCardVisual>();
-            if (cardVisual != null)
-            {
-                cardVisual.FlipFaceUp();
-            }
         }
     }
 

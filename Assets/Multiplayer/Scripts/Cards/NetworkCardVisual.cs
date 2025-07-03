@@ -1,74 +1,26 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Globalization;
 using Unity.Netcode;
 using UnityEngine;
 
 public class NetworkCardVisual : NetworkBehaviour
 {
-    public NetworkVariable<float> ownerZRotation = new NetworkVariable<float>(180f);
-
-    public float flipDuration = 0.5f;
+    public float flipDuration = 0.2f;
     private Coroutine flipCoroutine;
 
-    private bool isFaceUp = false;
-
-    private void OnEnable()
-    {
-        ownerZRotation.OnValueChanged += OnZRotationChanged;
-    }
-
-    private void OnDisable()
-    {
-        ownerZRotation.OnValueChanged -= OnZRotationChanged;
-    }
-
-    private void OnZRotationChanged(float oldValue, float newValue)
-    {
-        //Update Rotation Only if Not Face up
-        if (!isFaceUp)
-            UpdateCardRotationInstant();
-    }
-
-    //Called Automatically on The Client When This Client Gains Ownership of This NetworkObject
     public override void OnGainedOwnership()
     {
-        base.OnGainedOwnership();
-        Debug.Log($"OnGainedOwnership called for card {gameObject.name} on client {NetworkManager.Singleton.LocalClientId}");
-        FlipFaceUp();
+        TryFlipBasedOnOwnership();
     }
 
-    //Called Automatically on The Client When This Client Loses Ownership
-    public override void OnLostOwnership()
+    public void TryFlipBasedOnOwnership()
     {
-        base.OnLostOwnership();
-        FlipFaceDown();
-    }
+        if (!IsSpawned) return;
 
-    public void FlipFaceUp()
-    {
-        isFaceUp = true;
-        StartFlip(true);
-    }
-
-    public void FlipFaceDown()
-    {
-        isFaceUp = false;
-        StartFlip(false);
-    }
-
-    public void UpdateCardRotationInstant()
-    {
-        float zRot = ownerZRotation.Value;
-
-        if (isFaceUp)
-        {
-            transform.rotation = Quaternion.Euler(-90f, 0f, zRot);
-        }
-        else
-        {
-            transform.rotation = Quaternion.Euler(90f, 0f, zRot);
-        }
+        bool isMine = NetworkObject.OwnerClientId == NetworkManager.Singleton.LocalClientId;
+        StartFlip(isMine);
     }
 
     private void StartFlip(bool faceUp)
@@ -76,24 +28,15 @@ public class NetworkCardVisual : NetworkBehaviour
         if (flipCoroutine != null)
             StopCoroutine(flipCoroutine);
 
-        float zRot = ownerZRotation.Value;
+        float zRot = 0f;
 
-        Debug.Log($"StartFlip called: faceUp={faceUp}, zRot={zRot}, IsOwner={IsOwner}");
+        //Derive zRot Based on Player Seating Location
+        if (TryGetZRotation(out float playerZ))
+            zRot = playerZ;
 
         Quaternion startRot = transform.rotation;
-
-        Quaternion targetRot;
-
-        if (faceUp && IsOwner)
-        {
-            //Owner Sees Card Face up With Their Rotation
-            targetRot = Quaternion.Euler(-90f, 0f, zRot);
-        }
-        else
-        {
-            //Non-Owner/ Face Down State
-            targetRot = Quaternion.Euler(90f, 0f, zRot);
-        }
+        //Face up For Local Player
+        Quaternion targetRot = Quaternion.Euler(-90f, 0f, zRot); 
 
         flipCoroutine = StartCoroutine(SmoothFlip(startRot, targetRot, flipDuration));
     }
@@ -110,5 +53,20 @@ public class NetworkCardVisual : NetworkBehaviour
         }
 
         transform.rotation = toRot;
+    }
+
+    private bool TryGetZRotation(out float zRot)
+    {
+        zRot = 0f;
+
+        //Find InitialCardSpawner in Scene
+        var spawner = FindObjectOfType<InitialCardSpawner>();
+        if (spawner != null && spawner.playerZRotations.TryGetValue(NetworkObject.OwnerClientId, out float value))
+        {
+            zRot = value;
+            return true;
+        }
+
+        return false;
     }
 }

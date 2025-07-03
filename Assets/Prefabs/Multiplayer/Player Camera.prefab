@@ -5864,14 +5864,13 @@ GameObject:
   - component: {fileID: 2153559489824297224}
   - component: {fileID: 2987240084782425456}
   - component: {fileID: 7721355103297639976}
-  - component: {fileID: 5726639540696396096}
+  - component: {fileID: 6289067411719883615}
   - component: {fileID: 5943664337197328413}
   - component: {fileID: 1736810983151079509}
   - component: {fileID: 3414041953703658976}
   - component: {fileID: 4700581150772352236}
   - component: {fileID: 5080293877728985064}
   - component: {fileID: 2272620971310925330}
-  - component: {fileID: 2869968850097299679}
   m_Layer: 0
   m_Name: Player Camera
   m_TagString: MainCamera
@@ -5928,7 +5927,7 @@ Camera:
     height: 1
   near clip plane: 0.01
   far clip plane: 1000
-  field of view: 50
+  field of view: 60
   orthographic: 0
   orthographic size: 5
   m_Depth: -1
@@ -5954,7 +5953,7 @@ AudioListener:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2913074644696710052}
   m_Enabled: 1
---- !u!114 &5726639540696396096
+--- !u!114 &6289067411719883615
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -5963,14 +5962,34 @@ MonoBehaviour:
   m_GameObject: {fileID: 2913074644696710052}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6dadd4cfee38d524cb923fa6c6acace8, type: 3}
+  m_Script: {fileID: 11500000, guid: 177a6d59aea9c6b4c89fbee2995a89f1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   sensitivity: 100
-  xClamp: {x: -115, y: 115}
+  gunInHand: 0
+  xClamp: {x: -75, y: 75}
   zClamp: {x: -75, y: 75}
+  gunXClamp: {x: -50, y: 50}
+  gunZClamp: {x: -25, y: 25}
+  barTarget: {x: 3, y: 1.8}
+  knifeTarget: {x: 0, y: 0}
+  reloadTarget: {x: 0, y: 0}
+  opponentTarget: {x: 0, y: 0}
+  opponentLockedTarget: {x: 0, y: 0}
+  positionRotationTarget: {x: 0, y: 0}
+  positionTarget: {fileID: 0}
+  knifeTargetPoint: {fileID: 0}
+  positionLerpSpeed: 1
+  rotationLerpSpeed: 1
+  positionLerpDuration: 1
   cameraLocked: 0
+  targetLookingPos: {x: 0, y: 0}
   isMovementUnlocked: 1
+  isCameraMovementUnlocked: 1
+  isInNewPosition: 0
+  tutorial: {fileID: 0}
+  UICanvas: []
+  overrideCameraLock: 0
 --- !u!114 &5943664337197328413
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6459,27 +6478,6 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!114 &2869968850097299679
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2913074644696710052}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  GlobalObjectIdHash: 1303839326
-  InScenePlacedSourceGlobalObjectIdHash: 3994615071
-  AlwaysReplicateAsRoot: 0
-  SynchronizeTransform: 1
-  ActiveSceneSynchronization: 0
-  SceneMigrationSynchronization: 1
-  SpawnWithObservers: 1
-  DontDestroyWithOwner: 0
-  AutoObjectParentSync: 1
 --- !u!1 &3129206317796374476
 GameObject:
   m_ObjectHideFlags: 0

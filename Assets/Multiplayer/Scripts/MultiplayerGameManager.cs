@@ -78,10 +78,6 @@ public class MultiplayerGameManager : NetworkBehaviour
         {
             var playerObject = client.PlayerObject;
             Debug.Log($"[MULTIPLAYER GAME MANAGER] PlayerObject For ClientID {client.ClientId}: {playerObject}");
-            //--------------------------------------------------------------------------------------------------------------------------------
-            // TODO:
-            // SPAWN PLAYER PREFAB USING NETWORK TO SEE IF PLAYER OBJECT IS NO LONGER NULL
-            //--------------------------------------------------------------------------------------------------------------------------------
 
             if (playerObject != null)
             {
@@ -124,6 +120,7 @@ public class MultiplayerGameManager : NetworkBehaviour
         Debug.Log("[MULTIPLAYER GAME MANAGER] Initialized Players");
     }
 
+    #region Checking Cards Logic
     public void CheckPlayerCards()
     {
         Debug.Log("[MULTIPLAYER GAME MANAGER] Checking Player Cards...");
@@ -185,6 +182,7 @@ public class MultiplayerGameManager : NetworkBehaviour
                 if (player == playerCount && handNumber == playerCount - 1)
                 {
                     comparingFinished = true;
+                    Debug.Log("[MULTIPLAYER GAME MANAGER] Finished Comparing Player's Cards");
                 }
 
                 GameObject[] cardsInUse = new GameObject[2];
@@ -267,4 +265,6 @@ public class MultiplayerGameManager : NetworkBehaviour
             }
         }
     }
+
+    #endregion
 }

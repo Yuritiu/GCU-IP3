@@ -17,12 +17,12 @@ public class PlayerClass : NetworkBehaviour
     [SerializeField] public GameObject[] hand;
 
     //Offense Cards
-    int knife;
-    int gun;
-    int bottle;
+    public int knife;
+    public int gun;
+    public int bottle;
     //Utility Cards
-    int oneinthechamber;
-    int dud;
+    public int oneinthechamber;
+    public int dud;
 
     public override void OnNetworkSpawn()
     {
@@ -56,11 +56,11 @@ public class PlayerClass : NetworkBehaviour
     public void Update()
     {
         //-------------------------------------------- REMOVE AFTER TESTING -------------------------------------------
-        if (Input.GetKeyDown(KeyCode.Space) && !MultiplayerGameManager.Instance.calledSpace)
-        {
-            MultiplayerGameManager.Instance.calledSpace = true;
-            MultiplayerGameManager.Instance.CheckPlayerCards();
-        }
+        //if (Input.GetKeyDown(KeyCode.Space) && !MultiplayerGameManager.Instance.calledSpace)
+        //{
+        //    MultiplayerGameManager.Instance.calledSpace = true;
+        //    MultiplayerGameManager.Instance.CheckPlayerCards();
+        //}
         //-------------------------------------------- REMOVE AFTER TESTING -------------------------------------------
     }
 

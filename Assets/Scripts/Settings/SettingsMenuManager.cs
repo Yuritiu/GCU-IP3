@@ -107,23 +107,7 @@ public class SettingsMenuManager : MonoBehaviour
             }
             else if (currentScene == gameSceneName)
             {
-                if (currentScene == mainMenuSceneName && settingsMenuParent.activeSelf)
-                {
-                    ToggleSettingsMenuFromMainMenu();
-                    videoSettingsManager.SaveSettings();
-                    audioSettingsManager.SaveAudioSettings();
-                    controlsSettingsManager.SaveSettings();
-                    gameSettingsManager.SaveSettings();
-                }
-                else if (currentScene == mainMenuSceneName && !settingsMenuParent.activeSelf && !statsMenuParent.activeSelf)
-                {
-                    ToggleSettingsMenuFromMainMenu();
-                }
-                else if (currentScene == mainMenuSceneName && !settingsMenuParent.activeSelf && statsMenuParent.activeSelf)
-                {
-                    CloseStatsAndOpenMenu();
-                }
-                else if (currentScene == gameSceneName && settingsMenuParent.activeSelf)
+                if (settingsMenuParent.activeSelf)
                 {
                     videoSettingsManager.SaveSettings();
                     audioSettingsManager.SaveAudioSettings();
@@ -132,19 +116,29 @@ public class SettingsMenuManager : MonoBehaviour
 
                     CloseSettingsAndOpenPauseMenu();
                 }
-                else if (currentScene == multiplayerGameSceneName)
+            }
+            else if(currentScene == mainMenuSceneName)
+            {
+                if ((MenuCameraController.Instance != null && (MenuCameraController.Instance.currentMode == MenuCameraController.CameraMode.Rulebook ||MenuCameraController.Instance.isTransitioning)))
                 {
+                    return;
+                }
+                else if (settingsMenuParent.activeSelf)
+                {
+                    ToggleSettingsMenuFromMainMenu();
                     videoSettingsManager.SaveSettings();
                     audioSettingsManager.SaveAudioSettings();
                     controlsSettingsManager.SaveSettings();
                     gameSettingsManager.SaveSettings();
-
-                    CloseSettingsAndOpenPauseMenuMultiplayer();
                 }
-            }
-            else if ((MenuCameraController.Instance != null && (MenuCameraController.Instance.currentMode != MenuCameraController.CameraMode.Rulebook && !MenuCameraController.Instance.isTransitioning)))
-            {
-                return;
+                else if (!settingsMenuParent.activeSelf && !statsMenuParent.activeSelf)
+                {
+                    ToggleSettingsMenuFromMainMenu();
+                }
+                else if (!settingsMenuParent.activeSelf && statsMenuParent.activeSelf)
+                {
+                    CloseStatsAndOpenMenu();
+                }
             }
         }
     }

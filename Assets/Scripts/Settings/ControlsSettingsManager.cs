@@ -15,13 +15,13 @@ public class ControlsSettingsManager : MonoBehaviour
 
     private void Start()
     {
-        LoadSettings();
-
         cameraController = FindFirstObjectByType<CameraController>();
         multiplayerCameraController = FindFirstObjectByType<MultiplayerCameraController>();
 
+        LoadSettings();
+
         sensitivitySlider.minValue = 0;
-        sensitivitySlider.maxValue = 100;
+        sensitivitySlider.maxValue = 200;
 
         sensitivitySlider.onValueChanged.AddListener(OnSensitivityChanged);
     }
@@ -72,8 +72,6 @@ public class ControlsSettingsManager : MonoBehaviour
         }
         sensitivitySlider.value = savedSensitivity;
 
-        // Debugging the updated sensitivity display
-        Debug.Log("Updated Sensitivity Display: " + sensitivitySlider.value);
         UpdateSensitivityDisplay();
     }
 }

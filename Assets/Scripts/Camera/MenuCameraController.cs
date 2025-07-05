@@ -65,6 +65,11 @@ public class MenuCameraController : MonoBehaviour
                     ReturnToOrbit();
                 }
             }
+
+            if (currentMode == CameraMode.Customise)
+            {
+                ReturnToOrbit();
+            }
         }
     }
 

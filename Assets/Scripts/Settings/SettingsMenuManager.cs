@@ -119,7 +119,7 @@ public class SettingsMenuManager : MonoBehaviour
             }
             else if(currentScene == mainMenuSceneName)
             {
-                if ((MenuCameraController.Instance != null && (MenuCameraController.Instance.currentMode == MenuCameraController.CameraMode.Rulebook ||MenuCameraController.Instance.isTransitioning)))
+                if ((MenuCameraController.Instance != null && (MenuCameraController.Instance.currentMode == MenuCameraController.CameraMode.Rulebook || MenuCameraController.Instance.currentMode == MenuCameraController.CameraMode.Customise || MenuCameraController.Instance.isTransitioning)))
                 {
                     return;
                 }

@@ -16,9 +16,25 @@ public class NetworkPlayerName : NetworkBehaviour
     //Local Deserialized Dictionary clientId -> name
     Dictionary<ulong, string> playerNamesDict = new Dictionary<ulong, string>();
 
+    [Header("References")]
+    private DeveloperIdentityManager devManager;
+    private PlayerIdentityManager playerIdManager;
+
     void Start()
     {
         syncedPlayerNames.OnValueChanged += OnPlayerNamesChanged;
+
+        devManager = FindObjectOfType<DeveloperIdentityManager>();
+        playerIdManager = FindObjectOfType<PlayerIdentityManager>();
+        if (devManager == null)
+        {
+            Debug.LogError("DeveloperIdentityManager is null!");
+        }
+
+        if (playerIdManager == null)
+        {
+            Debug.LogError("PlayerIdentityManager is null!");
+        }
     }
 
     void OnDestroy()
@@ -38,15 +54,24 @@ public class NetworkPlayerName : NetworkBehaviour
     [ServerRpc(RequireOwnership = false)]
     public void SubmitPlayerNameServerRpc(ulong clientId, string playerName)
     {
-        if (!playerNamesDict.ContainsKey(clientId))
+        //Default to Raw Name
+        string finalName = playerName;
+
+        //Look up Player ID If Both Managers Exist
+        if (playerIdManager != null && devManager != null)
         {
-            playerNamesDict.Add(clientId, playerName);
-        }
-        else
-        {
-            playerNamesDict[clientId] = playerName;
+            string playerID = playerIdManager.PlayerID;
+
+            //Add [DEV] Prefix If Developer
+            if (devManager.IsDeveloper(playerID))
+            {
+                finalName = "[DEV] " + playerName;
+                Debug.Log("Developer Connected " + finalName);
+            }
         }
 
+        //Store It In Dictionary
+        playerNamesDict[clientId] = finalName;
         SyncNamesToClients();
     }
 
@@ -93,17 +118,32 @@ public class NetworkPlayerName : NetworkBehaviour
         playerListText.text = sb.ToString();
     }
 
-    //Client Calls This On Local Player To Send Their Name
+    //Client Calls This On Local Player To Send Their Name -> DOESN'T ACTUALLY DO ANYTHING? 0 CALLS OR MAYBE IT'S CALLED BY NETWORK?
     public void SubmitLocalPlayerName(string playerName)
     {
+        Debug.Log("DEVELOPER");
+        string finalName = playerName;
+
+        // Check if local player is a dev
+        var devManager = FindObjectOfType<DeveloperIdentityManager>();
+        var playerIdManager = FindObjectOfType<PlayerIdentityManager>();
+
+        if (devManager != null && playerIdManager != null)
+        {
+            string localId = playerIdManager.PlayerID;
+            if (devManager.IsDeveloper(localId))
+            {
+                finalName = "[DEV] " + finalName;
+            }
+        }
+
         if (IsClient && !IsServer)
         {
-            SubmitPlayerNameServerRpc(NetworkManager.Singleton.LocalClientId, playerName);
+            SubmitPlayerNameServerRpc(NetworkManager.Singleton.LocalClientId, finalName);
         }
         else if (IsServer)
         {
-            //Server Can Set It's Own Name Directly
-            playerNamesDict[NetworkManager.Singleton.LocalClientId] = playerName;
+            playerNamesDict[NetworkManager.Singleton.LocalClientId] = finalName;
             SyncNamesToClients();
         }
     }

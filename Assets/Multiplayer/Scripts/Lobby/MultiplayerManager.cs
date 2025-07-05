@@ -30,7 +30,7 @@ public class MultiplayerManager : MonoBehaviour
     [SerializeField] public GameObject connectRulebookUI;
     [SerializeField] public TextMeshProUGUI playersWaitingText;
     [SerializeField] public TextMeshProUGUI joinCodeText;
-    [SerializeField] private TMP_InputField joinCodeInputField;
+    [SerializeField] TMP_InputField joinCodeInputField;
     [Header("UI Button References")]
     [SerializeField] Button copyButton;
     [SerializeField] Button startGameButton;
@@ -38,6 +38,11 @@ public class MultiplayerManager : MonoBehaviour
     [Header("Specific UI Cases")]
     [SerializeField] GameObject startGameText;
     [SerializeField] GameObject leaveButtonOutline;
+    [Header("Player Name UI References")]
+    [SerializeField] TMP_InputField nameInputField;
+    [SerializeField] PlayerNameInputManager nameInputManager;
+    [Header("UI Error Text References")]
+    [SerializeField] public TextMeshProUGUI joinGameErrorText;
 
     [Header("Network")]
     [SerializeField] private NetworkManager networkManager;
@@ -58,6 +63,7 @@ public class MultiplayerManager : MonoBehaviour
     void Start()
     {
         startGameButton.interactable = false;
+        joinGameErrorText.text = "";
 
         leaveGameButton.onClick.AddListener(LeaveLobby);
     }
@@ -113,6 +119,8 @@ public class MultiplayerManager : MonoBehaviour
 
     public async void OnCreateGameButtonPressed()
     {
+        if (!nameInputManager.ValidateAndSaveInput()) return;
+
         LobbyState.InLobby = true;
 
         loadingScreen.SetActive(true);
@@ -120,7 +128,16 @@ public class MultiplayerManager : MonoBehaviour
         await InitializeServicesAsync();
         await SignInAnonymouslyAsync();
 
-        string playerName = GenerateRandomPlayerName();
+        //------------ Handle Player Name ------------
+        //Check If The Player Is a Developer
+        string playerName = PlayerNameInputManager.RawPlayerName;
+        var devManager = FindObjectOfType<DeveloperIdentityManager>();
+        var idManager = FindObjectOfType<PlayerIdentityManager>();
+        if (devManager != null && idManager != null && devManager.IsDeveloper(idManager.PlayerID))
+        {
+            playerName = "[DEV] " + playerName;
+        }
+        //------------ End Of Handle Player Name ------------
 
         try
         {
@@ -198,14 +215,25 @@ public class MultiplayerManager : MonoBehaviour
 
     public async void OnJoinGameButtonPressed()
     {
-        LobbyState.InLobby = true;
+        if (!nameInputManager.ValidateAndSaveInput()) return;
 
+        LobbyState.InLobby = true;
         loadingScreen.SetActive(true);
+        joinGameErrorText.text = "";
 
         await InitializeServicesAsync();
         await SignInAnonymouslyAsync();
 
-        string playerName = GenerateRandomPlayerName();
+        //------------ Handle Player Name ------------
+        //Check If The Player Is a Developer
+        string playerName = PlayerNameInputManager.RawPlayerName;
+        var devManager = FindObjectOfType<DeveloperIdentityManager>();
+        var idManager = FindObjectOfType<PlayerIdentityManager>();
+        if (devManager != null && idManager != null && devManager.IsDeveloper(idManager.PlayerID))
+        {
+            playerName = "[DEV] " + playerName;
+        }
+        //------------ End Of Handle Player Name ------------
 
         string codeFromUI = joinCodeInputField.text;
 
@@ -227,6 +255,7 @@ public class MultiplayerManager : MonoBehaviour
 
             if (!currentLobby.Data.TryGetValue("joinCode", out var joinCodeData))
             {
+                joinGameErrorText.text = "Join code is missing from the lobby.";
                 Debug.LogError("[MULTIPLAYER MANAGER] Join Code Not Found In Lobby Data!");
                 throw new Exception("Join code missing from lobby.");
             }
@@ -259,10 +288,12 @@ public class MultiplayerManager : MonoBehaviour
             //Force UI update after join
             Invoke(nameof(UpdatePlayerListUI), 1f);
 
+            joinGameErrorText.text = "";
             Debug.Log("[MULTIPLAYER MANAGER] Client Joined Lobby With Code: " + codeFromUI);
         }
         catch (LobbyServiceException lse)
         {
+            joinGameErrorText.text = $"Failed to join lobby: {lse.Reason} (Code: {lse.ErrorCode})";
             Debug.LogError($"[MULTIPLAYER MANAGER] [LOBBY ERROR] {lse.Message} | Reason: {lse.Reason} | Code: {lse.ErrorCode}");
 
             connectRulebookUI.SetActive(true);
@@ -273,6 +304,7 @@ public class MultiplayerManager : MonoBehaviour
         }
         catch (RelayServiceException rse)
         {
+            joinGameErrorText.text = $"Relay error: {rse.Message}";
             Debug.LogError($"[MULTIPLAYER MANAGER] [CLIENT] RelayServiceException: {rse.Message}");
 
             connectRulebookUI.SetActive(true);
@@ -283,6 +315,7 @@ public class MultiplayerManager : MonoBehaviour
         }
         catch (Exception e)
         {
+            joinGameErrorText.text = $"Could not join: {e.Message}";
             Debug.LogError($"[MULTIPLAYER MANAGER] Failed To Join Lobby With Code '{codeFromUI}': {e.Message}\n{e.StackTrace}");
 
             connectRulebookUI.SetActive(true);
@@ -372,9 +405,11 @@ public class MultiplayerManager : MonoBehaviour
         }
     }
 
+    #region Update Player Name
     void UpdatePlayerNamesFromLobby()
     {
         playerNamesDict.Clear();
+
         foreach (var player in currentLobby.Players)
         {
             if (player.Data.TryGetValue("name", out PlayerDataObject nameData))
@@ -394,6 +429,7 @@ public class MultiplayerManager : MonoBehaviour
 
         networkPlayerName.playerListText.text = sb.ToString();
     }
+    #endregion
 
     public async void LeaveLobby()
     {
@@ -481,22 +517,6 @@ public class MultiplayerManager : MonoBehaviour
             await AuthenticationService.Instance.SignInAnonymouslyAsync();
             Debug.Log($"Signed in Anonymously as {AuthenticationService.Instance.PlayerId}");
         }
-    }
-
-    #endregion
-
-    #region Player Name Generator
-
-    string GenerateRandomPlayerName()
-    {
-        string[] dinosaurs = { "Ankylosaurus", "T-Rex", "Spinosaurus", "Stegosaurus", "Carnotaurus", "Parasaurolophus" };
-        string[] names = { "Jordan", "Charlie", "Benjamin", "Rebecca", "Agnes", "Mick", "Jack", "James", "Josh", "Kyle" };
-        var random = new System.Random();
-
-        string adjective = dinosaurs[random.Next(dinosaurs.Length)];
-        string animal = names[random.Next(names.Length)];
-
-        return $"{animal} The {adjective}";
     }
 
     #endregion

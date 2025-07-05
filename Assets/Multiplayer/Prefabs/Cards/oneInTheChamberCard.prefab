@@ -285,6 +285,7 @@ GameObject:
   - component: {fileID: 7825763247094622434}
   - component: {fileID: 417201422688323801}
   - component: {fileID: -5822312181258875112}
+  - component: {fileID: -9043002680871510755}
   m_Layer: 6
   m_Name: oneInTheChamberCard
   m_TagString: Card
@@ -439,6 +440,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b5acbb9ffaf991b4788e7458927c1c2a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  flipDuration: 0.2
+  readyToFlip: 0
 --- !u!114 &-5822312181258875112
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -455,9 +458,9 @@ MonoBehaviour:
   SyncPositionX: 1
   SyncPositionY: 1
   SyncPositionZ: 1
-  SyncRotAngleX: 1
-  SyncRotAngleY: 1
-  SyncRotAngleZ: 1
+  SyncRotAngleX: 0
+  SyncRotAngleY: 0
+  SyncRotAngleZ: 0
   SyncScaleX: 1
   SyncScaleY: 1
   SyncScaleZ: 1
@@ -470,6 +473,19 @@ MonoBehaviour:
   InLocalSpace: 0
   Interpolate: 1
   SlerpPosition: 0
+--- !u!114 &-9043002680871510755
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2485291951891198710}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c6ed768c4c7e7ea46b43190230ada8cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  networkCardVisual: {fileID: 417201422688323801}
 --- !u!1 &3028843801695025758
 GameObject:
   m_ObjectHideFlags: 0

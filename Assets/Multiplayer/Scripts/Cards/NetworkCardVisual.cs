@@ -1,14 +1,14 @@
 using System.Collections;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Globalization;
 using Unity.Netcode;
 using UnityEngine;
 
 public class NetworkCardVisual : NetworkBehaviour
 {
     public float flipDuration = 0.2f;
-    private Coroutine flipCoroutine;
+    public Coroutine flipCoroutine;
+    public bool readyToFlip = false;
+    bool calledFlip = false;
+    bool isMine;
 
     public override void OnGainedOwnership()
     {
@@ -19,15 +19,35 @@ public class NetworkCardVisual : NetworkBehaviour
     {
         if (!IsSpawned) return;
 
-        bool isMine = NetworkObject.OwnerClientId == NetworkManager.Singleton.LocalClientId;
+        isMine = NetworkObject.OwnerClientId == NetworkManager.Singleton.LocalClientId;
+
+        if(!isMine) return;
+
         StartFlip(isMine);
     }
 
-    private void StartFlip(bool faceUp)
+    public bool TryGetZRotation(out float zRot)
+    {
+        zRot = 0f;
+
+        //Find InitialCardSpawner in Scene
+        var spawner = FindObjectOfType<InitialCardSpawner>();
+        //TODO: ------------------------ CHANGE THIS FROM OWNER CLIENT ID BECAUSE SERVER IS OWNER CLIENT ID NEEDS TO BE LOCAL -------------------------
+        if (spawner != null && spawner.playerZRotations.TryGetValue(NetworkObject.OwnerClientId, out float value))
+        {
+            zRot = value;
+            return true;
+        }
+
+        return false;
+    }
+
+    public void StartFlip(bool faceUp)
     {
         if (flipCoroutine != null)
             StopCoroutine(flipCoroutine);
 
+        Debug.Log("RUN FOR CLIENT ONLY");
         float zRot = 0f;
 
         //Derive zRot Based on Player Seating Location
@@ -36,9 +56,9 @@ public class NetworkCardVisual : NetworkBehaviour
 
         Quaternion startRot = transform.rotation;
         //Face up For Local Player
-        Quaternion targetRot = Quaternion.Euler(-90f, 0f, zRot); 
+        Quaternion targetRot = Quaternion.Euler(-90, transform.rotation.y, zRot);
 
-        flipCoroutine = StartCoroutine(SmoothFlip(startRot, targetRot, flipDuration));
+        StartCoroutine(SmoothFlip(startRot, targetRot, flipDuration));
     }
 
     private IEnumerator SmoothFlip(Quaternion fromRot, Quaternion toRot, float duration)
@@ -53,20 +73,5 @@ public class NetworkCardVisual : NetworkBehaviour
         }
 
         transform.rotation = toRot;
-    }
-
-    private bool TryGetZRotation(out float zRot)
-    {
-        zRot = 0f;
-
-        //Find InitialCardSpawner in Scene
-        var spawner = FindObjectOfType<InitialCardSpawner>();
-        if (spawner != null && spawner.playerZRotations.TryGetValue(NetworkObject.OwnerClientId, out float value))
-        {
-            zRot = value;
-            return true;
-        }
-
-        return false;
     }
 }

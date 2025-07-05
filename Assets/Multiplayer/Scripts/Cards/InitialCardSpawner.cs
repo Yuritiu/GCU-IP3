@@ -169,13 +169,7 @@ public class InitialCardSpawner : NetworkBehaviour
                     Quaternion targetRotation = Quaternion.Euler(90f, 0f, 0f);
                     if (netObj != null && netObj.IsOwner)
                     {
-                        StartCoroutine(LerpCardToSlot(card.transform, targetSlot.position, targetRotation, 0.5f));
-                    }
-
-                    //Assign Ownership
-                    if (netObj != null)
-                    {
-                        netObj.ChangeOwnership(clientId);
+                        StartCoroutine(LerpCardToSlot(card.transform, targetSlot.position, targetRotation, 0.5f, card, clientId));
                     }
 
                     //Allow Card Visual to Flip Locally on That Client
@@ -192,9 +186,11 @@ public class InitialCardSpawner : NetworkBehaviour
         }
     }
 
-    IEnumerator LerpCardToSlot(Transform cardTransform, Vector3 targetPos, Quaternion targetRot, float duration)
+    IEnumerator LerpCardToSlot(Transform cardTransform, Vector3 targetPos, Quaternion targetRot, float duration, GameObject card, ulong clientId)
     {
         Vector3 startPos = cardTransform.position;
+        NetworkCardVisual networkCardVisual = cardTransform.GetComponent<NetworkCardVisual>();
+
         Quaternion startRot = cardTransform.rotation;
         float elapsed = 0f;
 
@@ -209,5 +205,13 @@ public class InitialCardSpawner : NetworkBehaviour
 
         cardTransform.position = targetPos;
         cardTransform.rotation = targetRot;
+
+        var netObj = card.GetComponent<NetworkObject>();
+
+        //Assign Ownership
+        if (netObj != null)
+        {
+            netObj.ChangeOwnership(clientId);
+        }
     }
 }

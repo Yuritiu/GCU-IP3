@@ -141,8 +141,8 @@ public class MultiplayerManager : MonoBehaviour
 
         try
         {
-            //Create Relay Allocation For 2 Players
-            var allocation = await RelayService.Instance.CreateAllocationAsync(1);
+            //Create Relay Allocation For 4 Players
+            var allocation = await RelayService.Instance.CreateAllocationAsync(3);
             string joinCode = await RelayService.Instance.GetJoinCodeAsync(allocation.AllocationId);
 
             //Enable NetworkManager

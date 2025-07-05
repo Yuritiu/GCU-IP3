@@ -656,6 +656,7 @@ GameObject:
   - component: {fileID: 3869716098454865509}
   - component: {fileID: -209597011030812937}
   - component: {fileID: -2792019269252597353}
+  - component: {fileID: 2922923076484813395}
   m_Layer: 6
   m_Name: bottleCard
   m_TagString: Card
@@ -810,6 +811,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b5acbb9ffaf991b4788e7458927c1c2a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  flipDuration: 0.2
+  readyToFlip: 0
 --- !u!114 &-2792019269252597353
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -826,9 +829,9 @@ MonoBehaviour:
   SyncPositionX: 1
   SyncPositionY: 1
   SyncPositionZ: 1
-  SyncRotAngleX: 1
-  SyncRotAngleY: 1
-  SyncRotAngleZ: 1
+  SyncRotAngleX: 0
+  SyncRotAngleY: 0
+  SyncRotAngleZ: 0
   SyncScaleX: 1
   SyncScaleY: 1
   SyncScaleZ: 1
@@ -841,6 +844,19 @@ MonoBehaviour:
   InLocalSpace: 0
   Interpolate: 1
   SlerpPosition: 0
+--- !u!114 &2922923076484813395
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6088698179420198263}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c6ed768c4c7e7ea46b43190230ada8cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  networkCardVisual: {fileID: -209597011030812937}
 --- !u!1 &6325095380622778254
 GameObject:
   m_ObjectHideFlags: 0

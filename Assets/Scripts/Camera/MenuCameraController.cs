@@ -21,6 +21,7 @@ public class MenuCameraController : MonoBehaviour
 
     [Header("UI Panels")]
     public GameObject mainMenuCanvas;
+    public GameObject customisationCanvas;
     public GameObject rulebookConnectPage;
     public GameObject rulebookLobbyPage;
     public GameObject rulebookConnectUI;
@@ -44,6 +45,7 @@ public class MenuCameraController : MonoBehaviour
         rulebookConnectPage.SetActive(true);
         rulebookConnectUI.SetActive(false);
         rulebookLobbyPage.SetActive(false);
+        customisationCanvas.SetActive(false);
 
         originalPosition = transform.position;
         originalRotation = transform.rotation;
@@ -70,6 +72,8 @@ public class MenuCameraController : MonoBehaviour
     {
         if (!isTransitioning)
         {
+            customisationCanvas.SetActive(false);
+            transitionDuration = 0.5f;
             StartCoroutine(LerpToTarget(rulebookTargetViewPoint.position, rulebookTargetViewPoint.rotation, CameraMode.Rulebook));
         }
     }
@@ -78,6 +82,7 @@ public class MenuCameraController : MonoBehaviour
     {
         if (!isTransitioning)
         {
+            transitionDuration = 0.75f;
             StartCoroutine(LerpToTarget(customiseTargetViewPoint.position, customiseTargetViewPoint.rotation, CameraMode.Customise));
         }
     }
@@ -86,6 +91,7 @@ public class MenuCameraController : MonoBehaviour
     {
         if (!isTransitioning)
         {
+            customisationCanvas.SetActive(false);
             rulebookConnectUI.SetActive(false);
             StartCoroutine(ReturnToOrbitRoutine());
         }
@@ -123,6 +129,11 @@ public class MenuCameraController : MonoBehaviour
         if(currentMode == CameraMode.Rulebook)
         {
             rulebookConnectUI.SetActive(true);
+        }
+
+        if(currentMode == CameraMode.Customise)
+        {
+            customisationCanvas.SetActive(true);
         }
 
         isTransitioning = false;

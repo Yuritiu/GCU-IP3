@@ -47575,7 +47575,7 @@ GameObject:
   - component: {fileID: 829332230}
   - component: {fileID: 829332231}
   m_Layer: 0
-  m_Name: --- Version Text (Updated Automatically) ---
+  m_Name: --- Version Text (Updated Automatically When Built) ---
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

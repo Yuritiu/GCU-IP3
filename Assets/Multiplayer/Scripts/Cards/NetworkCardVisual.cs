@@ -37,7 +37,7 @@ public class NetworkCardVisual : NetworkBehaviour
 
         //Derive zRot Based on Player Seating Location
 
-        Debug.Log("Z Rotation " + passedZValue);
+        //Debug.Log("Z Rotation " + passedZValue);
         Quaternion startRot = transform.rotation;
         //Face up For Local Player
         Quaternion targetRot = Quaternion.Euler(-90, transform.rotation.y, passedZValue);

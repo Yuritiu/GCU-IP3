@@ -19,6 +19,10 @@ public class CosmeticManager : MonoBehaviour
 
     [Header("Cosmetics")]
     [SerializeField] public List<CosmeticData> allCosmetics;
+    [SerializeField] private CosmeticType currentCategory = CosmeticType.Hat;
+    private Dictionary<CosmeticType, GameObject> equippedCosmetics = new();
+    private Dictionary<CosmeticType, GameObject> equippedSlotUIs = new();
+    private Dictionary<CosmeticType, CosmeticData> equippedDataByType = new();
 
     private GameObject equippedCosmetic;
     private GameObject equippedSlotUI;
@@ -35,16 +39,71 @@ public class CosmeticManager : MonoBehaviour
         DisplayCosmetics();
     }
 
+    void EquipCosmetic(CosmeticData data, GameObject slotUI)
+    {
+        var type = data.cosmeticType;
+
+        //Check If The Clicked Cosmetic Is Already Equipped
+        if (equippedDataByType.TryGetValue(type, out var currentlyEquippedData) && currentlyEquippedData == data)
+        {
+            //Unequip Logic
+            if (equippedCosmetics.TryGetValue(type, out var toRemove) && toRemove != null)
+                Destroy(toRemove);
+
+            if (equippedSlotUIs.TryGetValue(type, out var uiSlot) && uiSlot != null)
+                uiSlot.transform.Find("Equipped").gameObject.SetActive(false);
+
+            equippedCosmetics.Remove(type);
+            equippedSlotUIs.Remove(type);
+            equippedDataByType.Remove(type);
+
+            return;
+        }
+
+        //Only Destroy Cosmetic If Same Type e.g. can't have 2 hats but can have a hat and glasses
+        if (equippedCosmetics.TryGetValue(type, out var oldCosmetic))
+            Destroy(oldCosmetic);
+
+        //Find The Attatchment Point Within This GameObject
+        Transform attachmentPoint = FindChildRecursive(playerModel.transform, data.attachPointName);
+
+        if (attachmentPoint == null)
+        {
+            Debug.LogError($"Attachment point '{data.attachPointName}' not found on player model.");
+            return;
+        }
+
+        equippedCosmetic = Instantiate(data.prefab, attachmentPoint);
+        equippedCosmetic.transform.localPosition = Vector3.zero;
+        equippedCosmetic.transform.localRotation = Quaternion.identity;
+
+        //Keep Hat "Equipped" Text Active If Also Equip Glasses
+        if (equippedSlotUIs.TryGetValue(data.cosmeticType, out var previousSlotUI) && previousSlotUI != null && previousSlotUI != slotUI)
+        {
+            previousSlotUI.transform.Find("Equipped").gameObject.SetActive(false);
+        }
+
+        slotUI.transform.Find("Equipped").gameObject.SetActive(true);
+        slotUI.transform.Find("Equipped").GetComponent<TMP_Text>().color = Color.green;
+        slotUI.transform.Find("Equipped").GetComponent<TMP_Text>().text = "Equipped";
+
+        equippedCosmetics[type] = equippedCosmetic;
+        equippedSlotUIs[type] = slotUI;
+        equippedDataByType[type] = data;
+        currentEquippedData = data;
+
+        equippedSlotUI = slotUI;
+    }
+
     void DisplayCosmetics()
     {
         foreach (Transform child in gridParent)
             Destroy(child.gameObject);
 
         var sortedCosmetics = allCosmetics
-            .Where(cosmetic => cosmetic.rarity != RarityLevel.DeveloperOnly ||
-                               (devManager != null && devManager.IsDeveloper(localPlayerID)))
-            .OrderByDescending(c => c.rarity)
-            .ToList();
+        .Where(cosmetic => cosmetic.cosmeticType == currentCategory &&
+        (cosmetic.rarity != RarityLevel.Developer ||
+         (devManager != null && devManager.IsDeveloper(localPlayerID)))).OrderByDescending(c => c.rarity).ToList();
 
         foreach (var cosmetic in sortedCosmetics)
         {
@@ -56,41 +115,24 @@ public class CosmeticManager : MonoBehaviour
             rarityText.text = cosmetic.rarity.ToString();
             rarityText.color = GetColorByRarity(cosmetic.rarity);
 
-            slot.transform.Find("Equipped").gameObject.SetActive(false);
+            var equippedIndicator = slot.transform.Find("Equipped").gameObject;
+            equippedIndicator.SetActive(false);
+
+            //Reshow Equipped Text If This Cosmetic Is Equipped For This Type
+            if (equippedDataByType.TryGetValue(currentCategory, out var equippedData) && equippedData == cosmetic)
+            {
+                equippedIndicator.SetActive(true);
+                equippedIndicator.GetComponent<TMP_Text>().color = Color.green;
+                equippedIndicator.GetComponent<TMP_Text>().text = "Equipped";
+
+                equippedSlotUIs[currentCategory] = slot;
+            }
 
             var button = slot.transform.Find("Button").GetComponent<Button>();
             button.onClick.AddListener(() => EquipCosmetic(cosmetic, slot));
         }
 
         LayoutRebuilder.ForceRebuildLayoutImmediate(gridParent.GetComponent<RectTransform>());
-    }
-
-    void EquipCosmetic(CosmeticData data, GameObject slotUI)
-    {
-        if (equippedCosmetic != null)
-            Destroy(equippedCosmetic);
-
-        //Find The Attatchment Point Within This GameObject
-        Transform attachmentPoint = FindChildRecursive(playerModel.transform, data.attachPointName);
-
-        if (attachmentPoint == null)
-        {
-            Debug.LogWarning($"Attachment point '{data.attachPointName}' not found on player model.");
-            return;
-        }
-
-        equippedCosmetic = Instantiate(data.prefab, attachmentPoint);
-        equippedCosmetic.transform.localPosition = Vector3.zero;
-        equippedCosmetic.transform.localRotation = Quaternion.identity;
-
-        if (equippedSlotUI != null)
-            equippedSlotUI.transform.Find("Equipped").gameObject.SetActive(false);
-
-        slotUI.transform.Find("Equipped").gameObject.SetActive(true);
-        slotUI.transform.Find("Equipped").GetComponent<TMP_Text>().color = Color.green;
-        slotUI.transform.Find("Equipped").GetComponent<TMP_Text>().text = "Equipped";
-
-        equippedSlotUI = slotUI;
     }
 
     private Transform FindChildRecursive(Transform parent, string targetName)
@@ -116,8 +158,19 @@ public class CosmeticManager : MonoBehaviour
             RarityLevel.Rare => Color.blue,
             RarityLevel.Epic => new Color(0.6f, 0, 0.8f),
             RarityLevel.Legendary => new Color(1f, 0.5f, 0),
-            RarityLevel.DeveloperOnly => Color.red,
+            RarityLevel.Developer => Color.red,
             _ => Color.gray,
         };
     }
+
+    #region UI Buttons
+    public void SetCosmeticCategory(CosmeticType newCategory)
+    {
+        currentCategory = newCategory;
+        DisplayCosmetics();
+    }
+
+    public void OnHatTabClicked() => SetCosmeticCategory(CosmeticType.Hat);
+    public void OnGlassesTabClicked() => SetCosmeticCategory(CosmeticType.Glasses);
+    #endregion
 }

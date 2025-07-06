@@ -1,12 +1,18 @@
 using UnityEngine;
 
+public enum CosmeticType
+{
+    Hat,
+    Glasses
+}
+
 public enum RarityLevel
 {
     Common,
     Rare,
     Epic,
     Legendary,
-    DeveloperOnly
+    Developer
 }
 
 [CreateAssetMenu(menuName = "Cosmetics/Cosmetic Item")]
@@ -17,4 +23,5 @@ public class CosmeticData : ScriptableObject
     public Sprite icon;
     public GameObject prefab;
     public string attachPointName;
+    public CosmeticType cosmeticType;
 }

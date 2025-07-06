@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class MenuCameraController : MonoBehaviour
@@ -8,6 +9,12 @@ public class MenuCameraController : MonoBehaviour
 
     [Header("References")]
     [SerializeField] MultiplayerManager multiplayerManager;
+    [SerializeField] TMP_InputField joinCodeInputField;
+    [SerializeField] GameObject joinCodeInputFieldOutline;
+    [SerializeField] GameObject nameInputFieldOutline;
+    [SerializeField] GameObject createButtonOutline;
+    [SerializeField] GameObject joinButtonOutline;
+    [SerializeField] GameObject customiseButtonOutline;
 
     [Header("Target References")]
     public Transform rulebookTargetViewPoint;
@@ -96,6 +103,13 @@ public class MenuCameraController : MonoBehaviour
     {
         if (!isTransitioning)
         {
+            joinCodeInputField.text = "";
+            nameInputFieldOutline.SetActive(false);
+            joinCodeInputFieldOutline.SetActive(false);
+            customiseButtonOutline.SetActive(false);
+            joinButtonOutline.SetActive(false);
+            createButtonOutline.SetActive(false);
+
             customisationCanvas.SetActive(false);
             rulebookConnectUI.SetActive(false);
             StartCoroutine(ReturnToOrbitRoutine());

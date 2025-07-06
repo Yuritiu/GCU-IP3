@@ -37,6 +37,7 @@ public class MultiplayerManager : MonoBehaviour
     [SerializeField] Button leaveGameButton;
     [Header("Specific UI Cases")]
     [SerializeField] GameObject startGameText;
+    [SerializeField] TextMeshProUGUI copyConfirmedText;
     [SerializeField] GameObject leaveButtonOutline;
     [Header("Player Name UI References")]
     [SerializeField] TMP_InputField nameInputField;
@@ -64,6 +65,7 @@ public class MultiplayerManager : MonoBehaviour
     {
         startGameButton.interactable = false;
         joinGameErrorText.text = "";
+        copyConfirmedText.text = "";
 
         leaveGameButton.onClick.AddListener(LeaveLobby);
     }
@@ -382,6 +384,15 @@ public class MultiplayerManager : MonoBehaviour
     void CopyToClipboard(string text)
     {
         GUIUtility.systemCopyBuffer = text;
+        copyConfirmedText.color = Color.green;
+        copyConfirmedText.text = "Copied to Clipboard";
+        StartCoroutine(CopyCodeTimeout());
+    }
+
+    IEnumerator CopyCodeTimeout()
+    {
+        yield return new WaitForSeconds(1f);
+        copyConfirmedText.text = "";
     }
 
     #region Networking Lobby Data
@@ -484,9 +495,12 @@ public class MultiplayerManager : MonoBehaviour
 
 
         joinCodeText.text = "";
+        joinCodeInputField.text = "";
         playersWaitingText.text = "";
         playerNamesDict.Clear();
         networkPlayerName.playerListText.text = "";
+
+        copyConfirmedText.text = "";
 
         //Reset Camera
         MenuCameraController.Instance.ReturnToOrbit();

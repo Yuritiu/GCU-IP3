@@ -10,6 +10,7 @@ public class PlayerVisualManager : NetworkBehaviour
 
     void Start()
     {
+        opponentModel.SetActive(true);
         InitializeVisuals();
     }
 
@@ -23,25 +24,35 @@ public class PlayerVisualManager : NetworkBehaviour
             Debug.Log("Player Model Shown for local player");
             //Only Show Player Model For Local Player
             if (playerVisualModel != null) playerVisualModel.SetActive(true);
-            if (opponentModel != null) opponentModel.SetActive(false);
+            //if (opponentModel != null) opponentModel.SetActive(false);
+            SetOpponentModelVisible(false);
         }
         else
         {
             Debug.Log("Opponent Model Shown for other players");
             //Hide All Others Player Model & Show The Opponent Model
             if (playerVisualModel != null) playerVisualModel.SetActive(false);
-            if (opponentModel != null) opponentModel.SetActive(true);
+            //if (opponentModel != null) opponentModel.SetActive(true);
+            SetOpponentModelVisible(true);
+        }
+    }
+
+    public void SetOpponentModelVisible(bool visible)
+    {
+        foreach (var renderer in opponentModel.GetComponentsInChildren<Renderer>())
+        {
+            renderer.enabled = visible;
         }
     }
 
     /// <summary>
     /// Forces both player and opponent models to show -> useful for when we compare cards and the camera is panning around
     /// </summary>
-    public void ShowAllVisuals()
-    {
-        if (playerVisualModel != null) playerVisualModel.SetActive(false);
-        if (opponentModel != null) opponentModel.SetActive(true);
-    }
+    //public void ShowAllVisuals()
+    //{
+    //    if (playerVisualModel != null) playerVisualModel.SetActive(false);
+    //    if (opponentModel != null) opponentModel.SetActive(true);
+    //}
 
     //-------------------------------- CALLING --------------------------------
     //IN SCRIPT WHEN WE CONTROL CAMERA PANNING CALL SOMETHING LIKE THIS TO CALL THE FUNCTIONS (i think)

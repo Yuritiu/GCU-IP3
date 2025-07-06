@@ -32,7 +32,7 @@ public class InitialCardSpawner : NetworkBehaviour
     private Dictionary<ulong, Transform[]> playerHands = new Dictionary<ulong, Transform[]>();
     private HashSet<ulong> playersReady = new HashSet<ulong>();
 
-    private readonly float[] predefinedZRotations = { 180f, 0f, 90f, 270f };
+    private readonly float[] predefinedZRotations = { 180f, 0f, -90f, 90f };
     public Dictionary<ulong, float> playerZRotations = new Dictionary<ulong, float>();
 
     public override void OnNetworkSpawn()
@@ -57,10 +57,11 @@ public class InitialCardSpawner : NetworkBehaviour
         ulong clientId = rpcParams.Receive.SenderClientId;
         playersReady.Add(clientId);
 
-        //Assign Rotation Based on Player Join Order
+        //Assign Rotation Based on Player Join Order TODO: REMOVE THE +2 <<<<<-------------------------------------------------------------------------
         int playerIndex = playersReady.Count - 1;
         if (playerIndex < predefinedZRotations.Length)
         {
+            Debug.Log("PLAYER INDEX: " + playerIndex);
             playerZRotations[clientId] = predefinedZRotations[playerIndex];
             Debug.Log($"Player {clientId} Card Rotation Set To {playerZRotations[clientId]}");
         }
@@ -140,6 +141,8 @@ public class InitialCardSpawner : NetworkBehaviour
             deckInstances.Add(cardInstance);
         }
 
+        //Reverse Card Deck List (so cards come from top of deck first)
+        deckInstances.Reverse();
         StartCoroutine(DealCardsRoutine(deckInstances));
     }
 
@@ -164,19 +167,13 @@ public class InitialCardSpawner : NetworkBehaviour
 
                     var netObj = card.GetComponent<NetworkObject>();
                     var cardVisual = card.GetComponent<NetworkCardVisual>();
+                    cardVisual.passedZValue = playerZRotations[clientId];
 
                     //Move Card From Deck to Hand Slot (face down during lerp)
-                    Quaternion targetRotation = Quaternion.Euler(90f, 0f, 0f);
+                    Quaternion targetRotation = Quaternion.Euler(90f, 0f, cardVisual.passedZValue);
                     if (netObj != null && netObj.IsOwner)
                     {
                         StartCoroutine(LerpCardToSlot(card.transform, targetSlot.position, targetRotation, 0.5f, card, clientId));
-                    }
-
-                    //Allow Card Visual to Flip Locally on That Client
-                    if (cardVisual != null)
-                    {
-                        //Delay Flip Slightly to Allow Ownership Sync to Propagate
-                        cardVisual.Invoke(nameof(cardVisual.TryFlipBasedOnOwnership), 0.05f);
                     }
 
                     cardsDealt++;
@@ -207,8 +204,10 @@ public class InitialCardSpawner : NetworkBehaviour
         cardTransform.rotation = targetRot;
 
         var netObj = card.GetComponent<NetworkObject>();
+        var cardObj = card.gameObject.GetComponent<NetworkCardVisual>();
+        cardObj.passedZValue = playerZRotations[clientId];
 
-        //Assign Ownership
+        //Assign Ownership To Recieving Player
         if (netObj != null)
         {
             netObj.ChangeOwnership(clientId);

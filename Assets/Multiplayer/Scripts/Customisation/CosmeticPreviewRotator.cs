@@ -14,7 +14,7 @@ public class CosmeticPreviewRotator : MonoBehaviour
     [Header("UI References")]
     [SerializeField] public GameObject customizationPanel;
 
-    private float currentYRotation = 0f;
+    private float currentYRotation = -90f;
     private float baseYRotation = -90f;
     private bool isDragging = false;
     private Vector2 lastMousePosition;

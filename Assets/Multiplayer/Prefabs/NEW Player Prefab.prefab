@@ -76,7 +76,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 559159044414429844}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: Player_new_hands__variants__2:r_middle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -307,7 +307,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4792211439615406144}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: Player_new_hands__variants__2:joint40
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1024,7 +1024,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3053738517526744603}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: KnifePos5
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1222,7 +1222,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2800254663258576826}
   - component: {fileID: 4319883658198403941}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: Player_new_hands__variants__2:polySurface31
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1464,7 +1464,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3191512503512481142}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: Player_new_hands__variants__2:nurbsCircle16
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1496,7 +1496,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1427350501274361479}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: Player_new_hands__variants__2:joint35
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1636,7 +1636,7 @@ GameObject:
   m_Component:
   - component: {fileID: 82958304081295134}
   - component: {fileID: 7289578677526323534}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: Player_new_hands__variants__2:polySurface33
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1863,7 +1863,7 @@ GameObject:
   - component: {fileID: 3180259557963025060}
   - component: {fileID: 7646037253173271090}
   - component: {fileID: 3943083896085115376}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: NEW Player Prefab
   m_TagString: MainCamera
   m_Icon: {fileID: 0}
@@ -2005,7 +2005,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6688551370845340006}
   - component: {fileID: 757203165125891885}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: Player_new_hands__variants__2:polySurface35
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2435,7 +2435,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7389112297001245872}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: Player_new_hands__variants__2:joint33
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2499,7 +2499,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7626627019781354846}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: Player_new_hands__variants__2:l_shoulder
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2852,7 +2852,7 @@ GameObject:
   m_Component:
   - component: {fileID: 646998146017956979}
   - component: {fileID: 1767092216269287273}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: Player_new_hands__variants__2:polySurface27
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3087,7 +3087,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7558261951727910010}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: Player_new_hands__variants__2:joint21
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3427,7 +3427,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6671254661561527503}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: Player_new_hands__variants__2:nurbsCircle10
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3953,7 +3953,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1987372223984535962}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: Player_new_hands__variants__2:r_index
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4087,7 +4087,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8250244705592326967}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: Player_new_hands__variants__2:joint16
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4118,7 +4118,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3804908916554973189}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: Player_new_hands__variants__2:l_arm
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4363,7 +4363,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3005361156633680441}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: Player_new_hands__variants__2:l_hand_variants
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4399,7 +4399,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7186349517148785181}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: Player_new_hands__variants__2:l_pinky5
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4432,7 +4432,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2391432323233143253}
   - component: {fileID: 3098667022094169100}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: Player_new_hands__variants__2:polySurface44
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4688,7 +4688,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3914813788414012288}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: Player_new_hands__variants__2:r_shoulder
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5442,7 +5442,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4787053933949926846}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: Player_new_hands__variants__2:Opponent
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5482,7 +5482,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7736562888309181107}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: Player_new_hands__variants__2:joint15
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5515,7 +5515,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7661664102114404948}
   - component: {fileID: 3591651399953625117}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: Player_new_hands__variants__2:polySurface37
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5609,7 +5609,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2646006899752683788}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: Player_new_hands__variants__2:nurbsCircle13
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5792,7 +5792,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7054379349941564646}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: Player_new_hands__variants__2:fingers0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5829,7 +5829,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5729527603182554447}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: Player_new_hands__variants__2:joint39
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5969,7 +5969,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3255738231479692882}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: Player_new_hands__variants__2:nurbsCircle14
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6001,7 +6001,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5242364645028798676}
   - component: {fileID: 5765930451805096271}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: Player_new_hands__variants__2:polySurface36
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6197,7 +6197,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7253255250232484294}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: Player_new_hands__variants__2:r_forearm
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6230,7 +6230,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3644891246963478669}
   - component: {fileID: 6868315296562238166}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: Player_new_hands__variants__2:polySurface45
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6411,7 +6411,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5224944281091887311}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: Player_new_hands__variants__2:nurbsCircle15
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6480,7 +6480,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 261675697020114024}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: Player_new_hands__variants__2:joint4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6543,7 +6543,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5723337519014235505}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: Player_new_hands__variants__2:joint3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6682,7 +6682,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2034841758750322117}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: Player_new_hands__variants__2:joint38
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6772,7 +6772,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7877936139308776761}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: Player_new_hands__variants__2:nurbsCircle17
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -7139,7 +7139,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4646354847746047900}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: Player_new_hands__variants__2:joint8
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -7170,7 +7170,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5301196610989046800}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: Player_new_hands__variants__2:joint14
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -7552,7 +7552,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4230082493458946423}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: Player_new_hands__variants__2:joint5
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -8065,7 +8065,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7959581206504472038}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: Player_new_hands__variants__2:joint25
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -8401,7 +8401,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6168469762049885647}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: Player_new_hands__variants__2:l_index5
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -8434,7 +8434,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5971429157176595846}
   - component: {fileID: 2534971343694965247}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: Player_new_hands__variants__2:Jacket
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -8532,7 +8532,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1090636486357745418}
   - component: {fileID: 903447919669611783}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: Player_new_hands__variants__2:polySurface28
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -8706,7 +8706,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8843476353062201759}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: Player_new_hands__variants__2:joint26
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9438,7 +9438,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 992154822045376254}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: Player_new_hands__variants__2:nurbsCircle16
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9470,7 +9470,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4862944573044260862}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: KnifePos2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9741,7 +9741,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 648311148812792901}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: Player_new_hands__variants__2:joint13
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9773,7 +9773,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8716489941403015150}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: Player_new_hands__variants__2:l_middle5
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -10305,7 +10305,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6692808681567204813}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: Player_new_hands__variants__2:Skeleton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -10636,7 +10636,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1623520501651692}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: Player_new_hands__variants__2:joint12
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -10667,7 +10667,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 656577497744817097}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: Player_new_hands__variants__2:joint2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -10972,7 +10972,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5848399785078259855}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: Player_new_hands__variants__2:joint17
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -11092,7 +11092,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8437044475643273050}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: Player_new_hands__variants__2:r_arm
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -11585,7 +11585,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7235315893868131411}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: Player_new_hands__variants__2:IK_handles
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -11707,7 +11707,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6243787482818233602}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: KnifePos4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -12053,7 +12053,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8224760965234540247}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: Player_new_hands__variants__2:joint22
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -12219,7 +12219,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4747743729369631281}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: Player_new_hands__variants__2:Controllers
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -12255,7 +12255,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 9004702816628302103}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: Player_new_hands__variants__2:nurbsCircle11
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -13346,7 +13346,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1978301118069716603}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: Player_new_hands__variants__2:joint18
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -13378,7 +13378,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8105792394459207719}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: Player_new_hands__variants__2:joint24
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -13508,7 +13508,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 222467047134062933}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: Player_new_hands__variants__2:l_hand
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -14119,7 +14119,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5067059175428029351}
   - component: {fileID: 4319769485952047370}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: Player_new_hands__variants__2:polySurface25
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -14342,7 +14342,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1458285916077521381}
   - component: {fileID: 5381145824775235403}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: Player_new_hands__variants__2:polySurface34
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -14439,7 +14439,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2891758920158020113}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: Player_new_hands__variants__2:nurbsCircle20
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -14703,7 +14703,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7412177607403827617}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: Player_new_hands__variants__2:ikHandle2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -14987,7 +14987,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6106221334008248298}
   - component: {fileID: 7294414476938139657}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: Player_new_hands__variants__2:polySurface32
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -15074,7 +15074,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5695660458062915880}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: Player_new_hands__variants__2:nurbsCircle18
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -15540,7 +15540,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5135509305326455478}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: Player_new_hands__variants__2:fingers4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -15779,7 +15779,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3840095123424106350}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: Player_new_hands__variants__2:joint34
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -16141,7 +16141,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5816217384015227454}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: Player_new_hands__variants__2:r_hand
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -16337,7 +16337,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1880358760205454744}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: Player_new_hands__variants__2:l_end_wrist
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -16584,7 +16584,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5914986853756837816}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: Player_new_hands__variants__2:nurbsCircle12
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -16768,7 +16768,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8190359648894837224}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: Player_new_hands__variants__2:l_ring5
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -16831,7 +16831,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 525666785104894359}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: Player_new_hands__variants__2:nurbsCircle22
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -16974,7 +16974,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8994856573844268216}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: Player_new_hands__variants__2:nurbsCircle10
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -17143,7 +17143,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7103577622946323968}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: Player_new_hands__variants__2:nurbsCircle20
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -17474,7 +17474,7 @@ GameObject:
   m_Component:
   - component: {fileID: 583747254832889662}
   - component: {fileID: 3447631488573584119}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: Player_new_hands__variants__2:polySurface46
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -17562,7 +17562,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 331247214629944654}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: Player_new_hands__variants__2:joint20
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -17853,7 +17853,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7192216054680127404}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: Player_new_hands__variants__2:r_ring
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -18187,7 +18187,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4399589079919717135}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: Player_new_hands__variants__2:r_clavicle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -18339,7 +18339,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5101864111128081276}
   - component: {fileID: 2890024436720680457}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: Player_new_hands__variants__2:polySurface38
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -18726,7 +18726,7 @@ GameObject:
   m_Component:
   - component: {fileID: 904248261914105692}
   - component: {fileID: 6386635730772899611}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: Player_new_hands__variants__2:polySurface43
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -19122,7 +19122,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4916434573949881691}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: Player_new_hands__variants__2:nurbsCircle11
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -19154,7 +19154,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1339297285555543714}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: Player_new_hands__variants__2:joint29
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -19381,7 +19381,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6472753828196232745}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: Player_new_hands__variants__2:joint9
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -19413,7 +19413,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7486928999302214131}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: Player_new_hands__variants__2:nurbsCircle12
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -19552,7 +19552,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6845604636636582778}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: Player_new_hands__variants__2:ikHandle1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -19856,7 +19856,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5432866025883316964}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: Player_new_hands__variants__2:fingers1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -19892,7 +19892,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2201278918927079592}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: Player_new_hands__variants__2:nurbsCircle19
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -19923,7 +19923,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 763480555902326886}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: Player_new_hands__variants__2:r_clavicle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -20155,7 +20155,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4274732386523207916}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: Player_new_hands__variants__2:Back
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -20223,7 +20223,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1712856021223078633}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: Player_new_hands__variants__2:l_clavicle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -20920,7 +20920,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4218846599900274614}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: Player_new_hands__variants__2:nurbsCircle9
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -20952,7 +20952,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8064492715190094358}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: Player_new_hands__variants__2:r_end_clavicle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -21328,7 +21328,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5360322203471332757}
   - component: {fileID: 4076435440935081499}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: Player_new_hands__variants__2:polySurface47
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -21450,7 +21450,7 @@ GameObject:
   - component: {fileID: 3445246260612325694}
   - component: {fileID: 5665516492351533429}
   - component: {fileID: 6587885560790763201}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: pCube1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -21665,7 +21665,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5193667570933941238}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: Player_new_hands__variants__2:r_end_wrist
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -21701,7 +21701,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 375816353032302377}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: Player_new_hands__variants__2:joint37
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -21733,7 +21733,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 530182410680259626}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: Player_new_hands__variants__2:joint6
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -21854,7 +21854,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5014266934018176023}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: Player_new_hands__variants__2:nurbsCircle15
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -22112,7 +22112,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4897131972638344839}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: Player_new_hands__variants__2:joint30
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -22176,7 +22176,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6775952335135857003}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: Player_new_hands__variants__2:group1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -22381,7 +22381,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7787246299456336515}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: Player_new_hands__variants__2:nurbsCircle19
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -22444,7 +22444,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6892596164211961378}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: Player_new_hands__variants__2:nurbsCircle14
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -22595,7 +22595,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2225342596454421586}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: Player_new_hands__variants__2:nurbsCircle8
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -22713,7 +22713,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4582659225234494645}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: Player_new_hands__variants__2:Master
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -22850,7 +22850,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7129059900971253750}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: Player_new_hands__variants__2:joint28
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -23047,7 +23047,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6866889218134213976}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: Player_new_hands__variants__2:joint32
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -23157,7 +23157,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7146775402416309342}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: Player_new_hands__variants__2:nurbsCircle13
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -23188,7 +23188,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5385888339155242013}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: Player_new_hands__variants__2:l_end_clavicle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -23473,7 +23473,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7655916382028108208}
   - component: {fileID: 1725906107875874504}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: Player_new_hands__variants__2:polySurface40
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -23640,7 +23640,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3952979740866761676}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: Player_new_hands__variants__2:nurbsCircle21
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -23672,7 +23672,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5791536396114476045}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: Player_new_hands__variants__2:r_Thumb
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -23704,7 +23704,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4969074914023911518}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: Player_new_hands__variants__2:joint27
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -24232,7 +24232,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2956662718689673469}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: Player_new_hands__variants__2:joint10
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -24264,7 +24264,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2750385694052030452}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: KnifePos1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -24808,7 +24808,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5552235794946602249}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: Player_new_hands__variants__2:joint36
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -24840,7 +24840,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2066891101441494104}
   - component: {fileID: 7439619887218847059}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: Player_new_hands__variants__2:polySurface26
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -25140,7 +25140,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1783306851776090570}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: Player_new_hands__variants__2:nurbsCircle17
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -25306,7 +25306,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3120868125362467613}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: Player_new_hands__variants__2:nurbsCircle8
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -25502,7 +25502,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6678149865539226347}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: Player_new_hands__variants__2:joint11
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -25535,7 +25535,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2287104108242208665}
   - component: {fileID: 3088738609768968982}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: Player_new_hands__variants__2:polySurface39
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -25655,7 +25655,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1538040053454412594}
   - component: {fileID: 2854222619745515134}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: Player_new_hands__variants__2:polySurface41
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -25743,7 +25743,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 9030217764309228940}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: Player_new_hands__variants__2:chest
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -25776,7 +25776,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7565748034919427012}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: Player_new_hands__variants__2:l_forearm
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -25808,7 +25808,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8660503706970837834}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: Player_new_hands__variants__2:nurbsCircle22
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -25840,7 +25840,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2178643815402348554}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: Player_new_hands__variants__2:nurbsCircle18
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -25872,7 +25872,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 494856163496421504}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: Player_new_hands__variants__2:Chest
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -26055,7 +26055,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7875724933514024441}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: Player_new_hands__variants__2:nurbsCircle21
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -26118,7 +26118,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4515477173915907700}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: Player_new_hands__variants__2:l_clavicle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -26150,7 +26150,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1455928129614700790}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: Player_new_hands__variants__2:r_elbow
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -26314,7 +26314,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8101374134385404284}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: Player_new_hands__variants__2:finger2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -26451,7 +26451,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 488633971165251339}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: Player_new_hands__variants__2:joint23
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -26536,7 +26536,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 900446175997287728}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: Player_new_hands__variants__2:joint31
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -26568,7 +26568,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3628012154393218888}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: Player_new_hands__variants__2:nurbsCircle9
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -26600,7 +26600,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7988458952133634150}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: Player_new_hands__variants__2:r_pinky
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -26752,7 +26752,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1919402194244442280}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: Player_new_hands__variants__2:l_Thumb1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -27331,7 +27331,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8733766403567342205}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: Player_new_hands__variants__2:l_elbow
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -27571,7 +27571,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7370242353861415043}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: Player_new_hands__variants__2:joint19
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -28013,7 +28013,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6277819571165710021}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: Player_new_hands__variants__2:joint1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -28369,7 +28369,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8520707148193364919}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: KnifePos3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -28745,7 +28745,7 @@ GameObject:
   m_Component:
   - component: {fileID: 23041723393653373}
   - component: {fileID: 2424613675099131338}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: Player_new_hands__variants__2:polySurface25
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -28846,7 +28846,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7578051044167503131}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: Player_new_hands__variants__2:fingers3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -28987,7 +28987,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7296752952537230880}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: Player_new_hands__variants__2:joint7
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -29552,7 +29552,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 299113804477430015}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: Local Player Body
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -29721,7 +29721,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5737818244854081373}
   - component: {fileID: 446798288163309741}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: Player_new_hands__variants__2:polySurface42
   m_TagString: Untagged
   m_Icon: {fileID: 0}

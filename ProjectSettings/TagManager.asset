@@ -25,6 +25,7 @@ TagManager:
   - BloodParticles4
   - BloodParticles5
   - head
+  - CardUI
   layers:
   - Default
   - TransparentFX
@@ -38,9 +39,9 @@ TagManager:
   - OpponentHead
   - Bat
   - Post Processing
-  - 
-  - 
-  - 
+  - CardUI
+  - Horizon Line
+  - Player
   - 
   - 
   - 

@@ -116881,22 +116881,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!1 &4587435616070397349
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 6943882366111944684}
-  m_Layer: 0
-  m_Name: Selected Card Slot 1
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
 --- !u!33 &4588223569154556926
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -133548,21 +133532,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 5415793483292828849}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!4 &6278769910906680776
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9029136905907299763}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0.7071068, z: 0.7071068, w: 0}
-  m_LocalPosition: {x: 0.089, y: 0.7415, z: -0.22}
-  m_LocalScale: {x: 1.4, y: 2.3, z: 0.1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: -90, y: 180, z: 0}
 --- !u!23 &6279030598171994687
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -141045,21 +141014,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!4 &6943882366111944684
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4587435616070397349}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0.7071068, z: 0.7071068, w: 0}
-  m_LocalPosition: {x: -0.09, y: 0.7415, z: -0.22}
-  m_LocalScale: {x: 1.4, y: 2.3, z: 0.1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: -90, y: 180, z: 0}
 --- !u!23 &6947924393430765602
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -162654,22 +162608,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 5179867323990030047}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &9029136905907299763
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 6278769910906680776}
-  m_Layer: 0
-  m_Name: Selected Card Slot 2
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
 --- !u!33 &9030461127526493769
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -164482,8 +164420,6 @@ SceneRoots:
   - {fileID: 671788042}
   - {fileID: 495060240}
   - {fileID: 159582003}
-  - {fileID: 6943882366111944684}
-  - {fileID: 6278769910906680776}
   - {fileID: 709016835}
   - {fileID: 1567804248}
   - {fileID: 1520460233}

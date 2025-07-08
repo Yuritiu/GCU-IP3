@@ -5,27 +5,28 @@ using UnityEngine;
 
 public class MultiplayerCameraController : NetworkBehaviour
 {
+    [Header("Camera Follow Settings")]
+    public float followMultiplier = 3f;           // Camera follow speed
+    public float maxRotationOffset = 30f;         // Max camera rotation offset from center
+
     [Header("Sensitivity Settings")]
     public float sensitivity = 100f;
+    public float sensitivityMultiplier = 10f;
 
-    [Header("Smoothing Settings")]
-    //public bool enableSmoothing = true;
-    //public float smoothing = 3f;
+    [Header("Crosshair UI")]
+    public RectTransform crosshair;
+    public float crosshairClampMargin = 100f;
 
     [Header("Look Boundaries")]
     public Vector2 xClamp = new Vector2(-115f, 115f);
     public Vector2 zClamp = new Vector2(-75f, 75f);
-    private Vector2 originalXClamp;
-    private Vector2 originalZClamp;
 
     public bool cameraLocked = false;
-
-    private Vector2 smoothedVelocity;
-    private Vector2 currentLookingPos;
     public bool isMovementUnlocked = true;
 
-    private Vector3 originalPosition;
-    private Quaternion originalRotation;
+    private Vector2 currentLookingPos;
+    private Vector2 screenCenter;
+
     private Camera playerCamera;
 
     void Start()
@@ -34,9 +35,9 @@ public class MultiplayerCameraController : NetworkBehaviour
 
         if (!IsOwner)
         {
-            //Disable Camera For Non Owners
             if (playerCamera != null)
             {
+                //Disable Camera & Audio For Non Local Players
                 playerCamera.enabled = false;
                 AudioListener listener = playerCamera.GetComponent<AudioListener>();
                 if (listener != null) listener.enabled = false;
@@ -46,7 +47,6 @@ public class MultiplayerCameraController : NetworkBehaviour
             return;
         }
 
-        //Set as MainCamera Only For The Owner
         if (playerCamera != null)
         {
             playerCamera.enabled = true;
@@ -56,58 +56,71 @@ public class MultiplayerCameraController : NetworkBehaviour
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
 
-        //------------ Camera Logic START ------------
-        //Make Camera Look in The Direction The Player is Facing
+        LoadSettings();
+
+        //Camera Forward Initialisation
         Vector3 forward = transform.forward;
         float initialYaw = Mathf.Atan2(forward.x, forward.z) * Mathf.Rad2Deg;
 
         currentLookingPos.x = initialYaw;
         currentLookingPos.y = 0f;
 
-        transform.localRotation = Quaternion.Euler(currentLookingPos.y, currentLookingPos.x, 0f);
+        screenCenter = new Vector2(Screen.width / 2f, Screen.height / 2f);
 
-        originalPosition = transform.position;
-        originalRotation = transform.rotation;
-
-        originalXClamp = xClamp;
-        originalZClamp = zClamp;
-        //------------ Camera Logic END ------------
+        if (crosshair != null)
+            crosshair.anchoredPosition = Vector2.zero;
     }
 
     void Update()
     {
-        if (!IsOwner || !isMovementUnlocked) return;
+        if (!IsOwner || !isMovementUnlocked || cameraLocked) return;
 
-        if (!cameraLocked)
-        {
-            if (isMovementUnlocked)
-            {
-                HandleFreeMovement();
-            }
-        }
+        HandleCrosshairMovement();
+        HandleCameraRotationFromCrosshair();
     }
 
-    void HandleFreeMovement()
+    void HandleCrosshairMovement()
     {
-        float mouseX = Input.GetAxisRaw("Mouse X") * sensitivity * Time.deltaTime;
-        float mouseZ = Input.GetAxisRaw("Mouse Y") * sensitivity * Time.deltaTime;
+        if (crosshair == null) return;
 
-        //if (enableSmoothing)
-        //{
-        //    smoothedVelocity.x = Mathf.Lerp(smoothedVelocity.x, mouseX, 1f / smoothing);
-        //    smoothedVelocity.y = Mathf.Lerp(smoothedVelocity.y, mouseZ, 1f / smoothing);
-        //    currentLookingPos.x += smoothedVelocity.x;
-        //    currentLookingPos.y -= smoothedVelocity.y;
-        //}
-        //else
-        //{
-            currentLookingPos.x += mouseX;
-            currentLookingPos.y -= mouseZ;
-        //}
+        float mouseX = Input.GetAxisRaw("Mouse X") * sensitivity * Time.deltaTime;
+        float mouseY = Input.GetAxisRaw("Mouse Y") * sensitivity * Time.deltaTime;
+
+        Vector2 mouseDelta = new Vector2(mouseX, mouseY) * sensitivityMultiplier;
+        crosshair.anchoredPosition += mouseDelta;
+
+        //Clamp Crosshair Inside Screen Bounds
+        float maxX = screenCenter.x - crosshairClampMargin;
+        float maxY = screenCenter.y - crosshairClampMargin;
+
+        crosshair.anchoredPosition = new Vector2(Mathf.Clamp(crosshair.anchoredPosition.x, -maxX, maxX),Mathf.Clamp(crosshair.anchoredPosition.y, -maxY, maxY));
+    }
+
+    void HandleCameraRotationFromCrosshair()
+    {
+        if (crosshair == null) return;
+
+        Vector2 offsetFromCenter = crosshair.anchoredPosition / screenCenter;
+
+        currentLookingPos.x = Mathf.Lerp(currentLookingPos.x, offsetFromCenter.x * maxRotationOffset, Time.deltaTime * followMultiplier);
+        currentLookingPos.y = Mathf.Lerp(currentLookingPos.y, -offsetFromCenter.y * maxRotationOffset, Time.deltaTime * followMultiplier);
 
         currentLookingPos.x = Mathf.Clamp(currentLookingPos.x, xClamp.x, xClamp.y);
         currentLookingPos.y = Mathf.Clamp(currentLookingPos.y, zClamp.x, zClamp.y);
 
         transform.localRotation = Quaternion.Euler(currentLookingPos.y, currentLookingPos.x, 0f);
+    }
+
+    public void LoadSettings()
+    {
+        if (PlayerPrefs.HasKey("Sensitivity"))
+            sensitivity = PlayerPrefs.GetFloat("Sensitivity");
+        Debug.Log("RETRUEVED SENSITIVITY: " + sensitivity);
+    }
+
+    public void SaveSettings()
+    {
+        PlayerPrefs.SetFloat("Sensitivity", sensitivity);
+        PlayerPrefs.Save();
     }
 }

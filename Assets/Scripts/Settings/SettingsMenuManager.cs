@@ -36,7 +36,7 @@ public class SettingsMenuManager : MonoBehaviour
 
     private string mainMenuSceneName = "Main Menu";
     private string gameSceneName = "Game Scene";
-    private string multiplayerGameSceneName = "Multiplayer Game Scene";
+    private string multiplayerGameSceneName = "MultiplayerMatrixGameScene";
 
     bool canUseMenu = false;
 
@@ -55,7 +55,7 @@ public class SettingsMenuManager : MonoBehaviour
         {
             canUseMenu = true;
         }
-        else if(currentScene == "Multiplayer Game Scene")
+        else if(currentScene == multiplayerGameSceneName)
         {
             canUseMenu = true;
             //Retrieve Camera

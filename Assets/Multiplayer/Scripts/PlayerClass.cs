@@ -55,13 +55,12 @@ public class PlayerClass : NetworkBehaviour
 
     public void Update()
     {
-        //-------------------------------------------- REMOVE AFTER TESTING -------------------------------------------
-        //if (Input.GetKeyDown(KeyCode.Space) && !MultiplayerGameManager.Instance.calledSpace)
-        //{
-        //    MultiplayerGameManager.Instance.calledSpace = true;
-        //    MultiplayerGameManager.Instance.CheckPlayerCards();
-        //}
-        //-------------------------------------------- REMOVE AFTER TESTING -------------------------------------------
+        //-------------------------------------------- Change to check for all players ready -------------------------------------------
+        if (Input.GetKeyDown(KeyCode.Space) && !MultiplayerGameManager.Instance.calledSpace)
+        {
+            MultiplayerGameManager.Instance.calledSpace = true;
+            MultiplayerGameManager.Instance.CheckPlayerCards();
+        }
     }
 
     public void CheckCards()

@@ -145,6 +145,7 @@ public class MultiplayerGameManager : NetworkBehaviour
 
             for (int handNumber = 0; handNumber < playerCount - 2; handNumber++)
             {
+                //checks what opponent is playing
                 switch (player + handNumber)
                 {
                     case 5:
@@ -164,6 +165,7 @@ public class MultiplayerGameManager : NetworkBehaviour
                         break;
                 }
 
+                //checks what hand the player is using agisnt current opponent
                 switch (handNumber)
                 {
                     case 0:
@@ -264,6 +266,7 @@ public class MultiplayerGameManager : NetworkBehaviour
                     break;
             }
         }
+        print("FINISHED");
     }
 
     #endregion

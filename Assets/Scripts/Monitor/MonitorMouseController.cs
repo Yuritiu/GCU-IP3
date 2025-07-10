@@ -21,8 +21,12 @@ public class MonitorMouseController : MonoBehaviour
     [SerializeField] public float sensitivityMultiplier = 1850f;
     [SerializeField] public Vector2 minBounds = new Vector2(0f, 0f);
     [SerializeField] public Vector2 maxBounds = new Vector2(400f, 400f);
-
     private Vector2 cursorPos;
+
+    [Header("Button Variables")]
+    private Button currentlyHoveredButton;
+    private GameObject currentlyHoveredImage;
+
     private bool isActive = false;
 
     public void EnableMouse()
@@ -49,7 +53,7 @@ public class MonitorMouseController : MonoBehaviour
         ClampCursor();
         UpdateCursor();
 
-        UpdateCursorSprite();
+        UpdateCursorHover();
 
         if (Input.GetKeyDown(KeyCode.Mouse0))
         {
@@ -70,41 +74,50 @@ public class MonitorMouseController : MonoBehaviour
 
     void ClickAtCursor()
     {
-        PointerEventData pointer = new PointerEventData(EventSystem.current)
+        if (currentlyHoveredButton != null)
         {
-            position = uiCamera.WorldToScreenPoint(cursorRect.position)
-        };
-
-        var results = new System.Collections.Generic.List<RaycastResult>();
-        EventSystem.current.RaycastAll(pointer, results);
-
-        foreach (var result in results)
-        {
-            ExecuteEvents.Execute(result.gameObject, pointer, ExecuteEvents.pointerClickHandler);
+            //Trigger Clicked Button's Inspector Assigned OnClick Functions
+            currentlyHoveredButton.onClick.Invoke();
         }
     }
 
-    void UpdateCursorSprite()
+    void UpdateCursorHover()
     {
-        PointerEventData pointer = new PointerEventData(EventSystem.current)
+        Button hoveredButton = null;
+
+        //2D Box Collider Button Detection
+        if (hoveredButton == null)
         {
-            position = uiCamera.WorldToScreenPoint(cursorRect.position)
-        };
-
-        var results = new System.Collections.Generic.List<RaycastResult>();
-        EventSystem.current.RaycastAll(pointer, results);
-
-        bool hoveringButton = false;
-
-        foreach (var result in results)
-        {
-            if (result.gameObject.GetComponent<Button>())
+            Vector2 worldPoint = cursorRect.position;
+            Collider2D hit = Physics2D.OverlapPoint(worldPoint);
+            if (hit != null && hit.TryGetComponent(out Button button))
             {
-                hoveringButton = true;
-                break;
+                hoveredButton = button;
             }
         }
 
-        cursorImage.sprite = hoveringButton ? hoverCursor : defaultCursor;
+        //Debug.Log("Hovered button: " + (hoveredButton ? hoveredButton.name : "None"));
+
+        //Update Hover Visuals
+        if (currentlyHoveredButton != hoveredButton)
+        {
+            if (currentlyHoveredImage != null)
+                currentlyHoveredImage.SetActive(false);
+
+            currentlyHoveredButton = hoveredButton;
+            currentlyHoveredImage = null;
+
+            if (hoveredButton != null)
+            {
+                Transform hoverImage = hoveredButton.transform.Find("Hover");
+                if (hoverImage != null)
+                {
+                    currentlyHoveredImage = hoverImage.gameObject;
+                    currentlyHoveredImage.SetActive(true);
+                }
+            }
+        }
+
+        cursorImage.sprite = hoveredButton != null ? hoverCursor : defaultCursor;
     }
 }

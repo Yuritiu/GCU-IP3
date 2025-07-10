@@ -9,13 +9,13 @@ public class ButtonToggle : MonoBehaviour
 
     Button button;
 
-    private void Awake()
+    private void Start()
     {
         button = GetComponent<Button>();
 
         if (button == null)
         {
-            Debug.LogError("Button Missing!");
+            Debug.LogError("Button Missing on Gameobject!");
             enabled = false;
             return;
         }
@@ -27,7 +27,8 @@ public class ButtonToggle : MonoBehaviour
     {
         if (toggledGameobject != null)
         {
-            toggledGameobject.SetActive(!toggledGameobject.activeSelf);
+            toggledGameobject.SetActive(true);
+            Debug.Log("LISTENING BUTTON");
         }
     }
 }

@@ -5,27 +5,13 @@ TagManager:
   serializedVersion: 2
   tags:
   - Card
-  - Opponent
-  - CardInfoImage
-  - CardInfoText
   - Crosshair
   - Rulebook
-  - PlayerGun
-  - AiGun
-  - Bat
-  - SwingStartPosition
-  - SwingTargetPosition
-  - AISwingStartPosition
-  - AISwingTargetPosition
   - OpponentHead
   - RootBone
-  - BloodParticles1
-  - BloodParticles2
-  - BloodParticles3
-  - BloodParticles4
-  - BloodParticles5
   - head
   - CardUI
+  - Monitor
   layers:
   - Default
   - TransparentFX

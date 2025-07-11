@@ -49,12 +49,9 @@ public class MonitorInteractionManager : NetworkBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Tab))
+        if (!inMonitor && Input.GetMouseButtonDown(0))
         {
-            if (inMonitor)
-                ExitMonitorMode();
-            else
-                EnterMonitorMode();
+            EnterMonitorMode();
         }
     }
 
@@ -96,7 +93,7 @@ public class MonitorInteractionManager : NetworkBehaviour
         Cursor.visible = false;
     }
 
-    void ExitMonitorMode()
+    public void ExitMonitorMode()
     {
         inMonitor = false;
 

@@ -28865,6 +28865,7 @@ GameObject:
   - component: {fileID: 8708807840161179640}
   - component: {fileID: 3386736599485307122}
   - component: {fileID: 8015987979641042262}
+  - component: {fileID: 2823353991383622186}
   m_Layer: 16
   m_Name: Command Menu Button
   m_TagString: Untagged
@@ -28975,10 +28976,10 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 6227045539001095349}
-        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-        m_MethodName: SetActive
-        m_Mode: 6
+      - m_Target: {fileID: 2823353991383622186}
+        m_TargetAssemblyTypeName: UIToggle, Assembly-CSharp
+        m_MethodName: Toggle
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -29032,6 +29033,19 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.058648586, y: 0.046588898}
   m_EdgeRadius: 0.003
+--- !u!114 &2823353991383622186
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8495290144670540989}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a0212fa27d878a4181ce2387e1613d5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  target: {fileID: 6227045539001095349}
 --- !u!1 &8521695995050521384
 GameObject:
   m_ObjectHideFlags: 0
@@ -29288,6 +29302,7 @@ GameObject:
   - component: {fileID: 390650786065681591}
   - component: {fileID: 8807672334206205158}
   - component: {fileID: 8188566863391539482}
+  - component: {fileID: 3318859240938927812}
   m_Layer: 16
   m_Name: Command Menu Blinking Cursor
   m_TagString: Untagged
@@ -29311,8 +29326,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 100, y: 100}
+  m_AnchoredPosition: {x: 0.005, y: 0.001}
+  m_SizeDelta: {x: 2, y: 2}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &8807672334206205158
 CanvasRenderer:
@@ -29352,6 +29367,27 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!95 &3318859240938927812
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8597225017886615229}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 66de038529f821a4e9377114d795b117, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &8634763594534298739
 GameObject:
   m_ObjectHideFlags: 0

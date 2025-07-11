@@ -66,7 +66,7 @@ public class PlayerSpawner : MonoBehaviour
         //Spawn Player Using The Spawn Point Rotation & Position
         var (spawnPos, spawnRot) = GetNextSpawnPosition();
         GameObject playerObj = Instantiate(playerPrefab, spawnPos, spawnRot);
-        playerObj.GetComponent<NetworkObject>().SpawnAsPlayerObject(clientId, true);
+        playerObj.GetComponent<NetworkObject>().SpawnWithOwnership(clientId);
 
         Debug.Log($"[PLAYER SPAWNER] Spawned Player {clientId} at Spawn Point Index {nextSpawnIndex - 1}");
     }

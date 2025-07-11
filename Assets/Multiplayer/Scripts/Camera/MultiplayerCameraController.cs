@@ -29,36 +29,35 @@ public class MultiplayerCameraController : NetworkBehaviour
 
     private Camera playerCamera;
 
-    void Start()
+    public override void OnNetworkSpawn()
     {
         playerCamera = GetComponent<Camera>();
 
         if (!IsOwner)
         {
+            // Only disable the visual component, not the full object
+            if (crosshair != null)
+                crosshair.gameObject.SetActive(false);
+
             if (playerCamera != null)
             {
-                //Disable Camera & Audio For Non Local Players
                 playerCamera.enabled = false;
-                AudioListener listener = playerCamera.GetComponent<AudioListener>();
-                if (listener != null) listener.enabled = false;
+                if (playerCamera.TryGetComponent(out AudioListener listener))
+                    listener.enabled = false;
             }
 
-            this.enabled = false;
+            enabled = false;
             return;
         }
 
-        if (playerCamera != null)
-        {
-            playerCamera.enabled = true;
-            playerCamera.tag = "MainCamera";
-        }
+        playerCamera.enabled = true;
+        playerCamera.tag = "MainCamera";
 
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
 
         LoadSettings();
 
-        //Camera Forward Initialisation
         Vector3 forward = transform.forward;
         float initialYaw = Mathf.Atan2(forward.x, forward.z) * Mathf.Rad2Deg;
 
@@ -66,7 +65,6 @@ public class MultiplayerCameraController : NetworkBehaviour
         currentLookingPos.y = 0f;
 
         screenCenter = new Vector2(Screen.width / 2f, Screen.height / 2f);
-
         if (crosshair != null)
             crosshair.anchoredPosition = Vector2.zero;
     }

@@ -49,6 +49,8 @@ public class MonitorInteractionManager : NetworkBehaviour
 
     void Update()
     {
+        if (!IsOwner) return;
+
         if (!inMonitor && Input.GetMouseButtonDown(0))
         {
             EnterMonitorMode();

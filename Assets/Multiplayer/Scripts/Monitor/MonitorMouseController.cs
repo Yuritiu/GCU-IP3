@@ -1,10 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class MonitorMouseController : MonoBehaviour
+public class MonitorMouseController : NetworkBehaviour
 {
     [Header("References")]
     [SerializeField] public RectTransform cursorRect;
@@ -43,7 +44,7 @@ public class MonitorMouseController : MonoBehaviour
 
     void Update()
     {
-        if (!isActive) return;
+        if (!IsOwner || !isActive) return;
 
         //On Screen Mouse Movement - Should Be Close Enough To Desktop Mouse Sensitivity
         float mouseX = Input.GetAxis("Mouse X") * sensitivityMultiplier * Time.deltaTime;

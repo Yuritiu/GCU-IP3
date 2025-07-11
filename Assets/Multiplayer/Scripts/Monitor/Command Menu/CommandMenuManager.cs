@@ -24,7 +24,7 @@ public class CommandMenuManager : MonoBehaviour
         rawInput = "";
         caretTimer = 0f;
         caretVisible = true;
-
+        logText.text = "Type help for list of available commands.";
         hiddenInputField.text = "";
         hiddenInputField.ActivateInputField();
     }

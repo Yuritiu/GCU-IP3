@@ -36,7 +36,7 @@ public class SettingsMenuManager : MonoBehaviour
 
     private string mainMenuSceneName = "Main Menu";
     private string gameSceneName = "Game Scene";
-    private string multiplayerGameSceneName = "MultiplayerMatrixGameScene";
+    private string multiplayerGameSceneName = "mp_game_scene";
 
     bool canUseMenu = false;
 

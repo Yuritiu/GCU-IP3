@@ -339,7 +339,7 @@ public class MultiplayerManager : MonoBehaviour
         }
 
         //Load The Multiplayer Game Scene For All Clients
-        NetworkManager.Singleton.SceneManager.LoadScene("MultiplayerMatrixGameScene", UnityEngine.SceneManagement.LoadSceneMode.Single);
+        NetworkManager.Singleton.SceneManager.LoadScene("mp_game_scene", UnityEngine.SceneManagement.LoadSceneMode.Single);
     }
 
     #endregion

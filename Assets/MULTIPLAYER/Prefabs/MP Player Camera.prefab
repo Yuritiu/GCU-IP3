@@ -4802,6 +4802,37 @@ Transform:
   - {fileID: 4376505526884490323}
   m_Father: {fileID: 6728985622222284793}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1528947149210364107
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2664617880165380098}
+  m_Layer: 0
+  m_Name: Temp Knife Target
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2664617880165380098
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1528947149210364107}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0.937, y: 0, z: 3.098}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1208913417135071021}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1534619657948444205
 GameObject:
   m_ObjectHideFlags: 0
@@ -11162,6 +11193,37 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!1 &3953172898228184482
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6413930864763441172}
+  m_Layer: 0
+  m_Name: Temp Opponent Target
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6413930864763441172
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3953172898228184482}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -0.681, y: 0, z: 3.098}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1208913417135071021}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &3971296076109871328
 GameObject:
   m_ObjectHideFlags: 0
@@ -15835,6 +15897,8 @@ Transform:
   - {fileID: 112124045730429512}
   - {fileID: 8767406631507522101}
   - {fileID: 7994723678059811529}
+  - {fileID: 6413930864763441172}
+  - {fileID: 2664617880165380098}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!20 &5110871753157311017
@@ -15948,8 +16012,7 @@ MonoBehaviour:
     EmptyPromiseBackfire: 0
     BottleUsed: 0
     BottleBackfire: 0
-  PlayerHand: {fileID: 5401461907216621971}
-  Glow: {fileID: 0}
+  PlayerHand: {fileID: 2819910685526196394}
 --- !u!114 &147064737363303212
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -16008,11 +16071,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   xClamp: {x: -75, y: 75}
   yClamp: {x: -75, y: 75}
-  rotationLerpSpeed: 5
-  positionLerpSpeed: 5
-  knifeTargetPoint: {fileID: 0}
-  opponentTargetPoint: {fileID: 0}
   cameraLocked: 0
+  knifeTarget: {fileID: 2664617880165380098}
+  opponentTarget: {fileID: 6413930864763441172}
 --- !u!114 &2259062652617226935
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -19084,7 +19145,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6946714754297853533}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 12e0b8a87af636844aeffd2f23d98416, type: 3}
   m_Name: 
@@ -20058,7 +20119,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7994723678059811529}
-  - component: {fileID: 5401461907216621971}
+  - component: {fileID: 2819910685526196394}
   m_Layer: 0
   m_Name: Hand
   m_TagString: Untagged
@@ -20081,41 +20142,29 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1208913417135071021}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &5401461907216621971
+--- !u!114 &2819910685526196394
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7386717736531550768}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8038ccc5ebbeee74497e182ae137f77f, type: 3}
+  m_Script: {fileID: 11500000, guid: 3837883406ebb944489d40f65a3c7178, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fingers: []
-  knife: {fileID: 0}
-  arm: {fileID: 0}
-  turn: {x: 0, y: 0}
-  sensitivity: 0.5
-  sideToHit: 0
-  waitingToCut: 0
-  bloodSplatterEffect: 0
-  secondAction: 0
-  bloodSplatterIndex: 0
-  phaseOfAction: 1
-  actionUI: {fileID: 0}
-  Cutting: []
-  playerScreams: []
-  knifeInsert: {fileID: 0}
-  bloodParticleSystem1: {fileID: 0}
-  bloodParticleSystem2: {fileID: 0}
-  bloodParticleSystem3: {fileID: 0}
-  bloodParticleSystem4: {fileID: 0}
-  bloodParticleSystem5: {fileID: 0}
-  cameraController: {fileID: 0}
   handModels: []
   fingerModels: []
+  PlayerHandCards: 
+  knife: {fileID: 0}
+  arm: {fileID: 0}
+  sensitivity: 0.5
+  actionUI: {fileID: 0}
+  bloodParticles: []
+  knifeInsertSFX: {fileID: 0}
+  cuttingSFX: []
+  screamSFX: []
 --- !u!1 &7401182439676227082
 GameObject:
   m_ObjectHideFlags: 0
